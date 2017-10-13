@@ -11,18 +11,20 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Inheritance(strategy= InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "pessoa")
 public class Pessoa implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private long id;
+	private Integer id;
 	
 	@Column(name="nome" ,nullable = false, length=50)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -50,8 +52,7 @@ public class Pessoa implements Serializable{
 	private Calendar data_nasc;
 	
 	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo endereco não pode ser nulo.")
+	@JoinColumn(name="endereco", referencedColumnName="id")
 	private Endereco endereco;
 	
 	@ManyToOne
@@ -59,6 +60,70 @@ public class Pessoa implements Serializable{
 	private Imagem imagem;
 	
 	public Pessoa() {}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Character getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Character sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Calendar getData_nasc() {
+		return data_nasc;
+	}
+
+	public void setData_nasc(Calendar data_nasc) {
+		this.data_nasc = data_nasc;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Imagem getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
 	
 	
 }

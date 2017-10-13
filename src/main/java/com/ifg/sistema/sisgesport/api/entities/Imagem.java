@@ -7,6 +7,7 @@ import javax.persistence.Entity ;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table ;
 
 import org.hibernate.validator.constraints.Length;
@@ -19,7 +20,7 @@ public class Imagem implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="imagem", nullable=false)
 	private Byte[] imagem;
@@ -29,18 +30,18 @@ public class Imagem implements Serializable {
 	private String descricao_imagem;
 	
 	@Column(name="data_imagem")
+	@Lob
 	private Calendar data_imagem;
 
 
 	public Imagem() {	}
 
-
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

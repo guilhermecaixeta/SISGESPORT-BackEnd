@@ -19,7 +19,7 @@ public class Ponto_Partida implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false)
@@ -37,11 +37,11 @@ public class Ponto_Partida implements Serializable {
 
 	public Ponto_Partida() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

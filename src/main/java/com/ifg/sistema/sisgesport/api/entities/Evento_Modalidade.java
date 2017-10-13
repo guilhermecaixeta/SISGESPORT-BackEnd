@@ -21,7 +21,7 @@ public class Evento_Modalidade implements Serializable{
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="evento", referencedColumnName="id", nullable=false)
@@ -40,11 +40,11 @@ public class Evento_Modalidade implements Serializable{
 
 	public Evento_Modalidade() {	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

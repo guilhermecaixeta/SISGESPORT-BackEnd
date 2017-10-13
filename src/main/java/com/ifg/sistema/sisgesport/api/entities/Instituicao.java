@@ -30,7 +30,7 @@ public class Instituicao implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="descricao", nullable=false, length=60)
 	@NotNull(message="O campo descricao não pode ser nulo.")
@@ -72,11 +72,11 @@ public class Instituicao implements Serializable {
 		this.cursos.remove(id);
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -21,7 +21,7 @@ public class Partida  implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="data_partida")
 	private Calendar data_partida;
@@ -64,11 +64,11 @@ public class Partida  implements Serializable {
 
 	public Partida() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

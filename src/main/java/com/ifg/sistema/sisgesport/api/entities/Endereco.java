@@ -22,7 +22,7 @@ public class Endereco implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="nome", nullable=false, unique= true, length=45)
 	@NotNull(message="O campo complemento não pode ser nulo.")
@@ -37,11 +37,11 @@ public class Endereco implements Serializable {
 
 	public Endereco() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

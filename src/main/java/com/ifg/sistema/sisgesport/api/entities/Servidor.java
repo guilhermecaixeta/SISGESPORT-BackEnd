@@ -23,10 +23,10 @@ public class Servidor extends Pessoa implements Serializable{
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private long id;
+	private Integer id;
 	
 	@Column(name="matricula_siap", nullable=false, unique= true, length=20)
-	private String matricula_siap;
+	private String matriculasiap;
 	
 	@Column(name="admin_sistema", nullable=false)
 	@NotNull(message="O campo não pode ser nulo.")
@@ -51,20 +51,20 @@ public class Servidor extends Pessoa implements Serializable{
 		this.eventos.remove(id);
 	}
 	
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	public String getMatricula_siap() {
-		return matricula_siap;
+		return matriculasiap;
 	}
 
-	public void setMatricula_siap(String matricula_siap) {
-		this.matricula_siap = matricula_siap;
+	public void setMatricula_siap(String matriculasiap) {
+		this.matriculasiap = matriculasiap;
 	}
 
 	public Boolean getAdmin_sistema() {

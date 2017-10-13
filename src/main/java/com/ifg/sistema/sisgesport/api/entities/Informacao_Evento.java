@@ -21,7 +21,7 @@ public class Informacao_Evento implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="", nullable=false)
 	private char tipo_informacao;
@@ -47,11 +47,11 @@ public class Informacao_Evento implements Serializable {
 
 	public Informacao_Evento() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

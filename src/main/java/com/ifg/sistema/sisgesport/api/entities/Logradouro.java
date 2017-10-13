@@ -23,16 +23,16 @@ public class Logradouro implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
-	@Column(name="nome", nullable=false, unique= true, length=30)
+	@Column(name="logradouro", nullable=false, unique= true, length=30)
 	@NotNull(message="O campo logradouro não pode ser nulo.")
 	@NotBlank(message="O campo logradouro não pode ser em branco.")
 	@Length(max= 30,message="O campo logradouro possui o limite máximo de {max} caracteres.")
-	private String descricao;
+	private String logradouro;
 	
 	@Column(name="cep_logradouro", nullable=false, unique= true, length=3)
-	private String cep_logradouro;
+	private String ceplogradouro;
 	
 	@ManyToOne
 	@JoinColumn(name="bairro", referencedColumnName="id", nullable=false)
@@ -41,28 +41,28 @@ public class Logradouro implements Serializable {
 
 	public Logradouro() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getCep_logradouro() {
-		return cep_logradouro;
+		return ceplogradouro;
 	}
 
-	public void setCep_logradouro(String cep_logradouro) {
-		this.cep_logradouro = cep_logradouro;
+	public void setCep_logradouro(String ceplogradouro) {
+		this.ceplogradouro = ceplogradouro;
 	}
 
 	public Bairro getBairro() {

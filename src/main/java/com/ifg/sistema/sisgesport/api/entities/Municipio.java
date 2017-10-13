@@ -22,7 +22,7 @@ public class Municipio implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="nome", nullable=false, unique= true, length=20)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -37,7 +37,7 @@ public class Municipio implements Serializable {
 	private String sigla;
 	
 	@Column(name="cep_municipio", nullable=false, unique= true, length=2)
-	private String cep_municipio;
+	private String cepmunicipio;
 	
 	@ManyToOne
 	@JoinColumn(name="estado", referencedColumnName="id", nullable=false)
@@ -46,11 +46,11 @@ public class Municipio implements Serializable {
 
 	public Municipio() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,11 +71,11 @@ public class Municipio implements Serializable {
 	}
 
 	public String getCep_municipio() {
-		return cep_municipio;
+		return cepmunicipio;
 	}
 
-	public void setCep_municipio(String cep_municipio) {
-		this.cep_municipio = cep_municipio;
+	public void setCep_municipio(String cepmunicipio) {
+		this.cepmunicipio = cepmunicipio;
 	}
 
 	public Estado getEstado() {

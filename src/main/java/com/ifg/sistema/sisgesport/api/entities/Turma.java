@@ -23,7 +23,7 @@ public class Turma  implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="flg_ativo", nullable=false)
 	@NotNull(message="O campo não pode ser nulo.")
@@ -42,10 +42,57 @@ public class Turma  implements Serializable {
 	private Calendar data_inicial_turma;
 
 	@ManyToOne
-	@JoinColumn(name="curso", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo curso não pode ser nulo.")
+	@JoinColumn(name="curso", referencedColumnName="id")
 	private Curso curso;
 
 	public Turma() {	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Boolean getFlg_ativo() {
+		return flg_ativo;
+	}
+
+	public void setFlg_ativo(Boolean flg_ativo) {
+		this.flg_ativo = flg_ativo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Calendar getData_limite() {
+		return data_limite;
+	}
+
+	public void setData_limite(Calendar data_limite) {
+		this.data_limite = data_limite;
+	}
+
+	public Calendar getData_inicial_turma() {
+		return data_inicial_turma;
+	}
+
+	public void setData_inicial_turma(Calendar data_inicial_turma) {
+		this.data_inicial_turma = data_inicial_turma;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
 
 }

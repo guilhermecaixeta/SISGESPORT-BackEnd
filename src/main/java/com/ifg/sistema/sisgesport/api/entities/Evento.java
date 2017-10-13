@@ -23,7 +23,7 @@ public class Evento implements Serializable{
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private long id;
+	private Integer id;
 	
 	@Column(name="nome" ,nullable = false, length=30)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -60,11 +60,11 @@ public class Evento implements Serializable{
 	
 	public Evento() {	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

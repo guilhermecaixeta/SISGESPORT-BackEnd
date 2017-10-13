@@ -28,7 +28,7 @@ public class Posicao implements Serializable {
 	
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	private Integer id;
 	
 	@Column(name="nome", nullable=false, length=30)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -65,11 +65,11 @@ public class Posicao implements Serializable {
 
 	public Posicao() {	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
