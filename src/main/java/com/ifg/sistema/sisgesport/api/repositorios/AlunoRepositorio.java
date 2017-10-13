@@ -31,9 +31,4 @@ public interface AlunoRepositorio extends JpaRepository<Aluno, Long> {
 	@Transactional(readOnly=true)
 	Page<Aluno> findByEquipesId(Integer id, Pageable pageable);
 	
-	@Transactional(readOnly=true)
-	List<Aluno> findByEquipesTimesId(Integer id);
-	
-	@Transactional(readOnly=true)
-	Page<Aluno> findByEquipesTimesId(Integer id, Pageable pageable);
 }

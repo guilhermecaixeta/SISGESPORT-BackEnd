@@ -29,7 +29,7 @@ public class Servidor extends Pessoa implements Serializable{
 	private String matriculasiap;
 	
 	@Column(name="admin_sistema", nullable=false)
-	@NotNull(message="O campo não pode ser nulo.")
+	@NotNull(message="O campo admin não pode ser nulo.")
 	private Boolean admin_sistema;
 	
 	@ManyToOne

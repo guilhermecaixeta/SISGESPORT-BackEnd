@@ -42,10 +42,10 @@ public class Pessoa implements Serializable{
 	@Length(max= 25,message="O login possui o limite máximo de {max} caracteres.")
 	private String login;
 	
-	@Column(name="senha" ,nullable = false, length=20)
+	@Column(name="senha" ,nullable = false, length=60)
 	@NotNull(message="O campo senha não pode ser nulo.")
 	@NotBlank(message="O campo senha não pode ser em branco.")
-	@Length(max= 20,message="O senha possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="A senha possui o limite máximo de {max} caracteres.")
 	private String senha;
 	
 	@Column(name="data_nasc" ,nullable = false)

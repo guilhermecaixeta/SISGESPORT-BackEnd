@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifg.sistema.sisgesport.api.entities.Servidor;;
+import com.ifg.sistema.sisgesport.api.entities.Cargo;
 
-public interface ServidorRepositorio extends JpaRepository<Servidor, Long> {
+public interface CargoRepositorio extends JpaRepository<Cargo, Long> {
 
 	@Transactional(readOnly=true)
-	Servidor findByMatriculasiap(String matriculasiap);
+	Cargo findByNome(String nome);
 	
 	@Transactional(readOnly=true)
-	List<Servidor> findByCargoId(Integer id);
+	List<Cargo> findByInstituicaoId(Integer id);
 }

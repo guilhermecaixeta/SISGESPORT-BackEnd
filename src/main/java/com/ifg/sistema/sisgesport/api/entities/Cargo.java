@@ -45,9 +45,9 @@ public class Cargo implements Serializable {
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="instituicao_cargo", 
 	joinColumns=
-	@JoinColumn(name="cargo", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="cargo", referencedColumnName="id"),
 	inverseJoinColumns =
-	@JoinColumn(name="instituicao", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="instituicao", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"instituicao", "cargo"})})
 	private List<Instituicao> instituicao = new ArrayList<>();
 	

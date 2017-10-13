@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ifg.sistema.sisgesport.api.entities.*;
+import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,11 +34,12 @@ public class AlunoRepositorioTeste {
 	@Before
 	public void setUp() throws Exception{
 		Aluno aluno = new Aluno();
+		PasswordUtils password = new PasswordUtils();
 		tR.save(turma);
 		aluno.setNome("Guilherme");
 		aluno.setData_nasc(Calendar.getInstance());
 		aluno.setLogin("usuario");
-		aluno.setSenha("usuario");
+		aluno.setSenha(password.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
@@ -48,7 +50,7 @@ public class AlunoRepositorioTeste {
 		aluno2.setNome("user");
 		aluno2.setData_nasc(Calendar.getInstance());
 		aluno2.setLogin("user");
-		aluno2.setSenha("user");
+		aluno2.setSenha(password.GerarBCrypt("2012208001004220122080010042"));
 		aluno2.setSexo('F');
 		aluno2.setMatricula("20122080010042");
 		aluno2.setTurma(turma);

@@ -1,17 +1,15 @@
 package com.ifg.sistema.sisgesport.api.repositorios;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifg.sistema.sisgesport.api.entities.Servidor;;
+import com.ifg.sistema.sisgesport.api.entities.Bairro;
 
-public interface ServidorRepositorio extends JpaRepository<Servidor, Long> {
+public interface BairroRepositorio extends JpaRepository<Bairro, Long> {
 
 	@Transactional(readOnly=true)
-	Servidor findByMatriculasiap(String matriculasiap);
+	Bairro findByCepbairro(String cepbairro);
 	
 	@Transactional(readOnly=true)
-	List<Servidor> findByCargoId(Integer id);
+	Bairro findByNome(String nome);
 }
