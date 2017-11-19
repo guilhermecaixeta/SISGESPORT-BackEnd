@@ -12,8 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="ponto_partida")
-public class Ponto_Partida implements Serializable {
+@Table(name="partida_ponto")
+public class Partida_Ponto implements Serializable {
 
 	private static final long serialVersionUID = 31L;
 	
@@ -33,9 +33,9 @@ public class Ponto_Partida implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="tipo_ponto", referencedColumnName="id", nullable=false)
-	private Tipo_Ponto tipo_ponto;
+	private Tipo_Ponto tipoPonto;
 
-	public Ponto_Partida() {	}
+	public Partida_Ponto() {	}
 
 	public Integer getId() {
 		return id;
@@ -62,10 +62,10 @@ public class Ponto_Partida implements Serializable {
 	}
 
 	public Tipo_Ponto getTipo_ponto() {
-		return tipo_ponto;
+		return tipoPonto;
 	}
 
-	public void setTipo_ponto(Tipo_Ponto tipo_ponto) {
-		this.tipo_ponto = tipo_ponto;
+	public void setTipo_ponto(Tipo_Ponto tipoPonto) {
+		this.tipoPonto = tipoPonto;
 	}
 }

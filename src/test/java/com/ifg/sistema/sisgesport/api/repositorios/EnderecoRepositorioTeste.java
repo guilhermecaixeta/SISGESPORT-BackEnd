@@ -18,7 +18,7 @@ import com.ifg.sistema.sisgesport.api.entities.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("teste")
 public class EnderecoRepositorioTeste {
 	
 	@Autowired
@@ -35,6 +35,7 @@ public class EnderecoRepositorioTeste {
 	private static final String cepMun = "72";
 	private static final String cepBairro = "811";
 	private static final String cepLogradouro = "320";
+	
 	private static final Estado estado = Estado();
 	private static final Municipio municipio = Municipio();
 	private static final Bairro bairro = Bairro();
@@ -68,6 +69,22 @@ public class EnderecoRepositorioTeste {
 	
 	assertNotNull(lista);
 	assertEquals(lista.size(), 2);
+	}
+	
+	@Test
+	public void testBuscarPorId() {
+		Endereco end = new Endereco();
+		esR.save(estado);
+		mR.save(municipio);
+		bR.save(bairro);
+		lR.save(logradouro);
+		end.setComplemento("Qd. 27 Lt. 340");
+		end.setLogradouro(logradouro);
+		eR.save(end);
+		
+	Endereco endereco = eR.findById(end.getId()); 	
+	
+	assertNotNull(endereco);
 	}
 	
 	private static Estado Estado() {

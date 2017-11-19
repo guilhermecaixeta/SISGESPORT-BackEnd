@@ -12,4 +12,7 @@ public interface EnderecoRepositorio extends JpaRepository<Endereco, Long> {
 	@Transactional(readOnly=true)
 	List<Endereco> findByLogradouroBairroMunicipioCepmunicipioIsAndLogradouroBairroCepbairroIsAndLogradouroCeplogradouro
 	(String cepmunicipio, String cepbairro, String ceplogradouro);
+	
+	@Transactional(readOnly=true)
+	Endereco findById(Integer id);
 }

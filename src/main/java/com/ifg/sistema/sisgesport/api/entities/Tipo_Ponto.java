@@ -1,15 +1,20 @@
 package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -31,17 +36,19 @@ public class Tipo_Ponto implements Serializable {
 	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@Column(name="num_min_jogador", nullable= false, length= 1)
+	@Column(name="valor", nullable= false)
 	@NotNull(message="O campo valor não pode ser nulo.")
-	@NotBlank(message="O campo valor não pode ser em branco.")
-	@Length(min= 1,message="O campo valor possui o limite minímo de {max} jogadores.")
 	private int valor;
 	
-	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo modalidade não pode ser nulo.")
-	private Modalidade modalidade;
-
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="modalidade_tipo_ponto", 
+	joinColumns=
+	@JoinColumn(name="tipo_ponto", referencedColumnName="id"),
+	inverseJoinColumns =
+	@JoinColumn(name="modalidade", referencedColumnName="id"),
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "tipo_ponto"})})
+	private List<Modalidade> modalidade = new ArrayList<>();
+	
 	public Tipo_Ponto() {	}
 
 	public Integer getId() {
@@ -68,13 +75,12 @@ public class Tipo_Ponto implements Serializable {
 		this.valor = valor;
 	}
 
-	public Modalidade getModalidade() {
+	public List<Modalidade> getModalidade() {
 		return modalidade;
 	}
 
-	public void setModalidade(Modalidade modalidade) {
+	public void setModalidade(List<Modalidade> modalidade) {
 		this.modalidade = modalidade;
 	}
-	
 	
 }

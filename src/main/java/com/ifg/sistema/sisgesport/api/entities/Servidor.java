@@ -7,9 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,10 +18,6 @@ import javax.validation.constraints.NotNull;
 public class Servidor extends Pessoa implements Serializable{
 	private static final long serialVersionUID = 2L;
 	
-	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
-	
 	@Column(name="matricula_siap", nullable=false, unique= true, length=20)
 	private String matriculasiap;
 	
@@ -33,8 +26,8 @@ public class Servidor extends Pessoa implements Serializable{
 	private Boolean admin_sistema;
 	
 	@ManyToOne
-	@NotNull(message="O campo cargo não pode ser nulo.")
-	@JoinColumn(name="cargo", referencedColumnName="id", nullable=false)
+//	@NotNull(message="O campo cargo não pode ser nulo.")
+	@JoinColumn(name="cargo", referencedColumnName="id")
 	private Cargo cargo;
 
 	@OneToMany(mappedBy="criador", cascade= CascadeType.ALL , orphanRemoval = true, fetch= FetchType.LAZY)
@@ -49,14 +42,6 @@ public class Servidor extends Pessoa implements Serializable{
 
 	public void RemoverEvento(int id) {
 		this.eventos.remove(id);
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getMatricula_siap() {

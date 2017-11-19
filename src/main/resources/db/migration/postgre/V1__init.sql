@@ -1,205 +1,218 @@
-﻿
-    create table aluno (
+﻿    create table aluno (
         matricula varchar(20) not null,
-        id int8 not null,
-        turma int8 not null,
+        id int4 not null,
+        turma int4 not null,
         primary key (id)
     );
 
     create table bairro (
-        id int8 not null,
+        id int4 not null,
         cep_bairro varchar(3) not null,
         nome varchar(30) not null,
-        municipio int8 not null,
+        municipio int4 not null,
         primary key (id)
     );
 
     create table cargo (
-        id int8 not null,
+        id int4 not null,
         descricao varchar(60) not null,
-        nome varchar(20) not null,
+        nome varchar(30) not null,
         primary key (id)
     );
 
     create table curso (
-        id int8 not null,
+        id int4 not null,
         flg_ativo boolean not null,
         nome varchar(20) not null,
-        instituicao int8 not null,
+        instituicao int4 not null,
         primary key (id)
     );
 
     create table endereco (
-        id int8 not null,
+        id int4 not null,
         nome varchar(45) not null,
-        logradouro int8 not null,
+        logradouro int4 not null,
         primary key (id)
     );
 
     create table equipe (
-        id int8 not null,
+        id int4 not null,
         codigo varchar(10) not null,
         cor varchar(30) not null,
         nome varchar(30) not null,
-        aluno int8 not null,
-        evento int8 not null,
-        imagem int8,
+        aluno int4 not null,
+        evento int4 not null,
+        imagem int4,
         primary key (id)
     );
 
     create table equipe_aluno (
-        aluno int8 not null,
-        equipe int8 not null
+        aluno int4 not null,
+        equipe int4 not null
     );
 
     create table estado (
-        id int8 not null,
+        id int4 not null,
         nome varchar(20) not null,
         sigla varchar(2) not null,
         primary key (id)
     );
 
     create table evento (
-        id int8 not null,
+        id int4 not null,
         data_fim timestamp not null,
         data_inicio timestamp not null,
         descricao varchar(400) not null,
         nome varchar(30) not null,
-        servidor int8 not null,
-        endereco int8 not null,
-        imagem int8 not null,
+        qnt_equipe int4 not null,
+        servidor int4,
+        endereco int4,
+        imagem int4,
         primary key (id)
     );
 
     create table evento_modalidade (
-        id int8 not null,
+        id int4 not null,
         sexo char(1) not null,
-        evento int8 not null,
-        modalidade int8 not null,
+        evento int4 not null,
+        modalidade int4 not null,
         primary key (id)
     );
 
     create table imagem (
-        id int8 not null,
-        data_imagem timestamp,
+        id int4 not null,
+        data_imagem oid,
         descricao_imagem varchar(60),
         imagem bytea not null,
         primary key (id)
     );
 
     create table informacao_evento (
-        id int8 not null,
+        id int4 not null,
         data_postagem timestamp,
         descricao varchar(400) not null,
         tipo_informacao char(1) not null,
         titulo varchar(35) not null,
-        evento int8 not null,
-        imagem int8 not null,
+        evento int4 not null,
+        imagem int4 not null,
         primary key (id)
     );
 
     create table instituicao (
-        id int8 not null,
+        id int4 not null,
         descricao varchar(60) not null,
         nome varchar(20) not null,
-        endereco int8 not null,
+        endereco int4 not null,
         primary key (id)
     );
 
     create table instituicao_cargo (
-        instituicao int8 not null,
-        cargo int8 not null
+        instituicao int4 not null,
+        cargo int4 not null
     );
 
     create table jogador (
-        id int8 not null,
+        id int4 not null,
         num_camisa int4,
-        jogador int8 not null,
-        posicao int8,
-        time int8 not null,
+        jogador int4 not null,
+        posicao int4,
+        time int4 not null,
         primary key (id)
     );
 
     create table logradouro (
-        id int8 not null,
+        id int4 not null,
         cep_logradouro varchar(3) not null,
         logradouro varchar(30) not null,
-        bairro int8 not null,
+        bairro int4 not null,
         primary key (id)
     );
 
     create table modalidade (
-        id int8 not null,
+        id int4 not null,
         descricao varchar(80) not null,
         nome varchar(30) not null,
-        num_max_jogador int4 not null,
-        num_min_jogador int4 not null,
+        num_max_jogador int4,
+        num_min_jogador int4,
         primary key (id)
     );
 
     create table modalidade_penalidade (
-        modalidade int8 not null,
-        penalidade int8 not null
+        modalidade int4 not null,
+        penalidade int4 not null
     );
 
     create table modalidade_posicao (
-        posicao int8 not null,
-        modalidade int8 not null
+        posicao int4 not null,
+        modalidade int4 not null
+    );
+
+    create table modalidade_tipo_ponto (
+        modalidade int4 not null,
+        tipo_ponto int4 not null
     );
 
     create table municipio (
-        id int8 not null,
+        id int4 not null,
         cep_municipio varchar(2) not null,
         nome varchar(20) not null,
         sigla varchar(5) not null,
-        estado int8 not null,
+        estado int4 not null,
         primary key (id)
     );
 
     create table partida (
-        id int8 not null,
+        id int4 not null,
         acrescimo int4,
         data_partida timestamp,
         duracao_periodo int4,
         periodos int4,
-        endereco int8 not null,
-        evento int8 not null,
-        juiz int8 not null,
-        modalidade int8 not null,
-        time_casa int8 not null,
-        time_visita int8 not null,
+        endereco int4 not null,
+        evento int4 not null,
+        juiz int4 not null,
+        modalidade int4 not null,
+        time_casa int4 not null,
+        time_visita int4 not null,
+        primary key (id)
+    );
+
+    create table partida_penalidade (
+        id int4 not null,
+        jogador int4 not null,
+        partida int4 not null,
+        penalidade int4 not null,
+        primary key (id)
+    );
+
+    create table partida_ponto (
+        id int4 not null,
+        jogador int4 not null,
+        partida int4 not null,
+        tipo_ponto int4 not null,
         primary key (id)
     );
 
     create table penalidade (
-        id int8 not null,
+        id int4 not null,
         descricao varchar(30) not null,
         nome varchar(30) not null,
         primary key (id)
     );
 
     create table pessoa (
-        id int8 not null,
+        id int4 not null,
         data_nasc timestamp not null,
         login varchar(25) not null,
         nome varchar(50) not null,
-        senha varchar(20) not null,
+        senha varchar(60) not null,
         sexo char(1) not null,
-        endereco int8 not null,
-        imagem int8,
-        primary key (id)
-    );
-
-    create table ponto_partida (
-        id int8 not null,
-        jogador int8 not null,
-        partida int8 not null,
-        tipo_ponto int8 not null,
+        endereco int4,
+        imagem int4,
         primary key (id)
     );
 
     create table posicao (
-        id int8 not null,
+        id int4 not null,
         descricao varchar(30) not null,
         nome varchar(30) not null,
         num_max_jogador int4 not null,
@@ -210,37 +223,36 @@
     create table servidor (
         admin_sistema boolean not null,
         matricula_siap varchar(20) not null,
-        id int8 not null,
-        cargo int8 not null,
+        id int4 not null,
+        cargo int4 not null,
         primary key (id)
     );
 
     create table time (
-        id int8 not null,
+        id int4 not null,
         num_derrota int4,
         num_empate int4,
         num_vitoria int4,
         pontuacao int4,
-        equipe int8 not null,
-        modalidade int8 not null,
+        equipe int4 not null,
+        modalidade int4 not null,
         primary key (id)
     );
 
     create table tipo_ponto (
-        id int8 not null,
+        id int4 not null,
         nome varchar(30) not null,
-        num_min_jogador int4 not null,
-        modalidade int8 not null,
+        valor int4 not null,
         primary key (id)
     );
 
     create table turma (
-        id int8 not null,
+        id int4 not null,
         data_inicial_turma timestamp not null,
         data_limite timestamp not null,
         flg_ativo boolean not null,
         nome varchar(20) not null,
-        curso int8 not null,
+        curso int4,
         primary key (id)
     );
 
@@ -281,13 +293,16 @@
         add constraint UK_nqcr95qnpc75q4ue5oyv9rd8s unique (cep_logradouro);
 
     alter table logradouro 
-        add constraint UK_5qpy9i4xg4stwa5surtvdq8ps unique (nome);
+        add constraint UK_rsoarb73ohlifebh4nn1dbo16 unique (logradouro);
 
     alter table modalidade_penalidade 
         add constraint UKtk21he9glnocrccvowiplmng7 unique (modalidade, penalidade);
 
     alter table modalidade_posicao 
         add constraint UKkwausuk34c67qgjfh98ntrms unique (modalidade, posicao);
+
+    alter table modalidade_tipo_ponto 
+        add constraint UK91x0jbwd3ng6iey2wsyammbm8 unique (modalidade, tipo_ponto);
 
     alter table municipio 
         add constraint UK_ntaekw1dpmlknh0ib0s0t6apc unique (cep_municipio);
@@ -444,6 +459,16 @@
         foreign key (posicao) 
         references posicao;
 
+    alter table modalidade_tipo_ponto 
+        add constraint FKnf0v0bnpu7wft3yj3lhh9y7cf 
+        foreign key (tipo_ponto) 
+        references tipo_ponto;
+
+    alter table modalidade_tipo_ponto 
+        add constraint FKddy5g47ulrl1xd139u9n2vq7f 
+        foreign key (modalidade) 
+        references modalidade;
+
     alter table municipio 
         add constraint FK921wxcwng8vn03y6h5djjooj 
         foreign key (estado) 
@@ -479,6 +504,36 @@
         foreign key (time_visita) 
         references time;
 
+    alter table partida_penalidade 
+        add constraint FK9nef98mfeufmch99obwsx2hq2 
+        foreign key (jogador) 
+        references jogador;
+
+    alter table partida_penalidade 
+        add constraint FK19qfqxija95vtemtbt9nidm4u 
+        foreign key (partida) 
+        references partida;
+
+    alter table partida_penalidade 
+        add constraint FKs815vk1g5q49cqtsr2kd6ar65 
+        foreign key (penalidade) 
+        references penalidade;
+
+    alter table partida_ponto 
+        add constraint FKhvt0l6r0f6y1fvjmr9qnmbxi1 
+        foreign key (jogador) 
+        references jogador;
+
+    alter table partida_ponto 
+        add constraint FKmf44xh89i2axystecwbh8mlf1 
+        foreign key (partida) 
+        references partida;
+
+    alter table partida_ponto 
+        add constraint FK510ausg9g58hw5lg0hc904803 
+        foreign key (tipo_ponto) 
+        references tipo_ponto;
+
     alter table pessoa 
         add constraint FKdsei0yntk08w3g8c1wi0n1n4j 
         foreign key (endereco) 
@@ -488,21 +543,6 @@
         add constraint FKkprg5maxd4bl95r94nx1x4rq4 
         foreign key (imagem) 
         references imagem;
-
-    alter table ponto_partida 
-        add constraint FKjtrsiwaip6w3j2n3kvryuuh1e 
-        foreign key (jogador) 
-        references jogador;
-
-    alter table ponto_partida 
-        add constraint FKkisl77xxefwmkd95tvj10bsug 
-        foreign key (partida) 
-        references partida;
-
-    alter table ponto_partida 
-        add constraint FKc2jl1j2olyoj4g3so89wivfdi 
-        foreign key (tipo_ponto) 
-        references tipo_ponto;
 
     alter table servidor 
         add constraint FK2kohchvxxqy673m2o1ehxn0h3 
@@ -521,11 +561,6 @@
 
     alter table time 
         add constraint FK5pf5de17ajp31d3wmrucg0ixd 
-        foreign key (modalidade) 
-        references modalidade;
-
-    alter table tipo_ponto 
-        add constraint FKqgf2bc6b2o82ad9mmf01w9kp5 
         foreign key (modalidade) 
         references modalidade;
 

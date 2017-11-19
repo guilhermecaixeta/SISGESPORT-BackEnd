@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -43,49 +41,41 @@ public class Modalidade  implements Serializable{
 	@Length(max= 80,message="O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
-	@Column(name="num_max_jogador", nullable= false, length= 99)
-	@NotNull(message="O campo quantidade máxima de jogadores não pode ser nulo.")
-	@NotBlank(message="O campo quantidade máxima de jogadores não pode ser em branco.")
-	@Length(max= 30,message="O campo quantidade máxima de jogadores possui o limite máximo de {max} jogadores.")
+	@Column(name="num_max_jogador" )
 	private int num_max_jogador;
 	
-	@Column(name="num_min_jogador", nullable= false, length= 1)
-	@NotNull(message="O campo quantidade miníma de jogadores não pode ser nulo.")
-	@NotBlank(message="O campo quantidade miníma de jogadores não pode ser em branco.")
-	@Length(min= 1,message="O campo quantidade miníma de jogadores possui o limite minímo de {min} jogadores.")
+	@Column(name="num_min_jogador")
 	private int num_min_jogador;
-	
-	@OneToMany(mappedBy="modalidade", cascade= CascadeType.ALL , orphanRemoval = true, fetch= FetchType.LAZY)
-	private List<Tipo_Ponto> pontos = new ArrayList<>();
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="modalidade_penalidade", 
 	joinColumns=
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="modalidade", referencedColumnName="id"),
 	inverseJoinColumns =
-	@JoinColumn(name="penalidade", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="penalidade", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "penalidade"})})
 	private List<Penalidade> penalidade = new ArrayList<>();
 
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="modalidade_posicao", 
 	joinColumns=
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="modalidade", referencedColumnName="id"),
 	inverseJoinColumns =
-	@JoinColumn(name="posicao", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="posicao", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "posicao"})})
 	private List<Posicao> posicao = new ArrayList<>();
 	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="modalidade_tipo_ponto", 
+	joinColumns=
+	@JoinColumn(name="modalidade", referencedColumnName="id"),
+	inverseJoinColumns =
+	@JoinColumn(name="tipo_ponto", referencedColumnName="id"),
+	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "tipo_ponto"})})
+	private List<Tipo_Ponto> tipoPonto = new ArrayList<>();
+	
 	public Modalidade() {	}
 
-	public void AdicionarTipoPonto(Tipo_Ponto obj) {
-	obj.setModalidade(this);
-	this.pontos.add(obj);
-	}
-	
-	public void RemoverTipoPonto(int id) {
-		this.pontos.remove(id);
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -126,14 +116,6 @@ public class Modalidade  implements Serializable{
 		this.num_min_jogador = num_min_jogador;
 	}
 
-	public List<Tipo_Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(List<Tipo_Ponto> pontos) {
-		this.pontos = pontos;
-	}
-
 	public List<Penalidade> getPenalidade() {
 		return penalidade;
 	}
@@ -150,4 +132,12 @@ public class Modalidade  implements Serializable{
 		this.posicao = posicao;
 	}
 
+	public List<Tipo_Ponto> getTipoPonto() {
+		return tipoPonto;
+	}
+
+	public void setTipoPonto(List<Tipo_Ponto> tipoPonto) {
+		this.tipoPonto = tipoPonto;
+	}
+	
 }

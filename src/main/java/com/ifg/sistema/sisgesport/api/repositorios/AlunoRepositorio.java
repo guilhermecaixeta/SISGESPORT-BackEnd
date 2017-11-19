@@ -26,6 +26,9 @@ public interface AlunoRepositorio extends JpaRepository<Aluno, Long> {
 	List<Aluno> findByTurmaId(int id);
 	
 	@Transactional(readOnly=true)
+	Page<Aluno> findByTurmaId(int id, Pageable pageable);
+	
+	@Transactional(readOnly=true)
 	List<Aluno> findByEquipesId(Integer id);
 	
 	@Transactional(readOnly=true)

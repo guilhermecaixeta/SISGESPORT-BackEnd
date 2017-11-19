@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
 import javax.persistence.FetchType;
@@ -14,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table ;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -32,45 +30,32 @@ public class Instituicao implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="descricao", nullable=false, length=60)
+	@Column(name="descricao", nullable=false, length=200)
 	@NotNull(message="O campo descricao não pode ser nulo.")
 	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 60,message="O campo descricao possui o limite máximo de {max} caracteres.")
+	@Length(max= 200,message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
-	@Column(name="nome", nullable=false, length=20)
+	@Column(name="nome", nullable=false, length=60)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 20,message="O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
-	@NotNull(message="O campo endereco não pode ser nulo.")
 	@ManyToOne
-	@JoinColumn( name="endereco", referencedColumnName="id", nullable=false)
+	@JoinColumn( name="endereco", referencedColumnName="id")
 	private Endereco endereco;
-	
-	@OneToMany(mappedBy="instituicao", cascade= CascadeType.ALL , orphanRemoval = true, fetch= FetchType.LAZY)
-	private List<Curso> cursos = new ArrayList<>();
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="instituicao_cargo", 
 	joinColumns=
-	@JoinColumn(name="instituicao", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="instituicao", referencedColumnName="id"),
 	inverseJoinColumns =
-	@JoinColumn(name="cargo", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="cargo", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"instituicao", "cargo"})})
-	private List<Cargo> cargos = new ArrayList<>();
+	private List<Cargo> cargos = new ArrayList<Cargo>();
 	
 	public Instituicao() {	}
-
-	public void AdicionarCurso(Curso obj) {
-	obj.setInstituicao(this);
-	this.cursos.add(obj);
-	}
-	
-	public void RemoverCurso(int id) {
-		this.cursos.remove(id);
-	}
 
 	public Integer getId() {
 		return id;
@@ -102,14 +87,6 @@ public class Instituicao implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
 	}
 
 	public List<Cargo> getCargos() {

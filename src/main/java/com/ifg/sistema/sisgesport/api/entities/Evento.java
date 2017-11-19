@@ -25,6 +25,9 @@ public class Evento implements Serializable{
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
+	@Column(name="qnt_equipe", nullable= false)
+	private int qnt_equipes;
+	
 	@Column(name="nome" ,nullable = false, length=30)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
@@ -36,6 +39,12 @@ public class Evento implements Serializable{
 	@NotBlank(message="O campo descricao não pode ser em branco.")
 	@Length(max= 400,message="O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
+
+	@Column(name="data_inicio_inscricao" ,nullable = false)
+	private Calendar data_inicio_inscricao;
+	
+	@Column(name="data_fim_inscricao" ,nullable = false)
+	private Calendar data_fim_inscricao;
 	
 	@Column(name="data_inicio" ,nullable = false)
 	private Calendar data_inicio;
@@ -44,18 +53,15 @@ public class Evento implements Serializable{
 	private Calendar data_fim;
 	
 	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo endereco não pode ser nulo.")
+	@JoinColumn(name="endereco", referencedColumnName="id")
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(name="servidor", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo criador não pode ser nulo.")
+	@JoinColumn(name="servidor", referencedColumnName="id")
 	private Servidor criador;
 	
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id", nullable=false)
-	@NotNull(message="O imagem criador não pode ser nulo.")
+	@JoinColumn(name="imagem", referencedColumnName="id")
 	private Imagem imagem;
 	
 	public Evento() {	}
@@ -66,6 +72,14 @@ public class Evento implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public int getQnt_equipes() {
+		return qnt_equipes;
+	}
+
+	public void setQnt_equipes(int qnt_equipes) {
+		this.qnt_equipes = qnt_equipes;
 	}
 
 	public String getNome() {
@@ -82,6 +96,22 @@ public class Evento implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Calendar getData_inicio_inscricao() {
+		return data_inicio_inscricao;
+	}
+
+	public void setData_inicio_inscricao(Calendar data_inicio_inscricao) {
+		this.data_inicio_inscricao = data_inicio_inscricao;
+	}
+
+	public Calendar getData_fim_inscricao() {
+		return data_fim_inscricao;
+	}
+
+	public void setData_fim_inscricao(Calendar data_fim_inscricao) {
+		this.data_fim_inscricao = data_fim_inscricao;
 	}
 
 	public Calendar getData_inicio() {

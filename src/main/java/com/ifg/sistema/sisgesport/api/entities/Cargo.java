@@ -30,10 +30,10 @@ public class Cargo implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="nome", nullable=false, unique= true, length=20)
+	@Column(name="nome", nullable=false, unique= true, length=30)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 20,message="O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
 	@Column(name="descricao", nullable=false, length=60)

@@ -3,9 +3,7 @@ package com.ifg.sistema.sisgesport.api.repositorios;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,7 +21,7 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("teste")
 public class AlunoRepositorioTeste {
 
 	@Autowired
@@ -30,27 +30,27 @@ public class AlunoRepositorioTeste {
 	private TurmaRepositorio tR;
 	
 	private static final String matricula ="20122080010047";
+	
 	private static final Turma turma = turmaAluno();
+	
 	@Before
 	public void setUp() throws Exception{
 		Aluno aluno = new Aluno();
-		PasswordUtils password = new PasswordUtils();
 		tR.save(turma);
 		aluno.setNome("Guilherme");
 		aluno.setData_nasc(Calendar.getInstance());
 		aluno.setLogin("usuario");
-		aluno.setSenha(password.GerarBCrypt("usuario"));
+		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
 		this.alunoRepositorio.save(aluno);
 		
 		Aluno aluno2 = new Aluno();
-		tR.save(turma);
 		aluno2.setNome("user");
 		aluno2.setData_nasc(Calendar.getInstance());
 		aluno2.setLogin("user");
-		aluno2.setSenha(password.GerarBCrypt("2012208001004220122080010042"));
+		aluno2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
 		aluno2.setSexo('F');
 		aluno2.setMatricula("20122080010042");
 		aluno2.setTurma(turma);
@@ -60,6 +60,7 @@ public class AlunoRepositorioTeste {
 	@After
 	public final void tearDown() {
 		this.alunoRepositorio.deleteAll();
+		this.tR.deleteAll();
 	}
 	
 	@Test
@@ -71,14 +72,12 @@ public class AlunoRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorTurma() {
-		List<Aluno> aluno = this.alunoRepositorio.findByTurmaId(turma.getId());
-		List<Aluno> compare = new ArrayList<>();
-		compare.add( this.alunoRepositorio.findByMatricula(matricula));
-		compare.add( this.alunoRepositorio.findByMatricula("20122080010042"));
-		int num1 =compare.size();
-		int num2 = aluno.size();
+		PageRequest page = new PageRequest(0, 10);
+		Page<Aluno> aluno = this.alunoRepositorio.findByTurmaId(turma.getId(), page);
+
+		int num2 = aluno.getNumberOfElements();
 		
-		assertEquals(num1, num2);
+		assertEquals(2, num2);
 		assertNotNull(aluno);
 	}
 	

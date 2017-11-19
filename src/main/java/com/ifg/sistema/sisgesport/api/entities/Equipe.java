@@ -39,7 +39,10 @@ public class Equipe implements Serializable {
 	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@Column(name="codigo", nullable=false, length=10, unique=true)
+	@Column(name="codigo", nullable=false, length=20, unique=true)
+	@NotNull(message="O campo codigo não pode ser nulo.")
+	@NotBlank(message="O campo codigo não pode ser em branco.")
+	@Length(max= 20,message="O codigo nome possui o limite máximo de {max} caracteres.")
 	private String codigo;
 	
 	@Column(name="cor", nullable=false, length=30)
@@ -53,8 +56,7 @@ public class Equipe implements Serializable {
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name="aluno", referencedColumnName="id", nullable=false)
-	@NotNull(message="O campo capitao não pode ser nulo.")
+	@JoinColumn(name="aluno", referencedColumnName="id")
 	private Aluno capitao;
 	
 	@ManyToOne
@@ -67,9 +69,9 @@ public class Equipe implements Serializable {
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="equipe_aluno", 
 	joinColumns=
-	@JoinColumn(name="equipe", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="equipe", referencedColumnName="id"),
 	inverseJoinColumns =
-	@JoinColumn(name="aluno", referencedColumnName="id", nullable= false),
+	@JoinColumn(name="aluno", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"equipe", "aluno"})})
 	private List<Aluno> alunos = new ArrayList<>();
 
