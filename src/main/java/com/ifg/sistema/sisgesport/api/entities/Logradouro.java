@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id ;
@@ -25,17 +26,17 @@ public class Logradouro implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="logradouro", nullable=false, unique= true, length=30)
+	@Column(name="logradouro", nullable=false, unique= true, length=45)
 	@NotNull(message="O campo logradouro não pode ser nulo.")
 	@NotBlank(message="O campo logradouro não pode ser em branco.")
-	@Length(max= 30,message="O campo logradouro possui o limite máximo de {max} caracteres.")
+	@Length(max= 45,message="O campo logradouro possui o limite máximo de {max} caracteres.")
 	private String logradouro;
 	
 	@Column(name="cep_logradouro", nullable=false, unique= true, length=3)
 	private String ceplogradouro;
 	
 	@ManyToOne
-	@JoinColumn(name="bairro", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="bairro", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_bairro_logradouro"))
 	@NotNull(message="O campo bairro não pode ser nulo.")
 	private Bairro bairro;
 

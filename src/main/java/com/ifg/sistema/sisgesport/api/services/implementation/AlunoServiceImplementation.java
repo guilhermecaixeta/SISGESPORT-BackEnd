@@ -41,13 +41,13 @@ public class AlunoServiceImplementation implements AlunoService{
 	@Override
 	public Optional<List<Aluno>> BuscarPorIdEquipe(Integer id){
 		log.info("realizando a busca pelo id da turma {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByEquipesId(id));
+		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id));
 	}
 	
 	@Override
 	public Optional<Page<Aluno>> BuscarPorIdEquipePagination(Integer id, Pageable pageable){
 		log.info("realizando a busca por matrícula {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByEquipesId(id, pageable));
+		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id, pageable));
 	}
 	
 	@Override

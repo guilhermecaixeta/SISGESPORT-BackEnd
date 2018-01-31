@@ -24,23 +24,21 @@ public class InstituicaoRepositorioTeste {
 
 	@Autowired
 	private InstituicaoRepositorio instituicaoRepo;
-//	@Autowired
-//	private CargoRepositorio cargoRepositorio;
+	@Autowired
+	private CargoRepositorio cargoRepositorio;
 	
-//	private static final Cargo cargo = CarregarCargo();
+	private static final Cargo cargo = CarregarCargo();
 	private int idInstituicao;
 	
 	@Before
 	public void setUp() throws Exception{
-		//		cargoRepositorio.save(cargo);
-		//		List<Cargo> cargos = new ArrayList<Cargo>();
-		//		cargos.add(cargo);
-		//		instituto.setCargos(cargos);
+		cargoRepositorio.save(cargo);
+		List<Cargo> cargos = new ArrayList<Cargo>();
+		cargos.add(cargo);
 		Instituicao instituto = new Instituicao();
 		instituto.setDescricao("IFG - Instituto Federal de Goiás - Campus Luziânia");
 		instituto.setNome("IFG - Campus Luziânia.");
-
-
+		instituto.setCargos(cargos);
 		instituicaoRepo.save(instituto);
 		idInstituicao = instituto.getId();
 	}
@@ -57,10 +55,10 @@ public class InstituicaoRepositorioTeste {
 		assertNotNull(ins);
 	}
 	
-//	private static Cargo CarregarCargo() {
-//		Cargo c = new Cargo();
-//		c.setDescricao("Lecionar aulas");
-//		c.setNome("Professor");
-//		return c;
-//	}
+	private static Cargo CarregarCargo() {
+		Cargo c = new Cargo();
+		c.setDescricao("Lecionar aulas");
+		c.setNome("Professor");
+		return c;
+	}
 }

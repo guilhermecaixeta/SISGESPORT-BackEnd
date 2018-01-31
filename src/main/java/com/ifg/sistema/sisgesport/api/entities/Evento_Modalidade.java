@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,12 +25,12 @@ public class Evento_Modalidade implements Serializable{
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_evento_modalidade"))
 	@NotNull(message="O campo evento não pode ser nulo.")
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_modalidade_evento_modalidade"))
 	@NotNull(message="O campo modalidade não pode ser nulo.")
 	private Modalidade modalidade;
 	

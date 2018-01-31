@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,29 +37,29 @@ public class Partida  implements Serializable {
 	private int acrescimo;
 	
 	@ManyToOne
-	@JoinColumn(name="juiz", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="juiz", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_juiz_partida"))
 	@NotNull(message="O campo juiz não pode ser nulo.")
 	private Pessoa juiz;
 	
 	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="endereco", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_endereco_partida"))
 	@NotNull(message="O campo endereco não pode ser nulo.")
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(name="time_casa", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="time_casa", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_time_casa_partida"))
 	private Time time_casa;
 	
 	@ManyToOne
-	@JoinColumn(name="time_visita", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="time_visita", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_time_visita_partida"))
 	private Time time_visita;
 	
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_partida"))
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_modalidade"))
 	@NotNull(message="O campo modalidade não pode ser nulo.")
 	private Modalidade modalidade;
 

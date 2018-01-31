@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id ;
@@ -34,7 +35,7 @@ public class Bairro implements Serializable {
 	private String cepbairro;
 	
 	@ManyToOne
-	@JoinColumn(name="municipio", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="municipio", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_municipio_bairro"))
 	@NotNull(message="O campo municipio não pode ser nulo.")
 	private Municipio municipio;
 

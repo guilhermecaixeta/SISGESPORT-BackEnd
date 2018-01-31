@@ -29,11 +29,11 @@ public class Estado implements Serializable {
 	@Length(max= 20,message="O campo possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@NotNull(message="O campo sigla não pode ser nulo.")
-	@NotBlank(message="O campo sigla não pode ser em branco.")
-	@Length(max= 2,message="O sigla possui o limite máximo de {max} caracteres.")
-	@Column(name="sigla", nullable=false, unique= true, length=2)
-	private String sigla;
+	@NotNull(message="O campo UF não pode ser nulo.")
+	@NotBlank(message="O campo UF não pode ser em branco.")
+	@Length(max= 2,message="O UF possui o limite máximo de {max} caracteres.")
+	@Column(name="uf", nullable=false, unique= true, length=2)
+	private String uf;
 	
 	public Estado() {	}
 	
@@ -49,11 +49,13 @@ public class Estado implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getSigla() {
-		return sigla;
+
+	public String getUf() {
+		return uf;
 	}
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 	
 	

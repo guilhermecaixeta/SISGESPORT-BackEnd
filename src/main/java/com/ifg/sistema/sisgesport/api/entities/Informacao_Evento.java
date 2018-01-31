@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,12 +37,12 @@ public class Informacao_Evento implements Serializable {
 	private Calendar data_postagem;
 	
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="imagem", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_imagem_informacao_evento"))
 	@NotNull(message="O campo imagem não pode ser nulo.")
 	private Imagem imagem;
 	
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_informacao_evento"))
 	@NotNull(message="O campo evento não pode ser nulo.")
 	private Evento evento;
 

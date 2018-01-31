@@ -3,6 +3,7 @@ package com.ifg.sistema.sisgesport.api.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +23,12 @@ public class Partida_Ponto implements Serializable {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_jogador_partida_ponto"))
 	@NotNull(message="O campo jogador não pode ser nulo.")
 	private Jogador jogador;
 	
 	@ManyToOne
-	@JoinColumn(name="partida", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="partida", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_turma_partida_ponto"))
 	@NotNull(message="O campo partida não pode ser nulo.")
 	private Partida partida;
 	

@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,11 +53,11 @@ public class Pessoa implements Serializable{
 	private Calendar data_nasc;
 	
 	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id")
+	@JoinColumn(name="endereco", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_endereco_pessoa"))
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id")
+	@JoinColumn(name="imagem", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_imagem_pessoa"))
 	private Imagem imagem;
 	
 	public Pessoa() {}

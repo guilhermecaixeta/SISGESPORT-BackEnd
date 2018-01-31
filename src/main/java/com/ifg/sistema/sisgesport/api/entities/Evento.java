@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,15 +54,15 @@ public class Evento implements Serializable{
 	private Calendar data_fim;
 	
 	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id")
+	@JoinColumn(name="endereco", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_endereco_evento"))
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(name="servidor", referencedColumnName="id")
+	@JoinColumn(name="servidor", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_servidor_evento"))
 	private Servidor criador;
 	
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id")
+	@JoinColumn(name="imagem", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_imagem_evento"))
 	private Imagem imagem;
 	
 	public Evento() {	}

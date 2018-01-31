@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id;
@@ -31,11 +32,11 @@ public class Curso implements Serializable {
 	@Column(name="nome", nullable=false, unique= true, length=20)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 20,message="O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name="instituicao", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="instituicao", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_instituicao_curso"))
 	@NotNull(message="O campo instituição não pode ser nulo.")
 	private Instituicao instituicao;
 

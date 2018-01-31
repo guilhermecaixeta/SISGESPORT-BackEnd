@@ -26,16 +26,16 @@ public class ServidorRepositorioTeste {
 
 	@Autowired
 	private ServidorRepositorio servidorRepositorio;
-//	@Autowired
-//	private CargoRepositorio cR;
+	@Autowired
+	private CargoRepositorio cR;
 	
 	private static final String matriculasiap ="20122080010047";
-//	private static final Cargo cargo = cargoServidor();
+	private static final Cargo cargo = cargoServidor();
 	@Before
 	public void setUp() throws Exception{
 		Servidor serv = new Servidor();
-//		cR.save(cargo);
-//		serv.setCargo(cargo);
+		cR.save(cargo);
+		serv.setCargo(cargo);
 		serv.setNome("Guilherme");
 		serv.setData_nasc(Calendar.getInstance());
 		serv.setLogin("usuario");
@@ -52,7 +52,7 @@ public class ServidorRepositorioTeste {
 		serv2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
 		serv2.setSexo('F');
 		serv2.setMatricula_siap("20122080010042");
-//		serv2.setCargo(cargo);
+		serv2.setCargo(cargo);
 		serv2.setAdmin_sistema(false);
 		this.servidorRepositorio.save(serv2);
 	}
@@ -69,23 +69,23 @@ public class ServidorRepositorioTeste {
 		assertEquals(matriculasiap, serv.getMatricula_siap());
 	}
 	
-//	@Test
-//	public void testBuscarPorCargo() {
-//		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
-//		List<Servidor> compare = new ArrayList<>();
-//		compare.add( this.servidorRepositorio.findByMatriculasiap(matriculasiap));
-//		compare.add( this.servidorRepositorio.findByMatriculasiap("20122080010042"));
-//		int num1 =compare.size();
-//		int num2 = serv.size();
-//		
-//		assertEquals(num1, num2);
-//		assertNotNull(serv);
-//	}
-//	
-//	private static Cargo cargoServidor() {
-//		Cargo c = new Cargo();
-//		c.setDescricao("Lecionar aulas de física.");
-//		c.setNome("Professor De Física");
-//		return c;
-//	}
+	@Test
+	public void testBuscarPorCargo() {
+		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
+		List<Servidor> compare = new ArrayList<>();
+		compare.add( this.servidorRepositorio.findByMatriculasiap(matriculasiap));
+		compare.add( this.servidorRepositorio.findByMatriculasiap("20122080010042"));
+		int num1 =compare.size();
+		int num2 = serv.size();
+		
+		assertEquals(num1, num2);
+		assertNotNull(serv);
+	}
+	
+	private static Cargo cargoServidor() {
+		Cargo c = new Cargo();
+		c.setDescricao("Lecionar aulas de física.");
+		c.setNome("Professor De Física");
+		return c;
+	}
 }

@@ -25,8 +25,8 @@ public class Imagem implements Serializable {
 	@Column(name="imagem", nullable=false)
 	private Byte[] imagem;
 	
-	@Column(name="descricao_imagem", length=60)
-	@Length(max=60, message="O campo descricao possui o limite máximo de {max} caracteres.")
+	@Column(name="descricao_imagem", length=120)
+	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao_imagem;
 	
 	@Column(name="data_imagem")

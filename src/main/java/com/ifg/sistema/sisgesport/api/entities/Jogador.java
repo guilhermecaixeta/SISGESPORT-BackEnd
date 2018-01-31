@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,12 +27,12 @@ public class Jogador implements Serializable {
 	private int num_camisa;
 
 	@ManyToOne
-	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_aluno_jogador"))
 	@NotNull(message="O campo jogador não pode ser nulo.")
 	private Aluno jogador;
 	
 	@ManyToOne
-	@JoinColumn(name="time", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="time", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_time_jogador"))
 	@NotNull(message="O campo time não pode ser nulo.")
 	private Time time;
 	

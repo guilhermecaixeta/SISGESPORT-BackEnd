@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,7 +52,7 @@ public class Equipe implements Serializable {
 	private String cor;
 	
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_equipe"))
 	@NotNull(message="O campo evento não pode ser nulo.")
 	private Evento evento;
 	

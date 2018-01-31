@@ -8,5 +8,5 @@ import com.ifg.sistema.sisgesport.api.entities.Estado;;
 public interface EstadoRepositorio extends JpaRepository<Estado, Long> {
 
 	@Transactional(readOnly=true)
-	Estado findByNomeOrSigla(String nome, String sigla);
+	Estado findByNomeOrUf(String nome, String uf);
 }

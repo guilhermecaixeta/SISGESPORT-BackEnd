@@ -90,7 +90,7 @@ public class EnderecoRepositorioTeste {
 	private static Estado Estado() {
 		Estado est = new Estado();
 		est.setNome("Goiás");
-		est.setSigla("GO");
+		est.setUf("GO");
 		return est;
 	}
 	

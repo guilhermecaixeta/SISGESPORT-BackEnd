@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class Turma  implements Serializable {
 	private Calendar data_inicial_turma;
 
 	@ManyToOne
-	@JoinColumn(name="curso", referencedColumnName="id")
+	@JoinColumn(name="curso", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_curso_turma"))
 	private Curso curso;
 
 	public Turma() {	}

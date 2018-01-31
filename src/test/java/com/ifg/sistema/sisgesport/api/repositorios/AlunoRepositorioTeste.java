@@ -30,29 +30,29 @@ public class AlunoRepositorioTeste {
 	private TurmaRepositorio tR;
 	
 	private static final String matricula ="20122080010047";
-	
 	private static final Turma turma = turmaAluno();
 	
 	@Before
 	public void setUp() throws Exception{
-		Aluno aluno = new Aluno();
 		tR.save(turma);
+
+		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme");
 		aluno.setData_nasc(Calendar.getInstance());
-		aluno.setLogin("usuario");
+		aluno.setLogin("Guilherme");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
 		this.alunoRepositorio.save(aluno);
-		
+
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("user");
 		aluno2.setData_nasc(Calendar.getInstance());
 		aluno2.setLogin("user");
-		aluno2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
+		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
 		aluno2.setSexo('F');
-		aluno2.setMatricula("20122080010042");
+		aluno2.setMatricula("20131100010042");
 		aluno2.setTurma(turma);
 		this.alunoRepositorio.save(aluno2);
 	}
@@ -60,25 +60,22 @@ public class AlunoRepositorioTeste {
 	@After
 	public final void tearDown() {
 		this.alunoRepositorio.deleteAll();
-		this.tR.deleteAll();
-	}
-	
-	@Test
-	public void testBuscarPorMatricula() {
-		Aluno aluno = this.alunoRepositorio.findByMatricula(matricula);
-		
-		assertEquals(matricula, aluno.getMatricula());
 	}
 	
 	@Test
 	public void testBuscarPorTurma() {
 		PageRequest page = new PageRequest(0, 10);
 		Page<Aluno> aluno = this.alunoRepositorio.findByTurmaId(turma.getId(), page);
-
-		int num2 = aluno.getNumberOfElements();
 		
-		assertEquals(2, num2);
+		assertEquals(2, aluno.getNumberOfElements());
 		assertNotNull(aluno);
+	}
+
+	@Test
+	public void testBuscarPorMatricula() {
+		Aluno a = this.alunoRepositorio.findByMatricula(matricula);
+		assertNotNull(a);
+		assertEquals(matricula, a.getMatricula());
 	}
 	
 	private static Turma turmaAluno() {

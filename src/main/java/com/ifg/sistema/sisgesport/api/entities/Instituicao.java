@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue ;
 import javax.persistence.GenerationType ;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class Instituicao implements Serializable {
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn( name="endereco", referencedColumnName="id")
+	@JoinColumn( name="endereco", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_endereco_instituicao"))
 	private Endereco endereco;
 	
 	@ManyToMany(fetch=FetchType.LAZY)

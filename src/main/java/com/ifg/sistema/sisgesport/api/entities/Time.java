@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,12 +36,12 @@ public class Time implements Serializable {
 	private int pontuacao;
 	
 	@ManyToOne
-	@JoinColumn(name="equipe", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="equipe", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_equipe_time"))
 	@NotNull(message="O campo equipe não pode ser nulo.")
 	private Equipe equipe;
 	
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_modalidade_time"))
 	@NotNull(message="O campo modalidade não pode ser nulo.")
 	private Modalidade modalidade;
 	

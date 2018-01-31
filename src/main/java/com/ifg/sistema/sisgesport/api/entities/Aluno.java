@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.UniqueConstraint;
+
 
 @Entity
 public class Aluno extends Pessoa implements Serializable{
@@ -19,8 +21,8 @@ public class Aluno extends Pessoa implements Serializable{
 	@Column(name="matricula", nullable=false, unique= true, length=20)
 	private String matricula;
 	
-	@ManyToOne
-	@JoinColumn(name="turma", referencedColumnName="id", nullable=false)
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name="turma", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_turma_aluno"))
 	private Turma turma;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
@@ -30,7 +32,7 @@ public class Aluno extends Pessoa implements Serializable{
 	inverseJoinColumns =
 	@JoinColumn(name="equipe", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"equipe", "aluno"})})
-	private List<Equipe> equipes = new ArrayList<>();
+	private List<Equipe> equipe = new ArrayList<>();
 	
 	public Aluno() {}
 
@@ -50,12 +52,12 @@ public class Aluno extends Pessoa implements Serializable{
 		this.turma = turma;
 	}
 
-	public List<Equipe> getEquipes() {
-		return equipes;
+	public List<Equipe> getEquipe() {
+		return equipe;
 	}
 
-	public void setEquipes(List<Equipe> equipes) {
-		this.equipes = equipes;
+	public void setEquipe(List<Equipe> equipe) {
+		this.equipe = equipe;
 	}
 
 }
