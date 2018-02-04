@@ -33,7 +33,7 @@ public class Partida_Ponto implements Serializable {
 	private Partida partida;
 	
 	@ManyToOne
-	@JoinColumn(name="tipo_ponto", referencedColumnName="id", nullable=false)
+	@JoinColumn(name="tipo_ponto", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_tipo_ponto_partida_ponto"))
 	private Tipo_Ponto tipoPonto;
 
 	public Partida_Ponto() {	}

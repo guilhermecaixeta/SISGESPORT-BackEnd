@@ -37,7 +37,7 @@ public class Jogador implements Serializable {
 	private Time time;
 	
 	@ManyToOne
-	@JoinColumn(name="posicao", referencedColumnName="id")
+	@JoinColumn(name="posicao", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_posicao_jogador"))
 	private Posicao posicao;
 
 	public Jogador() {	}

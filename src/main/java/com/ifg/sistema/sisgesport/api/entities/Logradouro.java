@@ -33,6 +33,9 @@ public class Logradouro implements Serializable {
 	private String logradouro;
 	
 	@Column(name="cep_logradouro", nullable=false, unique= true, length=3)
+	@NotNull(message="O campo cep não pode ser nulo.")
+	@NotBlank(message="O campo cep não pode ser em branco.")
+	@Length(max= 3,message="O campo cep possui o limite máximo de {max} caracteres.")
 	private String ceplogradouro;
 	
 	@ManyToOne

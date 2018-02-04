@@ -57,15 +57,15 @@ public class Equipe implements Serializable {
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name="aluno", referencedColumnName="id")
+	@JoinColumn(name="aluno", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_aluno_equipe"))
 	private Aluno capitao;
 	
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id")
+	@JoinColumn(name="imagem", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_imagem_equipe"))
 	private Imagem imagem;
 	
 	@OneToMany(mappedBy="equipe", cascade= CascadeType.ALL , orphanRemoval = true, fetch= FetchType.LAZY)
-	private List<Time> times= new ArrayList<>();
+	private List<Time> time= new ArrayList<>();
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="equipe_aluno", 
@@ -80,11 +80,11 @@ public class Equipe implements Serializable {
 
 	public void AdicionarTime(Time obj) {
 	obj.setEquipe(this);
-	this.times.add(obj);
+	this.time.add(obj);
 	}
 	
 	public void RemoverTime(int id) {
-		this.times.remove(id);
+		this.time.remove(id);
 	}
 	
 	public Integer getId() {
@@ -135,12 +135,12 @@ public class Equipe implements Serializable {
 		this.imagem = imagem;
 	}
 
-	public List<Time> getTimes() {
-		return times;
+	public List<Time> getTime() {
+		return time;
 	}
 
-	public void setTimes(List<Time> times) {
-		this.times = times;
+	public void setTime(List<Time> time) {
+		this.time = time;
 	}
 
 	public String getCodigo() {
