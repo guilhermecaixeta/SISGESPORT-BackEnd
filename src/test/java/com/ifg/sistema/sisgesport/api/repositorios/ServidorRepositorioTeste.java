@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -37,7 +37,7 @@ public class ServidorRepositorioTeste {
 		cR.save(cargo);
 		serv.setCargo(cargo);
 		serv.setNome("Guilherme");
-		serv.setData_nasc(Calendar.getInstance());
+		serv.setData_nasc(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
@@ -47,7 +47,7 @@ public class ServidorRepositorioTeste {
 		
 		Servidor serv2 = new Servidor();
 		serv2.setNome("user");
-		serv2.setData_nasc(Calendar.getInstance());
+		serv2.setData_nasc(new Date());
 		serv2.setLogin("user");
 		serv2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
 		serv2.setSexo('F');

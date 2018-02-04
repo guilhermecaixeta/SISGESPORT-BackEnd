@@ -2,7 +2,8 @@ package com.ifg.sistema.sisgesport.api.repositorios;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,10 +40,10 @@ public class EventoRepositorioTeste {
 		cR.save(cargo);
 		servidorRepositorio.save(servidor);
 		Evento ev = new Evento();
-		ev.setData_fim(Calendar.getInstance());
-		ev.setData_inicio(Calendar.getInstance());
-		ev.setData_fim_inscricao(Calendar.getInstance());
-		ev.setData_inicio_inscricao(Calendar.getInstance());
+		ev.setData_fim(new Date());
+		ev.setData_inicio(new Date());
+		ev.setData_fim_inscricao(new Date());
+		ev.setData_inicio_inscricao(new Date());
 		ev.setDescricao("Evento teste");
 		ev.setNome("Evento de Teste");
 		ev.setQnt_equipes(3);
@@ -64,14 +65,14 @@ public class EventoRepositorioTeste {
 
 	@Test
 	public void testBuscarporCriador() {
-		Evento evento = evR.findByCriadorMatriculasiap(servidor.getMatricula_siap());
+		List<Evento> evento = evR.findByCriadorMatriculasiap(servidor.getMatricula_siap());
 		assertNotNull(evento);
 	}
 	
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
-		serv.setData_nasc(Calendar.getInstance());
+		serv.setData_nasc(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');

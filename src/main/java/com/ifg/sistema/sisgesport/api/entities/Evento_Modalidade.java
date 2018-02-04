@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name="evento_modalidade")
@@ -35,8 +35,7 @@ public class Evento_Modalidade implements Serializable{
 	private Modalidade modalidade;
 	
 	@Column(name="sexo", nullable= false, length=1)
-	@NotNull(message="O campo sexo não pode ser nulo.")
-	@NotBlank(message="O campo sexo não pode ser em branco.")
+	@Check(constraints=" check_Sexo CHECK (sexo IN('F', 'M'))")
 	private char sexo;
 
 	public Evento_Modalidade() {	}

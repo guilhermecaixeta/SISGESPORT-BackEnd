@@ -8,15 +8,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Evento;
+import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
 
-public interface EventoRepositorio extends JpaRepository<Evento, Long> {
-
-	@Transactional(readOnly=true)
-	Evento findById(Integer id);
+public interface InformacaoEventoRepositorio extends JpaRepository<Informacao_Evento, Long> {
 	
 	@Transactional(readOnly=true)
-	List<Evento> findByCriadorMatriculasiap(String matriculaSiap);
+	Informacao_Evento findById(Integer id);
 	
 	@Transactional(readOnly=true)
-	Page<Evento> findByCriadorMatriculasiap(String matriculaSiap, Pageable page);
+	List<Informacao_Evento> findByEvento(Evento evento);
+	
+	@Transactional(readOnly=true)
+	Page<Informacao_Evento> findByEvento(Evento evento, Pageable page);
 }

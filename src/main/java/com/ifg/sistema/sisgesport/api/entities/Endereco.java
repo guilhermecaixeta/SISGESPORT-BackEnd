@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+
 @Entity
 @Table(name="endereco")
 public class Endereco implements Serializable {
@@ -25,7 +27,7 @@ public class Endereco implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="nome", nullable=false, unique= true, length=45)
+	@Column(name="complemento", nullable=false, unique= true, length=45)
 	@NotNull(message="O campo complemento não pode ser nulo.")
 	@NotBlank(message="O campo complemento não pode ser em branco.")
 	@Length(max= 45,message="O campo complemento possui o limite máximo de {max} caracteres.")
@@ -35,6 +37,10 @@ public class Endereco implements Serializable {
 	@JoinColumn(name="logradouro", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_logradouro_endereco"))
 	@NotNull(message="O campo logradouro não pode ser nulo.")
 	private Logradouro logradouro;
+	
+	@ManyToOne
+	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_endereco"))
+	private Entidade_Comum entidade_comum;
 
 	public Endereco() {	}
 
@@ -60,6 +66,14 @@ public class Endereco implements Serializable {
 
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	public Entidade_Comum getEntidade_comum() {
+		return entidade_comum;
+	}
+
+	public void setObjeto_comum(Entidade_Comum entidade_comum) {
+		this.entidade_comum = entidade_comum;
 	}
 	
 }

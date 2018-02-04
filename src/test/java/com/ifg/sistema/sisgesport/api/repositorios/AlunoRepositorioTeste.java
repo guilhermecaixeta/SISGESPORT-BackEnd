@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class AlunoRepositorioTeste {
 
 		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme");
-		aluno.setData_nasc(Calendar.getInstance());
+		aluno.setData_nasc(new Date());
 		aluno.setLogin("Guilherme");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
@@ -48,7 +49,7 @@ public class AlunoRepositorioTeste {
 
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("user");
-		aluno2.setData_nasc(Calendar.getInstance());
+		aluno2.setData_nasc(new Date());
 		aluno2.setLogin("user");
 		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
 		aluno2.setSexo('F');

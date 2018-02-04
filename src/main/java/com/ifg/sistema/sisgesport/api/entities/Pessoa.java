@@ -1,31 +1,26 @@
 package com.ifg.sistema.sisgesport.api.entities;
 import java.io.Serializable ;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class Pessoa implements Serializable{
+public class Pessoa extends Entidade_Comum implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
 	
 	@Column(name="nome" ,nullable = false, length=50)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -50,26 +45,10 @@ public class Pessoa implements Serializable{
 	private String senha;
 	
 	@Column(name="data_nasc" ,nullable = false)
-	private Calendar data_nasc;
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message="O campo data de nascimento deve ser informado.")
+	private Date data_nasc;
 	
-	@ManyToOne
-	@JoinColumn(name="endereco", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_endereco_pessoa"))
-	private Endereco endereco;
-	
-	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_imagem_pessoa"))
-	private Imagem imagem;
-	
-	public Pessoa() {}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -102,29 +81,11 @@ public class Pessoa implements Serializable{
 		this.senha = senha;
 	}
 
-	public Calendar getData_nasc() {
+	public Date getData_nasc() {
 		return data_nasc;
 	}
 
-	public void setData_nasc(Calendar data_nasc) {
+	public void setData_nasc(Date data_nasc) {
 		this.data_nasc = data_nasc;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public Imagem getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(Imagem imagem) {
-		this.imagem = imagem;
-	}
-	
-	
+	}	
 }

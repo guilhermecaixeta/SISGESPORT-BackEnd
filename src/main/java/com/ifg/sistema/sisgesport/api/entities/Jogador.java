@@ -1,15 +1,20 @@
 package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -39,8 +44,32 @@ public class Jogador implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="posicao", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_posicao_jogador"))
 	private Posicao posicao;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
+	private List<Partida_Penalidade> partida_penalidade = new ArrayList<Partida_Penalidade>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
+	private List<Partida_Ponto> partida_ponto = new ArrayList<Partida_Ponto>();
 
 	public Jogador() {	}
+
+	public void AdicionarPartidaPenalidade(Partida_Penalidade obj) {
+	obj.setJogador(this);
+	this.partida_penalidade.add(obj);
+	}
+
+	public void RemoverPartidaPenalidade(int id) {
+		this.partida_penalidade.remove(id);
+	}
+	
+	public void AdicionarPartidaPonto(Partida_Ponto obj) {
+	obj.setJogador(this);
+	this.partida_ponto.add(obj);
+	}
+
+	public void RemoverPartidaPonto(int id) {
+		this.partida_ponto.remove(id);
+	}
 
 	public Integer getId() {
 		return id;
@@ -80,6 +109,22 @@ public class Jogador implements Serializable {
 
 	public void setPosicao(Posicao posicao) {
 		this.posicao = posicao;
+	}
+
+	public List<Partida_Penalidade> getPartida_penalidade() {
+		return partida_penalidade;
+	}
+
+	public void setPartida_penalidade(List<Partida_Penalidade> partida_penalidade) {
+		this.partida_penalidade = partida_penalidade;
+	}
+
+	public List<Partida_Ponto> getPartida_ponto() {
+		return partida_ponto;
+	}
+
+	public void setPartida_ponto(List<Partida_Ponto> partida_ponto) {
+		this.partida_ponto = partida_ponto;
 	}
 
 }

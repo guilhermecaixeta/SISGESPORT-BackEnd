@@ -74,7 +74,7 @@ public class Equipe implements Serializable {
 	inverseJoinColumns =
 	@JoinColumn(name="aluno", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"equipe", "aluno"})})
-	private List<Aluno> alunos = new ArrayList<>();
+	private List<Aluno> aluno = new ArrayList<>();
 
 	public Equipe() {	}
 
@@ -151,12 +151,12 @@ public class Equipe implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public List<Aluno> getAlunos() {
-		return alunos;
+	public List<Aluno> getAluno() {
+		return aluno;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+	public void setAluno(List<Aluno> aluno) {
+		this.aluno = aluno;
 	}
 	
 }
