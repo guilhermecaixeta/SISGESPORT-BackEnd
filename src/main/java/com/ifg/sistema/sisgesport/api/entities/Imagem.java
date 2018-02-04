@@ -60,7 +60,7 @@ public class Imagem implements Serializable {
 	private Date data_imagem;
 
 	@ManyToOne
-	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_endereco"))
+	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
 	private Entidade_Comum entidade_comum;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
