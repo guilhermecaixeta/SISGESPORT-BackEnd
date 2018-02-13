@@ -20,8 +20,9 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
 public class Pessoa extends Entidade_Comum implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 2848996214116693556L;
+
 	@Column(name="nome" ,nullable = false, length=50)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
@@ -32,10 +33,10 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 	@NotNull(message="O campo sexo não pode ser nulo.")
 	private Character sexo;
 	
-	@Column(name="login" ,nullable = false, length=25, unique=true)
+	@Column(name="login" ,nullable = false, length=15, unique=true)
 	@NotNull(message="O campo login não pode ser nulo.")
 	@NotBlank(message="O campo login não pode ser em branco.")
-	@Length(max= 25,message="O login possui o limite máximo de {max} caracteres.")
+	@Length(max= 15,message="O login possui o limite máximo de {max} caracteres.")
 	private String login;
 	
 	@Column(name="senha" ,nullable = false, length=60)
@@ -46,7 +47,7 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 	
 	@Column(name="data_nasc" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message="O campo data de nascimento deve ser informado.")
+	@NotNull(message="O campo data de nascimento não pode ser nulo.")
 	private Date data_nasc;
 	
 	public String getNome() {

@@ -24,8 +24,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="tipo_ponto")
 public class Tipo_Ponto implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = -6056988218785098576L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

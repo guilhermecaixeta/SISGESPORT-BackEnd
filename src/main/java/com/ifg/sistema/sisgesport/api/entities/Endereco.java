@@ -21,16 +21,16 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
 @Table(name="endereco")
 public class Endereco implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = 1782932071361353507L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="complemento", nullable=false, unique= true, length=45)
+	@Column(name="complemento", nullable=false, unique= true, length=60)
 	@NotNull(message="O campo complemento não pode ser nulo.")
 	@NotBlank(message="O campo complemento não pode ser em branco.")
-	@Length(max= 45,message="O campo complemento possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="O campo complemento possui o limite máximo de {max} caracteres.")
 	private String complemento;
 	
 	@ManyToOne

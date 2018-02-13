@@ -23,9 +23,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="posicao")
 public class Posicao implements Serializable {
-
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = -5156128374225424613L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

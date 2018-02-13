@@ -16,8 +16,9 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 public class Aluno extends Pessoa implements Serializable{
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = 5195314769654228291L;
+
 	@Column(name="matricula", nullable=false, unique= true, length=20)
 	private String matricula;
 	

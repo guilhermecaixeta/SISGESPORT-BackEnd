@@ -18,8 +18,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="partida_penalidade")
 public class Partida_Penalidade  implements Serializable {
 	
-private static final long serialVersionUID = 31L;
-	
+	private static final long serialVersionUID = -3518108435158981345L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

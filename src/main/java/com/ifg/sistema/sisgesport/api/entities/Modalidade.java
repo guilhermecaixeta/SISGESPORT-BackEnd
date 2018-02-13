@@ -23,7 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="modalidade")
 public class Modalidade  implements Serializable{
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1594020995360031660L;
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
@@ -35,10 +36,10 @@ public class Modalidade  implements Serializable{
 	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@Column(name="descricao", length=80)
+	@Column(name="descricao", length=400)
 	@NotNull(message="O campo descricao não pode ser nulo.")
 	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 80,message="O descricao possui o limite máximo de {max} caracteres.")
+	@Length(max= 400,message="O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
 	@Column(name="num_max_jogador" )

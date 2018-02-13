@@ -19,8 +19,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="curso")
 public class Curso implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = -4081166169939325949L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

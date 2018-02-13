@@ -17,8 +17,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="servidor")
 public class Servidor extends Pessoa implements Serializable{
-	private static final long serialVersionUID = 2L;
 	
+	private static final long serialVersionUID = -4064616397424015889L;
+
 	@Column(name="matricula_siap", nullable=false, unique= true, length=20)
 	private String matriculasiap;
 	

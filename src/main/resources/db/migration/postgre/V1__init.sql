@@ -1,4 +1,5 @@
-﻿    create table aluno (
+﻿    create sequence hibernate_sequence start 1 increment 1;
+    create table aluno (
         matricula varchar(20) not null,
         id int4 not null,
         turma int4 not null,
@@ -26,7 +27,7 @@
     );
     create table endereco (
         id int4 not null,
-        complemento varchar(45) not null,
+        complemento varchar(60) not null,
         entidade_comum int4,
         logradouro int4 not null,
         primary key (id)
@@ -37,7 +38,7 @@
     );
     create table equipe (
         id int4 not null,
-        codigo varchar(20) not null,
+        codigo_equipe varchar(20) not null,
         cor varchar(30) not null,
         nome varchar(30) not null,
         aluno int4,
@@ -56,13 +57,14 @@
         primary key (id)
     );
     create table evento (
+        codigo_evento varchar(15) not null,
         data_criacao timestamp not null,
         data_fim timestamp not null,
         data_fim_inscricao timestamp not null,
         data_inicio timestamp not null,
         data_inicio_inscricao timestamp not null,
         descricao varchar(400) not null,
-        nome varchar(30) not null,
+        nome varchar(45) not null,
         qnt_equipe int4 not null,
         id int4 not null,
         servidor int4,
@@ -70,6 +72,7 @@
     );
     create table evento_modalidade (
         id int4 not null,
+        idade_maxima int4,
         sexo char(1) not null,
         evento int4 not null,
         modalidade int4 not null,
@@ -88,7 +91,7 @@
     create table informacao_evento (
         id int4 not null,
         data_postagem timestamp,
-        descricao varchar(4000) not null,
+        descricao varchar(8000) not null,
         tipo_informacao char(1) not null,
         titulo varchar(120) not null,
         evento int4 not null,
@@ -119,13 +122,13 @@
     create table logradouro (
         id int4 not null,
         cep_logradouro varchar(3) not null,
-        logradouro varchar(45) not null,
+        logradouro varchar(60) not null,
         bairro int4 not null,
         primary key (id)
     );
     create table modalidade (
         id int4 not null,
-        descricao varchar(80) not null,
+        descricao varchar(400) not null,
         nome varchar(30) not null,
         num_max_jogador int4,
         num_min_jogador int4,
@@ -146,7 +149,7 @@
     create table municipio (
         id int4 not null,
         cep_municipio varchar(2) not null,
-        nome varchar(20) not null,
+        nome varchar(45) not null,
         sigla varchar(5) not null,
         estado int4 not null,
         primary key (id)
@@ -185,7 +188,7 @@
     );
     create table pessoa (
         data_nasc timestamp not null,
-        login varchar(25) not null,
+        login varchar(15) not null,
         nome varchar(50) not null,
         senha varchar(60) not null,
         sexo char(1) not null,
@@ -245,13 +248,15 @@
     alter table endereco 
         add constraint UK_33ek4ahbwxrlo2iu4vrkssk75 unique (complemento);
     alter table equipe 
-        add constraint UK_hndx0axitn62y88stiwjramyl unique (codigo);
+        add constraint UK_9w9dcg4ucbp96pydqxvyom9we unique (codigo_equipe);
     alter table equipe_aluno 
         add constraint UKelnogyqvix9qlcb71dvypsiex unique (equipe, aluno);
     alter table estado 
         add constraint UK_gfot2y0318rs8hc74ppp0n87p unique (nome);
     alter table estado 
         add constraint UK_ixjses41lcs0vkr2givuw4eiw unique (uf);
+    alter table evento 
+        add constraint UK_men79nyohoxfr6uy7n0p1qrfe unique (codigo_evento);
     alter table informacao_evento_imagem 
         add constraint UK5ql9111aee2iv95qgeyuu7dgc unique (imagem, informacao_evento);
     alter table instituicao_cargo 
@@ -337,7 +342,7 @@
         foreign key (modalidade) 
         references modalidade;
     alter table imagem 
-        add constraint fk_entidade_comum_endereco 
+        add constraint fk_entidade_comum_imagem 
         foreign key (entidade_comum) 
         references entidade_comum;
     alter table informacao_evento 

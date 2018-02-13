@@ -14,14 +14,22 @@ public class GeradorCodigoUtils {
 	 * Gera um código randomico através do UUID e da data atual, assim gerando um código único.
 	 * @return string
 	 */
-	public static String GerarCodigoUnico() {
+	public static String GerarCodigoUnicoEquipe() {
 		Calendar simple = Calendar.getInstance();
 		UUID uuid = UUID.randomUUID();
 
-		String codigo = (simple.hashCode() + uuid.toString()).substring(0, 20);
+		String codigo = "EQ"+ (Integer.toString(simple.hashCode()).substring(0,8) + uuid.toString()).substring(0, 18).toUpperCase();
 		log.info("Gerando código através do UUID. O Código é: " + codigo);
-			return codigo;
-		
+			return codigo;	
+	}
+	
+	public static String GerarCodigoUnicoEvento() {
+		Calendar simple = Calendar.getInstance();
+		UUID uuid = UUID.randomUUID();
+
+		String codigo = "EV"+ (Integer.toString(simple.hashCode()).substring(0,5) + uuid.toString()).substring(0, 13).toUpperCase();
+		log.info("Gerando código através do UUID. O Código é: " + codigo);
+			return codigo;	
 	}
 }
 	

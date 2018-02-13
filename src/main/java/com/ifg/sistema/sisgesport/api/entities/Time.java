@@ -16,9 +16,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="time")
 public class Time implements Serializable {
-
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = 3923786373890196396L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

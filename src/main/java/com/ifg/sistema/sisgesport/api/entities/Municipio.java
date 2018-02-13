@@ -19,16 +19,16 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="municipio")
 public class Municipio implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = 6916088269478172145L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="nome", nullable=false, unique= true, length=20)
+	@Column(name="nome", nullable=false, unique= true, length=45)
 	@NotNull(message="O campo nome não pode ser nulo.")
 	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 20,message="O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max= 45,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
 	@NotNull(message="O campo sigla não pode ser nulo.")

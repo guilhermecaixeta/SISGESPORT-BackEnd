@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @Table(name="partida_ponto")
 public class Partida_Ponto implements Serializable {
 
-	private static final long serialVersionUID = 31L;
-	
+	private static final long serialVersionUID = -1618457060040789109L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

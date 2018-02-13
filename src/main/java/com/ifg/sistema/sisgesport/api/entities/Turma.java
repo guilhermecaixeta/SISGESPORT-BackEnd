@@ -19,9 +19,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="turma")
 public class Turma  implements Serializable {
-
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = -6358838271284684107L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

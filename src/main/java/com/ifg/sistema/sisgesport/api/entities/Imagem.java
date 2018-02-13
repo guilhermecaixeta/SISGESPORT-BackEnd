@@ -31,9 +31,9 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
 @Entity
 @Table(name="imagem")
 public class Imagem implements Serializable {
-
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = -1633920788416730387L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

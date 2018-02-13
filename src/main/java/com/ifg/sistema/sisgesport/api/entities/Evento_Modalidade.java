@@ -18,7 +18,8 @@ import org.hibernate.annotations.Check;
 @Entity
 @Table(name="evento_modalidade")
 public class Evento_Modalidade implements Serializable{
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 4161788124589946685L;
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
@@ -35,8 +36,11 @@ public class Evento_Modalidade implements Serializable{
 	private Modalidade modalidade;
 	
 	@Column(name="sexo", nullable= false, length=1)
-	@Check(constraints=" check_Sexo CHECK (sexo IN('F', 'M'))")
+	@Check(constraints="CONSTRAINT check_Sexo CHECK (sexo IN('F', 'M'))")
 	private char sexo;
+	
+	@Column(name="idade_maxima")
+	private int idade_maxima_permitida;
 
 	public Evento_Modalidade() {	}
 
@@ -70,6 +74,14 @@ public class Evento_Modalidade implements Serializable{
 
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
+	}
+
+	public int getIdade_maxima_permitida() {
+		return idade_maxima_permitida;
+	}
+
+	public void setIdade_maxima_permitida(int idade_maxima_permitida) {
+		this.idade_maxima_permitida = idade_maxima_permitida;
 	}
 	
 }

@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,8 +30,8 @@ import org.hibernate.validator.constraints.Length;
 @Table(name="informacao_evento")
 public class Informacao_Evento implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = 6469404273216225968L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
@@ -43,8 +44,8 @@ public class Informacao_Evento implements Serializable {
 	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String titulo;
 	
-	@Column(name="", nullable=false, length= 4000)
-	@Length(max=4000, message="O campo descricao possui o limite máximo de {max} caracteres.")
+	@Column(name="", nullable=false, length= 8000)
+	@Length(max=8000, message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
 	@Column(name="data_postagem")
@@ -123,4 +124,8 @@ public class Informacao_Evento implements Serializable {
 		this.evento = evento;
 	}
 	
+	@PrePersist
+	public void PrePersist() {
+		data_postagem = new Date();
+	}
 }

@@ -21,7 +21,6 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
-import com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -49,8 +48,7 @@ public class EquipeRepositorioTeste {
 		servidorRepositorio.save(servidor);
 		eventoRepositorio.save(evento);
 		Equipe eqp = new Equipe();
-		eqp.setCodigo("AEIOU");
-		eqp.setCor(GeradorCodigoUtils.GerarCodigoUnico());
+		eqp.setCor("AEIOU");
 		eqp.setEvento(evento);
 		eqp.setNome("Equipe um");
 		equipeRepositorio.save(eqp);
@@ -64,7 +62,7 @@ public class EquipeRepositorioTeste {
 	
 	@Test
 	public void testBuscarporCodigo() {
-		Equipe eqp = equipeRepositorio.findByCodigo(equipe.getCodigo());
+		Equipe eqp = equipeRepositorio.findByCodigoEquipe(equipe.getCodigoEquipe());
 		
 		assertNotNull(eqp);
 	}

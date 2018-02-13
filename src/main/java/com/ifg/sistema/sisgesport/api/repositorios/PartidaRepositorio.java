@@ -7,16 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
+import com.ifg.sistema.sisgesport.api.entities.Partida;
 
-public interface EquipeRepositorio extends JpaRepository<Equipe, Integer> {
-
-	@Transactional(readOnly=true)
-	Equipe findByCodigoEquipe(String codigo);
+public interface PartidaRepositorio  extends JpaRepository<Partida, Long> {
 
 	@Transactional(readOnly=true)
-	List<Equipe> findByEventoId(Integer id);
+	List<Partida> findById(Integer id);
 	
 	@Transactional(readOnly=true)
-	Page<Equipe> findByEventoId(Integer id_equipe, Pageable pageable);
-}
+	List<Partida> findByEventoId(Integer id_evento);
+	
+	@Transactional(readOnly=true)
+	Page<Partida> findByEvento(Integer id_evento, Pageable page);
+	}

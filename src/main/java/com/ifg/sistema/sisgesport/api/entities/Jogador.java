@@ -21,9 +21,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="jogador")
 public class Jogador implements Serializable {
-
-	private static final long serialVersionUID = 3L;
 	
+	private static final long serialVersionUID = -3863616590006001944L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;

@@ -24,8 +24,8 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
 @Table(name="partida")
 public class Partida extends Entidade_Comum  implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = -6820184287589704577L;
+
 	@Column(name="data_partida")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data_partida;

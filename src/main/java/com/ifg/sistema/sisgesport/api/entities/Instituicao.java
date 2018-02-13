@@ -22,8 +22,8 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
 @Table(name="instituicao")
 public class Instituicao extends Entidade_Comum implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = -5775475003607607110L;
+
 	@Column(name="descricao", nullable=false, length=200)
 	@NotNull(message="O campo descricao não pode ser nulo.")
 	@NotBlank(message="O campo descricao não pode ser em branco.")

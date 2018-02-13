@@ -20,16 +20,16 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="logradouro")
 public class Logradouro implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = -3368360483031988758L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
 	
-	@Column(name="logradouro", nullable=false, unique= true, length=45)
+	@Column(name="logradouro", nullable=false, unique= true, length=60)
 	@NotNull(message="O campo logradouro não pode ser nulo.")
 	@NotBlank(message="O campo logradouro não pode ser em branco.")
-	@Length(max= 45,message="O campo logradouro possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="O campo logradouro possui o limite máximo de {max} caracteres.")
 	private String logradouro;
 	
 	@Column(name="cep_logradouro", nullable=false, unique= true, length=3)

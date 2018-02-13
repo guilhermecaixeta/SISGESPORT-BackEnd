@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -24,12 +25,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils;
+
 @Entity
 @Table(name="equipe")
 public class Equipe implements Serializable {
 
-	private static final long serialVersionUID = 3L;
-	
+	private static final long serialVersionUID = 707899063460697688L;
+
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Integer id;
@@ -40,11 +43,11 @@ public class Equipe implements Serializable {
 	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@Column(name="codigo", nullable=false, length=20, unique=true)
+	@Column(name="codigo_equipe", nullable=false, length=20, unique=true)
 	@NotNull(message="O campo codigo não pode ser nulo.")
 	@NotBlank(message="O campo codigo não pode ser em branco.")
 	@Length(max= 20,message="O codigo nome possui o limite máximo de {max} caracteres.")
-	private String codigo;
+	private String codigoEquipe;
 	
 	@Column(name="cor", nullable=false, length=30)
 	@NotNull(message="O campo cor não pode ser nulo.")
@@ -103,6 +106,14 @@ public class Equipe implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getCodigoEquipe() {
+		return codigoEquipe;
+	}
+
+	public void setCodigoEquipe(String codigoEquipe) {
+		this.codigoEquipe = codigoEquipe;
+	}
+
 	public String getCor() {
 		return cor;
 	}
@@ -143,14 +154,6 @@ public class Equipe implements Serializable {
 		this.time = time;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public List<Aluno> getAluno() {
 		return aluno;
 	}
@@ -158,5 +161,9 @@ public class Equipe implements Serializable {
 	public void setAluno(List<Aluno> aluno) {
 		this.aluno = aluno;
 	}
-	
+
+	@PrePersist
+	public void PrePersist() {
+		codigoEquipe = GeradorCodigoUtils.GerarCodigoUnicoEquipe();
+	}
 }
