@@ -26,12 +26,12 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 public class AlunoRepositorioTeste {
 
 	@Autowired
-	private AlunoRepositorio alunoRepositorio;
+	private AlunoRepositorio aR;
 	@Autowired
 	private TurmaRepositorio tR;
 	
 	private static final String matricula ="20122080010047";
-	private static final Turma turma = turmaAluno();
+	private static final Turma turma = carregarturma();
 	
 	@Before
 	public void setUp() throws Exception{
@@ -45,7 +45,7 @@ public class AlunoRepositorioTeste {
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
-		this.alunoRepositorio.save(aluno);
+		this.aR.save(aluno);
 
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("user");
@@ -55,18 +55,18 @@ public class AlunoRepositorioTeste {
 		aluno2.setSexo('F');
 		aluno2.setMatricula("20131100010042");
 		aluno2.setTurma(turma);
-		this.alunoRepositorio.save(aluno2);
+		this.aR.save(aluno2);
 	}
 	
 	@After
 	public final void tearDown() {
-		this.alunoRepositorio.deleteAll();
+		this.aR.deleteAll();
 	}
 	
 	@Test
 	public void testBuscarPorTurma() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Aluno> aluno = this.alunoRepositorio.findByTurmaId(turma.getId(), page);
+		Page<Aluno> aluno = this.aR.findByTurmaId(turma.getId(), page);
 		
 		assertEquals(2, aluno.getNumberOfElements());
 		assertNotNull(aluno);
@@ -74,12 +74,12 @@ public class AlunoRepositorioTeste {
 
 	@Test
 	public void testBuscarPorMatricula() {
-		Aluno a = this.alunoRepositorio.findByMatricula(matricula);
+		Aluno a = this.aR.findByMatricula(matricula);
 		assertNotNull(a);
 		assertEquals(matricula, a.getMatricula());
 	}
 	
-	private static Turma turmaAluno() {
+	private static Turma carregarturma() {
 		Turma t = new Turma();
 		t.setData_inicial_turma(Calendar.getInstance());
 		t.setData_limite(Calendar.getInstance());

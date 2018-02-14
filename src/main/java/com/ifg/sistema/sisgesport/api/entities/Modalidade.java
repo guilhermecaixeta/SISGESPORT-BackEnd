@@ -37,8 +37,6 @@ public class Modalidade  implements Serializable{
 	private String nome;
 	
 	@Column(name="descricao", length=400)
-	@NotNull(message="O campo descricao não pode ser nulo.")
-	@NotBlank(message="O campo descricao não pode ser em branco.")
 	@Length(max= 400,message="O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	

@@ -42,16 +42,10 @@ public class Posicao implements Serializable {
 	@Length(max= 30,message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
-	@Column(name="num_max_jogador", nullable= false, length= 99)
-	@NotNull(message="O campo quantidade máxima de jogadores não pode ser nulo.")
-	@NotBlank(message="O campo quantidade máxima de jogadores não pode ser em branco.")
-	@Length(max= 99,message="O campo quantidade máxima de jogadores possui o limite máximo de {max} jogadores.")
+	@Column(name="num_max_jogador", nullable= false)
 	private int num_max_jogador;
 	
-	@Column(name="num_min_jogador", nullable= false, length= 1)
-	@NotNull(message="O campo quantidade miníma de jogadores não pode ser nulo.")
-	@NotBlank(message="O campo quantidade miníma de jogadores não pode ser em branco.")
-	@Length(min= 1,message="O campo quantidade miníma de jogadores possui o limite minímo de {min} jogadores.")
+	@Column(name="num_min_jogador", nullable= false)
 	private int num_min_jogador;
 	
 	@ManyToMany(fetch=FetchType.LAZY)

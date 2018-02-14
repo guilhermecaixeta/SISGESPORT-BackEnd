@@ -36,16 +36,16 @@ public class TimeRepositorioTeste {
 	@Autowired
 	private EquipeRepositorio eR;
 	@Autowired
-	private EventoRepositorio eventoRepositorio;
+	private EventoRepositorio evR;
 	@Autowired
-	private ServidorRepositorio servidorRepositorio;
+	private ServidorRepositorio svR;
 	@Autowired
-	private CargoRepositorio cargoRepositorio;
+	private CargoRepositorio crR;
 	@Autowired
 	private ModalidadeRepositorio mR;
 	@Autowired
 	private TipoPontoRepositorio tpR;
-	
+
 	private static final Evento evento = CarregaEvento();
 	private static final Cargo cargo = cargoServidor();
 	private static final Servidor servidor = carregaServidor();
@@ -56,9 +56,9 @@ public class TimeRepositorioTeste {
 	
 	@Before
 	public void setUp() throws Exception{
-		cargoRepositorio.save(cargo);
-		servidorRepositorio.save(servidor);
-		eventoRepositorio.save(evento);
+		crR.save(cargo);
+		svR.save(servidor);
+		evR.save(evento);
 		eR.save(equipe);
 		tpR.save(ponto);
 		mR.save(modalidade);
