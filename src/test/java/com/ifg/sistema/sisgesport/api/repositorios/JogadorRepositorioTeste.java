@@ -71,7 +71,7 @@ public class JogadorRepositorioTeste {
 	private static final Modalidade modalidade = carregarModalidade();
 	private static final Time time = carregarTime();
 	private static final Posicao posicao = carregarPosicao();
-	private static final Jogador jogador = carregarJogador();
+	private static int id_posicao;
 
 	@Before
 	public void setUp() throws Exception{
@@ -85,7 +85,14 @@ public class JogadorRepositorioTeste {
 		mR.save(modalidade);
 		tmR.save(time);
 		psR.save(posicao);
-		jR.save(jogador);
+		
+		Jogador j = new Jogador();
+		j.setJogador(aluno);
+		j.setNum_camisa(10);
+		j.setTime(time);
+		j.setPosicao(posicao);
+		jR.save(j);
+		id_posicao = j.getId();
 	}
 	
 	@After
@@ -123,12 +130,12 @@ public class JogadorRepositorioTeste {
 		assertEquals(1, listaJogador.getTotalElements());
 	}
 	
-//	@Test
-//	public void testBuscarPorId() {
-//		Jogador j = this.jR.findById(aluno.getId());
-//		
-//		assertNotNull(j);
-//	}
+	@Test
+	public void testBuscarPorId() {
+		Jogador j = this.jR.findById(id_posicao);
+		
+		assertNotNull(j);
+	}
 	
 	private static Turma carregarTurma() {
 		Turma t = new Turma();
@@ -231,14 +238,5 @@ public class JogadorRepositorioTeste {
 		t.setNum_vitoria(0);
 		t.setPontuacao(0);
 		return t;
-	}
-	
-	private static Jogador carregarJogador() {
-		Jogador j = new Jogador();
-		j.setJogador(aluno);
-		j.setNum_camisa(10);
-		j.setTime(time);
-		j.setPosicao(posicao);
-		return j;
 	}
 }
