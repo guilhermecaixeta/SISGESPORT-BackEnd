@@ -70,7 +70,7 @@ public class Imagem implements Serializable {
 	inverseJoinColumns =
 	@JoinColumn(name="informacao_evento", referencedColumnName="id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"imagem", "informacao_evento"})})
-	private List<Informacao_Evento> informacao_evento = new ArrayList<Informacao_Evento>();
+	private List<Informacao_Evento> informacaoEvento = new ArrayList<Informacao_Evento>();
 	
 	public Imagem() {	}
 
@@ -131,11 +131,11 @@ public class Imagem implements Serializable {
 	}
 	
 	public List<Informacao_Evento> getInformacao_evento() {
-		return informacao_evento;
+		return informacaoEvento;
 	}
 
-	public void setInformacao_evento(List<Informacao_Evento> informacao_evento) {
-		this.informacao_evento = informacao_evento;
+	public void setInformacao_evento(List<Informacao_Evento> informacaoEvento) {
+		this.informacaoEvento = informacaoEvento;
 	}
 
 	public void setTamanho(Double tamanho) {
