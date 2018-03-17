@@ -45,7 +45,7 @@ public class Imagem implements Serializable {
 	
 	@Column(name="descricao_imagem", length=120)
 	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
-	private String descricao_imagem;
+	private String descricaoImagem;
 	
 	@Column(name="nome", length=120)
 	@Length(max=120, message="O campo nome possui o limite máximo de {max} caracteres.")
@@ -57,7 +57,7 @@ public class Imagem implements Serializable {
 	
 	@Column(name="data_imagem")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_imagem;
+	private Date dataImagem;
 
 	@ManyToOne
 	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
@@ -90,12 +90,12 @@ public class Imagem implements Serializable {
 		this.imagem = imagem;
 	}
 
-	public String getDescricao_imagem() {
-		return descricao_imagem;
+	public String getDescricaoImagem() {
+		return descricaoImagem;
 	}
 
-	public void setDescricao_imagem(String descricao_imagem) {
-		this.descricao_imagem = descricao_imagem;
+	public void setDescricaoImagem(String descricaoImagem) {
+		this.descricaoImagem = descricaoImagem;
 	}
 
 	public String getNome() {
@@ -106,44 +106,40 @@ public class Imagem implements Serializable {
 		this.nome = nome;
 	}
 
-	public double getTamanho() {
+	public Double getTamanho() {
 		return tamanho;
-	}
-
-	public void setTamanho(double tamanho) {
-		this.tamanho = tamanho;
-	}
-
-	public Date getData_imagem() {
-		return data_imagem;
-	}
-
-	public void setData_imagem(Date data_imagem) {
-		this.data_imagem = data_imagem;
-	}
-
-	public Entidade_Comum getEntidade_comum() {
-		return entidade_comum;
-	}
-
-	public void setEntidade_comum(Entidade_Comum entidade_comum) {
-		this.entidade_comum = entidade_comum;
-	}
-	
-	public List<Informacao_Evento> getInformacao_evento() {
-		return informacaoEvento;
-	}
-
-	public void setInformacao_evento(List<Informacao_Evento> informacaoEvento) {
-		this.informacaoEvento = informacaoEvento;
 	}
 
 	public void setTamanho(Double tamanho) {
 		this.tamanho = tamanho;
 	}
 
+	public Date getDataImagem() {
+		return dataImagem;
+	}
+
+	public void setDataImagem(Date dataImagem) {
+		this.dataImagem = dataImagem;
+	}
+
+	public Entidade_Comum getEntidadeComum() {
+		return entidade_comum;
+	}
+
+	public void setEntidadeComum(Entidade_Comum entidadeComum) {
+		this.entidade_comum = entidadeComum;
+	}
+
+	public List<Informacao_Evento> getInformacaoEvento() {
+		return informacaoEvento;
+	}
+
+	public void setInformacaoEvento(List<Informacao_Evento> informacaoEvento) {
+		this.informacaoEvento = informacaoEvento;
+	}
+
 	@PrePersist
 	public void PrePersist() {
-		data_imagem = new Date();
+		dataImagem = new Date();
 	}
 }

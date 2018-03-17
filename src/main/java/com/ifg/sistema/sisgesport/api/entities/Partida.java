@@ -28,10 +28,10 @@ public class Partida extends Entidade_Comum  implements Serializable {
 
 	@Column(name="data_partida")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_partida;
+	private Date dataPartida;
 	
 	@Column(name="duracao_partida")
-	private double duracao_partida;
+	private double duracaoPartida;
 	
 	@Column(name="acrescimo")
 	private double acrescimo;
@@ -43,11 +43,11 @@ public class Partida extends Entidade_Comum  implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="time_casa", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_time_casa_partida"))
-	private Time time_casa;
+	private Time timeCasa;
 	
 	@ManyToOne
 	@JoinColumn(name="time_visita", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_time_visita_partida"))
-	private Time time_visita;
+	private Time timeVisita;
 	
 	@ManyToOne
 	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_partida"))
@@ -59,45 +59,45 @@ public class Partida extends Entidade_Comum  implements Serializable {
 	private Modalidade modalidade;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="partida")
-	private List<Partida_Penalidade> partida_penalidade = new ArrayList<Partida_Penalidade>();
+	private List<Partida_Penalidade> partidaPenalidade = new ArrayList<Partida_Penalidade>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="partida")
-	private List<Partida_Ponto> partida_ponto = new ArrayList<Partida_Ponto>();
+	private List<Partida_Ponto> partidaPonto = new ArrayList<Partida_Ponto>();
 
 	public Partida() {	}
 
 	public void AdicionarPartidaPenalidade(Partida_Penalidade obj) {
 	obj.setPartida(this);
-	this.partida_penalidade.add(obj);
+	this.partidaPenalidade.add(obj);
 	}
 
 	public void RemoverPartidaPenalidade(int id) {
-		this.partida_penalidade.remove(id);
+		this.partidaPenalidade.remove(id);
 	}
 	
 	public void AdicionarPartidaPonto(Partida_Ponto obj) {
 	obj.setPartida(this);
-	this.partida_ponto.add(obj);
+	this.partidaPonto.add(obj);
 	}
 
 	public void RemoverPartidaPonto(int id) {
-		this.partida_ponto.remove(id);
+		this.partidaPonto.remove(id);
 	}
 
-	public Date getData_partida() {
-		return data_partida;
+	public Date getDataPartida() {
+		return dataPartida;
 	}
 
-	public void setData_partida(Date data_partida) {
-		this.data_partida = data_partida;
+	public void setDataPartida(Date dataPartida) {
+		this.dataPartida = dataPartida;
 	}
 
-	public double getDuracao_partida() {
-		return duracao_partida;
+	public double getDuracaoPartida() {
+		return duracaoPartida;
 	}
 
-	public void setDuracao_partida(double duracao_partida) {
-		this.duracao_partida = duracao_partida;
+	public void setDuracaoPartida(double duracaoPartida) {
+		this.duracaoPartida = duracaoPartida;
 	}
 
 	public double getAcrescimo() {
@@ -116,20 +116,20 @@ public class Partida extends Entidade_Comum  implements Serializable {
 		this.juiz = juiz;
 	}
 
-	public Time getTime_casa() {
-		return time_casa;
+	public Time getTimeCasa() {
+		return timeCasa;
 	}
 
-	public void setTime_casa(Time time_casa) {
-		this.time_casa = time_casa;
+	public void setTimeCasa(Time timeCasa) {
+		this.timeCasa = timeCasa;
 	}
 
-	public Time getTime_visita() {
-		return time_visita;
+	public Time getTimeVisita() {
+		return timeVisita;
 	}
 
-	public void setTime_visita(Time time_visita) {
-		this.time_visita = time_visita;
+	public void setTimeVisita(Time timeVisita) {
+		this.timeVisita = timeVisita;
 	}
 
 	public Evento getEvento() {
@@ -148,20 +148,19 @@ public class Partida extends Entidade_Comum  implements Serializable {
 		this.modalidade = modalidade;
 	}
 
-	public List<Partida_Penalidade> getPartida_penalidade() {
-		return partida_penalidade;
+	public List<Partida_Penalidade> getPartidaPenalidade() {
+		return partidaPenalidade;
 	}
 
-	public void setPartida_penalidade(List<Partida_Penalidade> partida_penalidade) {
-		this.partida_penalidade = partida_penalidade;
+	public void setPartidaPenalidade(List<Partida_Penalidade> partidaPenalidade) {
+		this.partidaPenalidade = partidaPenalidade;
 	}
 
-	public List<Partida_Ponto> getPartida_ponto() {
-		return partida_ponto;
+	public List<Partida_Ponto> getPartidaPonto() {
+		return partidaPonto;
 	}
 
-	public void setPartida_ponto(List<Partida_Ponto> partida_ponto) {
-		this.partida_ponto = partida_ponto;
+	public void setPartidaPonto(List<Partida_Ponto> partidaPonto) {
+		this.partidaPonto = partidaPonto;
 	}
-	
 }

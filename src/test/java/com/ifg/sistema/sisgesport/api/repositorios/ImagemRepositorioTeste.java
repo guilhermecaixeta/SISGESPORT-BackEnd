@@ -54,7 +54,7 @@ public class ImagemRepositorioTeste {
 		try {
 		i.setNome("amor.jpeg");
 		i.setTamanho(100.20);
-		i.setDescricao_imagem("Lorem ipsulun");
+		i.setDescricaoImagem("Lorem ipsulun");
 		Path path = Paths.get("G:/Imagens/imagens e videos de humor/amor.jpeg");
 		i.setImagem(Files.readAllBytes(path));
 

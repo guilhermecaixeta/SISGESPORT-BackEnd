@@ -72,8 +72,8 @@ public class Endereco implements Serializable {
 		return entidade_comum;
 	}
 
-	public void setObjeto_comum(Entidade_Comum entidade_comum) {
+	public void setEntidade_comum(Entidade_Comum entidade_comum) {
 		this.entidade_comum = entidade_comum;
 	}
-	
+
 }

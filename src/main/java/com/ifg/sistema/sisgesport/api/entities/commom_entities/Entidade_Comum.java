@@ -34,7 +34,7 @@ public class Entidade_Comum {
 	public Entidade_Comum() {}
 
 	public void AdicionarEndereco(Endereco obj) {
-	obj.setObjeto_comum(this);
+	obj.setEntidade_comum(this);
 	this.endereco.add(obj);
 	}
 
@@ -43,7 +43,7 @@ public class Entidade_Comum {
 	}
 	
 	public void AdicionarImagem(Imagem obj) {
-	obj.setEntidade_comum(this);
+	obj.setEntidadeComum(this);
 	this.imagem.add(obj);
 	}
 

@@ -15,8 +15,14 @@ public interface PartidaRepositorio  extends JpaRepository<Partida, Long> {
 	List<Partida> findById(Integer id);
 	
 	@Transactional(readOnly=true)
+	List<Partida> findByTimeCasaId(Integer id_time_casa);
+	
+	@Transactional(readOnly=true)
+	Page<Partida> findByTimeCasaId(Integer id_time_casa, Pageable page);
+	
+	@Transactional(readOnly=true)
 	List<Partida> findByEventoId(Integer id_evento);
 	
 	@Transactional(readOnly=true)
-	Page<Partida> findByEvento(Integer id_evento, Pageable page);
+	Page<Partida> findByEventoId(Integer id_evento, Pageable page);
 	}
