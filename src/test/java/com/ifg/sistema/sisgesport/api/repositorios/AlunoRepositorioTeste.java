@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ifg.sistema.sisgesport.api.entities.*;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -45,6 +46,7 @@ public class AlunoRepositorioTeste {
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
+		aluno.setPerfil(PerfilSistema.ROLE_USUARIO);
 		this.aR.save(aluno);
 
 		Aluno aluno2 = new Aluno();
@@ -55,6 +57,8 @@ public class AlunoRepositorioTeste {
 		aluno2.setSexo('F');
 		aluno2.setMatricula("20131100010042");
 		aluno2.setTurma(turma);
+		aluno2.setPerfil(PerfilSistema.ROLE_USUARIO);
+
 		this.aR.save(aluno2);
 	}
 	

@@ -30,6 +30,7 @@ import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.entities.Time;
 import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
 import com.ifg.sistema.sisgesport.api.entities.Turma;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -155,6 +156,7 @@ public class JogadorRepositorioTeste {
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
+		aluno.setPerfil(PerfilSistema.ROLE_USUARIO);
 		return aluno;
 		}
 	private static Cargo carregarCargo() {
@@ -173,7 +175,7 @@ public class JogadorRepositorioTeste {
 		serv.setSexo('M');
 		serv.setMatricula_siap("20122089010047");
 		serv.setCargo(cargo);
-		serv.setAdmin_sistema(true);
+		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
 	

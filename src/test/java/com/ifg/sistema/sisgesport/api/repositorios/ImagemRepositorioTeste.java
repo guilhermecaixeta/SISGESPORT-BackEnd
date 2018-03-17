@@ -23,6 +23,7 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
 import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -104,7 +105,7 @@ public class ImagemRepositorioTeste {
 		serv.setSexo('M');
 		serv.setMatricula_siap("20122080010047");
 		serv.setCargo(cargo);
-		serv.setAdmin_sistema(true);
+		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
 	

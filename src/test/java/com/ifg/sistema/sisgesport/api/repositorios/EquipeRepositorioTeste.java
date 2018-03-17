@@ -21,6 +21,7 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -91,7 +92,7 @@ public class EquipeRepositorioTeste {
 		serv.setSexo('M');
 		serv.setMatricula_siap("20122080010047");
 		serv.setCargo(cargo);
-		serv.setAdmin_sistema(true);
+		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
 	

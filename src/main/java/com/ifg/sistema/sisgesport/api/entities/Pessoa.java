@@ -4,7 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -13,8 +14,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -49,6 +50,10 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message="O campo data de nascimento não pode ser nulo.")
 	private Date data_nasc;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="perfil" ,nullable = false)
+	private PerfilSistema perfil;
 	
 	public String getNome() {
 		return nome;
@@ -88,5 +93,14 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 
 	public void setData_nasc(Date data_nasc) {
 		this.data_nasc = data_nasc;
-	}	
+	}
+
+	public PerfilSistema getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(PerfilSistema perfil) {
+		this.perfil = perfil;
+	}
+
 }

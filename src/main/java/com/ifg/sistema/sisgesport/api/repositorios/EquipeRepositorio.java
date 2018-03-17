@@ -8,15 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
-
+@Transactional(readOnly=true)
 public interface EquipeRepositorio extends JpaRepository<Equipe, Integer> {
 
-	@Transactional(readOnly=true)
 	Equipe findByCodigoEquipe(String codigo);
 
-	@Transactional(readOnly=true)
 	List<Equipe> findByEventoId(Integer id);
 	
-	@Transactional(readOnly=true)
 	Page<Equipe> findByEventoId(Integer id_equipe, Pageable pageable);
 }

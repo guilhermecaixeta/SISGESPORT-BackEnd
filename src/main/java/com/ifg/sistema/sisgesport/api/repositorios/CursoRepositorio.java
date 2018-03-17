@@ -8,15 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Curso;
-
+@Transactional(readOnly=true)
 public interface CursoRepositorio extends JpaRepository<Curso, Long> {
 	
-	@Transactional(readOnly= true)
 	Curso findById(Integer id);
 	
-	@Transactional(readOnly= true)
 	List<Curso> findByInstituicaoId(Integer id_instituicao);
 	
-	@Transactional(readOnly= true)
 	Page<Curso> findByInstituicaoId(Integer id_instituicao, Pageable page);
 }

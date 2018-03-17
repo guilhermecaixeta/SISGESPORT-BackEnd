@@ -58,7 +58,7 @@ public class AlunoServiceImplementation implements AlunoService{
 	
 	@Override
 	public void Deletar(Aluno aluno) {
-		log.info("Deletando dado que possui o id: {}", aluno);
+		log.info("Deletando dado que possui o id: {}", aluno.getId());
 		alunoRepositorio.delete(aluno);
 	}
 }

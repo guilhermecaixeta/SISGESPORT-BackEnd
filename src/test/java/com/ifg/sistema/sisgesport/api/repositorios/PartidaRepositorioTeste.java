@@ -25,6 +25,7 @@ import com.ifg.sistema.sisgesport.api.entities.Partida;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.entities.Time;
 import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -48,6 +49,7 @@ public class PartidaRepositorioTeste {
 	private TipoPontoRepositorio tpR;
 	@Autowired
 	private PartidaRepositorio pR;
+	
 	private static final Evento evento = CarregaEvento();
 	private static final Cargo cargo = cargoServidor();
 	private static final Servidor servidor = carregaServidor();
@@ -120,7 +122,7 @@ public class PartidaRepositorioTeste {
 		serv.setSexo('M');
 		serv.setMatricula_siap("20122080010047");
 		serv.setCargo(cargo);
-		serv.setAdmin_sistema(true);
+		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
 	

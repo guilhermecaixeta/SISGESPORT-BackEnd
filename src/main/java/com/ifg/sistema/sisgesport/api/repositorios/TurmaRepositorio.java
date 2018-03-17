@@ -8,15 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Turma;
-
+@Transactional(readOnly=true)
 public interface TurmaRepositorio  extends JpaRepository<Turma, Long> {
 
-	@Transactional(readOnly=true)
 	Turma findById(Integer id);
 	
-	@Transactional(readOnly=true)
 	List<Turma> findByCursoId(Integer id_curso);
 	
-	@Transactional(readOnly=true)
 	Page<Turma> findByCursoId(Integer id_curso, Pageable page);
 }

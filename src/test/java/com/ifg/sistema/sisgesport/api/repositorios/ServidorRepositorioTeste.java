@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ifg.sistema.sisgesport.api.entities.*;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
@@ -42,7 +43,7 @@ public class ServidorRepositorioTeste {
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
 		serv.setMatricula_siap(matriculasiap);
-		serv.setAdmin_sistema(true);
+		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv);
 		
 		Servidor serv2 = new Servidor();
@@ -53,7 +54,7 @@ public class ServidorRepositorioTeste {
 		serv2.setSexo('F');
 		serv2.setMatricula_siap("20122080010042");
 		serv2.setCargo(cargo);
-		serv2.setAdmin_sistema(false);
+		serv2.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv2);
 	}
 	
