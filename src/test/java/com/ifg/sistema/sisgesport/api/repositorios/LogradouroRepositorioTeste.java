@@ -1,24 +1,24 @@
-package com.ifg.sistema.sisgesport.api.repositorios;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.ifg.sistema.sisgesport.api.entities.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("teste")
-public class LogradouroRepositorioTeste {
+	package com.ifg.sistema.sisgesport.api.repositorios;
 	
+	import static org.junit.Assert.assertEquals;
+	import static org.junit.Assert.assertNotNull;
+	
+	import org.junit.After;
+	import org.junit.Before;
+	import org.junit.Test;
+	import org.junit.runner.RunWith;
+	import org.springframework.beans.factory.annotation.Autowired;
+	import org.springframework.boot.test.context.SpringBootTest;
+	import org.springframework.test.context.ActiveProfiles;
+	import org.springframework.test.context.junit4.SpringRunner;
+	
+	import com.ifg.sistema.sisgesport.api.entities.*;
+	
+	@RunWith(SpringRunner.class)
+	@SpringBootTest
+	@ActiveProfiles("teste")
+	public class LogradouroRepositorioTeste {
+		
 	@Autowired
 	private EstadoRepositorio esR;
 	@Autowired
@@ -36,7 +36,7 @@ public class LogradouroRepositorioTeste {
 	private static final Estado estado = Estado();
 	private static final Municipio municipio = Municipio();
 	private static final Bairro bairro = Bairro();
-
+	
 	@Before
 	public void setUp() throws Exception{
 		esR.save(estado);
@@ -56,16 +56,23 @@ public class LogradouroRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorCepNotNull() {
-	Logradouro log= lR.findByCeplogradouro(cepLogradouro); 	
-
-	assertNotNull(log);
+		Logradouro log= lR.findByCeplogradouro(cepLogradouro); 	
+		
+		assertNotNull(log);
 	}
 	
 	@Test
 	public void testBuscarPorCepEquals() {
 		Logradouro log= lR.findByCeplogradouro(cepLogradouro);
+		
+		assertEquals(cepLogradouro, log.getCep_logradouro());
+	}
 	
-	assertEquals(cepLogradouro, log.getCep_logradouro());
+	@Test
+	public void testBuscarPorCepCompleto() {
+		Logradouro log= lR.findByBairroMunicipioCepmunicipioAndBairroCepbairroAndCeplogradouro(cepMun, cepBairro, cepLogradouro);
+		
+		assertNotNull(log);
 	}
 	
 	private static Estado Estado() {
@@ -90,5 +97,5 @@ public class LogradouroRepositorioTeste {
 		bai.setCep_bairro(cepBairro);
 		bai.setMunicipio(municipio);
 		return bai;
+		}
 	}
-}

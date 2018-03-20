@@ -36,7 +36,7 @@ public class Imagem implements Serializable {
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 	
 	@NotNull(message="O campo imagem deve ser preenchido.")
 	@Column(name="imagem", nullable=false)
@@ -74,11 +74,11 @@ public class Imagem implements Serializable {
 	
 	public Imagem() {	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

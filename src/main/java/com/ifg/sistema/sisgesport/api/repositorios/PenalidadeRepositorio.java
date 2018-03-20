@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 @Transactional(readOnly=true)
 public interface PenalidadeRepositorio extends JpaRepository<Penalidade, Long> {
-
-	Penalidade findById(Integer id);
 	
-	Penalidade findByModalidadeId(Integer id);
+	Penalidade findByNome(String nome);
+	
+	Penalidade findByModalidadeId(Long id);
 }

@@ -20,45 +20,36 @@ public class AlunoServiceImplementation implements AlunoService{
 	@Autowired
 	private AlunoRepositorio alunoRepositorio;
 	
-	@Override
 	public Optional<Aluno> BuscarPorMatricula(String matricula){
 		log.info("realizando a busca por matrícula {}", matricula);
 		return Optional.ofNullable(alunoRepositorio.findByMatricula(matricula));
 	}
 	
-	@Override
-	public Optional<List<Aluno>> BuscarPorIdTurma(Integer id){
-		log.info("realizando a busca pelo id da turma {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id));
+	public Optional<List<Aluno>> BuscarPorIdTurma(Long id_turma){
+		log.info("realizando a busca pelo id da turma {}", id_turma);
+		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id_turma));
 	}
 	
-	@Override
-	public Optional<Page<Aluno>> BuscarPorIdTurmaPagination(Integer id, Pageable pageable){
-		log.info("realizando a busca por matrícula {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id, pageable));
+	public Optional<Page<Aluno>> BuscarPorIdTurmaPaginavel(Long id_turma, Pageable pageable){
+		log.info("realizando a busca por matrícula {}", id_turma);
+		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id_turma, pageable));
+	}
+	public Optional<List<Aluno>> BuscarPorIdEquipe(Long id_equipe){
+		log.info("realizando a busca pelo id da turma {}", id_equipe);
+		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id_equipe));
 	}
 	
-	@Override
-	public Optional<List<Aluno>> BuscarPorIdEquipe(Integer id){
-		log.info("realizando a busca pelo id da turma {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id));
+	public Optional<Page<Aluno>> BuscarPorIdEquipePaginavel(Long id_equipe, Pageable pageable){
+		log.info("realizando a busca por matrícula {}", id_equipe);
+		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id_equipe, pageable));
 	}
 	
-	@Override
-	public Optional<Page<Aluno>> BuscarPorIdEquipePagination(Integer id, Pageable pageable){
-		log.info("realizando a busca por matrícula {}", id);
-		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id, pageable));
+	public Optional<Aluno> BuscarPorId(Long id){
+		log.info("Buscando o aluno pelo id {}", id);
+		return Optional.ofNullable(alunoRepositorio.findOne(id));
 	}
-	
-	@Override
 	public Aluno Salvar(Aluno aluno){
 		log.info("Salvando dado: {}", aluno);
 		return alunoRepositorio.save(aluno);
-	}
-	
-	@Override
-	public void Deletar(Aluno aluno) {
-		log.info("Deletando dado que possui o id: {}", aluno.getId());
-		alunoRepositorio.delete(aluno);
 	}
 }

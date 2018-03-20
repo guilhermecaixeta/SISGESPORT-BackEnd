@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 @Transactional(readOnly=true)
 public interface ModalidadeRepositorio extends JpaRepository<Modalidade, Long> {
-
-	Modalidade findById(Integer id);
 	
 	Modalidade findByNome(String nome);
 }

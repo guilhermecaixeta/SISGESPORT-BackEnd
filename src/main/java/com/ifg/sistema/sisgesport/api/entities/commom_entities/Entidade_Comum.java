@@ -23,7 +23,7 @@ import com.ifg.sistema.sisgesport.api.entities.Imagem;
 public class Entidade_Comum {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidade_comum")
 	private List<Endereco> endereco = new ArrayList<Endereco>();
@@ -51,14 +51,14 @@ public class Entidade_Comum {
 		this.imagem.remove(id);
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public List<Endereco> getEndereco() {
 		return endereco;
 	}
@@ -74,4 +74,5 @@ public class Entidade_Comum {
 	public void setImagem(List<Imagem> imagem) {
 		this.imagem = imagem;
 	}
+
 }

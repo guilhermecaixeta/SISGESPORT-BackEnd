@@ -72,8 +72,8 @@ public class TimeRepositorioTeste {
 	}
 	
 	@Test
-	public void testBuscarPorId() {
-		Time t = this.tmR.findById(time.getId());
+	public void testBuscarPorCodigoEquipe() {
+		Time t = this.tmR.findByEquipeCodigoEquipe(equipe.getCodigoEquipe());
 		
 		assertNotNull(t);
 	}

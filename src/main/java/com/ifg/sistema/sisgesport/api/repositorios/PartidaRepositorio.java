@@ -10,14 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
 @Transactional(readOnly=true)
 public interface PartidaRepositorio  extends JpaRepository<Partida, Long> {
-
-	List<Partida> findById(Integer id);
 	
-	List<Partida> findByTimeCasaId(Integer id_time_casa);
+	List<Partida> findByTimeCasaId(Long id_time_casa);
 	
-	Page<Partida> findByTimeCasaId(Integer id_time_casa, Pageable page);
+	Page<Partida> findByTimeCasaId(Long id_time_casa, Pageable page);
 	
-	List<Partida> findByEventoId(Integer id_evento);
+	List<Partida> findByEventoId(Long id_evento);
 	
-	Page<Partida> findByEventoId(Integer id_evento, Pageable page);
+	Page<Partida> findByEventoId(Long id_evento, Pageable page);
 	}

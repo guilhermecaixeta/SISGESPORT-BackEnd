@@ -28,7 +28,6 @@ public class InstituicaoRepositorioTeste {
 	private CargoRepositorio cargoRepositorio;
 	
 	private static final Cargo cargo = CarregarCargo();
-	private int idInstituicao;
 	
 	@Before
 	public void setUp() throws Exception{
@@ -40,7 +39,6 @@ public class InstituicaoRepositorioTeste {
 		instituto.setNome("IFG - Campus Luziânia.");
 		instituto.setCargos(cargos);
 		instituicaoRepo.save(instituto);
-		idInstituicao = instituto.getId();
 	}
 	
 	@After
@@ -50,7 +48,7 @@ public class InstituicaoRepositorioTeste {
 	
 	@Test
 	public void TesteBuscarInstituto() {
-		Instituicao ins = instituicaoRepo.findById(idInstituicao);
+		Instituicao ins = instituicaoRepo.findByNome("IFG - Campus Luziânia.");
 		
 		assertNotNull(ins);
 	}

@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
@@ -40,14 +42,21 @@ public class TipoPontoRepositorioTeste {
 	}
 	
 	@Test
-	public void carregarTipoPontoPaginado() {
+	public void carregarTipoPontoLista() {
 		List<Tipo_Ponto> pp = tpR.findByModalidadeId(modalidade.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
-	public void carregarTipoPontoLista() {
-		Tipo_Ponto pp = tpR.findById(ponto.getId());
+	public void carregarTipoPontoPaginado() {
+		PageRequest page = new PageRequest(0, 10);
+		Page<Tipo_Ponto> pp = tpR.findByModalidadeId(modalidade.getId(), page);
+		assertNotNull(pp);
+	}
+	
+	@Test
+	public void carregarTipoPontoNome() {
+		Tipo_Ponto pp = tpR.findByNome("gol");
 		assertNotNull(pp);
 	}
 	

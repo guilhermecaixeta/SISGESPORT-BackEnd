@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
 @Transactional(readOnly=true)
 public interface ImagemRepositorio extends JpaRepository<Imagem, Long>{
-
-	Imagem findById(Integer id);
 	
-	List<Imagem> findByInformacaoEventoId(Integer id_informacao_evento);
+	List<Imagem> findByInformacaoEventoId(Long id_informacao_evento);
 }

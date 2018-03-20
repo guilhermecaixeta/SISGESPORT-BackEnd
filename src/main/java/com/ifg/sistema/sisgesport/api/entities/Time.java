@@ -21,7 +21,7 @@ public class Time implements Serializable {
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 	
 	@Column(name="num_vitoria")
 	private int num_vitoria;
@@ -47,11 +47,11 @@ public class Time implements Serializable {
 	
 	public Time() {	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

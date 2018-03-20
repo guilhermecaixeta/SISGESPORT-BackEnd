@@ -45,7 +45,6 @@ public class ImagemRepositorioTeste {
 	private static final Servidor servidor = servidorInformacao();
 	private static final Evento evento = EventoInformacao();
 	private static final Informacao_Evento informacao_evento = carregarInformacaoEvento();
-	private static int id_imagem;
 	@Before
 	public void setUp() throws Exception{
 		cR.save(cargo);
@@ -63,7 +62,6 @@ public class ImagemRepositorioTeste {
 			e.printStackTrace();
 		}
 		imR.save(i);
-		id_imagem = i.getId();
 		List<Imagem> listaI= new ArrayList<Imagem>();
 		listaI.add(i);
 		informacao_evento.setImagem(listaI);
@@ -73,13 +71,6 @@ public class ImagemRepositorioTeste {
 	@After
 	public final void tearDown() {
 		imR.deleteAll();
-	}
-	
-	@Test
-	public void testBuscarPorId() {
-		Imagem imagem = this.imR.findById(id_imagem);
-		
-		assertNotNull(imagem);
 	}
 
 	@Test

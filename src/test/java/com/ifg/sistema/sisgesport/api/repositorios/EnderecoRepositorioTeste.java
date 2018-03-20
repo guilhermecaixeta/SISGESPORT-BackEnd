@@ -40,7 +40,7 @@ public class EnderecoRepositorioTeste {
 	private static final Municipio municipio = Municipio();
 	private static final Bairro bairro = Bairro();
 	private static final Logradouro logradouro = Logradouro();
-	
+	private Long id;
 	@Before
 	public void setUp() throws Exception{
 		Endereco end = new Endereco();
@@ -51,7 +51,7 @@ public class EnderecoRepositorioTeste {
 		end.setComplemento("Qd. 27 Lt. 34");
 		end.setLogradouro(logradouro);
 		eR.save(end);
-		
+		id = end.getId();
 		Endereco end2 = new Endereco();
 		end2.setComplemento("Qd. 27 Lt. 30");
 		end2.setLogradouro(logradouro);
@@ -64,15 +64,14 @@ public class EnderecoRepositorioTeste {
 	}
 	
 	@Test
-	public void testBuscarPorCep() {
-	List<Endereco> lista = eR.findByLogradouroBairroMunicipioCepmunicipioIsAndLogradouroBairroCepbairroIsAndLogradouroCeplogradouro(cepMun, cepBairro, cepLogradouro); 	
+	public void testBuscarPorId() {
+	Endereco endereco = eR.findOne(id); 	
 	
-	assertNotNull(lista);
-	assertEquals(lista.size(), 2);
+	assertNotNull(endereco);
 	}
 	
 	@Test
-	public void testBuscarPorId() {
+	public void testBuscarPorNome() {
 		Endereco end = new Endereco();
 		esR.save(estado);
 		mR.save(municipio);
@@ -82,7 +81,7 @@ public class EnderecoRepositorioTeste {
 		end.setLogradouro(logradouro);
 		eR.save(end);
 		
-	Endereco endereco = eR.findById(end.getId()); 	
+	Endereco endereco = eR.findOne(end.getId()); 	
 	
 	assertNotNull(endereco);
 	}

@@ -13,12 +13,12 @@ public interface AlunoRepositorio extends JpaRepository<Aluno, Long> {
 
 	Aluno findByMatricula(String matricula);
 	
-	List<Aluno> findByTurmaId(int id_turma);
+	List<Aluno> findByTurmaId(Long id);
 	
-	Page<Aluno> findByTurmaId(int id_turma, Pageable pageable);
+	Page<Aluno> findByTurmaId(Long id_turma, Pageable pageable);
 	
-	List<Aluno> findByEquipeId(Integer id_equipe);
+	List<Aluno> findByEquipeId(Long id_equipe);
 	
-	Page<Aluno> findByEquipeId(Integer id_equipe, Pageable pageable);
+	Page<Aluno> findByEquipeId(Long id_equipe, Pageable pageable);
 	
 }

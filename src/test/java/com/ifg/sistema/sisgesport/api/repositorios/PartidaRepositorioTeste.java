@@ -106,13 +106,6 @@ public class PartidaRepositorioTeste {
 		assertNotNull(pp);
 	}
 	
-	@Test
-	public void carregarPartida() {
-		List<Partida> pp = pR.findById(partida.getId());
-		assertNotNull(pp);
-	}
-	
-	
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");

@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -59,8 +61,9 @@ public class EventoRepositorioTeste {
 	}
 	
 	@Test
-	public void testBuscarporId() {
-		Evento evento = evR.findById(ev.getId());
+	public void testBuscarporCriadorPaginavel() {
+		PageRequest page = new PageRequest(0, 10);
+		Page<Evento> evento = evR.findByCriadorMatriculasiap(servidor.getMatricula_siap(), page);
 		assertNotNull(evento);
 	}
 

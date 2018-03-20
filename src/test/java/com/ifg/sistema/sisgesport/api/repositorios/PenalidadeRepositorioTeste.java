@@ -2,6 +2,9 @@ package com.ifg.sistema.sisgesport.api.repositorios;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 
 @RunWith(SpringRunner.class)
@@ -20,15 +24,20 @@ public class PenalidadeRepositorioTeste {
 	
 	@Autowired
 	private PenalidadeRepositorio pR;
-	private Penalidade penal;
+	@Autowired
+	private ModalidadeRepositorio mR;
+	private static final Modalidade modal = carregarModalidade();
 	
 	@Before
 	public void setUp() throws Exception{
+		mR.save(modal);
 		Penalidade p = new Penalidade();
+		List<Modalidade> lista = new ArrayList<Modalidade>();
+		lista.add(modal);
+		p.setModalidade(lista);
 		p.setDescricao("Falta grave");
 		p.setNome("Cartão Vermelho");
 		pR.save(p);
-		penal = p;
 	}
 	
 	@After
@@ -37,9 +46,25 @@ public class PenalidadeRepositorioTeste {
 	}
 	
 	@Test
-	public void TesteBuscarPorId(){
-		Penalidade p = pR.findById(penal.getId());
+	public void TesteBuscarPorNome(){
+		Penalidade p = pR.findByNome("Cartão Vermelho");
 		
 		assertNotNull(p);
+	}
+	
+	@Test
+	public void TesteBuscarPorModalidade(){
+		Penalidade p = pR.findByModalidadeId(modal.getId());
+		
+		assertNotNull(p);
+	}
+	
+	public static Modalidade carregarModalidade() {
+		Modalidade mod = new Modalidade();
+		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
+		mod.setNome("Futebol");
+		mod.setNum_max_jogador(21);
+		mod.setNum_min_jogador(11);
+		return mod;
 	}
 }

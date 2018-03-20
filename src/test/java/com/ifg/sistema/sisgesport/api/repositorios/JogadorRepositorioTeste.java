@@ -72,7 +72,6 @@ public class JogadorRepositorioTeste {
 	private static final Modalidade modalidade = carregarModalidade();
 	private static final Time time = carregarTime();
 	private static final Posicao posicao = carregarPosicao();
-	private static int id_posicao;
 
 	@Before
 	public void setUp() throws Exception{
@@ -93,7 +92,6 @@ public class JogadorRepositorioTeste {
 		j.setTime(time);
 		j.setPosicao(posicao);
 		jR.save(j);
-		id_posicao = j.getId();
 	}
 	
 	@After
@@ -130,14 +128,7 @@ public class JogadorRepositorioTeste {
 		
 		assertEquals(1, listaJogador.getTotalElements());
 	}
-	
-	@Test
-	public void testBuscarPorId() {
-		Jogador j = this.jR.findById(id_posicao);
 		
-		assertNotNull(j);
-	}
-	
 	private static Turma carregarTurma() {
 		Turma t = new Turma();
 		t.setData_inicial_turma(Calendar.getInstance());

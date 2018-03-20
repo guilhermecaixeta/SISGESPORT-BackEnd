@@ -26,7 +26,6 @@ public class ModalidadeRepositorioTeste {
 	private ModalidadeRepositorio mR;
 	@Autowired
 	private TipoPontoRepositorio tpR;
-	private Modalidade modal;
 	@Before
 	public void setUp() throws Exception{
 		Modalidade mod = new Modalidade();
@@ -42,7 +41,6 @@ public class ModalidadeRepositorioTeste {
 		mod.setNum_max_jogador(21);
 		mod.setNum_min_jogador(11);
 		mR.save(mod);
-		modal = mod;
 	}
 	
 	@After
@@ -51,15 +49,15 @@ public class ModalidadeRepositorioTeste {
 	}
 	
 	@Test
-	public void testBuscarPorId() {
-		Modalidade mod = mR.findById(modal.getId());
+	public void testBuscarPorNome() {
+		Modalidade mod = mR.findByNome("Futebol");
 		
 		assertNotNull(mod);
 	}
 	
 	@Test
 	public void testContainsPonto() {
-		Modalidade mod = mR.findById(modal.getId());
+		Modalidade mod = mR.findByNome("Futebol");
 		
 		assertNotNull(mod.getTipoPonto());
 	}

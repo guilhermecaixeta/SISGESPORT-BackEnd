@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 @Transactional(readOnly=true)
 public interface EventoRepositorio extends JpaRepository<Evento, Long> {
-
-	Evento findById(Integer id);
 	
 	List<Evento> findByCriadorMatriculasiap(String matriculaSiap);
 	

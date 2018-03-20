@@ -22,7 +22,7 @@ public class Partida_Penalidade  implements Serializable {
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_jogador_partida_penalidade"))
@@ -44,11 +44,11 @@ public class Partida_Penalidade  implements Serializable {
 
 	public Partida_Penalidade() {	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -64,7 +64,7 @@ public class PosicaoRepositorioTeste {
 	
 	@Test
 	public void testBuscarporId() {
-		Posicao p = this.psR.findById(posicao.getId());
+		Posicao p = this.psR.findByNome("Atacante");
 		
 		assertNotNull(p);
 	}

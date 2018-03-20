@@ -13,7 +13,7 @@ public interface ServidorRepositorio extends JpaRepository<Servidor, Long> {
 
 	Servidor findByMatriculasiap(String matriculasiap);
 	
-	List<Servidor> findByCargoId(Integer id);
+	List<Servidor> findByCargoId(Long id);
 	
-	Page<Servidor> findByCargoInstituicaoId(Integer id, Pageable pageable);
+	Page<Servidor> findByCargoInstituicaoId(Long id, Pageable pageable);
 }

@@ -11,9 +11,7 @@ import com.ifg.sistema.sisgesport.api.entities.Curso;
 @Transactional(readOnly=true)
 public interface CursoRepositorio extends JpaRepository<Curso, Long> {
 	
-	Curso findById(Integer id);
+	List<Curso> findByInstituicaoId(Long id_instituicao);
 	
-	List<Curso> findByInstituicaoId(Integer id_instituicao);
-	
-	Page<Curso> findByInstituicaoId(Integer id_instituicao, Pageable page);
+	Page<Curso> findByInstituicaoId(Long id_instituicao, Pageable page);
 }

@@ -23,7 +23,7 @@ public class Curso implements Serializable {
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 	
 	@Column(name="flg_ativo", nullable=false)
 	@NotNull(message="O campo não pode ser nulo.")
@@ -42,11 +42,11 @@ public class Curso implements Serializable {
 
 	public Curso() {	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

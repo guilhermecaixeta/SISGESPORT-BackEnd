@@ -31,7 +31,6 @@ public class CargoRepositorioTeste {
 	private CargoRepositorio cargoRepositorio;
 	
 	private static final Instituicao instituto = CarregarInstituto();
-	private int idCargo;
 	
 	@Before
 	public void setUp() throws Exception{
@@ -51,19 +50,11 @@ public class CargoRepositorioTeste {
 		cargo2.setInstituicao(lista);
 		cargoRepositorio.save(cargo);
 		cargoRepositorio.save(cargo2);
-		idCargo = cargo.getId();
 	}
 	
 	@After
 	public final void tearDown() {
 		cargoRepositorio.deleteAll();
-	}
-	
-	@Test
-	public void TesteBuscarPorId() {
-		Cargo cg = cargoRepositorio.findById(idCargo);
-		
-		assertNotNull(cg);
 	}
 	
 	@Test
@@ -74,14 +65,14 @@ public class CargoRepositorioTeste {
 	}
 	
 	@Test
-	public void TesteBuscarPorIdInstituto() {
+	public void TesteBuscarPorNomeInstituto() {
 		List<Cargo> listaCargo = cargoRepositorio.findByInstituicaoId(instituto.getId());
 		
 		assertEquals(2, listaCargo.size());
 	}
 	
 	@Test
-	public void TesteBuscarPorIdInstitutoPaginavel() {
+	public void TesteBuscarPorNomeInstitutoPaginavel() {
 		PageRequest page = new PageRequest(0, 10);
 		Page<Cargo> listaCargo = cargoRepositorio.findByInstituicaoId(instituto.getId(), page);
 		

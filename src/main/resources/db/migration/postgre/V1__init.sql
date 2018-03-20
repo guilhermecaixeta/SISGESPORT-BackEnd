@@ -128,7 +128,7 @@
     );
     create table modalidade (
         id int4 not null,
-        descricao varchar(400) not null,
+        descricao varchar(400),
         nome varchar(30) not null,
         num_max_jogador int4,
         num_min_jogador int4,
@@ -190,6 +190,7 @@
         data_nasc timestamp not null,
         login varchar(15) not null,
         nome varchar(50) not null,
+        perfil varchar(255) not null,
         senha varchar(60) not null,
         sexo char(1) not null,
         id int4 not null,
@@ -204,7 +205,6 @@
         primary key (id)
     );
     create table servidor (
-        admin_sistema boolean not null,
         matricula_siap varchar(20) not null,
         id int4 not null,
         cargo int4,

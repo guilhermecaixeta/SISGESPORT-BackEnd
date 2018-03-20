@@ -12,10 +12,8 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 public interface CargoRepositorio extends JpaRepository<Cargo, Long> {
 
 	List<Cargo> findByNomeContains(String nome);
+		
+	List<Cargo> findByInstituicaoId(Long id);
 	
-	Cargo findById(Integer id);
-	
-	List<Cargo> findByInstituicaoId(Integer id);
-	
-	Page<Cargo> findByInstituicaoId(Integer id, Pageable pageable);
+	Page<Cargo> findByInstituicaoId(Long id, Pageable pageable);
 }

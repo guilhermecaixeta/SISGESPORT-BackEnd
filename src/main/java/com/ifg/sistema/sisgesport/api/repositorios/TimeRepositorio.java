@@ -11,9 +11,9 @@ import com.ifg.sistema.sisgesport.api.entities.Time;
 @Transactional(readOnly=true)
 public interface TimeRepositorio extends JpaRepository<Time, Long> {
 
-	Time findById(Integer id);
+	Time findByEquipeCodigoEquipe(String codigo);
 	
-	List<Time> findByEquipeId(Integer id_equipe);
+	List<Time> findByEquipeId(Long id_equipe);
 	
-	Page<Time> findByEquipeId(Integer id_equipe, Pageable page);
+	Page<Time> findByEquipeId(Long id_equipe, Pageable page);
 }

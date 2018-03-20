@@ -23,7 +23,7 @@ public class Municipio implements Serializable {
 
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Integer id;
+	private Long id;
 	
 	@Column(name="nome", nullable=false, unique= true, length=45)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -47,11 +47,11 @@ public class Municipio implements Serializable {
 
 	public Municipio() {	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

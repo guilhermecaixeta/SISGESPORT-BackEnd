@@ -10,14 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Jogador;
 @Transactional(readOnly=true)
 public interface JogadorRepositorio extends JpaRepository<Jogador, Long> {
-
-	Jogador findById(Integer id);
 	
-	List<Jogador> findByTimeId(Integer id_time);
+	List<Jogador> findByTimeId(Long id_time);
 	
-	List<Jogador> findByTimeEquipeId(Integer id_equipe);
+	List<Jogador> findByTimeEquipeId(Long id_equipe);
 	
-	Page<Jogador> findByTimeId(Integer id_time, Pageable page);
+	Page<Jogador> findByTimeId(Long id_time, Pageable page);
 	
-	Page<Jogador> findByTimeEquipeId(Integer id_equipe, Pageable page);
+	Page<Jogador> findByTimeEquipeId(Long id_equipe, Pageable page);
 }

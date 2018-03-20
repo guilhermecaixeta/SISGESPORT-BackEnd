@@ -35,7 +35,6 @@ public class TurmaRepositorioTeste {
 	private static final Instituicao instituto = carregarInstituto();
 	private static final Curso curso = carregarCurso();
 	private static final Turma turma = carregarTurma();
-	private static Integer id_turma = 0;
 	
 	@Before
 	public void setUp() throws Exception{
@@ -48,7 +47,6 @@ public class TurmaRepositorioTeste {
 		turma.setNome("20122/TADS");
 		turma.setCurso(curso);
 		tR.save(turma);
-		id_turma = turma.getId();
 	}
 	
 	@After
@@ -57,8 +55,8 @@ public class TurmaRepositorioTeste {
 	}
 	
 	@Test
-	public void testBuscarPorId() {
-		Turma t = tR.findById(id_turma);
+	public void testBuscarPorNome() {
+		Turma t = tR.findByNome("20122/TADS");
 		
 		assertNotNull(t);
 	}

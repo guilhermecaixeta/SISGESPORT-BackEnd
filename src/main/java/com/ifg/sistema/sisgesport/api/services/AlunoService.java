@@ -10,25 +10,45 @@ import com.ifg.sistema.sisgesport.api.entities.Aluno;
 
 public interface AlunoService {
 	/**
-	 * Realiza uma busca por matricula do aluno
+	 * Busca o aluno pela matricula
+	 * @param matricula
+	 * @return Optional<Aluno>
 	 */
 	Optional<Aluno> BuscarPorMatricula(String matricula);
-	
-	Optional<List<Aluno>> BuscarPorIdTurma(Integer id);
-	
-	Optional<Page<Aluno>> BuscarPorIdTurmaPagination(Integer id, Pageable pageable);
-	
-	Optional<List<Aluno>> BuscarPorIdEquipe(Integer id);
-	
-	Optional<Page<Aluno>> BuscarPorIdEquipePagination(Integer id, Pageable pageable);
-	
 	/**
-	 * Cadastra um novo aluno no banco de dados
+	 * Busca os alunos pelo id da turma
+	 * @param id_turma
+	 * @return Optional<Aluno>
+	 */
+	Optional<List<Aluno>> BuscarPorIdTurma(Long id_turma);
+	/**
+	 * Busca os alunos pelo id da turma com paginacao
+	 * @param id_turma
+	 * @return Optional<Aluno>
+	 */
+	Optional<Page<Aluno>> BuscarPorIdTurmaPaginavel(Long id_turma, Pageable pageable);
+	/**
+	 * Busca os alunos pelo id da equipe
+	 * @param id_equipe
+	 * @return Optional<Aluno>
+	 */
+	Optional<List<Aluno>> BuscarPorIdEquipe(Long id_equipe);
+	/**
+	 * Busca os alunos pelo id da equipe com paginacao
+	 * @param id_turma
+	 * @return Optional<Aluno>
+	 */
+	Optional<Page<Aluno>> BuscarPorIdEquipePaginavel(Long id_equipe, Pageable pageable);
+	/**
+	 * Busca o aluno pelo id
+	 * @param id
+	 * @return Optional<Aluno>
+	 */
+	Optional<Aluno> BuscarPorId(Long id);
+	/**
+	 * Salva um novo aluno no banco de dados
+	 * @param aluno
+	 * @return Aluno
 	 */
 	Aluno Salvar(Aluno aluno);
-	
-	/*
-	 * Deleta um aluno
-	 */
-	void Deletar(Aluno aluno);
 }
