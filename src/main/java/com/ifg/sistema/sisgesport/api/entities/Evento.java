@@ -22,20 +22,20 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 import com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils;
 
 @Entity
 @Table(name="evento")
-public class Evento extends Entidade_Comum implements Serializable{
+public class Evento extends EntidadeComum implements Serializable{
 
 	private static final long serialVersionUID = 1281537055341966013L;
 
 	@Column(name="qnt_equipe", nullable= false)
-	private int qnt_equipes;
+	private int qntEquipes;
 	
 	@Column(name="codigo_evento" ,nullable = false, length=15, unique=true)
-	private String codigo_evento;
+	private String codigoEvento;
 	
 	@Column(name="nome" ,nullable = false, length=45)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -51,135 +51,159 @@ public class Evento extends Entidade_Comum implements Serializable{
 
 	@Column(name="data_inicio_inscricao" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_inicio_inscricao;
+	private Date dataInicioInscricao;
 	
 	@Column(name="data_fim_inscricao" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_fim_inscricao;
+	private Date dataFimInscricao;
 
 	@Column(name="data_criacao" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_criacao;
+	private Date dataCriacao;
 	
 	@Column(name="data_inicio" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_inicio;
+	private Date dataInicio;
 	
 	@Column(name="data_fim" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_fim;
+	private Date dataFim;
 	
 	@ManyToOne
 	@JoinColumn(name="servidor", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_servidor_evento"))
 	private Servidor criador;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="evento")
-	private List<Informacao_Evento> informacao_evento= new ArrayList<Informacao_Evento>();
+	private List<Informacao_Evento> informacaoEvento= new ArrayList<Informacao_Evento>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="evento")
-	private List<Evento_Modalidade> evento_modalidade = new ArrayList<Evento_Modalidade>();
+	private List<Evento_Modalidade> eventoModalidade = new ArrayList<Evento_Modalidade>();
 	
 	public Evento() {}
 
-	public int getQnt_equipes() {
-		return qnt_equipes;
+	public int getQntEquipes() {
+		return qntEquipes;
 	}
 
-	public void setQnt_equipes(int qnt_equipes) {
-		this.qnt_equipes = qnt_equipes;
+
+	public void setQntEquipes(int qntEquipes) {
+		this.qntEquipes = qntEquipes;
 	}
 
-	public String getCodigo_evento() {
-		return codigo_evento;
+
+	public String getCodigoEvento() {
+		return codigoEvento;
 	}
 
-	public void setCodigo_evento(String codigo_evento) {
-		this.codigo_evento = codigo_evento;
+
+	public void setCodigoEvento(String codigoEvento) {
+		this.codigoEvento = codigoEvento;
 	}
+
 
 	public String getNome() {
 		return nome;
 	}
 
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 
 	public String getDescricao() {
 		return descricao;
 	}
 
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public Date getData_inicio_inscricao() {
-		return data_inicio_inscricao;
+
+	public Date getDataInicioInscricao() {
+		return dataInicioInscricao;
 	}
 
-	public void setData_inicio_inscricao(Date data_inicio_inscricao) {
-		this.data_inicio_inscricao = data_inicio_inscricao;
+
+	public void setDataInicioInscricao(Date dataInicioInscricao) {
+		this.dataInicioInscricao = dataInicioInscricao;
 	}
 
-	public Date getData_fim_inscricao() {
-		return data_fim_inscricao;
+
+	public Date getDataFimInscricao() {
+		return dataFimInscricao;
 	}
 
-	public void setData_fim_inscricao(Date data_fim_inscricao) {
-		this.data_fim_inscricao = data_fim_inscricao;
+
+	public void setDataFimInscricao(Date dataFimInscricao) {
+		this.dataFimInscricao = dataFimInscricao;
 	}
 
-	public Date getData_criacao() {
-		return data_criacao;
+
+	public Date getDataCriacao() {
+		return dataCriacao;
 	}
 
-	public void setData_criacao(Date data_criacao) {
-		this.data_criacao = data_criacao;
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
-	public Date getData_inicio() {
-		return data_inicio;
+
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setData_inicio(Date data_inicio) {
-		this.data_inicio = data_inicio;
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public Date getData_fim() {
-		return data_fim;
+
+	public Date getDataFim() {
+		return dataFim;
 	}
 
-	public void setData_fim(Date data_fim) {
-		this.data_fim = data_fim;
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
+
 
 	public Servidor getCriador() {
 		return criador;
 	}
 
+
 	public void setCriador(Servidor criador) {
 		this.criador = criador;
 	}
 
-	public List<Informacao_Evento> getInformacao_evento() {
-		return informacao_evento;
+
+	public List<Informacao_Evento> getInformacaoEvento() {
+		return informacaoEvento;
 	}
 
-	public void setInformacao_evento(List<Informacao_Evento> informacao_evento) {
-		this.informacao_evento = informacao_evento;
+
+	public void setInformacaoEvento(List<Informacao_Evento> informacaoEvento) {
+		this.informacaoEvento = informacaoEvento;
 	}
 
-	public List<Evento_Modalidade> getEvento_modalidade() {
-		return evento_modalidade;
+
+	public List<Evento_Modalidade> getEventoModalidade() {
+		return eventoModalidade;
 	}
 
-	public void setEvento_modalidade(List<Evento_Modalidade> evento_modalidade) {
-		this.evento_modalidade = evento_modalidade;
+
+	public void setEventoModalidade(List<Evento_Modalidade> eventoModalidade) {
+		this.eventoModalidade = eventoModalidade;
 	}
+
 
 	@PrePersist
 	public void PrePersist() {
-		codigo_evento = GeradorCodigoUtils.GerarCodigoUnicoEvento();
-		data_criacao = new Date();
+		codigoEvento = GeradorCodigoUtils.GerarCodigoUnicoEvento();
+		dataCriacao = new Date();
 	}
 }

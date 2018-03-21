@@ -10,4 +10,5 @@ import com.ifg.sistema.sisgesport.api.entities.Imagem;
 public interface ImagemRepositorio extends JpaRepository<Imagem, Long>{
 	
 	List<Imagem> findByInformacaoEventoId(Long id_informacao_evento);
+	List<Imagem> findByEntidadeComumId(Long id_entidade_comum);
 }

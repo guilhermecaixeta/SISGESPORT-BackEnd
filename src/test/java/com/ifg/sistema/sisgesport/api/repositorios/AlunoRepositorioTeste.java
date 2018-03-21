@@ -40,7 +40,7 @@ public class AlunoRepositorioTeste {
 
 		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme");
-		aluno.setData_nasc(new Date());
+		aluno.setDataNascimento(new Date());
 		aluno.setLogin("Guilherme");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
@@ -51,7 +51,7 @@ public class AlunoRepositorioTeste {
 
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("user");
-		aluno2.setData_nasc(new Date());
+		aluno2.setDataNascimento(new Date());
 		aluno2.setLogin("user");
 		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
 		aluno2.setSexo('F');
@@ -85,9 +85,9 @@ public class AlunoRepositorioTeste {
 	
 	private static Turma carregarturma() {
 		Turma t = new Turma();
-		t.setData_inicial_turma(Calendar.getInstance());
-		t.setData_limite(Calendar.getInstance());
-		t.setFlg_ativo(true);
+		t.setDataInicialTurma(Calendar.getInstance());
+		t.setDataLimite(Calendar.getInstance());
+		t.setFlgAtivo(true);
 		t.setNome("20122/TADS");
 		return t;
 	}

@@ -7,7 +7,7 @@ import com.ifg.sistema.sisgesport.api.entities.Municipio;
 @Transactional(readOnly=true)
 public interface MunicipioRepositorio extends JpaRepository<Municipio, Long> {
 
-	Municipio findByCepmunicipio(String cepmunicipio);
+	Municipio findByCepMunicipio(String cepMunicipio);
 	
 	Municipio findByNomeOrSigla(String nome, String sigla);
 }

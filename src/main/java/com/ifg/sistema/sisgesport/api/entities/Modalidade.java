@@ -41,10 +41,10 @@ public class Modalidade  implements Serializable{
 	private String descricao;
 	
 	@Column(name="num_max_jogador" )
-	private int num_max_jogador;
+	private int numMaxJogador;
 	
 	@Column(name="num_min_jogador")
-	private int num_min_jogador;
+	private int numMinJogador;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="modalidade_penalidade", 
@@ -99,20 +99,20 @@ public class Modalidade  implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public int getNum_max_jogador() {
-		return num_max_jogador;
+	public int getNumMaxJogador() {
+		return numMaxJogador;
 	}
 
-	public void setNum_max_jogador(int num_max_jogador) {
-		this.num_max_jogador = num_max_jogador;
+	public void setNumMaxJogador(int numMaxJogador) {
+		this.numMaxJogador = numMaxJogador;
 	}
 
-	public int getNum_min_jogador() {
-		return num_min_jogador;
+	public int getNumMinJogador() {
+		return numMinJogador;
 	}
 
-	public void setNum_min_jogador(int num_min_jogador) {
-		this.num_min_jogador = num_min_jogador;
+	public void setNumMinJogador(int numMinJogador) {
+		this.numMinJogador = numMinJogador;
 	}
 
 	public List<Penalidade> getPenalidade() {
@@ -138,5 +138,5 @@ public class Modalidade  implements Serializable{
 	public void setTipoPonto(List<Tipo_Ponto> tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
-	
+
 }

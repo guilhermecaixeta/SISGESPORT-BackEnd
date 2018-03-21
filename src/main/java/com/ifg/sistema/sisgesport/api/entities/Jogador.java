@@ -29,7 +29,7 @@ public class Jogador implements Serializable {
 	private Long id;
 	
 	@Column(name="num_camisa")
-	private int num_camisa;
+	private int numCamisa;
 
 	@ManyToOne
 	@JoinColumn(name="jogador", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_aluno_jogador"))
@@ -46,29 +46,29 @@ public class Jogador implements Serializable {
 	private Posicao posicao;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
-	private List<Partida_Penalidade> partida_penalidade = new ArrayList<Partida_Penalidade>();
+	private List<Partida_Penalidade> partidaPenalidade = new ArrayList<Partida_Penalidade>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
-	private List<Partida_Ponto> partida_ponto = new ArrayList<Partida_Ponto>();
+	private List<Partida_Ponto> partidaPonto = new ArrayList<Partida_Ponto>();
 
 	public Jogador() {	}
 
 	public void AdicionarPartidaPenalidade(Partida_Penalidade obj) {
 	obj.setJogador(this);
-	this.partida_penalidade.add(obj);
+	this.partidaPenalidade.add(obj);
 	}
 
 	public void RemoverPartidaPenalidade(int id) {
-		this.partida_penalidade.remove(id);
+		this.partidaPenalidade.remove(id);
 	}
 	
 	public void AdicionarPartidaPonto(Partida_Ponto obj) {
 	obj.setJogador(this);
-	this.partida_ponto.add(obj);
+	this.partidaPonto.add(obj);
 	}
 
 	public void RemoverPartidaPonto(int id) {
-		this.partida_ponto.remove(id);
+		this.partidaPonto.remove(id);
 	}
 
 	public Long getId() {
@@ -79,12 +79,12 @@ public class Jogador implements Serializable {
 		this.id = id;
 	}
 
-	public int getNum_camisa() {
-		return num_camisa;
+	public int getNumCamisa() {
+		return numCamisa;
 	}
 
-	public void setNum_camisa(int num_camisa) {
-		this.num_camisa = num_camisa;
+	public void setNumCamisa(int numCamisa) {
+		this.numCamisa = numCamisa;
 	}
 
 	public Aluno getJogador() {
@@ -111,20 +111,20 @@ public class Jogador implements Serializable {
 		this.posicao = posicao;
 	}
 
-	public List<Partida_Penalidade> getPartida_penalidade() {
-		return partida_penalidade;
+	public List<Partida_Penalidade> getPartidaPenalidade() {
+		return partidaPenalidade;
 	}
 
-	public void setPartida_penalidade(List<Partida_Penalidade> partida_penalidade) {
-		this.partida_penalidade = partida_penalidade;
+	public void setPartidaPenalidade(List<Partida_Penalidade> partidaPenalidade) {
+		this.partidaPenalidade = partidaPenalidade;
 	}
 
-	public List<Partida_Ponto> getPartida_ponto() {
-		return partida_ponto;
+	public List<Partida_Ponto> getPartidaPonto() {
+		return partidaPonto;
 	}
 
-	public void setPartida_ponto(List<Partida_Ponto> partida_ponto) {
-		this.partida_ponto = partida_ponto;
+	public void setPartidaPonto(List<Partida_Ponto> partidaPonto) {
+		this.partidaPonto = partidaPonto;
 	}
-
+	
 }

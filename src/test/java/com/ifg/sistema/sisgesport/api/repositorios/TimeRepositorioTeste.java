@@ -96,11 +96,11 @@ public class TimeRepositorioTeste {
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
-		serv.setData_nasc(new Date());
+		serv.setDataNascimento(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula_siap("20122080010047");
+		serv.setMatriculaSiap("20122080010047");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -115,13 +115,13 @@ public class TimeRepositorioTeste {
 	
 	private static Evento CarregaEvento() {
 		Evento ev = new Evento();
-		ev.setData_fim_inscricao(new Date());
-		ev.setData_inicio_inscricao(new Date());
-		ev.setData_fim(new Date());
-		ev.setData_inicio(new Date());
+		ev.setDataFim(new Date());
+		ev.setDataInicio(new Date());
+		ev.setDataFimInscricao(new Date());
+		ev.setDataInicioInscricao(new Date());
 		ev.setDescricao("Evento teste");
 		ev.setNome("Evento de Teste");
-		ev.setQnt_equipes(3);
+		ev.setQntEquipes(3);
 		ev.setCriador(servidor);
 		return ev;
 	}
@@ -140,9 +140,8 @@ public class TimeRepositorioTeste {
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
-		mod.setTipoPonto(lista);
-		mod.setNum_max_jogador(21);
-		mod.setNum_min_jogador(11);
+		mod.setNumMaxJogador(21);
+		mod.setNumMinJogador(11);
 		return mod;
 	}
 	
@@ -157,9 +156,9 @@ public class TimeRepositorioTeste {
 		Time t= new Time();
 		t.setEquipe(equipe);
 		t.setModalidade(modalidade);
-		t.setNum_derrota(0);
-		t.setNum_empate(0);
-		t.setNum_vitoria(0);
+		t.setNumDerrota(0);
+		t.setNumEmpate(0);
+		t.setNumVitoria(0);
 		t.setPontuacao(0);
 		return t;
 	}

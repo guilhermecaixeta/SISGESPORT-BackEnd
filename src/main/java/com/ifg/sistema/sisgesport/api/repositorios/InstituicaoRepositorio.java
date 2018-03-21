@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Instituicao;
 
-public interface InstituicaoRepositorio extends JpaRepository<Instituicao, Integer> {
+public interface InstituicaoRepositorio extends JpaRepository<Instituicao, Long> {
 
 	@Transactional(readOnly=true)
 	Instituicao findByNome(String nome);

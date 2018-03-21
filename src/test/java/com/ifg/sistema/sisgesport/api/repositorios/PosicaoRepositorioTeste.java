@@ -82,9 +82,8 @@ public class PosicaoRepositorioTeste {
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
-		mod.setTipoPonto(lista);
-		mod.setNum_max_jogador(21);
-		mod.setNum_min_jogador(11);
+		mod.setNumMaxJogador(21);
+		mod.setNumMinJogador(11);
 		return mod;
 	}
 	
@@ -92,8 +91,8 @@ public class PosicaoRepositorioTeste {
 		Posicao p = new Posicao();
 		p.setDescricao("Ataca o gol do outro time");
 		p.setNome("Atacante");
-		p.setNum_max_jogador(5);
-		p.setNum_min_jogador(1);
+		p.setNumMaxJogador(5);
+		p.setNumMinJogador(1);
 		List<Modalidade> lM = new ArrayList<Modalidade>();
 		lM.add(modalidade);
 		p.setModalidade(lM);

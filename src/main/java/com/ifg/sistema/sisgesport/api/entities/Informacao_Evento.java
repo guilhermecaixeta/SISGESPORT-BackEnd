@@ -38,7 +38,7 @@ public class Informacao_Evento implements Serializable {
 	
 	@Column(name="tipo_informacao", nullable=false)
 	@Check(constraints="check_tipo_informacao CHECK (tipo_informacao IN('P', 'S'))")
-	private char tipo_informacao;
+	private char tipoInformacao;
 	
 	@Column(name="", nullable=false, length= 120)
 	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
@@ -50,7 +50,7 @@ public class Informacao_Evento implements Serializable {
 	
 	@Column(name="data_postagem")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data_postagem;
+	private Date dataPostagem;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="informacao_evento_imagem", 
@@ -76,12 +76,12 @@ public class Informacao_Evento implements Serializable {
 		this.id = id;
 	}
 
-	public char getTipo_informacao() {
-		return tipo_informacao;
+	public char getTipoInformacao() {
+		return tipoInformacao;
 	}
 
-	public void setTipo_informacao(char tipo_informacao) {
-		this.tipo_informacao = tipo_informacao;
+	public void setTipoInformacao(char tipoInformacao) {
+		this.tipoInformacao = tipoInformacao;
 	}
 
 	public String getTitulo() {
@@ -100,12 +100,12 @@ public class Informacao_Evento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Date getData_postagem() {
-		return data_postagem;
+	public Date getDataPostagem() {
+		return dataPostagem;
 	}
 
-	public void setData_postagem(Date data_postagem) {
-		this.data_postagem = data_postagem;
+	public void setDataPostagem(Date dataPostagem) {
+		this.dataPostagem = dataPostagem;
 	}
 
 	public List<Imagem> getImagem() {
@@ -123,9 +123,9 @@ public class Informacao_Evento implements Serializable {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
-	
+
 	@PrePersist
 	public void PrePersist() {
-		data_postagem = new Date();
+		dataPostagem = new Date();
 	}
 }

@@ -38,21 +38,21 @@ public class ServidorRepositorioTeste {
 		cR.save(cargo);
 		serv.setCargo(cargo);
 		serv.setNome("Guilherme");
-		serv.setData_nasc(new Date());
+		serv.setDataNascimento(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula_siap(matriculasiap);
+		serv.setMatriculaSiap(matriculasiap);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv);
 		
 		Servidor serv2 = new Servidor();
 		serv2.setNome("user");
-		serv2.setData_nasc(new Date());
+		serv2.setDataNascimento(new Date());
 		serv2.setLogin("user");
 		serv2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
 		serv2.setSexo('F');
-		serv2.setMatricula_siap("20122080010042");
+		serv2.setMatriculaSiap("20122080010042");
 		serv2.setCargo(cargo);
 		serv2.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv2);
@@ -65,17 +65,17 @@ public class ServidorRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorMatriculaSiap() {
-		Servidor serv = this.servidorRepositorio.findByMatriculasiap(matriculasiap);
+		Servidor serv = this.servidorRepositorio.findByMatriculaSiap(matriculasiap);
 		
-		assertEquals(matriculasiap, serv.getMatricula_siap());
+		assertEquals(matriculasiap, serv.getMatriculaSiap());
 	}
 	
 	@Test
 	public void testBuscarPorCargo() {
 		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
 		List<Servidor> compare = new ArrayList<>();
-		compare.add( this.servidorRepositorio.findByMatriculasiap(matriculasiap));
-		compare.add( this.servidorRepositorio.findByMatriculasiap("20122080010042"));
+		compare.add( this.servidorRepositorio.findByMatriculaSiap(matriculasiap));
+		compare.add( this.servidorRepositorio.findByMatriculaSiap("20122080010042"));
 		int num1 =compare.size();
 		int num2 = serv.size();
 		

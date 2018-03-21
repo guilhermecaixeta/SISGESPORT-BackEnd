@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
 @Table(name="instituicao")
-public class Instituicao extends Entidade_Comum implements Serializable {
+public class Instituicao extends EntidadeComum implements Serializable {
 
 	private static final long serialVersionUID = -5775475003607607110L;
 

@@ -7,7 +7,7 @@ import com.ifg.sistema.sisgesport.api.entities.Logradouro;;
 @Transactional(readOnly=true)
 public interface LogradouroRepositorio extends JpaRepository<Logradouro, Long> {
 
-	Logradouro findByCeplogradouro(String cepLogradouro);
+	Logradouro findByCepLogradouro(String cepLogradouro);
 	
-	Logradouro findByBairroMunicipioCepmunicipioAndBairroCepbairroAndCeplogradouro(String cepmunicipio, String cepbairro, String ceplogradouro);
+	Logradouro findByBairroMunicipioCepMunicipioAndBairroCepbairroAndCepLogradouro(String cepmunicipio, String cepbairro, String ceplogradouro);
 }

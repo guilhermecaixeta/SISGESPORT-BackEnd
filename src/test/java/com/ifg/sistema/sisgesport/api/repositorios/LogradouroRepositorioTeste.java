@@ -56,21 +56,21 @@
 	
 	@Test
 	public void testBuscarPorCepNotNull() {
-		Logradouro log= lR.findByCeplogradouro(cepLogradouro); 	
+		Logradouro log= lR.findByCepLogradouro(cepLogradouro); 	
 		
 		assertNotNull(log);
 	}
 	
 	@Test
 	public void testBuscarPorCepEquals() {
-		Logradouro log= lR.findByCeplogradouro(cepLogradouro);
+		Logradouro log= lR.findByCepLogradouro(cepLogradouro);
 		
 		assertEquals(cepLogradouro, log.getCep_logradouro());
 	}
 	
 	@Test
 	public void testBuscarPorCepCompleto() {
-		Logradouro log= lR.findByBairroMunicipioCepmunicipioAndBairroCepbairroAndCeplogradouro(cepMun, cepBairro, cepLogradouro);
+		Logradouro log= lR.findByBairroMunicipioCepMunicipioAndBairroCepbairroAndCepLogradouro(cepMun, cepBairro, cepLogradouro);
 		
 		assertNotNull(log);
 	}

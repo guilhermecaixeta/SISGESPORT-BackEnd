@@ -24,13 +24,13 @@ public class Time implements Serializable {
 	private Long id;
 	
 	@Column(name="num_vitoria")
-	private int num_vitoria;
+	private int numVitoria;
 	
 	@Column(name="num_derrota")
-	private int num_derrota;
+	private int numDerrota;
 	
 	@Column(name="num_empate")
-	private int num_empate;
+	private int numEmpate;
 	
 	@Column(name="pontuacao")
 	private int pontuacao;
@@ -55,28 +55,28 @@ public class Time implements Serializable {
 		this.id = id;
 	}
 
-	public int getNum_vitoria() {
-		return num_vitoria;
+	public int getNumVitoria() {
+		return numVitoria;
 	}
 
-	public void setNum_vitoria(int num_vitoria) {
-		this.num_vitoria = num_vitoria;
+	public void setNumVitoria(int numVitoria) {
+		this.numVitoria = numVitoria;
 	}
 
-	public int getNum_derrota() {
-		return num_derrota;
+	public int getNumDerrota() {
+		return numDerrota;
 	}
 
-	public void setNum_derrota(int num_derrota) {
-		this.num_derrota = num_derrota;
+	public void setNumDerrota(int numDerrota) {
+		this.numDerrota = numDerrota;
 	}
 
-	public int getNum_empate() {
-		return num_empate;
+	public int getNumEmpate() {
+		return numEmpate;
 	}
 
-	public void setNum_empate(int num_empate) {
-		this.num_empate = num_empate;
+	public void setNumEmpate(int numEmpate) {
+		this.numEmpate = numEmpate;
 	}
 
 	public int getPontuacao() {

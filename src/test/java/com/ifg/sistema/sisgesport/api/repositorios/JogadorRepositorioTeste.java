@@ -88,7 +88,7 @@ public class JogadorRepositorioTeste {
 		
 		Jogador j = new Jogador();
 		j.setJogador(aluno);
-		j.setNum_camisa(10);
+		j.setNumCamisa(10);
 		j.setTime(time);
 		j.setPosicao(posicao);
 		jR.save(j);
@@ -131,9 +131,9 @@ public class JogadorRepositorioTeste {
 		
 	private static Turma carregarTurma() {
 		Turma t = new Turma();
-		t.setData_inicial_turma(Calendar.getInstance());
-		t.setData_limite(Calendar.getInstance());
-		t.setFlg_ativo(true);
+		t.setDataInicialTurma(Calendar.getInstance());
+		t.setDataLimite(Calendar.getInstance());
+		t.setFlgAtivo(true);
 		t.setNome("20121/TADS");
 		return t;
 	}
@@ -141,7 +141,7 @@ public class JogadorRepositorioTeste {
 	private static Aluno carregarAluno() {
 		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme Teste");
-		aluno.setData_nasc(new Date());
+		aluno.setDataNascimento(new Date());
 		aluno.setLogin("GuilhermeTesTe");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
@@ -160,11 +160,11 @@ public class JogadorRepositorioTeste {
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
-		serv.setData_nasc(new Date());
+		serv.setDataNascimento(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula_siap("20122089010047");
+		serv.setMatriculaSiap("20122080010047");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -172,13 +172,13 @@ public class JogadorRepositorioTeste {
 	
 	private static Evento CarregaEvento() {
 		Evento ev = new Evento();
-		ev.setData_fim_inscricao(new Date());
-		ev.setData_inicio_inscricao(new Date());
-		ev.setData_fim(new Date());
-		ev.setData_inicio(new Date());
+		ev.setDataFim(new Date());
+		ev.setDataInicio(new Date());
+		ev.setDataFimInscricao(new Date());
+		ev.setDataInicioInscricao(new Date());
 		ev.setDescricao("Evento teste");
 		ev.setNome("Evento de Teste");
-		ev.setQnt_equipes(3);
+		ev.setQntEquipes(3);
 		ev.setCriador(servidor);
 		return ev;
 	}
@@ -205,8 +205,8 @@ public class JogadorRepositorioTeste {
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
 		mod.setTipoPonto(lista);
-		mod.setNum_max_jogador(21);
-		mod.setNum_min_jogador(11);
+		mod.setNumMaxJogador(21);
+		mod.setNumMinJogador(11);
 		return mod;
 	}
 	
@@ -214,8 +214,8 @@ public class JogadorRepositorioTeste {
 		Posicao p = new Posicao();
 		p.setDescricao("Ataca o gol do outro time");
 		p.setNome("Atacante");
-		p.setNum_max_jogador(5);
-		p.setNum_min_jogador(1);
+		p.setNumMaxJogador(5);
+		p.setNumMinJogador(1);
 		List<Modalidade> lM = new ArrayList<Modalidade>();
 		lM.add(modalidade);
 		p.setModalidade(lM);
@@ -226,9 +226,9 @@ public class JogadorRepositorioTeste {
 		Time t= new Time();
 		t.setEquipe(equipe);
 		t.setModalidade(modalidade);
-		t.setNum_derrota(0);
-		t.setNum_empate(0);
-		t.setNum_vitoria(0);
+		t.setNumDerrota(0);
+		t.setNumEmpate(0);
+		t.setNumVitoria(0);
 		t.setPontuacao(0);
 		return t;
 	}

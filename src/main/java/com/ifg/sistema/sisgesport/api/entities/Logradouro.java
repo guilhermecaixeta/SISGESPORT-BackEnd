@@ -36,7 +36,7 @@ public class Logradouro implements Serializable {
 	@NotNull(message="O campo cep não pode ser nulo.")
 	@NotBlank(message="O campo cep não pode ser em branco.")
 	@Length(max= 3,message="O campo cep possui o limite máximo de {max} caracteres.")
-	private String ceplogradouro;
+	private String cepLogradouro;
 	
 	@ManyToOne
 	@JoinColumn(name="bairro", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_bairro_logradouro"))
@@ -62,11 +62,11 @@ public class Logradouro implements Serializable {
 	}
 
 	public String getCep_logradouro() {
-		return ceplogradouro;
+		return cepLogradouro;
 	}
 
-	public void setCep_logradouro(String ceplogradouro) {
-		this.ceplogradouro = ceplogradouro;
+	public void setCep_logradouro(String cepLogradouro) {
+		this.cepLogradouro = cepLogradouro;
 	}
 
 	public Bairro getBairro() {

@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
 @Table(name="imagem")
@@ -61,7 +61,7 @@ public class Imagem implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
-	private Entidade_Comum entidade_comum;
+	private EntidadeComum entidadeComum;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="informacao_evento_imagem", 
@@ -122,20 +122,19 @@ public class Imagem implements Serializable {
 		this.dataImagem = dataImagem;
 	}
 
-	public Entidade_Comum getEntidadeComum() {
-		return entidade_comum;
-	}
-
-	public void setEntidadeComum(Entidade_Comum entidadeComum) {
-		this.entidade_comum = entidadeComum;
-	}
-
 	public List<Informacao_Evento> getInformacaoEvento() {
 		return informacaoEvento;
 	}
 
 	public void setInformacaoEvento(List<Informacao_Evento> informacaoEvento) {
 		this.informacaoEvento = informacaoEvento;
+	}
+	public EntidadeComum getEntidadeComum() {
+		return entidadeComum;
+	}
+
+	public void setEntidadeComum(EntidadeComum entidadeComum) {
+		this.entidadeComum = entidadeComum;
 	}
 
 	@PrePersist

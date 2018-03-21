@@ -58,10 +58,10 @@ public class InformacaoEventoRepositorioTeste {
 		List<Imagem> listaI= new ArrayList<Imagem>();
 		listaI.add(imagem);
 		Informacao_Evento iE= new Informacao_Evento();
-		iE.setData_postagem(new Date());
+		iE.setDataPostagem(new Date());
 		iE.setTitulo("Lorem ipsum dolor sit amet");
 		iE.setDescricao("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-		iE.setTipo_informacao('e');
+		iE.setTipoInformacao('e');
 		iE.setEvento(evento);
 		iE.setImagem(listaI);
 		iEvR.save(iE);
@@ -74,7 +74,7 @@ public class InformacaoEventoRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorEvento() {
-		List<Informacao_Evento> lista = this.iEvR.findByEvento(evento);
+		List<Informacao_Evento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento());
 		
 		assertNotNull(lista);
 	}
@@ -82,7 +82,7 @@ public class InformacaoEventoRepositorioTeste {
 	@Test
 	public void testBuscarPorEventoPaginado() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Informacao_Evento> lista = this.iEvR.findByEvento(evento, page);
+		Page<Informacao_Evento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento(), page);
 		
 		assertEquals(1, lista.getNumberOfElements());
 	}
@@ -97,11 +97,11 @@ public class InformacaoEventoRepositorioTeste {
 	private static Servidor servidorInformacao() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
-		serv.setData_nasc(new Date());
+		serv.setDataNascimento(new Date());
 		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula_siap("20122080010047");
+		serv.setMatriculaSiap("20122080010047");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -109,13 +109,13 @@ public class InformacaoEventoRepositorioTeste {
 	
 	private static Evento EventoInformacao() {
 		Evento ev = new Evento();
-		ev.setData_fim(new Date());
-		ev.setData_inicio(new Date());
-		ev.setData_fim_inscricao(new Date());
-		ev.setData_inicio_inscricao(new Date());
+		ev.setDataFim(new Date());
+		ev.setDataInicio(new Date());
+		ev.setDataFimInscricao(new Date());
+		ev.setDataInicioInscricao(new Date());
 		ev.setDescricao("Evento teste");
 		ev.setNome("Evento de Teste");
-		ev.setQnt_equipes(3);
+		ev.setQntEquipes(3);
 		ev.setCriador(servidor);
 		return ev;
 	}

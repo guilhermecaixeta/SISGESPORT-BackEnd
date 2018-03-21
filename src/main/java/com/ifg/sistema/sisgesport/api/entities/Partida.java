@@ -18,11 +18,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
 @Table(name="partida")
-public class Partida extends Entidade_Comum  implements Serializable {
+public class Partida extends EntidadeComum  implements Serializable {
 
 	private static final long serialVersionUID = -6820184287589704577L;
 

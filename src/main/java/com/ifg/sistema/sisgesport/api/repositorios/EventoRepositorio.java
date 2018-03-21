@@ -11,7 +11,7 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 @Transactional(readOnly=true)
 public interface EventoRepositorio extends JpaRepository<Evento, Long> {
 	
-	List<Evento> findByCriadorMatriculasiap(String matriculaSiap);
+	List<Evento> findByCriadorMatriculaSiap(String matriculaSiap);
 	
-	Page<Evento> findByCriadorMatriculasiap(String matriculaSiap, Pageable page);
+	Page<Evento> findByCriadorMatriculaSiap(String matriculaSiap, Pageable page);
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
 @Table(name="endereco")
@@ -40,7 +40,7 @@ public class Endereco implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_endereco"))
-	private Entidade_Comum entidade_comum;
+	private EntidadeComum entidadeComum;
 
 	public Endereco() {	}
 
@@ -68,12 +68,12 @@ public class Endereco implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public Entidade_Comum getEntidade_comum() {
-		return entidade_comum;
+	public EntidadeComum getEntidadeComum() {
+		return entidadeComum;
 	}
 
-	public void setEntidade_comum(Entidade_Comum entidade_comum) {
-		this.entidade_comum = entidade_comum;
+	public void setEntidadeComum(EntidadeComum entidadeComum) {
+		this.entidadeComum = entidadeComum;
 	}
 
 }

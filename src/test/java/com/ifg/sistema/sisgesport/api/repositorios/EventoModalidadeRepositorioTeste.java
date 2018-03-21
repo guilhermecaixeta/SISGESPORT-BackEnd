@@ -11,66 +11,63 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
+import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
+import com.ifg.sistema.sisgesport.api.entities.Evento_Modalidade;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("teste")
-public class EventoRepositorioTeste {
-	
+public class EventoModalidadeRepositorioTeste {
 	@Autowired
 	private EventoRepositorio evR;
 	@Autowired
 	private ServidorRepositorio sR;
 	@Autowired
 	private CargoRepositorio cR;
+	@Autowired
+	private ModalidadeRepositorio mR;
+	@Autowired
+	private EventoModalidadeRepositorio emR;
 	
-	private Evento ev;
 	private static final Cargo cargo = cargoServidor();
 	private static final Servidor servidor = carregaServidor();
-
+	private static final Evento evento = carregarEvento();
+	private static final Modalidade modal = carregarModalidade();
 	@Before
 	public void setUp() throws Exception{
 		cR.save(cargo);
 		sR.save(servidor);
-		Evento ev = new Evento();
-		ev.setDataFim(new Date());
-		ev.setDataInicio(new Date());
-		ev.setDataFimInscricao(new Date());
-		ev.setDataInicioInscricao(new Date());
-		ev.setDescricao("Evento teste");
-		ev.setNome("Evento de Teste");
-		ev.setQntEquipes(3);
-		ev.setCriador(servidor);
-		evR.save(ev);
-		this.ev = ev;
+		evR.save(evento);
+		mR.save(modal);
+		Evento_Modalidade em = new Evento_Modalidade();
+		em.setEvento(evento);
+		em.setIdadeMaximaPermitida(15);
+		em.setModalidade(modal);
+		em.setSexo('A');
 	}
-	
 	@After
 	public final void tearDown() {
 		evR.deleteAll();
 	}
 	
 	@Test
-	public void testBuscarporCriadorPaginavel() {
-		PageRequest page = new PageRequest(0, 10);
-		Page<Evento> evento = evR.findByCriadorMatriculaSiap(servidor.getMatriculaSiap(), page);
-		assertNotNull(evento);
+	public void testBuscarPorEventoId() {
+		List<Evento_Modalidade> em = emR.findByEventoId(evento.getId());
+		assertNotNull(em);
 	}
-
+	
 	@Test
-	public void testBuscarporCriador() {
-		List<Evento> evento = evR.findByCriadorMatriculaSiap(servidor.getMatriculaSiap());
-		assertNotNull(evento);
+	public void testBuscarPorModalidadeId() {
+		List<Evento_Modalidade> em = emR.findByEventoId(modal.getId());
+		assertNotNull(em);
 	}
 	
 	private static Servidor carregaServidor() {
@@ -91,5 +88,26 @@ public class EventoRepositorioTeste {
 		c.setDescricao("Lecionar aulas");
 		c.setNome("Professor Superior");
 		return c;
+	}
+	
+	private static Evento carregarEvento() {
+		Evento ev = new Evento();
+		ev.setDataFim(new Date());
+		ev.setDataInicio(new Date());
+		ev.setDataFimInscricao(new Date());
+		ev.setDataInicioInscricao(new Date());
+		ev.setDescricao("Evento teste");
+		ev.setNome("Evento de Teste");
+		ev.setQntEquipes(3);
+		ev.setCriador(servidor);
+		return ev;
+	}
+	private static Modalidade carregarModalidade() {
+		Modalidade mod = new Modalidade();
+		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
+		mod.setNome("Futebol");
+		mod.setNumMaxJogador(21);
+		mod.setNumMinJogador(11);
+		return mod;
 	}
 }

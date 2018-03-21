@@ -40,7 +40,7 @@ public class Evento_Modalidade implements Serializable{
 	private char sexo;
 	
 	@Column(name="idade_maxima")
-	private int idade_maxima_permitida;
+	private int idadeMaximaPermitida;
 
 	public Evento_Modalidade() {	}
 
@@ -76,12 +76,12 @@ public class Evento_Modalidade implements Serializable{
 		this.sexo = sexo;
 	}
 
-	public int getIdade_maxima_permitida() {
-		return idade_maxima_permitida;
+	public int getIdadeMaximaPermitida() {
+		return idadeMaximaPermitida;
 	}
 
-	public void setIdade_maxima_permitida(int idade_maxima_permitida) {
-		this.idade_maxima_permitida = idade_maxima_permitida;
+	public void setIdadeMaximaPermitida(int idadeMaximaPermitida) {
+		this.idadeMaximaPermitida = idadeMaximaPermitida;
 	}
 	
 }

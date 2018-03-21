@@ -28,7 +28,7 @@ public class Turma  implements Serializable {
 	
 	@Column(name="flg_ativo", nullable=false)
 	@NotNull(message="O campo não pode ser nulo.")
-	private Boolean flg_ativo;
+	private Boolean flgAtivo;
 	
 	@Column(name="nome", nullable=false, length=20)
 	@NotNull(message="O campo nome não pode ser nulo.")
@@ -37,10 +37,10 @@ public class Turma  implements Serializable {
 	private String nome;
 	
 	@Column(name="data_limite", nullable=false)
-	private Calendar data_limite;
+	private Calendar dataLimite;
 	
 	@Column(name="data_inicial_turma", nullable=false)
-	private Calendar data_inicial_turma;
+	private Calendar dataInicialTurma;
 
 	@ManyToOne
 	@JoinColumn(name="curso", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_curso_turma"))
@@ -56,12 +56,12 @@ public class Turma  implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getFlg_ativo() {
-		return flg_ativo;
+	public Boolean getFlgAtivo() {
+		return flgAtivo;
 	}
 
-	public void setFlg_ativo(Boolean flg_ativo) {
-		this.flg_ativo = flg_ativo;
+	public void setFlgAtivo(Boolean flgAtivo) {
+		this.flgAtivo = flgAtivo;
 	}
 
 	public String getNome() {
@@ -72,20 +72,20 @@ public class Turma  implements Serializable {
 		this.nome = nome;
 	}
 
-	public Calendar getData_limite() {
-		return data_limite;
+	public Calendar getDataLimite() {
+		return dataLimite;
 	}
 
-	public void setData_limite(Calendar data_limite) {
-		this.data_limite = data_limite;
+	public void setDataLimite(Calendar dataLimite) {
+		this.dataLimite = dataLimite;
 	}
 
-	public Calendar getData_inicial_turma() {
-		return data_inicial_turma;
+	public Calendar getDataInicialTurma() {
+		return dataInicialTurma;
 	}
 
-	public void setData_inicial_turma(Calendar data_inicial_turma) {
-		this.data_inicial_turma = data_inicial_turma;
+	public void setDataInicialTurma(Calendar dataInicialTurma) {
+		this.dataInicialTurma = dataInicialTurma;
 	}
 
 	public Curso getCurso() {

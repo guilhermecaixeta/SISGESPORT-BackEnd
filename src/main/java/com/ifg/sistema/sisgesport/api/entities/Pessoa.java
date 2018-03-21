@@ -14,13 +14,13 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.Entidade_Comum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class Pessoa extends Entidade_Comum implements Serializable{
+public class Pessoa extends EntidadeComum implements Serializable{
 
 	private static final long serialVersionUID = 2848996214116693556L;
 
@@ -49,7 +49,7 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 	@Column(name="data_nasc" ,nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message="O campo data de nascimento não pode ser nulo.")
-	private Date data_nasc;
+	private Date dataNascimento;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="perfil" ,nullable = false)
@@ -87,12 +87,12 @@ public class Pessoa extends Entidade_Comum implements Serializable{
 		this.senha = senha;
 	}
 
-	public Date getData_nasc() {
-		return data_nasc;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setData_nasc(Date data_nasc) {
-		this.data_nasc = data_nasc;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public PerfilSistema getPerfil() {

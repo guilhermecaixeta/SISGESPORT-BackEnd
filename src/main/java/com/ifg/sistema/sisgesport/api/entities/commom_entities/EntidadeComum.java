@@ -20,21 +20,21 @@ import com.ifg.sistema.sisgesport.api.entities.Imagem;
 @Entity
 @Table(name="entidade_comum")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Entidade_Comum {
+public class EntidadeComum {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidade_comum")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
 	private List<Endereco> endereco = new ArrayList<Endereco>();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidade_comum")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
 	private List<Imagem> imagem = new ArrayList<Imagem>();
 	
-	public Entidade_Comum() {}
+	public EntidadeComum() {}
 
 	public void AdicionarEndereco(Endereco obj) {
-	obj.setEntidade_comum(this);
+	obj.setEntidadeComum(this);
 	this.endereco.add(obj);
 	}
 

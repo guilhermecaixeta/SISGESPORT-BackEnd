@@ -48,7 +48,7 @@ public class MunicipioRepositorioTeste {
 	
 	@Test
 	public void testBuscarCep() {
-		Municipio mun = this.mR.findByCepmunicipio(cepMun);		
+		Municipio mun = this.mR.findByCepMunicipio(cepMun);		
 		assertEquals(cepMun, mun.getCep_municipio());
 	}
 

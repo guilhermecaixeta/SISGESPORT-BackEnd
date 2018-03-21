@@ -20,10 +20,9 @@ public class Servidor extends Pessoa implements Serializable{
 	private static final long serialVersionUID = -4064616397424015889L;
 
 	@Column(name="matricula_siap", nullable=false, unique= true, length=20)
-	private String matriculasiap;
+	private String matriculaSiap;
 		
 	@ManyToOne
-//	@NotNull(message="O campo cargo não pode ser nulo.")
 	@JoinColumn(name="cargo", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_cargo_servidor"))
 	private Cargo cargo;
 
@@ -41,12 +40,12 @@ public class Servidor extends Pessoa implements Serializable{
 		this.eventos.remove(id);
 	}
 
-	public String getMatricula_siap() {
-		return matriculasiap;
+	public String getMatriculaSiap() {
+		return matriculaSiap;
 	}
 
-	public void setMatricula_siap(String matriculasiap) {
-		this.matriculasiap = matriculasiap;
+	public void setMatriculaSiap(String matriculaSiap) {
+		this.matriculaSiap = matriculaSiap;
 	}
 
 	public Cargo getCargo() {

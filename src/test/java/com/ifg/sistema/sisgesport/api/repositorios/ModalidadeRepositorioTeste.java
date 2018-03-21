@@ -38,8 +38,8 @@ public class ModalidadeRepositorioTeste {
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
 		mod.setTipoPonto(lista);
-		mod.setNum_max_jogador(21);
-		mod.setNum_min_jogador(11);
+		mod.setNumMaxJogador(21);
+		mod.setNumMinJogador(11);
 		mR.save(mod);
 	}
 	

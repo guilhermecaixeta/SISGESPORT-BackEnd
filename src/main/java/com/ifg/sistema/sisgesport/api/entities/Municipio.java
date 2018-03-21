@@ -38,7 +38,7 @@ public class Municipio implements Serializable {
 	private String sigla;
 	
 	@Column(name="cep_municipio", nullable=false, unique= true, length=2)
-	private String cepmunicipio;
+	private String cepMunicipio;
 	
 	@ManyToOne
 	@JoinColumn(name="estado", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_estado_municipio"))
@@ -72,11 +72,11 @@ public class Municipio implements Serializable {
 	}
 
 	public String getCep_municipio() {
-		return cepmunicipio;
+		return cepMunicipio;
 	}
 
-	public void setCep_municipio(String cepmunicipio) {
-		this.cepmunicipio = cepmunicipio;
+	public void setCep_municipio(String cepMunicipio) {
+		this.cepMunicipio = cepMunicipio;
 	}
 
 	public Estado getEstado() {
