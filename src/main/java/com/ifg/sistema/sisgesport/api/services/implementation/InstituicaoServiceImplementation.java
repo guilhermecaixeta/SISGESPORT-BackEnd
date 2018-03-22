@@ -16,7 +16,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	@Autowired
 	private InstituicaoRepositorio instituicaoRepositorio;
 	public Optional<Instituicao> BuscarPorNomeInstituicao(String nome) {
-		log.info("Buscando iInstituicao pelo nome {} ",nome);
+		log.info("Buscando Instituicao pelo nome {} ",nome);
 		return Optional.ofNullable(instituicaoRepositorio.findByNome(nome));
 	}
 

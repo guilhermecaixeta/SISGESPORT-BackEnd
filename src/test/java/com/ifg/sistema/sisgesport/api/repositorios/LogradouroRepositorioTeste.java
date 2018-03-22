@@ -70,7 +70,7 @@
 	
 	@Test
 	public void testBuscarPorCepCompleto() {
-		Logradouro log= lR.findByBairroMunicipioCepMunicipioAndBairroCepbairroAndCepLogradouro(cepMun, cepBairro, cepLogradouro);
+		Logradouro log= lR.findByBairroMunicipioCepMunicipioOrBairroCepbairroOrCepLogradouro(cepMun, cepBairro, cepLogradouro);
 		
 		assertNotNull(log);
 	}

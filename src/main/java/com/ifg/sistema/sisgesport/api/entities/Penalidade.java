@@ -36,10 +36,10 @@ public class Penalidade implements Serializable {
 	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	
-	@Column(name="descricao", nullable=false, length=30)
+	@Column(name="descricao", nullable=false, length=60)
 	@NotNull(message="O campo descricao não pode ser nulo.")
 	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 30,message="O campo descricao possui o limite máximo de {max} caracteres.")
+	@Length(max= 60,message="O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 	
 	@ManyToMany(fetch=FetchType.LAZY)

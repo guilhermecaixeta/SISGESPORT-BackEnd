@@ -10,6 +10,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,7 +28,11 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 public class Partida extends EntidadeComum  implements Serializable {
 
 	private static final long serialVersionUID = -6820184287589704577L;
-
+	
+	@Id
+	@GeneratedValue ( strategy = GenerationType . AUTO )
+	private Long id;
+	
 	@Column(name="data_partida")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPartida;
@@ -82,6 +89,14 @@ public class Partida extends EntidadeComum  implements Serializable {
 
 	public void RemoverPartidaPonto(int id) {
 		this.partidaPonto.remove(id);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getDataPartida() {
@@ -163,4 +178,5 @@ public class Partida extends EntidadeComum  implements Serializable {
 	public void setPartidaPonto(List<Partida_Ponto> partidaPonto) {
 		this.partidaPonto = partidaPonto;
 	}
+	
 }

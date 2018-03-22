@@ -34,7 +34,6 @@ public class EventoRepositorioTeste {
 	@Autowired
 	private CargoRepositorio cR;
 	
-	private Evento ev;
 	private static final Cargo cargo = cargoServidor();
 	private static final Servidor servidor = carregaServidor();
 
@@ -52,7 +51,6 @@ public class EventoRepositorioTeste {
 		ev.setQntEquipes(3);
 		ev.setCriador(servidor);
 		evR.save(ev);
-		this.ev = ev;
 	}
 	
 	@After
