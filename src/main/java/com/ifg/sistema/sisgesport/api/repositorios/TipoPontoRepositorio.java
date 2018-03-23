@@ -13,7 +13,7 @@ public interface TipoPontoRepositorio extends JpaRepository<Tipo_Ponto, Long> {
 
 	Tipo_Ponto findByNome(String nome);
 	
-	List<Tipo_Ponto> findByModalidadeId(Long id);
+	List<Tipo_Ponto> findByModalidadeId(Long id_modalidade);
 	
-	Page<Tipo_Ponto> findByModalidadeId(Long id, Pageable page);
+	Page<Tipo_Ponto> findByModalidadeId(Long id_modalidade, Pageable page);
 }
