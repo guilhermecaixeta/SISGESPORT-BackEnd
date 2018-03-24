@@ -19,20 +19,20 @@ public interface TimeService {
 	 * @param codigo
 	 * @return
 	 */
-	Optional<Time> findByEquipeCodigoEquipe(String codigo);
+	Optional<Time> BuscarPorEquipeCodigoEquipe(String codigo);
 	/**
 	 * Busca uma lista de times pelo id equipe
 	 * @param id_equipe
 	 * @return
 	 */
-	Optional<List<Time>> findByEquipeId(Long id_equipe);
+	Optional<List<Time>> BuscarPorEquipeId(Long id_equipe);
 	/**
 	 * Busca uma lista paginada de times pelo id equipe 
 	 * @param id_equipe
 	 * @param page
 	 * @return
 	 */
-	Page<Time> findByEquipeId(Long id_equipe, PageRequest pageRequest);
+	Page<Time> BuscarPorEquipeIdPaginavel(Long id_equipe, PageRequest pageRequest);
 	/**
 	 * Salva um novo time no banco de dados
 	 * @param time

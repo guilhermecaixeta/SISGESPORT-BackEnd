@@ -20,19 +20,19 @@ public interface TurmaService {
 	 * @param nome
 	 * @return
 	 */
-	Optional<Turma> findByNome(String nome);
+	Optional<Turma> BuscarPorNome(String nome);
 	/**
 	 *  Busca uma lista de turmas pelo id curso
 	 * @param id_curso
 	 * @return
 	 */
-	Optional<List<Turma>> findByCursoId(Long id_curso);
+	Optional<List<Turma>> BuscarPorCursoId(Long id_curso);
 	/**
 	 *  Busca uma lista paginada de turmas pelo id curso
 	 * @param id_curso
 	 * @return
 	 */
-	Page<Turma> findByCursoId(Long id_curso, PageRequest pageRequest);
+	Page<Turma> BuscarPorCursoIdPaginavel(Long id_curso, PageRequest pageRequest);
 	/**
 	 * Salva uma nova turma no banco de dados
 	 * @param turma

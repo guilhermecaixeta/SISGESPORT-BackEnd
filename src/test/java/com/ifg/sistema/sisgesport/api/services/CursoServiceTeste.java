@@ -63,7 +63,7 @@ public class CursoServiceTeste {
 	}
 	
 	@Test
-	public void TestBuscaPorIdInstituicaoPaginada() {
+	public void TestBuscaPorIdInstituicaoPaginavel() {
 		Page<Curso> c = this.cS.BuscarEquipePorIdInstituicaoPaginavel(id, new PageRequest(0,10));
 		assertNotNull(c);
 	}

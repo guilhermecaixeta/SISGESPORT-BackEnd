@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 
 @Entity
 @Table(name="partida")

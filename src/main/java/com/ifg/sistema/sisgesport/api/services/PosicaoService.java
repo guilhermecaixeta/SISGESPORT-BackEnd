@@ -32,7 +32,7 @@ public interface PosicaoService {
 	 * @param pageRequest
 	 * @return
 	 */
-	Page<Posicao> BuscarPorModalidadeId(Long id_modalidade, PageRequest pageRequest);
+	Page<Posicao> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
 	/**
 	 * Salva uma nova posicao no banco de dados
 	 * @param salvar

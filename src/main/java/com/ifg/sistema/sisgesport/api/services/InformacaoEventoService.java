@@ -20,7 +20,7 @@ public interface InformacaoEventoService {
 	 * @param page
 	 * @return Optional<Page<Evento>>
 	 */
-	Page<Informacao_Evento> BuscarPorCodigoEventoPaginada(String codigo_evento, PageRequest pageRequest);
+	Page<Informacao_Evento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest);
 	/**
 	 * Busca pelo id uma informacao eventos 
 	 * @param id

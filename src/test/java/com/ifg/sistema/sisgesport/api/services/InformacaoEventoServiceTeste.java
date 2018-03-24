@@ -61,8 +61,8 @@ public class InformacaoEventoServiceTeste {
 	}
 	
 	@Test
-	public void TestBuscaPorMatriculaCriadorPaginada() {
-		Page<Informacao_Evento> c = this.eS.BuscarPorCodigoEventoPaginada(codEvento, new PageRequest(0,10));
+	public void TestBuscaPorMatriculaCriadorPaginavel() {
+		Page<Informacao_Evento> c = this.eS.BuscarPorCodigoEventoPaginavel(codEvento, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 }

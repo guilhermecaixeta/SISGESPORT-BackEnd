@@ -71,14 +71,14 @@ public class AlunoServiceTeste {
 	}
 	
 	@Test
-	public void TestBuscarAlunoPorEquipePaginada() {
+	public void TestBuscarAlunoPorEquipePaginavel() {
 		Page<Aluno> aluno = this.aS.BuscarPorIdEquipePaginavel(id, new PageRequest(0,10));
 		
 		assertNotNull(aluno);
 	}
 	
 	@Test
-	public void TestBuscarAlunoPorTurmaPaginada() {
+	public void TestBuscarAlunoPorTurmaPaginavel() {
 		Page<Aluno> aluno = this.aS.BuscarPorIdTurmaPaginavel(id, new PageRequest(0,10));
 		
 		assertNotNull(aluno);

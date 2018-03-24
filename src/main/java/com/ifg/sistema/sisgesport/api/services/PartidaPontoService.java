@@ -29,7 +29,7 @@ public interface PartidaPontoService {
 	 * @param id_penalidade
 	 * @return
 	 */
-	Optional<List<Partida_Ponto>> BuscarPorTipoPontoId(Long id_penalidade);
+	Optional<List<Partida_Ponto>> BuscarPorTipoPontoId(Long id_tipo_ponto);
 	/**
 	 * Salva um novo ponto partiada no banco de dados
 	 * @param partida_ponto

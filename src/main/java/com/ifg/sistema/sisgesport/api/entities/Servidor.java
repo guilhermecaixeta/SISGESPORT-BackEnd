@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
+
 @Entity
 @Table(name="servidor")
 public class Servidor extends Pessoa implements Serializable{

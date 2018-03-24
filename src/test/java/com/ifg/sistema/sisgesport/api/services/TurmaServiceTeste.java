@@ -21,56 +21,55 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
-import com.ifg.sistema.sisgesport.api.repositorios.EquipeRepositorio;
+import com.ifg.sistema.sisgesport.api.entities.Turma;
+import com.ifg.sistema.sisgesport.api.repositorios.TurmaRepositorio;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("teste")
-public class EquipeServiceTeste {
-
+public class TurmaServiceTeste {
 	@MockBean
-	private EquipeRepositorio eR;
+	private TurmaRepositorio tR;
 	@Autowired
-	private EquipeService eS;
+	private TurmaService tS;
 	private static final Long id = (long)1;
 	@Before
 	public void setUp() throws Exception{
-		BDDMockito.given(this.eR.save(Mockito.any(Equipe.class))).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findOne(Mockito.anyLong())).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findByCodigoEquipe(Mockito.anyString())).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findByEventoId(Mockito.anyLong())).willReturn(new ArrayList<Equipe>());
-		BDDMockito.given(this.eR.findByEventoId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
-		.willReturn(new PageImpl<Equipe>(new ArrayList<Equipe>()));
+		BDDMockito.given(this.tR.save(Mockito.any(Turma.class))).willReturn(new Turma());
+		BDDMockito.given(this.tR.findOne(Mockito.anyLong())).willReturn(new Turma());
+		BDDMockito.given(this.tR.findByNome(Mockito.anyString())).willReturn(new Turma());
+		BDDMockito.given(this.tR.findByCursoId(Mockito.anyLong())).willReturn(new ArrayList<Turma>());
+		BDDMockito.given(this.tR.findByCursoId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
+		.willReturn(new PageImpl<Turma>(new ArrayList<Turma>()));
 	}
 	
 	@Test
-	public void TestPersistenciaEndereco() {
-		Equipe e = this.eS.Salvar(new Equipe());
+	public void TestPersistenciaEvento() {
+		Turma e = this.tS.Salvar(new Turma());
 		assertNotNull(e);
 	}
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Equipe> e = this.eS.BuscarPorId((long)1);
+		Optional<Turma> e = this.tS.BuscarPorId((long)1);
 		assertNotNull(e);
 	}
 	
 	@Test
-	public void TestBuscaPorCodigoEvento() {
-		Optional<Equipe> e = this.eS.BuscarPorCodigoEquipe("teste");
+	public void TestBuscarPorNome() {
+		Optional<Turma> e = this.tS.BuscarPorNome("teste");
 		assertNotNull(e);
 	}
-	
+		
 	@Test
-	public void TestBuscaPorIdEvento() {
-		Optional<List<Equipe>> c = this.eS.BuscarEquipePorIdEvento(id);
+	public void TestBuscarPorCursoId() {
+		Optional<List<Turma>> c = this.tS.BuscarPorCursoId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
-	public void TestBuscaPorIdEventoPaginavel() {
-		Page<Equipe> c = this.eS.BuscarEquipePorIdEventoPaginavel(id, new PageRequest(0,10));
+	public void TestBuscarPorCursoIdPaginavel() {
+		Page<Turma> c = this.tS.BuscarPorCursoIdPaginavel(id, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 }

@@ -27,7 +27,7 @@ public interface PartidaService {
 	 * @param page
 	 * @return
 	 */
-	Page<Partida> BuscarPorTimeCasaId(Long id_time_casa, PageRequest pageRequest);
+	Page<Partida> BuscarPorTimeCasaIdPaginavel(Long id_time_casa, PageRequest pageRequest);
 	/**
 	 * Busca uma lista de partidas pelo id do evento 
 	 * @param id_evento
@@ -40,7 +40,7 @@ public interface PartidaService {
 	 * @param page
 	 * @return
 	 */
-	Page<Partida> BuscarPorEventoId(Long id_evento, PageRequest pageRequest);
+	Page<Partida> BuscarPorEventoIdPaginavel(Long id_evento, PageRequest pageRequest);
 	/**
 	 * Salva uma nova partida no banco de dados
 	 * @param partida

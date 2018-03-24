@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
 
 public interface TipoPontoService {
@@ -19,20 +19,20 @@ public interface TipoPontoService {
 	 * @param nome
 	 * @return Optional<Tipo_Ponto>
 	 */
-	Optional<Tipo_Ponto> findByNome(String nome);
+	Optional<Tipo_Ponto> BuscarPorNome(String nome);
 	/**
 	 * Busca uma lista tipo ponto pelo id modalidade
 	 * @param id
 	 * @return Optional<List<Tipo_Ponto>>
 	 */
-	Optional<List<Tipo_Ponto>> findByModalidadeId(Long id_modalidade);
+	Optional<List<Tipo_Ponto>> BuscarPorModalidadeId(Long id_modalidade);
 	/**
 	 * Busca uma lista paginada tipo ponto pelo id modalidade
 	 * @param id
 	 * @param page
 	 * @return Optional<Page<Tipo_Ponto>>
 	 */ 
-	Optional<Page<Tipo_Ponto>> findByModalidadeId(Long id_modalidade, Pageable page);
+	Page<Tipo_Ponto> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
 	/**
 	 * Salva um tipo ponto no banco de dados
 	 * @param tipo_ponto

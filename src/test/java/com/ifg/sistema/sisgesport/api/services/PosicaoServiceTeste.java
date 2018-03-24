@@ -21,56 +21,55 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
-import com.ifg.sistema.sisgesport.api.repositorios.EquipeRepositorio;
+import com.ifg.sistema.sisgesport.api.entities.Posicao;
+import com.ifg.sistema.sisgesport.api.repositorios.PosicaoRepositorio;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("teste")
-public class EquipeServiceTeste {
-
+public class PosicaoServiceTeste {
 	@MockBean
-	private EquipeRepositorio eR;
+	private PosicaoRepositorio pR;
 	@Autowired
-	private EquipeService eS;
+	private PosicaoService pS;
 	private static final Long id = (long)1;
 	@Before
 	public void setUp() throws Exception{
-		BDDMockito.given(this.eR.save(Mockito.any(Equipe.class))).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findOne(Mockito.anyLong())).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findByCodigoEquipe(Mockito.anyString())).willReturn(new Equipe());
-		BDDMockito.given(this.eR.findByEventoId(Mockito.anyLong())).willReturn(new ArrayList<Equipe>());
-		BDDMockito.given(this.eR.findByEventoId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
-		.willReturn(new PageImpl<Equipe>(new ArrayList<Equipe>()));
+		BDDMockito.given(this.pR.save(Mockito.any(Posicao.class))).willReturn(new Posicao());
+		BDDMockito.given(this.pR.findOne(Mockito.anyLong())).willReturn(new Posicao());
+		BDDMockito.given(this.pR.findByNome(Mockito.anyString())).willReturn(new Posicao());
+		BDDMockito.given(this.pR.findByModalidadeId(Mockito.anyLong())).willReturn(new ArrayList<Posicao>());
+		BDDMockito.given(this.pR.findByModalidadeId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
+		.willReturn(new PageImpl<Posicao>(new ArrayList<Posicao>()));
 	}
 	
 	@Test
-	public void TestPersistenciaEndereco() {
-		Equipe e = this.eS.Salvar(new Equipe());
+	public void TestPersistenciaEvento() {
+		Posicao e = this.pS.Salvar(new Posicao());
 		assertNotNull(e);
 	}
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Equipe> e = this.eS.BuscarPorId((long)1);
+		Optional<Posicao> e = this.pS.BuscarPorId((long)1);
 		assertNotNull(e);
 	}
 	
 	@Test
-	public void TestBuscaPorCodigoEvento() {
-		Optional<Equipe> e = this.eS.BuscarPorCodigoEquipe("teste");
+	public void TestBuscarPorNome() {
+		Optional<Posicao> e = this.pS.BuscarPorNome("teste");
 		assertNotNull(e);
 	}
-	
+		
 	@Test
-	public void TestBuscaPorIdEvento() {
-		Optional<List<Equipe>> c = this.eS.BuscarEquipePorIdEvento(id);
+	public void TestBuscarPorModalidadeId() {
+		Optional<List<Posicao>> c = this.pS.BuscarPorModalidadeId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
-	public void TestBuscaPorIdEventoPaginavel() {
-		Page<Equipe> c = this.eS.BuscarEquipePorIdEventoPaginavel(id, new PageRequest(0,10));
+	public void TestBuscarPorModalidadeIdPaginavel() {
+		Page<Posicao> c = this.pS.BuscarPorModalidadeIdPaginavel(id, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 }

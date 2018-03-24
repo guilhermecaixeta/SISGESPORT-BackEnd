@@ -1,4 +1,4 @@
-package com.ifg.sistema.sisgesport.api.entities;
+package com.ifg.sistema.sisgesport.api.entities.commom_entities;
 import java.io.Serializable ;
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
+
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 
 @Entity
