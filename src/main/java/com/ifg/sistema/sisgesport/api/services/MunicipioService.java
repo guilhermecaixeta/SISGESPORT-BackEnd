@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Municipio;
 
@@ -40,7 +40,7 @@ public interface MunicipioService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Municipio>> BuscarPorEstadoId(Long id_estado, Pageable page);
+	Page<Municipio> BuscarPorEstadoIdPaginavel(Long id_estado, PageRequest pageRequest);
 	/**
 	 * Salva um novo municipio no banco de dados
 	 * @param municipio

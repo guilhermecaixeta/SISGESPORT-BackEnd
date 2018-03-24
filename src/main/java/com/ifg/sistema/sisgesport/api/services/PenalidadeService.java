@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.services;
 
+import java.util.List;
 import java.util.Optional;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 
@@ -21,7 +22,7 @@ public interface PenalidadeService {
 	 * @param id
 	 * @return
 	 */
-	Optional<Penalidade> BuscarPorModalidadeId(Long id_modalidade);
+	Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade);
 	/**
 	 * Salva uma nova penalidade no banco de dados
 	 * @param penalidade

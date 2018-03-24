@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 	
-	import com.ifg.sistema.sisgesport.api.entities.Cargo;
+import com.ifg.sistema.sisgesport.api.entities.Cargo;
 	
 	public interface CargoService {
 	
@@ -34,7 +34,7 @@ import org.springframework.data.domain.Pageable;
 	 * @param page
 	 * @return Optional<Cargo>
 	 */
-	Optional<Page<Cargo>> BuscarPorInstituicaoId(Long id, Pageable page);
+	Page<Cargo> BuscarPorInstituicaoIdPaginavel(Long id, PageRequest pageRequest);
 	/**
 	 * Salva um novo cargo
 	 * @param cargo

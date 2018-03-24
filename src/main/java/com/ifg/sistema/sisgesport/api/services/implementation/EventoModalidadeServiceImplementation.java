@@ -6,11 +6,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Evento_Modalidade;
 import com.ifg.sistema.sisgesport.api.repositorios.EventoModalidadeRepositorio;
 import com.ifg.sistema.sisgesport.api.services.EventoModalidadeService;
-
+@Service
 public class EventoModalidadeServiceImplementation implements EventoModalidadeService {
 	private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	

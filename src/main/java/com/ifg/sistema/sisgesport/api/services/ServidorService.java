@@ -3,7 +3,8 @@ package com.ifg.sistema.sisgesport.api.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 
 public interface ServidorService {
@@ -20,17 +21,22 @@ public interface ServidorService {
 	 */
 	Optional<Servidor> findByMatriculaSiap(String matriculaSiap);
 	/**
-	 * Busca um servidor pela instituicao id
+	 * Busca uma lista de servidores pela instituicao id
 	 * @param id_instituicao
 	 * @return
 	 */
 	Optional<List<Servidor>> findByCargoId(Long id_instituicao);
 	/**
-	 * Busca um servidor pela instituicao id paginado
+	 * Busca uma lista paginada de servidores pelo instituicao id
 	 * @param id_instituicao
-	 * @param pageable
+	 * @param pageRequest
 	 * @return
 	 */
-	Optional<Page<Servidor>> findByCargoInstituicaoId(Long id_instituicao, Pageable pageable);
+	Page<Servidor> findByCargoInstituicaoId(Long id_instituicao, PageRequest pageRequest);
+	/**
+	 * Salva um novo servidor no banco de dados
+	 * @param servidor
+	 * @return
+	 */
 	Servidor Salvar(Servidor servidor);
 }

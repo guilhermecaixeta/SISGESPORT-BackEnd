@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Curso;
 
@@ -28,7 +28,7 @@ public interface CursoService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Curso>> BuscarEquipePorIdInstituicaoPaginavel(Long id_instituicao, Pageable page);
+	Page<Curso> BuscarEquipePorIdInstituicaoPaginavel(Long id_instituicao, PageRequest pageRequest);
 	/**
 	 * Salva um novo curso no banco de dados
 	 * @param curso

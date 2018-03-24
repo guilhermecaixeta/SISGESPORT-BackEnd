@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 
@@ -21,7 +21,7 @@ public interface EquipeService {
 	 * @param id
 	 * @return Optional<Equipe>
 	 */
-	Optional<Page<Equipe>> BuscarEquipePorIdEventoPaginavel(Long id_evento, Pageable page);
+	Page<Equipe> BuscarEquipePorIdEventoPaginavel(Long id_evento, PageRequest pageRequest);
 	/**
 	 * Busca o curso pelo seu id
 	 * @param id

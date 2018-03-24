@@ -7,12 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.repositorios.EventoRepositorio;
 import com.ifg.sistema.sisgesport.api.services.EventoService;
-
+@Service
 public class EventoServiceImplementation implements EventoService {
 private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	
@@ -23,9 +24,9 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(eventoRepositorio.findByCriadorMatriculaSiap(matriculaSiap));
 	}
 
-	public Optional<Page<Evento>> BuscarPorMatriculaCriador(String matriculaSiap, Pageable page) {
+	public Page<Evento> BuscarPorMatriculaCriador(String matriculaSiap, PageRequest pageRequest) {
 		log.info("Buscando o evento pela matricula Siap {} ",matriculaSiap);
-		return Optional.ofNullable(eventoRepositorio.findByCriadorMatriculaSiap(matriculaSiap, page));
+		return eventoRepositorio.findByCriadorMatriculaSiap(matriculaSiap, pageRequest);
 	}
 
 	public Optional<Evento> BuscarPorId(Long id) {

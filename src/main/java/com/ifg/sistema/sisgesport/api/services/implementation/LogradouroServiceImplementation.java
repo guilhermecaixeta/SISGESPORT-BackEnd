@@ -5,11 +5,12 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Logradouro;
 import com.ifg.sistema.sisgesport.api.repositorios.LogradouroRepositorio;
 import com.ifg.sistema.sisgesport.api.services.LogradouroService;
-
+@Service
 public class LogradouroServiceImplementation implements LogradouroService {
 private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	

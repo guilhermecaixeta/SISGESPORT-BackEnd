@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
@@ -30,18 +30,18 @@ public class AlunoServiceImplementation implements AlunoService{
 		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id_turma));
 	}
 	
-	public Optional<Page<Aluno>> BuscarPorIdTurmaPaginavel(Long id_turma, Pageable pageable){
+	public Page<Aluno> BuscarPorIdTurmaPaginavel(Long id_turma, PageRequest pageRequest){
 		log.info("realizando a busca por matrícula {}", id_turma);
-		return Optional.ofNullable(alunoRepositorio.findByTurmaId(id_turma, pageable));
+		return alunoRepositorio.findByTurmaId(id_turma, pageRequest);
 	}
 	public Optional<List<Aluno>> BuscarPorIdEquipe(Long id_equipe){
 		log.info("realizando a busca pelo id da turma {}", id_equipe);
 		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id_equipe));
 	}
 	
-	public Optional<Page<Aluno>> BuscarPorIdEquipePaginavel(Long id_equipe, Pageable pageable){
+	public Page<Aluno> BuscarPorIdEquipePaginavel(Long id_equipe, PageRequest pageRequest){
 		log.info("realizando a busca por matrícula {}", id_equipe);
-		return Optional.ofNullable(alunoRepositorio.findByEquipeId(id_equipe, pageable));
+		return alunoRepositorio.findByEquipeId(id_equipe, pageRequest);
 	}
 	
 	public Optional<Aluno> BuscarPorId(Long id){

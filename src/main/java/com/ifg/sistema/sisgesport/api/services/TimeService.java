@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import com.ifg.sistema.sisgesport.api.entities.Time;
 
 public interface TimeService {
@@ -32,5 +32,11 @@ public interface TimeService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Time>> findByEquipeId(Long id_equipe, Pageable page);
+	Page<Time> findByEquipeId(Long id_equipe, PageRequest pageRequest);
+	/**
+	 * Salva um novo time no banco de dados
+	 * @param time
+	 * @return
+	 */
+	Time Salvar(Time time);
 }

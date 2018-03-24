@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
 
 public interface InformacaoEventoService {
@@ -20,7 +20,7 @@ public interface InformacaoEventoService {
 	 * @param page
 	 * @return Optional<Page<Evento>>
 	 */
-	Optional<Page<Informacao_Evento>> BuscarPorCodigoEvento(String codigo_evento, Pageable page);
+	Page<Informacao_Evento> BuscarPorCodigoEventoPaginada(String codigo_evento, PageRequest pageRequest);
 	/**
 	 * Busca pelo id uma informacao eventos 
 	 * @param id

@@ -10,7 +10,7 @@ public interface ModalidadeService {
 	 * @param id
 	 * @return Optional<Modalidade>
 	 */
-	Optional<Modalidade> BuscarPorID(Long id);
+	Optional<Modalidade> BuscarPorId(Long id);
 	/**
 	 * Busca a modalidade pelo nome
 	 * @param nome

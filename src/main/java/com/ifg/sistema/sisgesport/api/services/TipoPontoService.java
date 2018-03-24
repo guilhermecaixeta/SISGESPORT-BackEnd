@@ -33,4 +33,10 @@ public interface TipoPontoService {
 	 * @return Optional<Page<Tipo_Ponto>>
 	 */ 
 	Optional<Page<Tipo_Ponto>> findByModalidadeId(Long id_modalidade, Pageable page);
+	/**
+	 * Salva um tipo ponto no banco de dados
+	 * @param tipo_ponto
+	 * @return
+	 */
+	Tipo_Ponto Salvar(Tipo_Ponto tipo_ponto);
 }

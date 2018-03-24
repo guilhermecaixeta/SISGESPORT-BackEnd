@@ -7,12 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Municipio;
 import com.ifg.sistema.sisgesport.api.repositorios.MunicipioRepositorio;
 import com.ifg.sistema.sisgesport.api.services.MunicipioService;
-
+@Service
 public class MunicipioServiceImplemantation implements MunicipioService {
 private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	
@@ -38,9 +39,9 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(municipioRepositorio.findByEstadoId(id_estado));
 	}
 
-	public Optional<Page<Municipio>> BuscarPorEstadoId(Long id_estado, Pageable page) {
+	public Page<Municipio> BuscarPorEstadoIdPaginavel(Long id_estado, PageRequest pageRequest) {
 		log.info("Buscando logradouro pelo id_estado {} ", id_estado);
-		return Optional.ofNullable(municipioRepositorio.findByEstadoId(id_estado, page));
+		return municipioRepositorio.findByEstadoId(id_estado, pageRequest);
 	}
 
 	public Municipio Salvar(Municipio municipio) {

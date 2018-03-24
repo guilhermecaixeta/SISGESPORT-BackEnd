@@ -54,7 +54,7 @@ public class PenalidadeRepositorioTeste {
 	
 	@Test
 	public void TesteBuscarPorModalidade(){
-		Penalidade p = pR.findByModalidadeId(modal.getId());
+		List<Penalidade> p = pR.findByModalidadeId(modal.getId());
 		
 		assertNotNull(p);
 	}

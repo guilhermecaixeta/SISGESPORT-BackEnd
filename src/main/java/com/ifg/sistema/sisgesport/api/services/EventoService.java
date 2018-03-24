@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 
@@ -21,7 +21,7 @@ public interface EventoService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Evento>> BuscarPorMatriculaCriador(String matriculaSiap, Pageable page);
+	Page<Evento> BuscarPorMatriculaCriador(String matriculaSiap, PageRequest pageRequest);
 	/**
 	 * Busca pelo id do evento
 	 * @param id

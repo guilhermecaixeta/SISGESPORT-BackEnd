@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
 
@@ -26,7 +26,7 @@ public interface AlunoService {
 	 * @param id_turma
 	 * @return Optional<Aluno>
 	 */
-	Optional<Page<Aluno>> BuscarPorIdTurmaPaginavel(Long id_turma, Pageable pageable);
+	Page<Aluno> BuscarPorIdTurmaPaginavel(Long id_turma, PageRequest pageRequest);
 	/**
 	 * Busca os alunos pelo id da equipe
 	 * @param id_equipe
@@ -38,7 +38,7 @@ public interface AlunoService {
 	 * @param id_turma
 	 * @return Optional<Aluno>
 	 */
-	Optional<Page<Aluno>> BuscarPorIdEquipePaginavel(Long id_equipe, Pageable pageable);
+	Page<Aluno> BuscarPorIdEquipePaginavel(Long id_equipe, PageRequest pageRequest);
 	/**
 	 * Busca o aluno pelo id
 	 * @param id

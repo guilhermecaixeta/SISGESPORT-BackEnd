@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Turma;
 
@@ -32,5 +32,11 @@ public interface TurmaService {
 	 * @param id_curso
 	 * @return
 	 */
-	Optional<Page<Turma>> findByCursoId(Long id_curso, Pageable page);
+	Page<Turma> findByCursoId(Long id_curso, PageRequest pageRequest);
+	/**
+	 * Salva uma nova turma no banco de dados
+	 * @param turma
+	 * @return
+	 */
+	Turma Salvar(Turma turma);
 }

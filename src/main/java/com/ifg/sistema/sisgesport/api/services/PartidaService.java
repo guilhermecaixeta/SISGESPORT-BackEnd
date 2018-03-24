@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import com.ifg.sistema.sisgesport.api.entities.Partida;
 
@@ -27,7 +27,7 @@ public interface PartidaService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Partida>> BuscarPorTimeCasaId(Long id_time_casa, Pageable page);
+	Page<Partida> BuscarPorTimeCasaId(Long id_time_casa, PageRequest pageRequest);
 	/**
 	 * Busca uma lista de partidas pelo id do evento 
 	 * @param id_evento
@@ -40,7 +40,7 @@ public interface PartidaService {
 	 * @param page
 	 * @return
 	 */
-	Optional<Page<Partida>> BuscarPorEventoId(Long id_evento, Pageable page);
+	Page<Partida> BuscarPorEventoId(Long id_evento, PageRequest pageRequest);
 	/**
 	 * Salva uma nova partida no banco de dados
 	 * @param partida

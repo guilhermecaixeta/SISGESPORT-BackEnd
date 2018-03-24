@@ -7,12 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
 import com.ifg.sistema.sisgesport.api.repositorios.InformacaoEventoRepositorio;
 import com.ifg.sistema.sisgesport.api.services.InformacaoEventoService;
-
+@Service
 public class InformacaoEventoServiceImplementation implements InformacaoEventoService {
 private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	
@@ -23,9 +24,9 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento));
 	}
 
-	public Optional<Page<Informacao_Evento>> BuscarPorCodigoEvento(String codigo_evento, Pageable page) {
+	public Page<Informacao_Evento> BuscarPorCodigoEventoPaginada(String codigo_evento, PageRequest pageRequest) {
 		log.info("Buscando informacao evento pelo codigo {} ",codigo_evento);
-		return Optional.ofNullable(informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento, page));
+		return informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento, pageRequest);
 	}
 
 	public Optional<Informacao_Evento> BuscarPorId(Long id) {

@@ -7,12 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.repositorios.EquipeRepositorio;
 import com.ifg.sistema.sisgesport.api.services.EquipeService;
-
+@Service
 public class EquipeServiceImplementation implements EquipeService {
 	private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	
@@ -23,9 +24,9 @@ public class EquipeServiceImplementation implements EquipeService {
 		log.info("Buscando equipe pelo id evento {}", id_evento);
 		return Optional.ofNullable(equipeRepositorio.findByEventoId(id_evento));
 	}
-	public Optional<Page<Equipe>> BuscarEquipePorIdEventoPaginavel(Long id_evento, Pageable page){
+	public Page<Equipe> BuscarEquipePorIdEventoPaginavel(Long id_evento, PageRequest pageRequest){
 		log.info("Buscando equipe pelo id evento {}", id_evento);
-		return Optional.ofNullable(equipeRepositorio.findByEventoId(id_evento, page));
+		return equipeRepositorio.findByEventoId(id_evento, pageRequest);
 	}
 	public Optional<Equipe> BuscarPorCodigoEquipe(String codigo){
 		log.info("Buscando equipe pelo código {}", codigo);
