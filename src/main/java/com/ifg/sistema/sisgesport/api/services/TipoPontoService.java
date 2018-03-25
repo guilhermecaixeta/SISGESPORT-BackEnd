@@ -39,4 +39,5 @@ public interface TipoPontoService {
 	 * @return
 	 */
 	Tipo_Ponto Salvar(Tipo_Ponto tipo_ponto);
+	void Deletar(Long id);
 }

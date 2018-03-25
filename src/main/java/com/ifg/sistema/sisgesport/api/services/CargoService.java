@@ -41,4 +41,5 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 	 * @return
 	 */
 	Cargo Salvar(Cargo cargo);
+	void Deletar(Long id);
 	}

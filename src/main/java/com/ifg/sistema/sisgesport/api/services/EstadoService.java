@@ -26,4 +26,5 @@ public interface EstadoService {
 	 * @return Estado
 	 */
 	Estado Salvar(Estado estado);
+	void Deletar(Long id);
 }

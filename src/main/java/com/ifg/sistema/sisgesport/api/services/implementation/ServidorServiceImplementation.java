@@ -42,8 +42,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Servidor Salvar(Servidor servidor) {
-		log.info("Buscando servidor pelo nome {} ", servidor);
+		log.info("Salvando um novo servidor no banco de dados {} ", servidor);
 		return servidorRepositorio.save(servidor);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o servidor com id: {}", id);
+		servidorRepositorio.delete(id);
+	}
 }

@@ -35,5 +35,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando um novo logradouro no banco de dados");
 		return logradouroRepositorio.save(logradouro);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o logradouro com id: {}", id);
+		logradouroRepositorio.delete(id);
+	}
 }

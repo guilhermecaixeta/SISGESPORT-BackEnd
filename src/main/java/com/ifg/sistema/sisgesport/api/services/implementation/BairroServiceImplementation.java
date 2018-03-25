@@ -36,4 +36,8 @@ public class BairroServiceImplementation implements BairroService {
 		log.info("Salvando um novo Bairro: {}", bairro.getNome());
 		return bairroRepositorio.save(bairro);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o bairro com id: {}", id);
+		bairroRepositorio.delete(id);
+	}
 }

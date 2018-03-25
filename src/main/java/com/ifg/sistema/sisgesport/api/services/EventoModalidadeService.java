@@ -29,4 +29,5 @@ public interface EventoModalidadeService {
 	 * @return
 	 */
 	Evento_Modalidade Salvar(Evento_Modalidade evento_modalidade);
+	void Deletar(Long id);
 }

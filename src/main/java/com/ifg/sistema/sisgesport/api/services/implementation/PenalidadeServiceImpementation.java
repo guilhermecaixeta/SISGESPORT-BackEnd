@@ -20,7 +20,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	private PenalidadeRepositorio penalidadeRepositorio;
 
 	public Optional<Penalidade> BuscarPorId(Long id) {
-		log.info("Buscando Partida pelo id time casa {} ", id);
+		log.info("Buscando Penalidade pelo id {} ", id);
 		return Optional.ofNullable(penalidadeRepositorio.findOne(id));
 	}
 
@@ -30,12 +30,16 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade) {
-		log.info("Buscando Partida pelo id time casa {} ", id_modalidade);
+		log.info("Buscando Penalidade pelo id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(penalidadeRepositorio.findByModalidadeId(id_modalidade));
 	}
 
 	public Penalidade Salvar(Penalidade penalidade) {
-		log.info("Buscando Partida pelo id time casa {} ", penalidade);
+		log.info("Salvando uma nova Penalidade no banco de dados {} ", penalidade);
 		return penalidadeRepositorio.save(penalidade);
+	}
+	public void Deletar(Long id) {
+		log.info("Deletando o Penalidade com id: {}", id);
+		penalidadeRepositorio.delete(id);
 	}
 }

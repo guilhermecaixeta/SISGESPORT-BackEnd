@@ -23,4 +23,5 @@ public interface ModalidadeService {
 	 * @return Modalidade
 	 */
 	Modalidade Salvar(Modalidade modalidade);
+	void Deletar(Long id);
 }

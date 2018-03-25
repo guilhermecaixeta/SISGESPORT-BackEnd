@@ -41,8 +41,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Turma Salvar(Turma turma) {
-		log.info("Buscando servidor pelo id {} ", turma);
+		log.info("Salvando uma nova Turma no banco de dados {} ", turma);
 		return turmaRepositorio.save(turma);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando a turma  ponto com id: {}", id);
+		turmaRepositorio.delete(id);
+	}
 }

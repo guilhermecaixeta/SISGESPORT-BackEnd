@@ -40,4 +40,8 @@ public class EquipeServiceImplementation implements EquipeService {
 		log.info("Salvando a equipe de código {}", equipe.getCodigoEquipe());
 		return equipeRepositorio.save(equipe);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o equipe com id: {}", id);
+		equipeRepositorio.delete(id);
+	}
 }

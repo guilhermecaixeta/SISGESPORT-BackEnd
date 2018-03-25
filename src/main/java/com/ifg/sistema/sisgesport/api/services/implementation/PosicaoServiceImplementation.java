@@ -22,28 +22,31 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	private PosicaoRepositorio posicaoRepositorio;
 
 	public Optional<Posicao> BuscarPorId(Long id) {
-		log.info("Buscando Penalidade pelo nome {} ", id);
+		log.info("Buscando Posicao pelo id {} ", id);
 		return Optional.ofNullable(posicaoRepositorio.findOne(id));
 	}
 
 	public Optional<Posicao> BuscarPorNome(String nome) {
-		log.info("Buscando Penalidade pelo nome {} ", nome);
+		log.info("Buscando Posicao pelo nome {} ", nome);
 		return Optional.ofNullable(posicaoRepositorio.findByNome(nome));
 	}
 
 	public Optional<List<Posicao>> BuscarPorModalidadeId(Long id_modalidade) {
-		log.info("Buscando Penalidade pelo nome {} ", id_modalidade);
+		log.info("Buscando Posicao pelo nome id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(posicaoRepositorio.findByModalidadeId(id_modalidade));
 	}
 
 	public Page<Posicao> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
-		log.info("Buscando Penalidade pelo nome {} ", id_modalidade);
+		log.info("Buscando uma lista paginada de Posicao pelo id modalidade {} ", id_modalidade);
 		return posicaoRepositorio.findByModalidadeId(id_modalidade, pageRequest);
 	}
-
-	@Override
 	public Posicao Salvar(Posicao posicao) {
-		log.info("Buscando Penalidade pelo nome {} ", posicao);
+		log.info("Salvando uma nova posicao no banco de dados {} ", posicao);
 		return posicaoRepositorio.save(posicao);
+	}
+	
+	public void Deletar(Long id) {
+		log.info("Deletando o posicao com id: {}", id);
+		posicaoRepositorio.delete(id);
 	}
 }

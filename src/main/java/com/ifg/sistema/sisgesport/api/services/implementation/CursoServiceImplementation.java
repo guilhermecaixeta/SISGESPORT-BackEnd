@@ -36,4 +36,8 @@ public class CursoServiceImplementation implements CursoService {
 		log.info("realizando a busca por curso {}", curso.getNome());
 		return cursoRepositorio.save(curso);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o curso com id: {}", id);
+		cursoRepositorio.delete(id);
+	}
 }

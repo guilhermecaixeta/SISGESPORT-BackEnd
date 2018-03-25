@@ -41,8 +41,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Tipo_Ponto Salvar(Tipo_Ponto tipo_ponto) {
-		log.info("Salvando tipo ponto {} ", tipo_ponto);
+		log.info("Salvando um novo tipo ponto no banco de dados {} ", tipo_ponto);
 		return tipoPontoRepositorio.save(tipo_ponto);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o tipo ponto com id: {}", id);
+		tipoPontoRepositorio.delete(id);
+	}
 }

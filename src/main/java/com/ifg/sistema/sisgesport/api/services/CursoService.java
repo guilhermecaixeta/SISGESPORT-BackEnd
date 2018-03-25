@@ -35,4 +35,5 @@ public interface CursoService {
 	 * @return
 	 */
 	Curso Salvar(Curso curso);
+	void Deletar(Long id);
 }

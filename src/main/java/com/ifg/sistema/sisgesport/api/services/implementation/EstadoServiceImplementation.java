@@ -28,4 +28,8 @@ public class EstadoServiceImplementation implements EstadoService {
 		log.info("Salvando o estado: ", estado.getNome());
 		return estadoRepositorio.save(estado);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o estado com id: {}", id);
+		estadoRepositorio.delete(id);
+	}
 }

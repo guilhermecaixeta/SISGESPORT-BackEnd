@@ -18,4 +18,5 @@ public interface EnderecoService {
 	 * @return Endereco
 	 */
 	Endereco Salvar(Endereco endereco);
+	void Deletar(Long id);
 }

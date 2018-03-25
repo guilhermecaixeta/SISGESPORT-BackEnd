@@ -32,7 +32,7 @@ public class InstituicaoServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.iR.save(Mockito.any(Instituicao.class))).willReturn(new Instituicao());
 		BDDMockito.given(this.iR.findOne(Mockito.anyLong())).willReturn(new Instituicao());
-		BDDMockito.given(this.iR.findOne(Mockito.anyLong())).willReturn(new Instituicao());
+		BDDMockito.given(this.iR.findByNome(Mockito.anyString())).willReturn(new Instituicao());
 	}
 	
 	@Test

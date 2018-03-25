@@ -52,4 +52,9 @@ public class AlunoServiceImplementation implements AlunoService{
 		log.info("Salvando dado: {}", aluno);
 		return alunoRepositorio.save(aluno);
 	}
+
+	public void Deletar(Long id) {
+		log.info("Deletando o aluno com id: {}", id);
+		alunoRepositorio.delete(id);
+	}
 }

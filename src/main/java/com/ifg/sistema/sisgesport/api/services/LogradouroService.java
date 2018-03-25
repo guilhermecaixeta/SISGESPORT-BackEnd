@@ -31,4 +31,5 @@ public interface LogradouroService {
 	 * @return Logradouro
 	 */
 	Logradouro Salvar(Logradouro logradouro);
+	void Deletar(Long id);
 }

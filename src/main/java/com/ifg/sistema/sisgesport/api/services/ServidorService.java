@@ -39,4 +39,5 @@ public interface ServidorService {
 	 * @return
 	 */
 	Servidor Salvar(Servidor servidor);
+	void Deletar(Long id);
 }

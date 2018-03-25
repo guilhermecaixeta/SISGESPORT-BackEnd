@@ -41,5 +41,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Partida Ponto pelo nome {} ", partida_ponto);
 		return partidaPontoRepositorio.save(partida_ponto);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o Partida Ponto com id: {}", id);
+		partidaPontoRepositorio.delete(id);
+	}
 }

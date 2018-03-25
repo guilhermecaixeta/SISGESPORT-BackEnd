@@ -30,4 +30,5 @@ public interface ImagemService {
 	 * @return
 	 */
 	Imagem Salvar(Imagem imagem);
+	void Deletar(Long id);
 }

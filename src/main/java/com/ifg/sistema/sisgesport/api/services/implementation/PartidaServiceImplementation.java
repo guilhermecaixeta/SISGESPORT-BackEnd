@@ -45,10 +45,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Partida pelo id evento {} ", id_evento);
 		return partidaRepositorio.findByEventoId(id_evento, pageRequest);
 	}
-
-	@Override
 	public Partida Salvar(Partida partida) {
 		log.info("Salvando a partida {} ", partida);
 		return partidaRepositorio.save(partida);
+	}
+	public void Deletar(Long id) {
+		log.info("Deletando o Partida com id: {}", id);
+		partidaRepositorio.delete(id);
 	}
 }

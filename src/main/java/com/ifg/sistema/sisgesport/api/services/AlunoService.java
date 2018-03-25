@@ -51,4 +51,5 @@ public interface AlunoService {
 	 * @return Aluno
 	 */
 	Aluno Salvar(Aluno aluno);
+	void Deletar(Long id);
 }

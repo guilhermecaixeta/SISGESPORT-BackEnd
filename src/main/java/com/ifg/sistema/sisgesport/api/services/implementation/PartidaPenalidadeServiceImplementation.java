@@ -41,5 +41,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando nova partida penalidade no banco de dados");
 		return partidaPenalidadeRepositorio.save(partida_penalidade);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o partida penalidade com id: {}", id);
+		partidaPenalidadeRepositorio.delete(id);
+	}
 }

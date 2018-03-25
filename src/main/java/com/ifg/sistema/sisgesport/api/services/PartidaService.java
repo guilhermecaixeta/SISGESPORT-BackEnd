@@ -47,4 +47,5 @@ public interface PartidaService {
 	 * @return
 	 */
 	Partida Salvar(Partida partida);
+	void Deletar(Long id);
 }

@@ -40,4 +40,5 @@ public interface EquipeService {
 	 * @return
 	 */
 	Equipe Salvar(Equipe equipe);
+	void Deletar(Long id);
 }

@@ -33,4 +33,5 @@ public interface InformacaoEventoService {
 	 * @return Evento
 	 */
 	Informacao_Evento Salvar(Informacao_Evento evento);
+	void Deletar(Long id);
 }

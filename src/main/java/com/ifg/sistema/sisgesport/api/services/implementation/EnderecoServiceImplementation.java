@@ -22,7 +22,11 @@ public class EnderecoServiceImplementation implements EnderecoService {
 		return Optional.ofNullable(enderecoRepositorio.findOne(id));
 	}
 	public Endereco Salvar(Endereco endereco) {
-		log.info("Salvando o endereco {}", endereco.getComplemento());
+		log.info("Salvando o endereco {}", endereco);
 		return enderecoRepositorio.save(endereco);
+	}
+	public void Deletar(Long id) {
+		log.info("Deletando o endereco com id: {}", id);
+		enderecoRepositorio.delete(id);
 	}
 }

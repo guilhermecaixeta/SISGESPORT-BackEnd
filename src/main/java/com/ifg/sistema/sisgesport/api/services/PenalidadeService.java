@@ -29,4 +29,5 @@ public interface PenalidadeService {
 	 * @return
 	 */
 	Penalidade Salvar(Penalidade penalidade);
+	void Deletar(Long id);
 }

@@ -47,4 +47,5 @@ public interface JogadorService {
 	 * @return Jogador
 	 */
 	Jogador Salvar(Jogador jogador);
+	void Deletar(Long id);
 }

@@ -39,4 +39,5 @@ public interface TurmaService {
 	 * @return
 	 */
 	Turma Salvar(Turma turma);
+	void Deletar(Long id);
 }

@@ -39,4 +39,5 @@ public interface TimeService {
 	 * @return
 	 */
 	Time Salvar(Time time);
+	void Deletar(Long id);
 }

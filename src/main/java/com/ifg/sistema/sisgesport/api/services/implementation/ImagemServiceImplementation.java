@@ -36,5 +36,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando a imagem {} ",imagem.getNome());
 		return imagemRepositorio.save(imagem);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando a imagem com id: {}", id);
+		imagemRepositorio.delete(id);
+	}
 }

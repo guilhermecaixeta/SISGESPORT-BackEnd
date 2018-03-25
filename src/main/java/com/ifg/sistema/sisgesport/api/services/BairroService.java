@@ -30,4 +30,5 @@ public interface BairroService {
 	 * @return Bairro
 	 */
 	Bairro Salvar(Bairro bairro);
+	void Deletar(Long id);
 }

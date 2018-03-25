@@ -36,4 +36,5 @@ public interface PartidaPenalidadeService {
 	 * @return
 	 */
 	Partida_Penalidade Salvar(Partida_Penalidade partida_penalidade);
+	void Deletar(Long id);
 }

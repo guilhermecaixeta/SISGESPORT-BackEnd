@@ -27,8 +27,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Instituicao Salvar(Instituicao instituicao) {
-		log.info("Buscando informacao evento pelo codigo {} ",instituicao.getNome());
+		log.info("Buscando Instituicao pelo codigo {} ",instituicao.getNome());
 		return instituicaoRepositorio.save(instituicao);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando a  Instituicao com id: {}", id);
+		instituicaoRepositorio.delete(id);
+	}
 }

@@ -38,5 +38,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando o evento {} ",evento.getNome());
 		return eventoRepositorio.save(evento);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o evento com id: {}", id);
+		eventoRepositorio.delete(id);
+	}
 }

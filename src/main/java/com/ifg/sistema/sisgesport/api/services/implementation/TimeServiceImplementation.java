@@ -42,8 +42,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	}
 
 	public Time Salvar(Time time) {
-		log.info("Salvando novo time no bando de dados {} ", time);
+		log.info("Salvando novo time no banco de dados {} ", time);
 		return timeRepositorio.save(time);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o time com id: {}", id);
+		timeRepositorio.delete(id);
+	}
 }

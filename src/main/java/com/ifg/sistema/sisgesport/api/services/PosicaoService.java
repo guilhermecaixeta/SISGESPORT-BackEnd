@@ -39,4 +39,5 @@ public interface PosicaoService {
 	 * @return
 	 */
 	Posicao Salvar(Posicao salvar);
+	void Deletar(Long id);
 }

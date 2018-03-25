@@ -33,4 +33,8 @@ public class EventoModalidadeServiceImplementation implements EventoModalidadeSe
 		log.info("Salvando evento modalidade {} ", evento_modalidade.getEvento().getNome());
 		return eventoModalidadeRepositorio.save(evento_modalidade);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o evento modalidade com id: {}", id);
+		eventoModalidadeRepositorio.delete(id);
+	}
 }

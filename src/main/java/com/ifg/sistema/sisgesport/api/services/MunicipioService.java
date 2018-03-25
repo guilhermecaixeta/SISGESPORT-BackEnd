@@ -47,4 +47,5 @@ public interface MunicipioService {
 	 * @return Municipio
 	 */
 	Municipio Salvar(Municipio municipio);
+	void Deletar(Long id);
 }

@@ -30,5 +30,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando uma nova modalidade no banco de dados {} ", modalidade.getNome());
 		return modalidadeRepositorio.save(modalidade);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o modalidade com id: {}", id);
+		modalidadeRepositorio.delete(id);
+	}
 }

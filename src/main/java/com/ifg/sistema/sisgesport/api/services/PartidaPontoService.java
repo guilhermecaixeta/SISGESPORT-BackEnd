@@ -36,4 +36,5 @@ public interface PartidaPontoService {
 	 * @return
 	 */
 	Partida_Ponto Salvar(Partida_Ponto partida_ponto);
+	void Deletar(Long id);
 }

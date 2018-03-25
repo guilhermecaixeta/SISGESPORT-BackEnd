@@ -48,5 +48,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando o jogador {} ",jogador.getJogador());
 		return jogadorRepositorio.save(jogador);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o jogador com id: {}", id);
+		jogadorRepositorio.delete(id);
+	}
 }

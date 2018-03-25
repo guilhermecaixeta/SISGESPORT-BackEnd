@@ -48,5 +48,8 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando o novo município no banco de dados {}", municipio.getNome());
 		return municipioRepositorio.save(municipio);
 	}
-
+	public void Deletar(Long id) {
+		log.info("Deletando o município com id: {}", id);
+		municipioRepositorio.delete(id);
+	}
 }

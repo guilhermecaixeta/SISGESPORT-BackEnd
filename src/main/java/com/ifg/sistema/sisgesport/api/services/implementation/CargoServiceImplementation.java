@@ -40,4 +40,8 @@ public class CargoServiceImplementation implements CargoService {
 		log.info("Salvando um novo cargo: {}", cargo.getNome());
 		return cargoRepositorio.save(cargo);
 	}
+	public void Deletar(Long id) {
+		log.info("Deletando o cargo com id: {}", id);
+		cargoRepositorio.delete(id);
+	}
 }
