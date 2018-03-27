@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ifg.sistema.sisgesport.api.entities.Partida_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPonto;
 
-public interface PartidaPontoRepositorio  extends JpaRepository<Partida_Ponto, Long> {
+public interface PartidaPontoRepositorio  extends JpaRepository<PartidaPonto, Long> {
 
-	List<Partida_Ponto> findByJogadorId(Long id_jogador);
-	List<Partida_Ponto> findByPartidaId(Long id_partida);
-	List<Partida_Ponto> findByTipoPontoId(Long id_penalidade);
+	List<PartidaPonto> findByJogadorId(Long id_jogador);
+	List<PartidaPonto> findByPartidaId(Long id_partida);
+	List<PartidaPonto> findByTipoPontoId(Long id_penalidade);
 }

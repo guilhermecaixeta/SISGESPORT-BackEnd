@@ -23,11 +23,11 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Jogador;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
-import com.ifg.sistema.sisgesport.api.entities.Partida_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPonto;
 import com.ifg.sistema.sisgesport.api.entities.Posicao;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.entities.Time;
-import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 import com.ifg.sistema.sisgesport.api.entities.Turma;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
@@ -71,13 +71,13 @@ public class PartidaPontoRepositorioTeste {
 	private static final Equipe equipeCasa = carregarEquipeCasa();
 	private static final Equipe equipeVisita = carregarEquipeVisita();
 	private static final Modalidade modalidade = carregarModalidade();
-	private static final Tipo_Ponto ponto = carregarTipoPonto();
+	private static final TipoPonto ponto = carregarTipoPonto();
 	private static final Time timeCasa = carregarTimeCasa();
 	private static final Time timeVisita = carregarTimeVisita();
 	private static final Posicao posicao = carregarPosicao();
 	private static final Jogador jogador = carregarJogador();
 	private static final Partida partida = carregarPartida();
-	private static final Partida_Ponto partidaPenalidade = carregarPartidadePonto();
+	private static final PartidaPonto partidaPenalidade = carregarPartidadePonto();
 	@Before
 	public void setUp() throws Exception{
 		mR.save(modalidade);
@@ -104,19 +104,19 @@ public class PartidaPontoRepositorioTeste {
 	
 	@Test
 	public void carregarPartidaPenalidadeTipoPontoId() {
-		List<Partida_Ponto> pp = ppR.findByTipoPontoId(ponto.getId());
+		List<PartidaPonto> pp = ppR.findByTipoPontoId(ponto.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarPartidaPenalidadeJogadorId() {
-		List<Partida_Ponto> pp = ppR.findByJogadorId(jogador.getId());
+		List<PartidaPonto> pp = ppR.findByJogadorId(jogador.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarPartidaPenalidadePartidaId() {
-		List<Partida_Ponto> pp = ppR.findByPartidaId(partida.getId());
+		List<PartidaPonto> pp = ppR.findByPartidaId(partida.getId());
 		assertNotNull(pp);
 	}
 	
@@ -201,8 +201,8 @@ public class PartidaPontoRepositorioTeste {
 		return mod;
 	}
 	
-	private static Tipo_Ponto carregarTipoPonto() {
-		Tipo_Ponto p= new Tipo_Ponto();
+	private static TipoPonto carregarTipoPonto() {
+		TipoPonto p= new TipoPonto();
 		List<Modalidade> lista = new ArrayList<Modalidade>();
 		lista.add(modalidade);
 		p.setModalidade(lista);
@@ -259,8 +259,8 @@ public class PartidaPontoRepositorioTeste {
 		return j;
 	}
 	
-	private static Partida_Ponto carregarPartidadePonto() {
-		Partida_Ponto p = new Partida_Ponto();
+	private static PartidaPonto carregarPartidadePonto() {
+		PartidaPonto p = new PartidaPonto();
 		p.setJogador(jogador);
 		p.setPartida(partida);
 		p.setTipo_ponto(ponto);

@@ -18,7 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Partida_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPonto;
 import com.ifg.sistema.sisgesport.api.repositorios.PartidaPontoRepositorio;
 
 @RunWith(SpringRunner.class)
@@ -32,40 +32,40 @@ public class PartidaPontoServiceTeste {
 	private static final Long id = (long)1;
 	@Before
 	public void setUp() throws Exception{
-		BDDMockito.given(this.ppR.save(Mockito.any(Partida_Ponto.class))).willReturn(new Partida_Ponto());
-		BDDMockito.given(this.ppR.findOne(Mockito.anyLong())).willReturn(new Partida_Ponto());
-		BDDMockito.given(this.ppR.findByJogadorId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Ponto>());
-		BDDMockito.given(this.ppR.findByPartidaId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Ponto>());
-		BDDMockito.given(this.ppR.findByTipoPontoId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Ponto>());
+		BDDMockito.given(this.ppR.save(Mockito.any(PartidaPonto.class))).willReturn(new PartidaPonto());
+		BDDMockito.given(this.ppR.findOne(Mockito.anyLong())).willReturn(new PartidaPonto());
+		BDDMockito.given(this.ppR.findByJogadorId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPonto>());
+		BDDMockito.given(this.ppR.findByPartidaId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPonto>());
+		BDDMockito.given(this.ppR.findByTipoPontoId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPonto>());
 	}
 	
 	@Test
 	public void TestPersistenciaEvento() {
-		Partida_Ponto e = this.ppS.Salvar(new Partida_Ponto());
+		PartidaPonto e = this.ppS.Salvar(new PartidaPonto());
 		assertNotNull(e);
 	}
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Partida_Ponto> e = this.ppS.BuscarPorId((long)1);
+		Optional<PartidaPonto> e = this.ppS.BuscarPorId((long)1);
 		assertNotNull(e);
 	}
 		
 	@Test
 	public void TestBuscarPorPartidaId() {
-		Optional<List<Partida_Ponto>> c = this.ppS.BuscarPorPartidaId(id);
+		Optional<List<PartidaPonto>> c = this.ppS.BuscarPorPartidaId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscarPorTipoPontoId() {
-		Optional<List<Partida_Ponto>> c = this.ppS.BuscarPorTipoPontoId(id);
+		Optional<List<PartidaPonto>> c = this.ppS.BuscarPorTipoPontoId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscarPorJogadorId() {
-		Optional<List<Partida_Ponto>> c = this.ppS.BuscarPorJogadorId(id);
+		Optional<List<PartidaPonto>> c = this.ppS.BuscarPorJogadorId(id);
 		assertTrue(c.isPresent());
 	}
 	

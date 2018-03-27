@@ -33,51 +33,51 @@ public class Evento extends EntidadeComum implements Serializable{
 
 	@Column(name="qnt_equipe", nullable= false)
 	private int qntEquipes;
-	
-	@Column(name="codigo_evento" ,nullable = false, length=15, unique=true)
+
+	@Column(name = "codigo_evento", nullable = false, length = 15, unique = true)
 	private String codigoEvento;
-	
-	@Column(name="nome" ,nullable = false, length=45)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 45,message="O campo possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, length = 45)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 45, message = "O campo possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="descricao" ,nullable = false, length=400)
-	@NotNull(message="O campo descricao não pode ser nulo.")
-	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 400,message="O descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "descricao", nullable = false, length = 400)
+	@NotNull(message = "O campo descricao não pode ser nulo.")
+	@NotBlank(message = "O campo descricao não pode ser em branco.")
+	@Length(max = 400, message = "O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 
-	@Column(name="data_inicio_inscricao" ,nullable = false)
+	@Column(name = "data_inicio_inscricao", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicioInscricao;
-	
-	@Column(name="data_fim_inscricao" ,nullable = false)
+
+	@Column(name = "data_fim_inscricao", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFimInscricao;
 
-	@Column(name="data_criacao" ,nullable = false)
+	@Column(name = "data_criacao", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	
-	@Column(name="data_inicio" ,nullable = false)
+
+	@Column(name = "data_inicio", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
-	
-	@Column(name="data_fim" ,nullable = false)
+
+	@Column(name = "data_fim", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFim;
-	
+
 	@ManyToOne
-	@JoinColumn(name="servidor", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_servidor_evento"))
+	@JoinColumn(name = "servidor", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_servidor_evento"))
 	private Servidor criador;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="evento")
-	private List<Informacao_Evento> informacaoEvento= new ArrayList<Informacao_Evento>();
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="evento")
-	private List<Evento_Modalidade> eventoModalidade = new ArrayList<Evento_Modalidade>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evento")
+	private List<InformacaoEvento> informacaoEvento = new ArrayList<InformacaoEvento>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evento")
+	private List<EventoModalidade> eventoModalidade = new ArrayList<EventoModalidade>();
 	
 	public Evento() {}
 
@@ -181,22 +181,22 @@ public class Evento extends EntidadeComum implements Serializable{
 	}
 
 
-	public List<Informacao_Evento> getInformacaoEvento() {
+	public List<InformacaoEvento> getInformacaoEvento() {
 		return informacaoEvento;
 	}
 
 
-	public void setInformacaoEvento(List<Informacao_Evento> informacaoEvento) {
+	public void setInformacaoEvento(List<InformacaoEvento> informacaoEvento) {
 		this.informacaoEvento = informacaoEvento;
 	}
 
 
-	public List<Evento_Modalidade> getEventoModalidade() {
+	public List<EventoModalidade> getEventoModalidade() {
 		return eventoModalidade;
 	}
 
 
-	public void setEventoModalidade(List<Evento_Modalidade> eventoModalidade) {
+	public void setEventoModalidade(List<EventoModalidade> eventoModalidade) {
 		this.eventoModalidade = eventoModalidade;
 	}
 

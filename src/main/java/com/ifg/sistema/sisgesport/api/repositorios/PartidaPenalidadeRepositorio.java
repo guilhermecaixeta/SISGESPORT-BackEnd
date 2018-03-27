@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifg.sistema.sisgesport.api.entities.Partida_Penalidade;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPenalidade;
 
 @Transactional(readOnly=true)
-public interface PartidaPenalidadeRepositorio extends JpaRepository<Partida_Penalidade, Long> {
+public interface PartidaPenalidadeRepositorio extends JpaRepository<PartidaPenalidade, Long> {
 
-	List<Partida_Penalidade> findByJogadorId(Long id_jogador);
-	List<Partida_Penalidade> findByPartidaId(Long id_partida);
-	List<Partida_Penalidade> findByPenalidadeId(Long id_penalidade);
+	List<PartidaPenalidade> findByJogadorId(Long id_jogador);
+	List<PartidaPenalidade> findByPartidaId(Long id_partida);
+	List<PartidaPenalidade> findByPenalidadeId(Long id_penalidade);
 }

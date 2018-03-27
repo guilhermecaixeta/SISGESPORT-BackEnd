@@ -16,33 +16,34 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Check;
 
 @Entity
-@Table(name="evento_modalidade")
-public class Evento_Modalidade implements Serializable{
+@Table(name = "evento_modalidade")
+public class EventoModalidade implements Serializable {
 
 	private static final long serialVersionUID = 4161788124589946685L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_evento_modalidade"))
-	@NotNull(message="O campo evento não pode ser nulo.")
+	@JoinColumn(name = "evento", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_evento_evento_modalidade"))
+	@NotNull(message = "O campo evento não pode ser nulo.")
 	private Evento evento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_modalidade_evento_modalidade"))
-	@NotNull(message="O campo modalidade não pode ser nulo.")
+	@JoinColumn(name = "modalidade", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_modalidade_evento_modalidade"))
+	@NotNull(message = "O campo modalidade não pode ser nulo.")
 	private Modalidade modalidade;
-	
-	@Column(name="sexo", nullable= false, length=1)
-	@Check(constraints="CONSTRAINT check_Sexo CHECK (sexo IN('F', 'M'))")
+
+	@Column(name = "sexo", nullable = false, length = 1)
+	@Check(constraints = "CONSTRAINT check_Sexo CHECK (sexo IN('F', 'M'))")
 	private char sexo;
-	
-	@Column(name="idade_maxima")
+
+	@Column(name = "idade_maxima")
 	private int idadeMaximaPermitida;
 
-	public Evento_Modalidade() {	}
+	public EventoModalidade() {
+	}
 
 	public Long getId() {
 		return id;
@@ -83,5 +84,5 @@ public class Evento_Modalidade implements Serializable{
 	public void setIdadeMaximaPermitida(int idadeMaximaPermitida) {
 		this.idadeMaximaPermitida = idadeMaximaPermitida;
 	}
-	
+
 }

@@ -18,7 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Partida_Penalidade;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPenalidade;
 import com.ifg.sistema.sisgesport.api.repositorios.PartidaPenalidadeRepositorio;
 
 @RunWith(SpringRunner.class)
@@ -32,40 +32,40 @@ public class PartidaPenalidadeServiceTeste {
 	private static final Long id = (long)1;
 	@Before
 	public void setUp() throws Exception{
-		BDDMockito.given(this.ppR.save(Mockito.any(Partida_Penalidade.class))).willReturn(new Partida_Penalidade());
-		BDDMockito.given(this.ppR.findOne(Mockito.anyLong())).willReturn(new Partida_Penalidade());
-		BDDMockito.given(this.ppR.findByJogadorId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Penalidade>());
-		BDDMockito.given(this.ppR.findByPartidaId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Penalidade>());
-		BDDMockito.given(this.ppR.findByPenalidadeId(Mockito.anyLong())).willReturn(new ArrayList<Partida_Penalidade>());
+		BDDMockito.given(this.ppR.save(Mockito.any(PartidaPenalidade.class))).willReturn(new PartidaPenalidade());
+		BDDMockito.given(this.ppR.findOne(Mockito.anyLong())).willReturn(new PartidaPenalidade());
+		BDDMockito.given(this.ppR.findByJogadorId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPenalidade>());
+		BDDMockito.given(this.ppR.findByPartidaId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPenalidade>());
+		BDDMockito.given(this.ppR.findByPenalidadeId(Mockito.anyLong())).willReturn(new ArrayList<PartidaPenalidade>());
 	}
 	
 	@Test
 	public void TestPersistenciaEvento() {
-		Partida_Penalidade e = this.ppS.Salvar(new Partida_Penalidade());
+		PartidaPenalidade e = this.ppS.Salvar(new PartidaPenalidade());
 		assertNotNull(e);
 	}
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Partida_Penalidade> e = this.ppS.BuscarPorId((long)1);
+		Optional<PartidaPenalidade> e = this.ppS.BuscarPorId((long)1);
 		assertNotNull(e);
 	}
 		
 	@Test
 	public void TestBuscarPorJogadorId() {
-		Optional<List<Partida_Penalidade>> c = this.ppS.BuscarPorJogadorId(id);
+		Optional<List<PartidaPenalidade>> c = this.ppS.BuscarPorJogadorId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscarPorPartidaId() {
-		Optional<List<Partida_Penalidade>> c = this.ppS.BuscarPorPartidaId(id);
+		Optional<List<PartidaPenalidade>> c = this.ppS.BuscarPorPartidaId(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscarPorPenalidadeId() {
-		Optional<List<Partida_Penalidade>> c = this.ppS.BuscarPorPenalidadeId(id);
+		Optional<List<PartidaPenalidade>> c = this.ppS.BuscarPorPenalidadeId(id);
 		assertTrue(c.isPresent());
 	}
 }

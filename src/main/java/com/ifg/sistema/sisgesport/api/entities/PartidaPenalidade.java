@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="partida_penalidade")
-public class Partida_Penalidade  implements Serializable {
+public class PartidaPenalidade  implements Serializable {
 	
 	private static final long serialVersionUID = -3518108435158981345L;
 
@@ -37,7 +37,7 @@ public class Partida_Penalidade  implements Serializable {
 	@NotNull(message="O campo penalidade não pode ser nulo.")
 	private Penalidade penalidade;
 
-	public Partida_Penalidade() {	}
+	public PartidaPenalidade() {	}
 
 	public Long getId() {
 		return id;

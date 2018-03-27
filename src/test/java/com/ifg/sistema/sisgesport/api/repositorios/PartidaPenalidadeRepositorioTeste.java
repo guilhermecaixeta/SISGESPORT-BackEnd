@@ -23,7 +23,7 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Jogador;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
-import com.ifg.sistema.sisgesport.api.entities.Partida_Penalidade;
+import com.ifg.sistema.sisgesport.api.entities.PartidaPenalidade;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 import com.ifg.sistema.sisgesport.api.entities.Posicao;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
@@ -77,7 +77,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static final Posicao posicao = carregarPosicao();
 	private static final Jogador jogador = carregarJogador();
 	private static final Partida partida = carregarPartida();
-	private static final Partida_Penalidade partidaPenalidade = carregarPartidadePenalidade();
+	private static final PartidaPenalidade partidaPenalidade = carregarPartidadePenalidade();
 	@Before
 	public void setUp() throws Exception{
 		mR.save(modalidade);
@@ -104,19 +104,19 @@ public class PartidaPenalidadeRepositorioTeste {
 	
 	@Test
 	public void carregarPartidaPenalidadePenalidadeId() {
-		List<Partida_Penalidade> pp = ppR.findByPenalidadeId(penalidade.getId());
+		List<PartidaPenalidade> pp = ppR.findByPenalidadeId(penalidade.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarPartidaPenalidadeJogadorId() {
-		List<Partida_Penalidade> pp = ppR.findByJogadorId(jogador.getId());
+		List<PartidaPenalidade> pp = ppR.findByJogadorId(jogador.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarPartidaPenalidadePartidaId() {
-		List<Partida_Penalidade> pp = ppR.findByPartidaId(partida.getId());
+		List<PartidaPenalidade> pp = ppR.findByPartidaId(partida.getId());
 		assertNotNull(pp);
 	}
 	
@@ -259,8 +259,8 @@ public class PartidaPenalidadeRepositorioTeste {
 		return j;
 	}
 	
-	private static Partida_Penalidade carregarPartidadePenalidade() {
-		Partida_Penalidade p = new Partida_Penalidade();
+	private static PartidaPenalidade carregarPartidadePenalidade() {
+		PartidaPenalidade p = new PartidaPenalidade();
 		p.setJogador(jogador);
 		p.setPartida(partida);
 		p.setPenalidade(penalidade);

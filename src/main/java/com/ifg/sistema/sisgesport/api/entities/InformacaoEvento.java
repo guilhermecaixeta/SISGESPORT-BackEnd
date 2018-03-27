@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name="informacao_evento")
-public class Informacao_Evento implements Serializable {
+public class InformacaoEvento implements Serializable {
 
 	private static final long serialVersionUID = 6469404273216225968L;
 
@@ -66,7 +66,7 @@ public class Informacao_Evento implements Serializable {
 	@NotNull(message="O campo evento não pode ser nulo.")
 	private Evento evento;
 
-	public Informacao_Evento() {	}
+	public InformacaoEvento() {	}
 
 	public Long getId() {
 		return id;

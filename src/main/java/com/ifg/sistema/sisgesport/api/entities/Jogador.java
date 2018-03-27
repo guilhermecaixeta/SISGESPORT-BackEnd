@@ -46,14 +46,14 @@ public class Jogador implements Serializable {
 	private Posicao posicao;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
-	private List<Partida_Penalidade> partidaPenalidade = new ArrayList<Partida_Penalidade>();
+	private List<PartidaPenalidade> partidaPenalidade = new ArrayList<PartidaPenalidade>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="jogador")
-	private List<Partida_Ponto> partidaPonto = new ArrayList<Partida_Ponto>();
+	private List<PartidaPonto> partidaPonto = new ArrayList<PartidaPonto>();
 
 	public Jogador() {	}
 
-	public void AdicionarPartidaPenalidade(Partida_Penalidade obj) {
+	public void AdicionarPartidaPenalidade(PartidaPenalidade obj) {
 	obj.setJogador(this);
 	this.partidaPenalidade.add(obj);
 	}
@@ -62,7 +62,7 @@ public class Jogador implements Serializable {
 		this.partidaPenalidade.remove(id);
 	}
 	
-	public void AdicionarPartidaPonto(Partida_Ponto obj) {
+	public void AdicionarPartidaPonto(PartidaPonto obj) {
 	obj.setJogador(this);
 	this.partidaPonto.add(obj);
 	}
@@ -111,19 +111,19 @@ public class Jogador implements Serializable {
 		this.posicao = posicao;
 	}
 
-	public List<Partida_Penalidade> getPartidaPenalidade() {
+	public List<PartidaPenalidade> getPartidaPenalidade() {
 		return partidaPenalidade;
 	}
 
-	public void setPartidaPenalidade(List<Partida_Penalidade> partidaPenalidade) {
+	public void setPartidaPenalidade(List<PartidaPenalidade> partidaPenalidade) {
 		this.partidaPenalidade = partidaPenalidade;
 	}
 
-	public List<Partida_Ponto> getPartidaPonto() {
+	public List<PartidaPonto> getPartidaPonto() {
 		return partidaPonto;
 	}
 
-	public void setPartidaPonto(List<Partida_Ponto> partidaPonto) {
+	public void setPartidaPonto(List<PartidaPonto> partidaPonto) {
 		this.partidaPonto = partidaPonto;
 	}
 	

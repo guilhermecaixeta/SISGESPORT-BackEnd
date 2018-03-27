@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
@@ -44,7 +44,7 @@ public class ImagemRepositorioTeste {
 	private static final Cargo cargo = cargoInformacao();
 	private static final Servidor servidor = servidorInformacao();
 	private static final Evento evento = EventoInformacao();
-	private static final Informacao_Evento informacao_evento = carregarInformacaoEvento();
+	private static final InformacaoEvento informacao_evento = carregarInformacaoEvento();
 	@Before
 	public void setUp() throws Exception{
 		Imagem i = new Imagem();
@@ -133,8 +133,8 @@ public class ImagemRepositorioTeste {
 		return ev;
 	}
 	
-	private static Informacao_Evento carregarInformacaoEvento() {
-		Informacao_Evento iE= new Informacao_Evento();
+	private static InformacaoEvento carregarInformacaoEvento() {
+		InformacaoEvento iE= new InformacaoEvento();
 		iE.setDataPostagem(new Date());
 		iE.setTitulo("Lorem ipsum dolor sit amet");
 		iE.setDescricao("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");

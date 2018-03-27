@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 
 public interface InformacaoEventoService {
 	/**
@@ -13,25 +13,25 @@ public interface InformacaoEventoService {
 	 * @param codigo_evento
 	 * @return Optional<List<Evento>>
 	 */
-	Optional<List<Informacao_Evento>> BuscarPorCodigoEvento(String codigo_evento);
+	Optional<List<InformacaoEvento>> BuscarPorCodigoEvento(String codigo_evento);
 	/**
 	 * Busca pelo codigo do evento uma lista de informacao eventos paginada
 	 * @param codigo_evento
 	 * @param page
 	 * @return Optional<Page<Evento>>
 	 */
-	Page<Informacao_Evento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest);
+	Page<InformacaoEvento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest);
 	/**
 	 * Busca pelo id uma informacao eventos 
 	 * @param id
 	 * @return Optional<Evento>
 	 */
-	Optional<Informacao_Evento> BuscarPorId(Long id);
+	Optional<InformacaoEvento> BuscarPorId(Long id);
 	/**
 	 * Salva uma nova informacao evento
 	 * @param evento
 	 * @return Evento
 	 */
-	Informacao_Evento Salvar(Informacao_Evento evento);
+	InformacaoEvento Salvar(InformacaoEvento evento);
 	void Deletar(Long id);
 }

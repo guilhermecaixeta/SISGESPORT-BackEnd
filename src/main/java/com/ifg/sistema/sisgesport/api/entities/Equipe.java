@@ -28,68 +28,65 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils;
 
 @Entity
-@Table(name="equipe")
+@Table(name = "equipe")
 public class Equipe implements Serializable {
 
 	private static final long serialVersionUID = 707899063460697688L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="nome", nullable=false, length=30)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, length = 30)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="codigo_equipe", nullable=false, length=20, unique=true)
-	@NotNull(message="O campo codigo não pode ser nulo.")
-	@NotBlank(message="O campo codigo não pode ser em branco.")
-	@Length(max= 20,message="O codigo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "codigo_equipe", nullable = false, length = 20, unique = true)
+	@NotNull(message = "O campo codigo não pode ser nulo.")
+	@NotBlank(message = "O campo codigo não pode ser em branco.")
+	@Length(max = 20, message = "O codigo nome possui o limite máximo de {max} caracteres.")
 	private String codigoEquipe;
-	
-	@Column(name="cor", nullable=false, length=30)
-	@NotNull(message="O campo cor não pode ser nulo.")
-	@NotBlank(message="O campo cor não pode ser em branco.")
+
+	@Column(name = "cor", nullable = false, length = 30)
+	@NotNull(message = "O campo cor não pode ser nulo.")
+	@NotBlank(message = "O campo cor não pode ser em branco.")
 	private String cor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_equipe"))
-	@NotNull(message="O campo evento não pode ser nulo.")
+	@JoinColumn(name = "evento", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_evento_equipe"))
+	@NotNull(message = "O campo evento não pode ser nulo.")
 	private Evento evento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="aluno", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_aluno_equipe"))
+	@JoinColumn(name = "aluno", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_aluno_equipe"))
 	private Aluno capitao;
-	
+
 	@ManyToOne
-	@JoinColumn(name="imagem", referencedColumnName="id", foreignKey = @ForeignKey(name="fk_imagem_equipe"))
+	@JoinColumn(name = "imagem", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_imagem_equipe"))
 	private Imagem imagem;
-	
-	@OneToMany(mappedBy="equipe", cascade= CascadeType.ALL , orphanRemoval = true, fetch= FetchType.LAZY)
-	private List<Time> time= new ArrayList<>();
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="equipe_aluno", 
-	joinColumns=
-	@JoinColumn(name="equipe", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="aluno", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"equipe", "aluno"})})
+
+	@OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Time> time = new ArrayList<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "equipe_aluno", joinColumns = @JoinColumn(name = "equipe", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "aluno", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "equipe", "aluno" }) })
 	private List<Aluno> aluno = new ArrayList<>();
 
-	public Equipe() {	}
+	public Equipe() {
+	}
 
 	public void AdicionarTime(Time obj) {
-	obj.setEquipe(this);
-	this.time.add(obj);
+		obj.setEquipe(this);
+		this.time.add(obj);
 	}
-	
+
 	public void RemoverTime(int id) {
 		this.time.remove(id);
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -18,7 +18,7 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
-import com.ifg.sistema.sisgesport.api.entities.Evento_Modalidade;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
@@ -47,7 +47,7 @@ public class EventoModalidadeRepositorioTeste {
 		sR.save(servidor);
 		evR.save(evento);
 		mR.save(modal);
-		Evento_Modalidade em = new Evento_Modalidade();
+		EventoModalidade em = new EventoModalidade();
 		em.setEvento(evento);
 		em.setIdadeMaximaPermitida(15);
 		em.setModalidade(modal);
@@ -60,13 +60,13 @@ public class EventoModalidadeRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorEventoId() {
-		List<Evento_Modalidade> em = emR.findByEventoId(evento.getId());
+		List<EventoModalidade> em = emR.findByEventoId(evento.getId());
 		assertNotNull(em);
 	}
 	
 	@Test
 	public void testBuscarPorModalidadeId() {
-		List<Evento_Modalidade> em = emR.findByEventoId(modal.getId());
+		List<EventoModalidade> em = emR.findByEventoId(modal.getId());
 		assertNotNull(em);
 	}
 	

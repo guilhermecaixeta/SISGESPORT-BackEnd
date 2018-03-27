@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 @Transactional(readOnly=true)
-public interface InformacaoEventoRepositorio extends JpaRepository<Informacao_Evento, Long> {
+public interface InformacaoEventoRepositorio extends JpaRepository<InformacaoEvento, Long> {
 		
-	List<Informacao_Evento> findByEventoCodigoEvento(String codigo_evento);
+	List<InformacaoEvento> findByEventoCodigoEvento(String codigo_evento);
 	
-	Page<Informacao_Evento> findByEventoCodigoEvento(String codigo_evento, Pageable page);
+	Page<InformacaoEvento> findByEventoCodigoEvento(String codigo_evento, Pageable page);
 }

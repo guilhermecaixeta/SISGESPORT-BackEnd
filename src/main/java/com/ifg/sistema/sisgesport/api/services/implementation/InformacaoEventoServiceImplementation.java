@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 import com.ifg.sistema.sisgesport.api.repositorios.InformacaoEventoRepositorio;
 import com.ifg.sistema.sisgesport.api.services.InformacaoEventoService;
 @Service
@@ -19,22 +19,22 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private InformacaoEventoRepositorio informacaoEventoRepositorio;
-	public Optional<List<Informacao_Evento>> BuscarPorCodigoEvento(String codigo_evento) {
+	public Optional<List<InformacaoEvento>> BuscarPorCodigoEvento(String codigo_evento) {
 		log.info("Buscando informacao evento pelo codigo {} ",codigo_evento);
 		return Optional.ofNullable(informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento));
 	}
 
-	public Page<Informacao_Evento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest) {
+	public Page<InformacaoEvento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest) {
 		log.info("Buscando informacao evento pelo codigo {} ",codigo_evento);
 		return informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento, pageRequest);
 	}
 
-	public Optional<Informacao_Evento> BuscarPorId(Long id) {
+	public Optional<InformacaoEvento> BuscarPorId(Long id) {
 		log.info("Buscando imagem pelo id da entidade comum {} ", id);
 		return Optional.ofNullable(informacaoEventoRepositorio.findOne(id));
 	}
 
-	public Informacao_Evento Salvar(Informacao_Evento informacao_evento) {
+	public InformacaoEvento Salvar(InformacaoEvento informacao_evento) {
 		log.info("Salvando a informacao evento {} ",informacao_evento.getTitulo());
 		return informacaoEventoRepositorio.save(informacao_evento);
 	}

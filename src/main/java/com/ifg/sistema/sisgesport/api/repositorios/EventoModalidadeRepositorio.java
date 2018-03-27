@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import com.ifg.sistema.sisgesport.api.entities.Evento_Modalidade;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 
 @Transactional(readOnly=true)
-public interface EventoModalidadeRepositorio extends JpaRepository<Evento_Modalidade, Long> {
+public interface EventoModalidadeRepositorio extends JpaRepository<EventoModalidade, Long> {
 	
-	List<Evento_Modalidade> findByModalidadeId(Long id_modalidade);
-	List<Evento_Modalidade> findByEventoId(Long id_evento);
+	List<EventoModalidade> findByModalidadeId(Long id_modalidade);
+	List<EventoModalidade> findByEventoId(Long id_evento);
 }

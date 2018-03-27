@@ -24,7 +24,7 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.entities.Time;
-import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
@@ -52,7 +52,7 @@ public class TimeRepositorioTeste {
 	private static final Servidor servidor = carregaServidor();
 	private static final Equipe equipe = carregarEquipe();
 	private static final Modalidade modalidade = carregarModalidade();
-	private static final Tipo_Ponto ponto = carregarTipoPonto();
+	private static final TipoPonto ponto = carregarTipoPonto();
 	private static final Time time = carregarTime();
 	
 	@Before
@@ -136,7 +136,7 @@ public class TimeRepositorioTeste {
 	
 	private static Modalidade carregarModalidade(){
 		Modalidade mod = new Modalidade();
-		List<Tipo_Ponto> lista = new ArrayList<Tipo_Ponto>();
+		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
@@ -145,8 +145,8 @@ public class TimeRepositorioTeste {
 		return mod;
 	}
 	
-	private static Tipo_Ponto carregarTipoPonto() {
-		Tipo_Ponto ponto = new Tipo_Ponto();
+	private static TipoPonto carregarTipoPonto() {
+		TipoPonto ponto = new TipoPonto();
 		ponto.setNome("gol");
 		ponto.setValor(1);
 		return ponto;

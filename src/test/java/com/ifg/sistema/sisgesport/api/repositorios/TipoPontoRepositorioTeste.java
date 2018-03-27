@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
-import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +28,7 @@ public class TipoPontoRepositorioTeste {
 	private TipoPontoRepositorio tpR;
 	
 	private static final Modalidade modalidade = carregarModalidade();
-	private static final Tipo_Ponto ponto = carregarTipoPonto();
+	private static final TipoPonto ponto = carregarTipoPonto();
 	
 	@Before
 	public void setUp() throws Exception{
@@ -43,26 +43,26 @@ public class TipoPontoRepositorioTeste {
 	
 	@Test
 	public void carregarTipoPontoLista() {
-		List<Tipo_Ponto> pp = tpR.findByModalidadeId(modalidade.getId());
+		List<TipoPonto> pp = tpR.findByModalidadeId(modalidade.getId());
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarTipoPontoPaginado() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Tipo_Ponto> pp = tpR.findByModalidadeId(modalidade.getId(), page);
+		Page<TipoPonto> pp = tpR.findByModalidadeId(modalidade.getId(), page);
 		assertNotNull(pp);
 	}
 	
 	@Test
 	public void carregarTipoPontoNome() {
-		Tipo_Ponto pp = tpR.findByNome("gol");
+		TipoPonto pp = tpR.findByNome("gol");
 		assertNotNull(pp);
 	}
 	
 	private static Modalidade carregarModalidade(){
 		Modalidade mod = new Modalidade();
-		List<Tipo_Ponto> lista = new ArrayList<Tipo_Ponto>();
+		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");
@@ -72,8 +72,8 @@ public class TipoPontoRepositorioTeste {
 		return mod;
 	}
 	
-	private static Tipo_Ponto carregarTipoPonto() {
-		Tipo_Ponto ponto = new Tipo_Ponto();
+	private static TipoPonto carregarTipoPonto() {
+		TipoPonto ponto = new TipoPonto();
 		ponto.setNome("gol");
 		ponto.setValor(1);
 		return ponto;

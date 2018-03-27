@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="partida_ponto")
-public class Partida_Ponto implements Serializable {
+public class PartidaPonto implements Serializable {
 
 	private static final long serialVersionUID = -1618457060040789109L;
 
@@ -34,9 +34,9 @@ public class Partida_Ponto implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="tipo_ponto", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_tipo_ponto_partida_ponto"))
-	private Tipo_Ponto tipoPonto;
+	private TipoPonto tipoPonto;
 
-	public Partida_Ponto() {	}
+	public PartidaPonto() {	}
 
 	public Long getId() {
 		return id;
@@ -62,11 +62,11 @@ public class Partida_Ponto implements Serializable {
 		this.partida = partida;
 	}
 
-	public Tipo_Ponto getTipo_ponto() {
+	public TipoPonto getTipo_ponto() {
 		return tipoPonto;
 	}
 
-	public void setTipo_ponto(Tipo_Ponto tipoPonto) {
+	public void setTipo_ponto(TipoPonto tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
 }

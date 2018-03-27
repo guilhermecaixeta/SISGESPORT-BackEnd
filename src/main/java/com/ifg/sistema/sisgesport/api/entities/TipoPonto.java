@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="tipo_ponto")
-public class Tipo_Ponto implements Serializable {
+public class TipoPonto implements Serializable {
 
 	private static final long serialVersionUID = -6056988218785098576L;
 
@@ -49,7 +49,7 @@ public class Tipo_Ponto implements Serializable {
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "tipo_ponto"})})
 	private List<Modalidade> modalidade = new ArrayList<>();
 	
-	public Tipo_Ponto() {	}
+	public TipoPonto() {	}
 
 	public Long getId() {
 		return id;

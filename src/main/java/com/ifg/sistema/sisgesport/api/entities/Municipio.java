@@ -24,25 +24,25 @@ public class Municipio implements Serializable {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
-	
-	@Column(name="nome", nullable=false, unique= true, length=45)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 45,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, unique = true, length = 45)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 45, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@NotNull(message="O campo sigla não pode ser nulo.")
-	@NotBlank(message="O campo sigla não pode ser em branco.")
-	@Length(max= 5,message="O sigla possui o limite máximo de {max} caracteres.")
-	@Column(name="sigla", nullable=false, unique= true, length=5)
+
+	@NotNull(message = "O campo sigla não pode ser nulo.")
+	@NotBlank(message = "O campo sigla não pode ser em branco.")
+	@Length(max = 5, message = "O sigla possui o limite máximo de {max} caracteres.")
+	@Column(name = "sigla", nullable = false, unique = true, length = 5)
 	private String sigla;
-	
-	@Column(name="cep_municipio", nullable=false, unique= true, length=2)
+
+	@Column(name = "cep_municipio", nullable = false, unique = true, length = 2)
 	private String cepMunicipio;
-	
+
 	@ManyToOne
-	@JoinColumn(name="estado", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_estado_municipio"))
-	@NotNull(message="O campo estado não pode ser nulo.")
+	@JoinColumn(name = "estado", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_estado_municipio"))
+	@NotNull(message = "O campo estado não pode ser nulo.")
 	private Estado estado;
 
 	public Municipio() {	}

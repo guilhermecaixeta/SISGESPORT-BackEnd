@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ifg.sistema.sisgesport.api.entities.Evento_Modalidade;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 import com.ifg.sistema.sisgesport.api.repositorios.EventoModalidadeRepositorio;
 import com.ifg.sistema.sisgesport.api.services.EventoModalidadeService;
 @Service
@@ -17,19 +17,19 @@ public class EventoModalidadeServiceImplementation implements EventoModalidadeSe
 	
 	@Autowired
 	private EventoModalidadeRepositorio eventoModalidadeRepositorio;
-	public Optional<List<Evento_Modalidade>> BuscarPorEventoId(Long id_evento){
+	public Optional<List<EventoModalidade>> BuscarPorEventoId(Long id_evento){
 		log.info("Buscando modalidade evento pelo id do evento {} ",id_evento);
 		return Optional.ofNullable(eventoModalidadeRepositorio.findByEventoId(id_evento));
 	}
-	public Optional<List<Evento_Modalidade>> BuscarPorModalidadeId(Long id_modalidade){
+	public Optional<List<EventoModalidade>> BuscarPorModalidadeId(Long id_modalidade){
 		log.info("Buscando modalidade evento pelo id da modalidade {} ",id_modalidade);
 		return Optional.ofNullable(eventoModalidadeRepositorio.findByModalidadeId(id_modalidade));
 	}
-	public Optional<Evento_Modalidade> BuscarPorId(Long id){
+	public Optional<EventoModalidade> BuscarPorId(Long id){
 		log.info("Buscando modalidade evento pelo id {} ", id);
 		return Optional.ofNullable(eventoModalidadeRepositorio.findOne(id));
 	}
-	public Evento_Modalidade Salvar(Evento_Modalidade evento_modalidade) {
+	public EventoModalidade Salvar(EventoModalidade evento_modalidade) {
 		log.info("Salvando evento modalidade {} ", evento_modalidade.getEvento().getNome());
 		return eventoModalidadeRepositorio.save(evento_modalidade);
 	}

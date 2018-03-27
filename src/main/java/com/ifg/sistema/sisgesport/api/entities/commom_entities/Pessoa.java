@@ -55,6 +55,8 @@ public class Pessoa extends EntidadeComum implements Serializable{
 	@Column(name="perfil" ,nullable = false)
 	private PerfilSistema perfil;
 	
+	public Pessoa() {	}
+
 	public String getNome() {
 		return nome;
 	}

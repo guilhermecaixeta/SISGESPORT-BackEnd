@@ -21,37 +21,34 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="cargo")
+@Table(name = "cargo")
 public class Cargo implements Serializable {
 
 	private static final long serialVersionUID = 1057377842720650005L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="nome", nullable=false, unique= true, length=30)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, unique = true, length = 30)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="descricao", nullable=false, length=60)
-	@NotNull(message="O campo descricao não pode ser nulo.")
-	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 60,message="O campo descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "descricao", nullable = false, length = 60)
+	@NotNull(message = "O campo descricao não pode ser nulo.")
+	@NotBlank(message = "O campo descricao não pode ser em branco.")
+	@Length(max = 60, message = "O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
 
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="instituicao_cargo", 
-	joinColumns=
-	@JoinColumn(name="cargo", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="instituicao", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"instituicao", "cargo"})})
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "instituicao_cargo", joinColumns = @JoinColumn(name = "cargo", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "instituicao", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "instituicao", "cargo" }) })
 	private List<Instituicao> instituicao = new ArrayList<>();
-	
-	public Cargo() {	}
+
+	public Cargo() {
+	}
 
 	public Long getId() {
 		return id;
@@ -84,5 +81,5 @@ public class Cargo implements Serializable {
 	public void setInstituicao(List<Instituicao> instituicao) {
 		this.instituicao = instituicao;
 	}
-	
+
 }

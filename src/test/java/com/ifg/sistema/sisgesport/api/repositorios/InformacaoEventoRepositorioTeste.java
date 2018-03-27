@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
@@ -57,7 +57,7 @@ public class InformacaoEventoRepositorioTeste {
 		imR.save(imagem);
 		List<Imagem> listaI= new ArrayList<Imagem>();
 		listaI.add(imagem);
-		Informacao_Evento iE= new Informacao_Evento();
+		InformacaoEvento iE= new InformacaoEvento();
 		iE.setDataPostagem(new Date());
 		iE.setTitulo("Lorem ipsum dolor sit amet");
 		iE.setDescricao("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
@@ -74,7 +74,7 @@ public class InformacaoEventoRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorEvento() {
-		List<Informacao_Evento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento());
+		List<InformacaoEvento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento());
 		
 		assertNotNull(lista);
 	}
@@ -82,7 +82,7 @@ public class InformacaoEventoRepositorioTeste {
 	@Test
 	public void testBuscarPorEventoPaginado() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Informacao_Evento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento(), page);
+		Page<InformacaoEvento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento(), page);
 		
 		assertEquals(1, lista.getNumberOfElements());
 	}

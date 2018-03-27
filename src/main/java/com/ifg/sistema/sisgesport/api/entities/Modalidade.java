@@ -29,49 +29,37 @@ public class Modalidade  implements Serializable{
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
-	
-	@Column(name="nome", nullable= false, length=30)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, length = 30)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="descricao", length=400)
-	@Length(max= 400,message="O descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "descricao", length = 400)
+	@Length(max = 400, message = "O descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
-	
-	@Column(name="num_max_jogador" )
+
+	@Column(name = "num_max_jogador")
 	private int numMaxJogador;
-	
-	@Column(name="num_min_jogador")
+
+	@Column(name = "num_min_jogador")
 	private int numMinJogador;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="modalidade_penalidade", 
-	joinColumns=
-	@JoinColumn(name="modalidade", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="penalidade", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "penalidade"})})
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "modalidade_penalidade", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "penalidade", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "modalidade", "penalidade" }) })
 	private List<Penalidade> penalidade = new ArrayList<>();
 
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="modalidade_posicao", 
-	joinColumns=
-	@JoinColumn(name="modalidade", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="posicao", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "posicao"})})
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "modalidade_posicao", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "posicao", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "modalidade", "posicao" }) })
 	private List<Posicao> posicao = new ArrayList<>();
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="modalidade_tipo_ponto", 
-	joinColumns=
-	@JoinColumn(name="modalidade", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="tipo_ponto", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "tipo_ponto"})})
-	private List<Tipo_Ponto> tipoPonto = new ArrayList<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "modalidade_tipo_ponto", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tipo_ponto", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "modalidade", "tipo_ponto" }) })
+	private List<TipoPonto> tipoPonto = new ArrayList<>();
 	
 	public Modalidade() {	}
 
@@ -131,11 +119,11 @@ public class Modalidade  implements Serializable{
 		this.posicao = posicao;
 	}
 
-	public List<Tipo_Ponto> getTipoPonto() {
+	public List<TipoPonto> getTipoPonto() {
 		return tipoPonto;
 	}
 
-	public void setTipoPonto(List<Tipo_Ponto> tipoPonto) {
+	public void setTipoPonto(List<TipoPonto> tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
 

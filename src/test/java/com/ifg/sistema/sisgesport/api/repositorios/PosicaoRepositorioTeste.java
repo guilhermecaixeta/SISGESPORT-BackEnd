@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.Posicao;
-import com.ifg.sistema.sisgesport.api.entities.Tipo_Ponto;
+import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,7 +34,7 @@ public class PosicaoRepositorioTeste {
 	
 	private static final Modalidade modalidade = carregarModalidade();
 	private static final Posicao posicao = carregarPosicao();
-	private static final Tipo_Ponto ponto = carregarTipoPonto();
+	private static final TipoPonto ponto = carregarTipoPonto();
 	
 	@Before
 	public void setUp() throws Exception{
@@ -69,8 +69,8 @@ public class PosicaoRepositorioTeste {
 		assertNotNull(p);
 	}
 	
-	private static Tipo_Ponto carregarTipoPonto() {
-		Tipo_Ponto ponto = new Tipo_Ponto();
+	private static TipoPonto carregarTipoPonto() {
+		TipoPonto ponto = new TipoPonto();
 		ponto.setNome("gol");
 		ponto.setValor(1);
 		return ponto;
@@ -78,7 +78,7 @@ public class PosicaoRepositorioTeste {
 	
 	private static Modalidade carregarModalidade(){
 		Modalidade mod = new Modalidade();
-		List<Tipo_Ponto> lista = new ArrayList<Tipo_Ponto>();
+		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
 		mod.setNome("Futebol");

@@ -21,7 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Informacao_Evento;
+import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 import com.ifg.sistema.sisgesport.api.repositorios.InformacaoEventoRepositorio;
 
 @RunWith(SpringRunner.class)
@@ -35,34 +35,34 @@ public class InformacaoEventoServiceTeste {
 	private static final String codEvento = "teste";
 	@Before
 	public void setUp() throws Exception{
-		BDDMockito.given(this.eR.save(Mockito.any(Informacao_Evento.class))).willReturn(new Informacao_Evento());
-		BDDMockito.given(this.eR.findOne(Mockito.anyLong())).willReturn(new Informacao_Evento());
-		BDDMockito.given(this.eR.findByEventoCodigoEvento(Mockito.anyString())).willReturn(new ArrayList<Informacao_Evento>());
+		BDDMockito.given(this.eR.save(Mockito.any(InformacaoEvento.class))).willReturn(new InformacaoEvento());
+		BDDMockito.given(this.eR.findOne(Mockito.anyLong())).willReturn(new InformacaoEvento());
+		BDDMockito.given(this.eR.findByEventoCodigoEvento(Mockito.anyString())).willReturn(new ArrayList<InformacaoEvento>());
 		BDDMockito.given(this.eR.findByEventoCodigoEvento(Mockito.anyString(), Mockito.any(PageRequest.class)))
-		.willReturn(new PageImpl<Informacao_Evento>(new ArrayList<Informacao_Evento>()));
+		.willReturn(new PageImpl<InformacaoEvento>(new ArrayList<InformacaoEvento>()));
 	}
 	
 	@Test
 	public void TestPersistenciaEvento() {
-		Informacao_Evento e = this.eS.Salvar(new Informacao_Evento());
+		InformacaoEvento e = this.eS.Salvar(new InformacaoEvento());
 		assertNotNull(e);
 	}
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Informacao_Evento> e = this.eS.BuscarPorId((long)1);
+		Optional<InformacaoEvento> e = this.eS.BuscarPorId((long)1);
 		assertNotNull(e);
 	}
 		
 	@Test
 	public void TestBuscaPorMatriculaCriador() {
-		Optional<List<Informacao_Evento>> c = this.eS.BuscarPorCodigoEvento(codEvento);
+		Optional<List<InformacaoEvento>> c = this.eS.BuscarPorCodigoEvento(codEvento);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscaPorMatriculaCriadorPaginavel() {
-		Page<Informacao_Evento> c = this.eS.BuscarPorCodigoEventoPaginavel(codEvento, new PageRequest(0,10));
+		Page<InformacaoEvento> c = this.eS.BuscarPorCodigoEventoPaginavel(codEvento, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 }

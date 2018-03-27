@@ -1,46 +1,48 @@
 package com.ifg.sistema.sisgesport.api.entities;
+
 import java.io.Serializable;
 
-import javax.persistence.Column ;
-import javax.persistence.Entity ;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue ;
-import javax.persistence.GenerationType ;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table ;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="curso")
+@Table(name = "curso")
 public class Curso implements Serializable {
 
 	private static final long serialVersionUID = -4081166169939325949L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="flg_ativo", nullable=false)
-	@NotNull(message="O campo não pode ser nulo.")
+
+	@Column(name = "flg_ativo", nullable = false)
+	@NotNull(message = "O campo não pode ser nulo.")
 	private Boolean flg_ativo;
-	
-	@Column(name="nome", nullable=false, unique= true, length=20)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 60,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, unique = true, length = 20)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 60, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name="instituicao", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_instituicao_curso"))
-	@NotNull(message="O campo instituição não pode ser nulo.")
+	@JoinColumn(name = "instituicao", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_instituicao_curso"))
+	@NotNull(message = "O campo instituição não pode ser nulo.")
 	private Instituicao instituicao;
 
-	public Curso() {	}
+	public Curso() {
+	}
 
 	public Long getId() {
 		return id;
@@ -73,6 +75,4 @@ public class Curso implements Serializable {
 	public void setInstituicao(Instituicao instituicao) {
 		this.instituicao = instituicao;
 	}
-
-	
 }
