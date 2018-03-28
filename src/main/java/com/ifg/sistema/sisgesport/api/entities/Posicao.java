@@ -29,35 +29,32 @@ public class Posicao implements Serializable {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
-	
-	@Column(name="nome", nullable=false, length=30)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 30,message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", nullable = false, length = 30)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="descricao", nullable=false, length=30)
-	@NotNull(message="O campo descricao não pode ser nulo.")
-	@NotBlank(message="O campo descricao não pode ser em branco.")
-	@Length(max= 30,message="O campo descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "descricao", nullable = false, length = 30)
+	@NotNull(message = "O campo descricao não pode ser nulo.")
+	@NotBlank(message = "O campo descricao não pode ser em branco.")
+	@Length(max = 30, message = "O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
-	
-	@Column(name="num_max_jogador", nullable= false)
+
+	@Column(name = "num_max_jogador", nullable = false)
 	private int numMaxJogador;
-	
-	@Column(name="num_min_jogador", nullable= false)
+
+	@Column(name = "num_min_jogador", nullable = false)
 	private int numMinJogador;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="modalidade_posicao", 
-	joinColumns=
-	@JoinColumn(name="posicao", referencedColumnName="id", nullable= false),
-	inverseJoinColumns =
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable= false),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"modalidade", "posicao"})})
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "modalidade_posicao", joinColumns = @JoinColumn(name = "posicao", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id", nullable = false), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "modalidade", "posicao" }) })
 	private List<Modalidade> modalidade = new ArrayList<>();
 
-	public Posicao() {	}
+	public Posicao() {
+	}
 
 	public Long getId() {
 		return id;
