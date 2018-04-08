@@ -50,7 +50,6 @@ public class Pessoa extends EntidadeComum implements Serializable {
 
 	@Column(name = "data_nasc", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message = "O campo data de nascimento não pode ser nulo.")
 	private Date dataNascimento;
 
 	@Enumerated(EnumType.STRING)

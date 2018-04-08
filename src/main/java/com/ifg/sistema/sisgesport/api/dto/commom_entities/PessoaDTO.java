@@ -18,7 +18,6 @@ public class PessoaDTO {
 	@Length(max= 60, message="O campo email deve conter até 60 caracteres.")
 	@Email(message="Email inválido.")
 	protected String email;
-	@NotEmpty(message="O campo data nascimento não pode ser vazio.")
 	protected Date dataNascimento;
 	protected PerfilSistema perfil;
 

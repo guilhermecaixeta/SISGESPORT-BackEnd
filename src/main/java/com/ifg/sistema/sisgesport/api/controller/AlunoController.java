@@ -2,8 +2,6 @@ package com.ifg.sistema.sisgesport.api.controller;
 
 import java.security.NoSuchAlgorithmException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,10 +25,13 @@ import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
 
 @RestController
-@RequestMapping("sisgesport/aluno")
 @CrossOrigin(origins = "*")
+@RequestMapping("sisgesport/aluno")
 public class AlunoController extends baseController<AlunoDTO, Aluno> {
-
+	{
+	mappingDTOToEntity = new mappingEntitys<>(AlunoDTO.class, Aluno.class);
+	mappingEntityToDTO = new mappingEntitys<>(Aluno.class, AlunoDTO.class);
+	}
 	private Response<AlunoDTO> response;
 	@Autowired
 	private AlunoService aS;
@@ -49,16 +50,15 @@ public class AlunoController extends baseController<AlunoDTO, Aluno> {
 		log.info("Cadastrando o aluno: {}", alunoDTO.toString());
 		response = new Response<AlunoDTO>();
 		validarAluno(alunoDTO, result);
-		mappingDTOAs = new mappingEntitys<>(AlunoDTO.class, Aluno.class);
-		mappingAsDTO = new mappingEntitys<>(Aluno.class, AlunoDTO.class);
-		Aluno aluno = mappingDTOAs.AsGenericMapping(alunoDTO);
+		
+		Aluno aluno = mappingDTOToEntity.AsGenericMapping(alunoDTO);
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados do novo aluno: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 		this.aS.Salvar(aluno);
-		response.setData(mappingAsDTO.AsGenericMapping(aluno));
+		response.setData(mappingEntityToDTO.AsGenericMapping(aluno));
 		return ResponseEntity.ok(response);
 	}
 	

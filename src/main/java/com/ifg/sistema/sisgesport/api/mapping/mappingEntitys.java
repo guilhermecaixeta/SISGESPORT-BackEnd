@@ -1,7 +1,6 @@
 package com.ifg.sistema.sisgesport.api.mapping;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import org.modelmapper.ModelMapper;
 
 public class mappingEntitys<S, D>{
 	final Class<D> destiny;
@@ -26,7 +25,7 @@ public class mappingEntitys<S, D>{
  * @return entityD
  */
 		public D AsGenericMapping(S entitySource){
-			Mapper mapper = new DozerBeanMapper();
+			ModelMapper mapper = new ModelMapper();
 			D destObject =  
 			    mapper.map(entitySource, getDestiny());
 			return destObject;

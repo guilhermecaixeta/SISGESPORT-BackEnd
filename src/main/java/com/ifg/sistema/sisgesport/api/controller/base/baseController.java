@@ -8,6 +8,6 @@ import com.ifg.sistema.sisgesport.api.mapping.mappingEntitys;
 public abstract class baseController<S, D> {
 	protected static final Logger log = LoggerFactory.getLogger(baseController.class);
 
-	protected mappingEntitys<S, D> mappingDTOAs;
-	protected mappingEntitys<D, S> mappingAsDTO;
+	protected mappingEntitys<S, D> mappingDTOToEntity;
+	protected mappingEntitys<D, S> mappingEntityToDTO;
 }
