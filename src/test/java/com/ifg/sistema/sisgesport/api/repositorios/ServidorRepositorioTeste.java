@@ -39,7 +39,6 @@ public class ServidorRepositorioTeste {
 		serv.setCargo(cargo);
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
-		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
 		serv.setMatriculaSiap(matriculasiap);
@@ -49,7 +48,6 @@ public class ServidorRepositorioTeste {
 		Servidor serv2 = new Servidor();
 		serv2.setNome("user");
 		serv2.setDataNascimento(new Date());
-		serv2.setLogin("user");
 		serv2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
 		serv2.setSexo('F');
 		serv2.setMatriculaSiap("20122080010042");

@@ -142,7 +142,6 @@ public class JogadorRepositorioTeste {
 		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme Teste");
 		aluno.setDataNascimento(new Date());
-		aluno.setLogin("GuilhermeTesTe");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
@@ -161,7 +160,6 @@ public class JogadorRepositorioTeste {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
-		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
 		serv.setMatriculaSiap("20122080010047");

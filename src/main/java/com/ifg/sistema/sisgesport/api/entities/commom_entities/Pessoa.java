@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.entities.commom_entities;
-import java.io.Serializable ;
+
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -20,42 +23,42 @@ import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoa")
-public class Pessoa extends EntidadeComum implements Serializable{
+public class Pessoa extends EntidadeComum implements Serializable {
 
 	private static final long serialVersionUID = 2848996214116693556L;
 
-	@Column(name="nome" ,nullable = false, length=50)
-	@NotNull(message="O campo nome não pode ser nulo.")
-	@NotBlank(message="O campo nome não pode ser em branco.")
-	@Length(max= 50,message="O campo possui o limite máximo de {max} caracteres.")
+	@Column(name = "nome", nullable = false, length = 200)
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@NotBlank(message = "O campo nome não pode ser em branco.")
+	@Length(max = 200, message = "O campo possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="sexo" ,nullable = false, length=1)
-	@NotNull(message="O campo sexo não pode ser nulo.")
+
+	@Column(name = "sexo", nullable = false, length = 1)
+	@NotNull(message = "O campo sexo não pode ser nulo.")
 	private Character sexo;
-	
-	@Column(name="login" ,nullable = false, length=15, unique=true)
-	@NotNull(message="O campo login não pode ser nulo.")
-	@NotBlank(message="O campo login não pode ser em branco.")
-	@Length(max= 15,message="O login possui o limite máximo de {max} caracteres.")
-	private String login;
-	
-	@Column(name="senha" ,nullable = false, length=60)
-	@NotNull(message="O campo senha não pode ser nulo.")
-	@NotBlank(message="O campo senha não pode ser em branco.")
-	@Length(max= 60,message="A senha possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "senha", nullable = false, length = 60)
+	@NotNull(message = "O campo senha não pode ser nulo.")
+	@NotBlank(message = "O campo senha não pode ser em branco.")
+	@Length(max = 60, message = "A senha possui o limite máximo de {max} caracteres.")
 	private String senha;
-	
-	@Column(name="data_nasc" ,nullable = false)
+
+	@Column(name = "email", length = 60)
+	@Length(max = 60, message = "A email possui o limite máximo de {max} caracteres.")
+	@Email(message = "Email não é válido.")
+	private String email;
+
+	@Column(name = "data_nasc", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	@NotNull(message="O campo data de nascimento não pode ser nulo.")
+	@NotNull(message = "O campo data de nascimento não pode ser nulo.")
 	private Date dataNascimento;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="perfil" ,nullable = false)
+	@Column(name = "perfil", nullable = false)
 	private PerfilSistema perfil;
-	
-	public Pessoa() {	}
+
+	public Pessoa() {
+	}
 
 	public String getNome() {
 		return nome;
@@ -73,20 +76,20 @@ public class Pessoa extends EntidadeComum implements Serializable{
 		this.sexo = sexo;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getDataNascimento() {

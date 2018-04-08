@@ -3,12 +3,16 @@ package com.ifg.sistema.sisgesport.api.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.PessoaDTO;
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.entities.Turma;
 
 public class AlunoDTO extends PessoaDTO {
-
+	@NotEmpty(message="O campo matrícula não pode ser vazio.")
+	@Length(message="O campo matrícula deve conter até 20 caracteres.")
 	private String matricula;
 	private Turma turma;
 	private List<Equipe> equipe = new ArrayList<>();

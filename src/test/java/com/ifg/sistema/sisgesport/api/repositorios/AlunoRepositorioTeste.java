@@ -41,7 +41,6 @@ public class AlunoRepositorioTeste {
 		Aluno aluno = new Aluno();
 		aluno.setNome("Guilherme");
 		aluno.setDataNascimento(new Date());
-		aluno.setLogin("Guilherme");
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');
 		aluno.setMatricula(matricula);
@@ -52,7 +51,6 @@ public class AlunoRepositorioTeste {
 		Aluno aluno2 = new Aluno();
 		aluno2.setNome("user");
 		aluno2.setDataNascimento(new Date());
-		aluno2.setLogin("user");
 		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
 		aluno2.setSexo('F');
 		aluno2.setMatricula("20131100010042");

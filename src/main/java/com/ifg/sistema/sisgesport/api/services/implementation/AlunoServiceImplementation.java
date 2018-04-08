@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.repositorios.AlunoRepositorio;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
+import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @Service
 public class AlunoServiceImplementation implements AlunoService{
 	private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
@@ -50,6 +51,7 @@ public class AlunoServiceImplementation implements AlunoService{
 	}
 	public Aluno Salvar(Aluno aluno){
 		log.info("Salvando dado: {}", aluno);
+		aluno.setSenha(PasswordUtils.GerarBCrypt(aluno.getSenha()));
 		return alunoRepositorio.save(aluno);
 	}
 

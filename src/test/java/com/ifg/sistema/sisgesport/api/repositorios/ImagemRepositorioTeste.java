@@ -111,7 +111,6 @@ public class ImagemRepositorioTeste {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
-		serv.setLogin("usuario");
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
 		serv.setMatriculaSiap("20122080010047");
