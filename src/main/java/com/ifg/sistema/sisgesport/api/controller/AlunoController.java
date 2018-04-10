@@ -26,18 +26,19 @@ import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.AlunoDTO;
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.entities.Turma;
-import com.ifg.sistema.sisgesport.api.mapping.mappingEntitys;
+import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.TurmaService;
+import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("sisgesport/aluno")
 public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoService> {
 	{
-		mappingDTOToEntity = new mappingEntitys<>(AlunoDTO.class, Aluno.class);
-		mappingEntityToDTO = new mappingEntitys<>(Aluno.class, AlunoDTO.class);
+		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
+		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
 	}
 
 	@Autowired
@@ -105,27 +106,40 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	}
 
 	private void validarAluno(AlunoDTO alunoDTO, BindingResult result, boolean edit) {
-		if(!edit)
-		this.entityService.BuscarPorMatricula(alunoDTO.getMatricula())
-				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
-		
+		if (!edit)
+			this.entityService.BuscarPorMatricula(alunoDTO.getMatricula())
+					.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
+
 		this.entityService.BuscarPorEmail(alunoDTO.getEmail())
 				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Email já cadastrado.")));
 	}
 
-//	 @PutMapping(value="/{id}")
-//	 public ResponseEntity<Response<AlunoDTO>> atualizar(@PathVariable("id") Long id,  @Valid @RequestBody AlunoDTO alunoDTO, BindingResult result)
-//	 throws NoSuchAlgorithmException {
-//		 log.info("Atualizando dados do Aluno: {}", alunoDTO);
-//		 Optional<Aluno> aluno = entityService.BuscarPorId(id);
-//		 
-//		 if(!aluno.isPresent())
-//			 result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
-//		 if(!aluno.get().getEmail().equals(alunoDTO.getEmail())) {
-//			 entityService.BuscarPorEmail(alunoDTO.getEmail()).ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
-//		 }
-//		 if(!alunoDTO.getSenha().isEmpty()) {
-//			 aluno.get().setSenha(alunoDTO.getSenha());
-//		 }
-//	 }
+	@PutMapping(value = "/{matricula}")
+	public ResponseEntity<Response<AlunoDTO>> atualizar(@PathVariable("matricula") String matricula,
+			@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result) throws Exception {
+		log.info("Atualizando dados do Aluno: {}", alunoDTO);
+		Optional<Aluno> aluno = entityService.BuscarPorMatricula(matricula);
+		Aluno upAluno;
+		if (!aluno.isPresent())
+			result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
+		if (alunoDTO.getEmail() != null && !alunoDTO.getEmail().equals(aluno.get().getEmail())) {
+			entityService.BuscarPorEmail(alunoDTO.getEmail())
+					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
+		}
+		if (alunoDTO.getSenha() != null) {
+			String senha = alunoDTO.getSenha();
+			alunoDTO.setSenha(PasswordUtils.GerarBCrypt(senha));
+		}
+		if (aluno.isPresent()) {
+			upAluno = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get());
+			if(aluno.get().getTurma().getId() != alunoDTO.getTurma()){
+				aluno.get().setTurma(tS.BuscarPorId(alunoDTO.getTurma()).get());
+			}
+			entityService.Salvar(upAluno);
+			response.setData(mappingEntityToDTO.AsGenericMapping(upAluno));
+		} else {
+			return ResponseEntity.badRequest().body(response);
+		}
+		return ResponseEntity.ok(response);
+	}
 }

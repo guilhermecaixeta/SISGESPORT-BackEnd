@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
-import com.ifg.sistema.sisgesport.api.mapping.mappingEntitys;
+import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 /**
  * Controller base generica
@@ -20,8 +20,8 @@ public abstract class baseController<S, D, ES> {
 	protected Response<Page<S>> responsePage = new Response<Page<S>>();
 	protected static final Logger log = LoggerFactory.getLogger(baseController.class);
 
-	protected mappingEntitys<S, D> mappingDTOToEntity;
-	protected mappingEntitys<D, S> mappingEntityToDTO;
+	protected Extension<S, D> mappingDTOToEntity;
+	protected Extension<D, S> mappingEntityToDTO;
 
 	@Autowired
 	protected ES entityService;
