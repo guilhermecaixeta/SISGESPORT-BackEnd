@@ -53,11 +53,12 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<AlunoDTO>pageAlunoDTO = mappingEntityToDTO.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(idEquipe, pageRequest));
+		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(idEquipe, pageRequest));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}
-	
+
 	@GetMapping(value = "/buscarTodosPorTurma/{idTurma}")
 	public ResponseEntity<Response<Page<AlunoDTO>>> buscarPorIdTurmaPaginavel(@PathVariable("idTurma") Long idTurma,
 			@RequestParam(value = "page", defaultValue = "0") int page,
@@ -65,7 +66,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<AlunoDTO>pageAlunoDTO = mappingEntityToDTO.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(idTurma, pageRequest));
+		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(idTurma, pageRequest));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -88,7 +90,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando o aluno: {}", alunoDTO.toString());
-		validarAluno(alunoDTO, result);
+		validarAluno(alunoDTO, result, false);
 		Aluno aluno = mappingDTOToEntity.AsGenericMapping(alunoDTO);
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados do novo aluno: {}", result.getAllErrors());
@@ -102,15 +104,28 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		return ResponseEntity.ok(response);
 	}
 
-	private void validarAluno(AlunoDTO alunoDTO, BindingResult result) {
+	private void validarAluno(AlunoDTO alunoDTO, BindingResult result, boolean edit) {
+		if(!edit)
 		this.entityService.BuscarPorMatricula(alunoDTO.getMatricula())
-				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Aluno já cadastrado.")));
+				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
+		
+		this.entityService.BuscarPorEmail(alunoDTO.getEmail())
+				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Email já cadastrado.")));
 	}
 
-	// @PutMapping
-	// public ResponseEntity<Response<AlunoDTO>> atualizar(@Valid @RequestBody
-	// AlunoDTO alunoDTO, BindingResult result)
-	// throws NoSuchAlgorithmException {
-	//
-	// }
+//	 @PutMapping(value="/{id}")
+//	 public ResponseEntity<Response<AlunoDTO>> atualizar(@PathVariable("id") Long id,  @Valid @RequestBody AlunoDTO alunoDTO, BindingResult result)
+//	 throws NoSuchAlgorithmException {
+//		 log.info("Atualizando dados do Aluno: {}", alunoDTO);
+//		 Optional<Aluno> aluno = entityService.BuscarPorId(id);
+//		 
+//		 if(!aluno.isPresent())
+//			 result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
+//		 if(!aluno.get().getEmail().equals(alunoDTO.getEmail())) {
+//			 entityService.BuscarPorEmail(alunoDTO.getEmail()).ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
+//		 }
+//		 if(!alunoDTO.getSenha().isEmpty()) {
+//			 aluno.get().setSenha(alunoDTO.getSenha());
+//		 }
+//	 }
 }

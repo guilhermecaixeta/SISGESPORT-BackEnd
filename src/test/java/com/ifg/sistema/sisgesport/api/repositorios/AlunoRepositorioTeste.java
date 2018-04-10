@@ -32,7 +32,7 @@ public class AlunoRepositorioTeste {
 	
 	private static final String matricula ="20122080010047";
 	private static final Turma turma = carregarturma();
-	
+	private static final String email = "aluno@ifg.com.br";
 	@Before
 	public void setUp() throws Exception{
 		tR.save(turma);
@@ -45,6 +45,7 @@ public class AlunoRepositorioTeste {
 		aluno.setMatricula(matricula);
 		aluno.setTurma(turma);
 		aluno.setPerfil(PerfilSistema.ROLE_USUARIO);
+		aluno.setEmail(email);
 		this.aR.save(aluno);
 
 		Aluno aluno2 = new Aluno();
@@ -78,6 +79,13 @@ public class AlunoRepositorioTeste {
 		Aluno a = this.aR.findByMatricula(matricula);
 		assertNotNull(a);
 		assertEquals(matricula, a.getMatricula());
+	}
+	
+	@Test
+	public void testBuscarPorEmail() {
+		Aluno a = this.aR.findByEmail(email);
+		assertNotNull(a);
+		assertEquals(email, a.getEmail());
 	}
 	
 	private static Turma carregarturma() {

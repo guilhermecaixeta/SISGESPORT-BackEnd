@@ -25,6 +25,11 @@ public class AlunoServiceImplementation implements AlunoService{
 		log.info("realizando a busca por matrícula {}", matricula);
 		return Optional.ofNullable(alunoRepositorio.findByMatricula(matricula));
 	}
+
+	public Optional<Aluno> BuscarPorEmail(String email) {
+		log.info("realizando a busca pelo email {}", email);
+		return Optional.ofNullable(alunoRepositorio.findByEmail(email));
+	}
 	
 	public Optional<List<Aluno>> BuscarPorIdTurma(Long id_turma){
 		log.info("realizando a busca pelo id da turma {}", id_turma);
@@ -59,4 +64,5 @@ public class AlunoServiceImplementation implements AlunoService{
 		log.info("Deletando o aluno com id: {}", id);
 		alunoRepositorio.delete(id);
 	}
+
 }

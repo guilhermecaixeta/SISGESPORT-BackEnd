@@ -31,30 +31,30 @@ public class Pessoa extends EntidadeComum implements Serializable {
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
 	@Length(max = 200, message = "O campo possui o limite máximo de {max} caracteres.")
-	private String nome;
+	protected String nome;
 
 	@Column(name = "sexo", nullable = false, length = 1)
 	@NotNull(message = "O campo sexo não pode ser nulo.")
-	private Character sexo;
+	protected Character sexo;
 
 	@Column(name = "senha", nullable = false, length = 60)
 	@NotNull(message = "O campo senha não pode ser nulo.")
 	@NotBlank(message = "O campo senha não pode ser em branco.")
 	@Length(max = 60, message = "A senha possui o limite máximo de {max} caracteres.")
-	private String senha;
+	protected String senha;
 
-	@Column(name = "email", length = 60)
+	@Column(name = "email", length = 60, unique = true)
 	@Length(max = 60, message = "A email possui o limite máximo de {max} caracteres.")
 	@Email(message = "Email não é válido.")
-	private String email;
+	protected String email;
 
 	@Column(name = "data_nasc", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataNascimento;
+	protected Date dataNascimento;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "perfil", nullable = false)
-	private PerfilSistema perfil;
+	protected PerfilSistema perfil;
 
 	public Pessoa() {
 	}

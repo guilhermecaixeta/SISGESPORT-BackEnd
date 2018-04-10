@@ -16,6 +16,12 @@ public interface AlunoService {
 	 */
 	Optional<Aluno> BuscarPorMatricula(String matricula);
 	/**
+	 * Busca um aluno pelo nome
+	 * @param matricula
+	 * @return
+	 */
+	Optional<Aluno> BuscarPorEmail(String email);
+	/**
 	 * Busca os alunos pelo id da turma
 	 * @param id_turma
 	 * @return Optional<Aluno>

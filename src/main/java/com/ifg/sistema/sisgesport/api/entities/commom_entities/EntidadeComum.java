@@ -23,13 +23,13 @@ import com.ifg.sistema.sisgesport.api.entities.Imagem;
 public class EntidadeComum {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
-	private Long id;
+	protected Long id;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
-	private List<Endereco> endereco = new ArrayList<Endereco>();
+	protected List<Endereco> endereco = new ArrayList<Endereco>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
-	private List<Imagem> imagem = new ArrayList<Imagem>();
+	protected List<Imagem> imagem = new ArrayList<Imagem>();
 	
 	public EntidadeComum() {}
 

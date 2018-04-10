@@ -13,6 +13,8 @@ public interface AlunoRepositorio extends JpaRepository<Aluno, Long> {
 
 	Aluno findByMatricula(String matricula);
 	
+	Aluno findByEmail(String email);
+	
 	List<Aluno> findByTurmaId(Long id);
 	
 	Page<Aluno> findByTurmaId(Long id_turma, Pageable pageable);

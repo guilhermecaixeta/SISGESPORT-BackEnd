@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 
-public class PessoaDTO {
+public class PessoaDTO extends EntidadeComumDTO {
 	@NotEmpty(message="O campo nome não pode ser vazio.")
 	protected String nome;
 	protected Character sexo;
