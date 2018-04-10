@@ -3,7 +3,7 @@ package com.ifg.sistema.sisgesport.api.repositorios;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -41,8 +41,8 @@ public class TurmaRepositorioTeste {
 		iR.save(instituto);
 		cR.save(curso);
 		Turma turma = new Turma();
-		turma.setDataInicialTurma(Calendar.getInstance());
-		turma.setDataLimite(Calendar.getInstance());
+		turma.setDataInicialTurma(new Date());
+		turma.setDataLimite(new Date());
 		turma.setFlgAtivo(true);
 		turma.setNome("20122/TADS");
 		turma.setCurso(curso);

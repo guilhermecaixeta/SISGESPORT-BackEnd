@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -131,8 +130,8 @@ public class JogadorRepositorioTeste {
 		
 	private static Turma carregarTurma() {
 		Turma t = new Turma();
-		t.setDataInicialTurma(Calendar.getInstance());
-		t.setDataLimite(Calendar.getInstance());
+		t.setDataInicialTurma(new Date());
+		t.setDataLimite(new Date());
 		t.setFlgAtivo(true);
 		t.setNome("20121/TADS");
 		return t;
