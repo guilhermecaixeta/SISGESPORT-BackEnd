@@ -2,10 +2,5 @@ language: java
 jdk:
   - oraclejdk8
 
-# git strips the wrapper jar file so we have to force its download during the build
-install:
-- mvn -N io.takari:maven:wrapper
-
 before_install:
-- cd back-end/
 - chmod +x mvnw
