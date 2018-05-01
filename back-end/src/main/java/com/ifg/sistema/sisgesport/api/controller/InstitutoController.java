@@ -33,7 +33,7 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("sisgesport/instituicao")
+@RequestMapping("sisgesport/instituto")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
@@ -42,6 +42,19 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	@Autowired
 	private EnderecoService eS;
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
+
+	@GetMapping(value = "/buscarPorNome/{nome}")
+	public ResponseEntity<Response<InstituicaoDTO>> Get(@PathVariable("nome") String nome) {
+		log.info("Buscando Instituição com o nome: {}", nome);
+		Optional<Instituicao> instituto = entityService.BuscarPorNomeInstituicao(nome);
+		if (!instituto.isPresent()) {
+			log.info("Instituição com o nome: {}, não cadastrado.", nome);
+			response.getErrors().add("Instituição não encontrado para o nome " + nome);
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setData(mappingEntityToDTO.AsGenericMapping(instituto.get()));
+		return ResponseEntity.ok(response);
+	}
 	
 	@GetMapping(value = "/buscarPorId/{id}")
 	public ResponseEntity<Response<InstituicaoDTO>> Get(@PathVariable("id") Long id) {
