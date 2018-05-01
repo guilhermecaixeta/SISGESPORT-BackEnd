@@ -38,7 +38,7 @@ import com.ifg.sistema.sisgesport.api.services.TurmaService;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("sisgesport/aluno")
+@RequestMapping("api/sisgesport/aluno")
 public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoService> {
 	{
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);

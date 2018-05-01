@@ -33,7 +33,7 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("sisgesport/instituto")
+@RequestMapping("api/sisgesport/instituto")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
