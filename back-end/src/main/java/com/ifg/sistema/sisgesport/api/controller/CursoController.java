@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -23,12 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.CursoDTO;
-import com.ifg.sistema.sisgesport.api.dto.EnderecoDTO;
 import com.ifg.sistema.sisgesport.api.entities.Curso;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.CursoService;
-import com.ifg.sistema.sisgesport.api.services.EnderecoService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -53,7 +50,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<CursoDTO>> PostCadastrar(@Valid @RequestBody InstituicaoDTO cursoDTO,
+	public ResponseEntity<Response<CursoDTO>> PostCadastrar(@Valid @RequestBody CursoDTO cursoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando a instituicao: {}", cursoDTO.toString());
@@ -65,7 +62,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		}
 		Curso curso = mappingDTOToEntity.AsGenericMapping(cursoDTO);
 		this.entityService.Salvar(curso);
-		response.setData(mappingEntityToDTO.AsGenericMapping(cursoDTO));
+		response.setData(mappingEntityToDTO.AsGenericMapping(curso));
 		return ResponseEntity.ok(response);
 	}
 
