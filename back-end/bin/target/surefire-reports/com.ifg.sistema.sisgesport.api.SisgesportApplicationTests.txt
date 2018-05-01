@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ifg.sistema.sisgesport.api.SisgesportApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.009 sec - in com.ifg.sistema.sisgesport.api.SisgesportApplicationTests
