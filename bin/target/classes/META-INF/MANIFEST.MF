@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: SISGESPORT
+Implementation-Version: 0.0.1-Noob
+Built-By: guilherme
+Implementation-Vendor-Id: com.ifg.sistema.sisgesport
+Build-Jdk: 1.8.0_162
+Implementation-URL: http://projects.spring.io/spring-boot/sisgesport/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
