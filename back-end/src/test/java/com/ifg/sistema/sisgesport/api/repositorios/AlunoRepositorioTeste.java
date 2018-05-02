@@ -90,7 +90,7 @@ public class AlunoRepositorioTeste {
 	
 	private static Turma carregarturma() {
 		Turma t = new Turma();
-		t.setDataInicialTurma(new Date());
+		t.setDataInicial(new Date());
 		t.setDataLimite(new Date());
 		t.setFlgAtivo(true);
 		t.setNome("20122/TADS");

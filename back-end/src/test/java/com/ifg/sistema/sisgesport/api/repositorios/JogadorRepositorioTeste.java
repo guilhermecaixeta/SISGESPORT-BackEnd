@@ -130,7 +130,7 @@ public class JogadorRepositorioTeste {
 		
 	private static Turma carregarTurma() {
 		Turma t = new Turma();
-		t.setDataInicialTurma(new Date());
+		t.setDataInicial(new Date());
 		t.setDataLimite(new Date());
 		t.setFlgAtivo(true);
 		t.setNome("20121/TADS");

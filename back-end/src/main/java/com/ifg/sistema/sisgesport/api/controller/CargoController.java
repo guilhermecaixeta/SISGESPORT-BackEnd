@@ -11,7 +11,7 @@ import com.ifg.sistema.sisgesport.api.services.CargoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("sisgesport/cargo")
+@RequestMapping("api/sisgesport/cargo")
 public class CargoController extends baseController<CargoDTO, Cargo, CargoService>{
 
 }

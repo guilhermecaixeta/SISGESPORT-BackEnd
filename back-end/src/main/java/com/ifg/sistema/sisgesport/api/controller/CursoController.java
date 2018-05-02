@@ -37,7 +37,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	}
 	
 	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<CursoDTO>> Get(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<CursoDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
 		Optional<Curso> curso = entityService.BuscarPorId(id);
 		if (!curso.isPresent()) {
@@ -50,7 +50,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<CursoDTO>> PostCadastrar(@Valid @RequestBody CursoDTO cursoDTO,
+	public ResponseEntity<Response<CursoDTO>> cadastrarCurso(@Valid @RequestBody CursoDTO cursoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando a instituicao: {}", cursoDTO.toString());
@@ -67,7 +67,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<CursoDTO>> PutAtualizar(@PathVariable("id") Long id,
+	public ResponseEntity<Response<CursoDTO>> AtualizarCurso(@PathVariable("id") Long id,
 			@Valid @RequestBody CursoDTO cursoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", cursoDTO);
 		Optional<Curso> curso = this.entityService.BuscarPorId(id);
@@ -86,7 +86,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Response<String>> deletar(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<String>> deletarCurso(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
 		if(!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);

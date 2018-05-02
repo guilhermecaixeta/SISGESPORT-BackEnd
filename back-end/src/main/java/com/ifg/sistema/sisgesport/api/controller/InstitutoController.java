@@ -44,7 +44,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
 	@GetMapping(value = "/buscarPorNome/{nome}")
-	public ResponseEntity<Response<InstituicaoDTO>> Get(@PathVariable("nome") String nome) {
+	public ResponseEntity<Response<InstituicaoDTO>> buscarPorNome(@PathVariable("nome") String nome) {
 		log.info("Buscando Instituição com o nome: {}", nome);
 		Optional<Instituicao> instituto = entityService.BuscarPorNomeInstituicao(nome);
 		if (!instituto.isPresent()) {
@@ -57,7 +57,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 	
 	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<InstituicaoDTO>> Get(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<InstituicaoDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
 		Optional<Instituicao> instituto = entityService.BuscarPorId(id);
 		if (!instituto.isPresent()) {
@@ -70,7 +70,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<InstituicaoDTO>> PostCadastrar(@Valid @RequestBody InstituicaoDTO instituicaoDTO,
+	public ResponseEntity<Response<InstituicaoDTO>> cadastrarInstituicao(@Valid @RequestBody InstituicaoDTO instituicaoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando a instituicao: {}", instituicaoDTO.toString());
@@ -89,7 +89,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<InstituicaoDTO>> PutAtualizar(@PathVariable("id") Long id,
+	public ResponseEntity<Response<InstituicaoDTO>> atualizarInstituicao(@PathVariable("id") Long id,
 			@Valid @RequestBody InstituicaoDTO institutoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", institutoDTO);
 		Optional<Instituicao> instituto = this.entityService.BuscarPorId(id);
@@ -113,7 +113,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Response<String>> deletar(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<String>> deletarInstituicao(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
 		if(!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);

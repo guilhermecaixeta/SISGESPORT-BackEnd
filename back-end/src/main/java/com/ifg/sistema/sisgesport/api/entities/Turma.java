@@ -30,7 +30,7 @@ public class Turma implements Serializable {
 	private Long id;
 
 	@Column(name = "flg_ativo", nullable = false)
-	@NotNull(message = "O campo não pode ser nulo.")
+	@NotNull(message = "O campo flgAtivo não pode ser nulo.")
 	private Boolean flgAtivo;
 
 	@Column(name = "nome", nullable = false, length = 20)
@@ -43,9 +43,9 @@ public class Turma implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataLimite;
 
-	@Column(name = "data_inicial_turma", nullable = false)
+	@Column(name = "data_inicial", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataInicialTurma;
+	private Date dataInicial;
 
 	@ManyToOne
 	@JoinColumn(name = "curso", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_curso_turma"))
@@ -86,12 +86,12 @@ public class Turma implements Serializable {
 		this.dataLimite = dataLimite;
 	}
 
-	public Date getDataInicialTurma() {
-		return dataInicialTurma;
+	public Date getDataInicial() {
+		return dataInicial;
 	}
 
-	public void setDataInicialTurma(Date dataInicialTurma) {
-		this.dataInicialTurma = dataInicialTurma;
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
 	}
 
 	public Curso getCurso() {

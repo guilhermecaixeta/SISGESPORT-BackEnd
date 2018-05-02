@@ -41,7 +41,7 @@ public class TurmaRepositorioTeste {
 		iR.save(instituto);
 		cR.save(curso);
 		Turma turma = new Turma();
-		turma.setDataInicialTurma(new Date());
+		turma.setDataInicial(new Date());
 		turma.setDataLimite(new Date());
 		turma.setFlgAtivo(true);
 		turma.setNome("20122/TADS");

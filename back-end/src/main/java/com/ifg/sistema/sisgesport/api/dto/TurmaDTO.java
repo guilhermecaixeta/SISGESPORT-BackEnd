@@ -1,6 +1,6 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import com.ifg.sistema.sisgesport.api.entities.Curso;
 
@@ -8,8 +8,8 @@ public class TurmaDTO {
 	private Long id;
 	private Boolean flgAtivo;
 	private String nome;
-	private Calendar dataLimite;
-	private Calendar dataInicialTurma;
+	private Date dataLimite;
+	private Date dataInicial;
 	private Curso curso;
 
 	public TurmaDTO() {
@@ -38,21 +38,21 @@ public class TurmaDTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Calendar getDataLimite() {
+	
+	public Date getDataLimite() {
 		return dataLimite;
 	}
 
-	public void setDataLimite(Calendar dataLimite) {
+	public void setDataLimite(Date dataLimite) {
 		this.dataLimite = dataLimite;
 	}
 
-	public Calendar getDataInicialTurma() {
-		return dataInicialTurma;
+	public Date getDataInicial() {
+		return dataInicial;
 	}
 
-	public void setDataInicialTurma(Calendar dataInicialTurma) {
-		this.dataInicialTurma = dataInicialTurma;
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
 	}
 
 	public Curso getCurso() {
