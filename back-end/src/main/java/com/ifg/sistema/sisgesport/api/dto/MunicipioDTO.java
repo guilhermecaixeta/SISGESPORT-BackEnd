@@ -1,13 +1,11 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
-import com.ifg.sistema.sisgesport.api.entities.Estado;
-
 public class MunicipioDTO {
 	private Long id;
 	private String nome;
 	private String sigla;
-	private String cepMunicipio;
-	private Estado estado;
+	private String cepmunicipio;
+	private EstadoDTO estado;
 
 	public MunicipioDTO() {
 	}
@@ -37,18 +35,18 @@ public class MunicipioDTO {
 	}
 
 	public String getCepMunicipio() {
-		return cepMunicipio;
+		return cepmunicipio;
 	}
 
-	public void setCepMunicipio(String cepMunicipio) {
-		this.cepMunicipio = cepMunicipio;
+	public void setCepMunicipio(String cepmunicipio) {
+		this.cepmunicipio = cepmunicipio;
 	}
 
-	public Estado getEstado() {
+	public EstadoDTO getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoDTO estado) {
 		this.estado = estado;
 	}
 

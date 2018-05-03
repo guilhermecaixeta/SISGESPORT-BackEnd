@@ -36,6 +36,7 @@ import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.EnderecoService;
 import com.ifg.sistema.sisgesport.api.services.TurmaService;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/sisgesport/aluno")
@@ -44,13 +45,12 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
 		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
 	}
-	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
-
+	private Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 	@Autowired
 	private TurmaService tS;
 	@Autowired
 	private EnderecoService eS;
-
+	
 	public AlunoController() {
 	}
 
@@ -94,8 +94,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result)
-			throws NoSuchAlgorithmException {
+	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO,
+			BindingResult result) throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando o aluno: {}", alunoDTO.toString());
 		validarAluno(alunoDTO, result, false);
@@ -108,7 +108,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 
 		Optional<Turma> turma = this.tS.BuscarPorId(alunoDTO.getTurma().getId());
 		turma.ifPresent(t -> aluno.setTurma(t));
-		aluno.getEndereco().forEach(endereco -> this.eS.Salvar(endereco));
+		aluno.setEndereco(this.mappingDTOToEntity.saveListAdress(aluno.getEndereco()));
 		this.entityService.Salvar(aluno);
 		response.setData(mappingEntityToDTO.AsGenericMapping(aluno));
 		return ResponseEntity.ok(response);
@@ -147,15 +147,15 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			lista.add("id");
 			Aluno alunoEdit = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get(), lista);
 			aluno.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
-			if(alunoDTO.getEndereco().size() > 0) {
+			if (alunoDTO.getEndereco().size() > 0) {
 				List<Endereco> enderecosAluno = mappingEntityChild.AsGenericMappingList(alunoDTO.getEndereco(), true);
-				enderecosAluno.forEach(endereco -> this.eS.Salvar(endereco));
+				enderecosAluno = this.mappingDTOToEntity.saveListAdress(enderecosAluno);
 				alunoEdit.setEndereco(enderecosAluno);
-				}	
+			}
 			if (alunoDTO.getTurma() != null && alunoDTO.getTurma().getId() > 0) {
 				alunoEdit.setTurma(new Turma());
 				alunoEdit.getTurma().setId(alunoDTO.getTurma().getId());
-			}		
+			}
 			this.entityService.Salvar(alunoEdit);
 			response.setData(mappingEntityToDTO.AsGenericMapping(alunoEdit));
 		} else {
@@ -164,10 +164,10 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		return ResponseEntity.ok(response);
 	}
 
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Response<String>> deletarAluno(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
-		if(!this.entityService.BuscarPorId(id).isPresent()) {
+		if (!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);
 			response.getErrors().add("Erro ao remover dado. Nenhum registro encontrado para o id: " + id);
 			return ResponseEntity.badRequest().body(response);

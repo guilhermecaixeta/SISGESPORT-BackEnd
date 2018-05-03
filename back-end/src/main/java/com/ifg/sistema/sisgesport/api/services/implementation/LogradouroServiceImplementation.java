@@ -28,7 +28,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 
 	public Optional<Logradouro> BuscarPorCepCompleto(String cepmunicipio, String cepbairro, String ceplogradouro) {
 		log.info("Buscando logradouro pelo cep completo {1}{2}-{3} ", cepmunicipio, cepbairro, ceplogradouro);
-		return Optional.ofNullable(logradouroRepositorio.findByBairroMunicipioCepMunicipioOrBairroCepbairroOrCepLogradouro(cepmunicipio, cepbairro, ceplogradouro));
+		return Optional.ofNullable(logradouroRepositorio.findByBairroMunicipioCepMunicipioOrBairroCepBairroOrCepLogradouro(cepmunicipio, cepbairro, ceplogradouro));
 	}
 
 	public Logradouro Salvar(Logradouro logradouro) {

@@ -1,12 +1,10 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
-import com.ifg.sistema.sisgesport.api.entities.Municipio;
-
 public class BairroDTO {
 	private Long id;
 	private String nome;
 	private String cepbairro;
-	private Municipio municipio;
+	private MunicipioDTO municipio;
 
 	public BairroDTO() {
 	}
@@ -35,11 +33,11 @@ public class BairroDTO {
 		this.cepbairro = cepbairro;
 	}
 
-	public Municipio getMunicipio() {
+	public MunicipioDTO getMunicipio() {
 		return municipio;
 	}
 
-	public void setMunicipio(Municipio municipio) {
+	public void setMunicipio(MunicipioDTO municipio) {
 		this.municipio = municipio;
 	}
 

@@ -11,9 +11,9 @@ import com.ifg.sistema.sisgesport.api.entities.Servidor;;
 @Transactional(readOnly=true)
 public interface ServidorRepositorio extends JpaRepository<Servidor, Long> {
 
-	Servidor findByMatriculaSiap(String matriculaSiap);
-	
+	Servidor findByEmail(String email);
+	Servidor findByMatriculaSiap(String matriculaSiap);	
 	List<Servidor> findByCargoId(Long id);
-	
-	Page<Servidor> findByCargoInstituicaoId(Long id, Pageable pageable);
+	Page<Servidor> findByCargoId(Long id_cargo, Pageable pageable);
+	Page<Servidor> findByCargoInstituicaoId(Long id_instituicao, Pageable pageable);
 }

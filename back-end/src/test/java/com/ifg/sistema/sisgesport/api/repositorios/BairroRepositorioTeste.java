@@ -41,7 +41,7 @@ public class BairroRepositorioTeste {
 		Bairro bairro = new Bairro();
 		esR.save(estado);
 		mR.save(municipio);
-		bairro.setCep_bairro(cepBairro);
+		bairro.setCepBairro(cepBairro);
 		bairro.setMunicipio(municipio);
 		bairro.setNome("Bairro Jofre Parada");
 		bR.save(bairro);
@@ -54,8 +54,8 @@ public class BairroRepositorioTeste {
 	
 	@Test
 	public void testBuscarCep() {
-		Bairro bairro = this.bR.findByCepbairro(cepBairro);		
-		assertEquals(bairro.getCep_bairro(), cepBairro);
+		Bairro bairro = this.bR.findByCepBairro(cepBairro);		
+		assertEquals(bairro.getCepBairro(), cepBairro);
 	}
 
 	@Test

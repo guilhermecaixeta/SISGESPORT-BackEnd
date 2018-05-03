@@ -26,17 +26,27 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(servidorRepositorio.findOne(id));
 	}
 
-	public Optional<Servidor> findByMatriculaSiap(String matriculaSiap) {
+	public Optional<Servidor> BuscarPorEmail(String email) {
+		log.info("Buscando servidor pelo email {} ", email);
+		return Optional.ofNullable(servidorRepositorio.findByEmail(email));
+	}
+	
+	public Optional<Servidor> BuscarPorMatriculaSiap(String matriculaSiap) {
 		log.info("Buscando servidor pela matricula siap {} ", matriculaSiap);
 		return Optional.ofNullable(servidorRepositorio.findByMatriculaSiap(matriculaSiap));
 	}
 
-	public Optional<List<Servidor>> findByCargoId(Long id_instituicao) {
-		log.info("Buscando servidor pelo id instituicao {} ", id_instituicao);
-		return Optional.ofNullable(servidorRepositorio.findByCargoId(id_instituicao));
+	public Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo) {
+		log.info("Buscando servidor pelo id instituicao {} ", id_cargo);
+		return Optional.ofNullable(servidorRepositorio.findByCargoId(id_cargo));
 	}
 
-	public Page<Servidor> findByCargoInstituicaoId(Long id_instituicao, PageRequest pageRequest) {
+	public Page<Servidor> BuscarPorCargoIdPaginavel(Long id_cargo, PageRequest pageRequest) {
+		log.info("Buscando servidor pelo id instituicao {} ", id_cargo);
+		return servidorRepositorio.findByCargoInstituicaoId(id_cargo, pageRequest);
+	}
+	
+	public Page<Servidor> BuscarPorCargoInstituicaoIdPaginavel(Long id_instituicao, PageRequest pageRequest) {
 		log.info("Buscando servidor pelo id instituicao {} ", id_instituicao);
 		return servidorRepositorio.findByCargoInstituicaoId(id_instituicao, pageRequest);
 	}
@@ -45,6 +55,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Salvando um novo servidor no banco de dados {} ", servidor);
 		return servidorRepositorio.save(servidor);
 	}
+	
 	public void Deletar(Long id) {
 		log.info("Deletando o servidor com id: {}", id);
 		servidorRepositorio.delete(id);

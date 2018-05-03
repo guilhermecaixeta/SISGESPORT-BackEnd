@@ -16,7 +16,7 @@ public interface AlunoService {
 	 */
 	Optional<Aluno> BuscarPorMatricula(String matricula);
 	/**
-	 * Busca um aluno pelo nome
+	 * Busca um aluno pelo email
 	 * @param matricula
 	 * @return
 	 */

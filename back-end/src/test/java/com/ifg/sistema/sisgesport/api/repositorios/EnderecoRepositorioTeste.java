@@ -101,7 +101,7 @@ public class EnderecoRepositorioTeste {
 	private static Bairro Bairro() {
 		Bairro bai = new Bairro();
 		bai.setNome("Bairro Jofre Mozart Parada");
-		bai.setCep_bairro(cepBairro);
+		bai.setCepBairro(cepBairro);
 		bai.setMunicipio(municipio);
 		return bai;
 	}

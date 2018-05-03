@@ -32,7 +32,7 @@ public class LogradouroServiceTeste {
 		BDDMockito.given(this.lR.findOne(Mockito.anyLong())).willReturn(new Logradouro());
 		BDDMockito.given(this.lR.findByCepLogradouro(Mockito.anyString())).willReturn(new Logradouro());
 		BDDMockito.given(
-				this.lR.findByBairroMunicipioCepMunicipioOrBairroCepbairroOrCepLogradouro(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+				this.lR.findByBairroMunicipioCepMunicipioOrBairroCepBairroOrCepLogradouro(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
 		.willReturn(new Logradouro());
 	}
 	

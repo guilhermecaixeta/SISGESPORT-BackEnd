@@ -6,8 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
+import com.ifg.sistema.sisgesport.api.entities.Endereco;
+import com.ifg.sistema.sisgesport.api.services.BairroService;
+import com.ifg.sistema.sisgesport.api.services.EnderecoService;
+import com.ifg.sistema.sisgesport.api.services.LogradouroService;
+import com.ifg.sistema.sisgesport.api.services.MunicipioService;
 
 /**
  * Classe de metodos comuns
@@ -23,7 +29,16 @@ public class Extension<S, D> {
 
 	final Class<D> destiny;
 	final Class<S> source;
+
 	private ModelMapper mapper = new ModelMapper();
+	@Autowired
+	private EnderecoService eS;
+	@Autowired
+	private MunicipioService mS;
+	@Autowired
+	private BairroService bS;
+	@Autowired
+	private LogradouroService lS;
 
 	public Extension(Class<S> source, Class<D> destiny) {
 		this.destiny = destiny;
@@ -53,7 +68,7 @@ public class Extension<S, D> {
 	 * Converte uma Page<S> para uma Page<D>
 	 * 
 	 * @param entitySourcePageList
-	 *            - Lista paginada de entidade fonte
+	 *            Lista paginada de entidade fonte
 	 * @return Page<D>
 	 */
 	public Page<D> AsGenericMappingListPage(Page<S> entitySourcePageList) {
@@ -64,7 +79,7 @@ public class Extension<S, D> {
 	 * Converte uma List<S> para uma List<D>
 	 * 
 	 * @param entitySourcePageList
-	 *            - Lista paginada de entidade fonte
+	 *            Lista paginada de entidade fonte
 	 * @return Page<D>
 	 */
 	public List<D> AsGenericMappingList(List<S> entitySourceList, boolean clearId) {
@@ -90,11 +105,11 @@ public class Extension<S, D> {
 	 * os itens passados na lista de excessões
 	 * 
 	 * @param source
-	 *            - fonte
+	 *            Fonte
 	 * @param destiny
-	 *            - destino
+	 *            Destino
 	 * @param listExceptions
-	 *            - lista de excessões
+	 *            Lista de excessões
 	 * @return
 	 * @throws Exception
 	 */
@@ -125,9 +140,9 @@ public class Extension<S, D> {
 	 * pesquisando o atributo com o valor que foi passado.
 	 * 
 	 * @param name
-	 *            - nome de campo
+	 *            Nome de campo
 	 * @param fields
-	 *            - array de campos
+	 *            Array de campos
 	 * @return
 	 */
 	public Field getFieldByName(String name, List<Field> fields) {
@@ -156,5 +171,27 @@ public class Extension<S, D> {
 		}
 
 		return fields;
+	}
+
+	/**
+	 * Salva uma lista de enderecos, salvando municipio, bairro e logradouro caso
+	 * não cadastrados.
+	 * 
+	 * @param lista
+	 *            lista de Enderecos
+	 * @return
+	 */
+	public List<Endereco> saveListAdress(List<Endereco> lista) {
+		lista.forEach(endereco -> {
+			if (endereco.getLogradouro().getBairro().getMunicipio().getId() > 0)
+				endereco.getLogradouro().getBairro()
+						.setMunicipio(this.mS.Salvar(endereco.getLogradouro().getBairro().getMunicipio()));
+			if (endereco.getLogradouro().getBairro().getId() > 0)
+				endereco.getLogradouro().setBairro(this.bS.Salvar(endereco.getLogradouro().getBairro()));
+			if (endereco.getLogradouro().getId() > 0)
+				endereco.setLogradouro(this.lS.Salvar(endereco.getLogradouro()));
+			endereco = this.eS.Salvar(endereco);
+		});
+		return lista;
 	}
 }

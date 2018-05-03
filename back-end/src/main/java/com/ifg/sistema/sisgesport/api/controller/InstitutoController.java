@@ -82,7 +82,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.badRequest().body(response);
 		}
 		Instituicao instituto = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
-		instituto.getEndereco().forEach(endereco -> this.eS.Salvar(endereco));
+		instituto.setEndereco(this.mappingDTOToEntity.saveListAdress(instituto.getEndereco()));
 		this.entityService.Salvar(instituto);
 		response.setData(mappingEntityToDTO.AsGenericMapping(instituto));
 		return ResponseEntity.ok(response);

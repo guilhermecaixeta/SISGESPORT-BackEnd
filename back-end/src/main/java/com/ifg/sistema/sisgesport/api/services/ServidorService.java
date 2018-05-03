@@ -15,24 +15,37 @@ public interface ServidorService {
 	 */
 	Optional<Servidor> BuscarPorId(Long id);
 	/**
+	 * Busca um servidor pelo email
+	 * @param matricula
+	 * @return
+	 */
+	Optional<Servidor> BuscarPorEmail(String email);
+	/**
 	 * Busca um servidor pela matricula siap
 	 * @param matriculaSiap
 	 * @return
 	 */
-	Optional<Servidor> findByMatriculaSiap(String matriculaSiap);
+	Optional<Servidor> BuscarPorMatriculaSiap(String matriculaSiap);
 	/**
-	 * Busca uma lista de servidores pela instituicao id
+	 * Busca uma lista de servidores pelo cargo id
 	 * @param id_instituicao
 	 * @return
 	 */
-	Optional<List<Servidor>> findByCargoId(Long id_instituicao);
+	Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo);
+	/**
+	 * Busca uma lista paginada de servidores pelo cargo id
+	 * @param id_instituicao
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Servidor> BuscarPorCargoIdPaginavel(Long id_cargo, PageRequest pageRequest);
 	/**
 	 * Busca uma lista paginada de servidores pelo instituicao id
 	 * @param id_instituicao
 	 * @param pageRequest
 	 * @return
 	 */
-	Page<Servidor> findByCargoInstituicaoId(Long id_instituicao, PageRequest pageRequest);
+	Page<Servidor> BuscarPorCargoInstituicaoIdPaginavel(Long id_instituicao, PageRequest pageRequest);
 	/**
 	 * Salva um novo servidor no banco de dados
 	 * @param servidor

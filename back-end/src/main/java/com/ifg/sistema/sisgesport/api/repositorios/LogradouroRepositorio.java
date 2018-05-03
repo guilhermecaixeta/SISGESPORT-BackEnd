@@ -9,5 +9,5 @@ public interface LogradouroRepositorio extends JpaRepository<Logradouro, Long> {
 
 	Logradouro findByCepLogradouro(String cepLogradouro);
 	
-	Logradouro findByBairroMunicipioCepMunicipioOrBairroCepbairroOrCepLogradouro(String cepmunicipio, String cepbairro, String ceplogradouro);
+	Logradouro findByBairroMunicipioCepMunicipioOrBairroCepBairroOrCepLogradouro(String cepmunicipio, String cepbairro, String ceplogradouro);
 }

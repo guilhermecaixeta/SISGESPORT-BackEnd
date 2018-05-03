@@ -70,7 +70,7 @@
 	
 	@Test
 	public void testBuscarPorCepCompleto() {
-		Logradouro log= lR.findByBairroMunicipioCepMunicipioOrBairroCepbairroOrCepLogradouro(cepMun, cepBairro, cepLogradouro);
+		Logradouro log= lR.findByBairroMunicipioCepMunicipioOrBairroCepBairroOrCepLogradouro(cepMun, cepBairro, cepLogradouro);
 		
 		assertNotNull(log);
 	}
@@ -94,7 +94,7 @@
 	private static Bairro Bairro() {
 		Bairro bai = new Bairro();
 		bai.setNome("Bairro Jofre Mozart Parada");
-		bai.setCep_bairro(cepBairro);
+		bai.setCepBairro(cepBairro);
 		bai.setMunicipio(municipio);
 		return bai;
 		}

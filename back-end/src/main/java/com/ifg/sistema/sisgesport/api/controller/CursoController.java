@@ -35,7 +35,6 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		mappingDTOToEntity = new Extension<>(CursoDTO.class, Curso.class);
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
-	
 	@GetMapping(value = "/buscarPorId/{id}")
 	public ResponseEntity<Response<CursoDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);

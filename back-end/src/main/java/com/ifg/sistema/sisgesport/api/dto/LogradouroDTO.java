@@ -1,12 +1,10 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
-import com.ifg.sistema.sisgesport.api.entities.Bairro;
-
 public class LogradouroDTO {
 	private Long id;
 	private String logradouro;
-	private String cepLogradouro;
-	private Bairro bairro;
+	private String ceplogradouro;
+	private BairroDTO bairro;
 
 	public LogradouroDTO() {
 	}
@@ -28,18 +26,18 @@ public class LogradouroDTO {
 	}
 
 	public String getCepLogradouro() {
-		return cepLogradouro;
+		return ceplogradouro;
 	}
 
 	public void setCepLogradouro(String cepLogradouro) {
-		this.cepLogradouro = cepLogradouro;
+		this.ceplogradouro = cepLogradouro;
 	}
 
-	public Bairro getBairro() {
+	public BairroDTO getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Bairro bairro) {
+	public void setBairro(BairroDTO bairro) {
 		this.bairro = bairro;
 	}
 

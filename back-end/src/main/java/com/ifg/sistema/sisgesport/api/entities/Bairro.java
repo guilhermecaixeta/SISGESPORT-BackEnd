@@ -33,7 +33,7 @@ public class Bairro implements Serializable {
 	private String nome;
 
 	@Column(name = "cep_bairro", nullable = false, unique = true, length = 3)
-	private String cepbairro;
+	private String cepBairro;
 
 	@ManyToOne
 	@JoinColumn(name = "municipio", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_municipio_bairro"))
@@ -59,12 +59,12 @@ public class Bairro implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getCep_bairro() {
-		return cepbairro;
+	public String getCepBairro() {
+		return cepBairro;
 	}
 
-	public void setCep_bairro(String cepbairro) {
-		this.cepbairro = cepbairro;
+	public void setCepBairro(String cepBairro) {
+		this.cepBairro = cepBairro;
 	}
 
 	public Municipio getMunicipio() {

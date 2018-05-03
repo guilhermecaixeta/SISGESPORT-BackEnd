@@ -19,7 +19,7 @@ public class BairroServiceImplementation implements BairroService {
 	
 	public Optional<Bairro> BuscarPorCepBairro(String cepBairro) {
 		log.info("Buscando Bairro pelo cep: {}", cepBairro);
-		return Optional.ofNullable(bairroRepositorio.findByCepbairro(cepBairro));
+		return Optional.ofNullable(bairroRepositorio.findByCepBairro(cepBairro));
 	}
 	
 	public Optional<Bairro> BuscarPorNome(String nomeBairro) {
