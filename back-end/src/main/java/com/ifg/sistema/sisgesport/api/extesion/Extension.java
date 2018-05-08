@@ -72,9 +72,9 @@ public class Extension<S, D> {
 		entitySourceList.forEach(entity -> {
 			if (clearId) {
 				try {
-					Field field = entity.getClass().getDeclaredField("id");
+					Field field = getFieldByName("id", getAllFields(new ArrayList<Field>(), entity.getClass()));
 					field.set(entity, (long) 0);
-				} catch (NoSuchFieldException | SecurityException | IllegalArgumentException
+				} catch (SecurityException | IllegalArgumentException
 						| IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,14 +87,14 @@ public class Extension<S, D> {
 
 	/**
 	 * Atualiza uma entidade D(destino) a partir de uma entidade S(fonte), ignorando
-	 * os itens passados na lista de excessões
+	 * os itens passados na lista de exceções
 	 * 
 	 * @param source
 	 *            Fonte
 	 * @param destiny
 	 *            Destino
 	 * @param listExceptions
-	 *            Lista de excessões
+	 *            Lista de exceções
 	 * @return
 	 * @throws Exception
 	 */

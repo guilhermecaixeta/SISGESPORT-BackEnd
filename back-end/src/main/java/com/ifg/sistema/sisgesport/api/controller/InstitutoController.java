@@ -82,9 +82,9 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.badRequest().body(response);
 		}
 		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
-		Instituicao instituto = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
-		instituto = this.entityService.Salvar(instituto);
-		response.setData(mappingEntityToDTO.AsGenericMapping(instituto));
+		entity = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
+		entity = this.entityService.Salvar(entity);
+		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
@@ -103,14 +103,14 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 				if (endereco.getId() != null && endereco.getId() > 0)
 					this.eS.Deletar(endereco.getId());
 			});
-			Instituicao instituicaoEdit = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
 			if (institutoDTO.getEndereco().size() > 0) {
 				List<Endereco> enderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), true);
 				enderecos.forEach(endereco -> this.eS.Salvar(endereco));
-				instituicaoEdit.setEndereco(enderecos);
+				entity.setEndereco(enderecos);
 			}
-			this.entityService.Salvar(instituicaoEdit);
-			response.setData(mappingEntityToDTO.AsGenericMapping(instituicaoEdit));
+			this.entityService.Salvar(entity);
+			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 			return ResponseEntity.ok(response);
 		}
 	}
