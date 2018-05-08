@@ -37,7 +37,7 @@ public class MunicipioRepositorioTeste {
 	public void setUp() throws Exception{
 		esR.save(estado);
 		Municipio municipio = new Municipio();
-		municipio.setCep_municipio(cepMun);
+		municipio.setCepMunicipio(cepMun);
 		municipio.setEstado(estado);
 		municipio.setNome("Luziânia");
 		municipio.setSigla("LZA");
@@ -53,7 +53,7 @@ public class MunicipioRepositorioTeste {
 	@Test
 	public void testBuscarCep() {
 		Municipio mun = this.mR.findByCepMunicipio(cepMun);		
-		assertEquals(cepMun, mun.getCep_municipio());
+		assertEquals(cepMun, mun.getCepMunicipio());
 	}
 
 	@Test

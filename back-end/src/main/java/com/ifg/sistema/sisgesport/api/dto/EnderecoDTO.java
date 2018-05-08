@@ -1,13 +1,13 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
+import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
 import com.ifg.sistema.sisgesport.api.entities.Logradouro;
-import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 public class EnderecoDTO {
 	private Long id;
 	private String complemento;
 	private Logradouro logradouro;
-	private EntidadeComum entidadeComum;
+	private EntidadeComumDTO entidadeComum;
 
 	public EnderecoDTO() {
 	}
@@ -36,11 +36,11 @@ public class EnderecoDTO {
 		this.logradouro = logradouro;
 	}
 
-	public EntidadeComum getEntidadeComum() {
+	public EntidadeComumDTO getEntidadeComum() {
 		return entidadeComum;
 	}
 
-	public void setEntidadeComum(EntidadeComum entidadeComum) {
+	public void setEntidadeComum(EntidadeComumDTO entidadeComum) {
 		this.entidadeComum = entidadeComum;
 	}
 

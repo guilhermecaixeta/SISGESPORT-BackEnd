@@ -27,4 +27,5 @@ public abstract class baseController<S, D, ES>{
 	protected Extension<D, S> mappingEntityToDTO;
 	@Autowired
 	protected ES entityService;
+	protected D entity;
 }

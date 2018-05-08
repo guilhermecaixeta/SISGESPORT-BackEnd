@@ -44,7 +44,7 @@ public class Pessoa extends EntidadeComum implements Serializable {
 	protected String senha;
 
 	@Column(name = "email", length = 60, unique = true)
-	@Length(max = 60, message = "A email possui o limite máximo de {max} caracteres.")
+	@Length(max = 60, message = "O email possui o limite máximo de {max} caracteres.")
 	@Email(message = "Email não é válido.")
 	protected String email;
 

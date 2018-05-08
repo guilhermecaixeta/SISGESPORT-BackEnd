@@ -15,7 +15,7 @@ public interface EstadoService {
 	
 	/**
 	 * Retorna um estado de acordo com o id passado
-	 * @param nomeOuUf
+	 * @param id
 	 * @return Optional<List<Estado>>
 	 */
 	Optional<Estado> BuscarPorId(Long id);

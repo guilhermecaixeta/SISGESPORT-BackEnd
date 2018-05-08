@@ -2,6 +2,7 @@ package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
@@ -28,17 +30,17 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "complemento", nullable = false, unique = true, length = 60)
+	@Column(name = "complemento", nullable = false, length = 120)
 	@NotNull(message = "O campo complemento não pode ser nulo.")
 	@NotBlank(message = "O campo complemento não pode ser em branco.")
 	@Length(max = 60, message = "O campo complemento possui o limite máximo de {max} caracteres.")
 	private String complemento;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "logradouro", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_logradouro_endereco"))
 	@NotNull(message = "O campo logradouro não pode ser nulo.")
 	private Logradouro logradouro;
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "entidade_comum", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "fk_entidade_comum_endereco"))
 	private EntidadeComum entidadeComum;
@@ -68,10 +70,6 @@ public class Endereco implements Serializable {
 
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
-	}
-
-	public EntidadeComum getEntidadeComum() {
-		return entidadeComum;
 	}
 
 	public void setEntidadeComum(EntidadeComum entidadeComum) {

@@ -2,6 +2,7 @@ package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -26,16 +27,16 @@ public class Logradouro implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "logradouro", nullable = false, unique = true, length = 60)
+	@Column(name = "logradouro", nullable = false, length = 60)
 	@NotNull(message = "O campo logradouro não pode ser nulo.")
 	@NotBlank(message = "O campo logradouro não pode ser em branco.")
 	@Length(max = 60, message = "O campo logradouro possui o limite máximo de {max} caracteres.")
 	private String logradouro;
 
-	@Column(name = "cep_logradouro", nullable = false, unique = true, length = 3)
+	@Column(name = "cep_logradouro", nullable = false, length = 3)
 	private String cepLogradouro;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "bairro", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_bairro_logradouro"))
 	@NotNull(message = "O campo bairro não pode ser nulo.")
 	private Bairro bairro;
@@ -59,11 +60,11 @@ public class Logradouro implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public String getCep_logradouro() {
+	public String getCepLogradouro() {
 		return cepLogradouro;
 	}
 
-	public void setCep_logradouro(String cepLogradouro) {
+	public void setCepLogradouro(String cepLogradouro) {
 		this.cepLogradouro = cepLogradouro;
 	}
 

@@ -37,12 +37,11 @@ public class Municipio implements Serializable {
 	@Column(name = "sigla", nullable = false, unique = true, length = 5)
 	private String sigla;
 
-	@Column(name = "cep_municipio", nullable = false, unique = true, length = 2)
+	@Column(name = "cep_municipio", nullable = false, length = 2)
 	private String cepMunicipio;
 
 	@ManyToOne
 	@JoinColumn(name = "estado", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_estado_municipio"))
-	@NotNull(message = "O campo estado não pode ser nulo.")
 	private Estado estado;
 
 	public Municipio() {	}
@@ -67,18 +66,18 @@ public class Municipio implements Serializable {
 		return sigla;
 	}
 
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public String getCep_municipio() {
+	public String getCepMunicipio() {
 		return cepMunicipio;
 	}
 
-	public void setCep_municipio(String cepMunicipio) {
+	public void setCepMunicipio(String cepMunicipio) {
 		this.cepMunicipio = cepMunicipio;
 	}
 
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+	
 	public Estado getEstado() {
 		return estado;
 	}

@@ -1,6 +1,4 @@
 package com.ifg.sistema.sisgesport.api.dto;
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
-import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 
 public class TimeDTO {
 	private Long id;
@@ -8,8 +6,8 @@ public class TimeDTO {
 	private int numDerrota;
 	private int numEmpate;
 	private int pontuacao;
-	private Equipe equipe;
-	private Modalidade modalidade;
+	private EquipeDTO equipe;
+	private ModalidadeDTO modalidade;
 
 	public TimeDTO() {
 	}
@@ -54,20 +52,20 @@ public class TimeDTO {
 		this.pontuacao = pontuacao;
 	}
 
-	public Equipe getEquipe() {
+	public EquipeDTO getEquipe() {
 		return equipe;
 	}
 
-	public void setEquipe(Equipe equipe) {
+	public void setEquipe(EquipeDTO equipe) {
 		this.equipe = equipe;
 	}
 
-	public Modalidade getModalidade() {
+	public ModalidadeDTO getModalidade() {
 		return modalidade;
 	}
 
-	public void setModalidade(Modalidade modalidade) {
+	public void setModalidade(ModalidadeDTO modalidade) {
 		this.modalidade = modalidade;
 	}
-
+	
 }

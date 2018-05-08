@@ -34,10 +34,7 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.ServidorService;
-import com.ifg.sistema.sisgesport.api.services.BairroService;
 import com.ifg.sistema.sisgesport.api.services.EnderecoService;
-import com.ifg.sistema.sisgesport.api.services.LogradouroService;
-import com.ifg.sistema.sisgesport.api.services.MunicipioService;
 import com.ifg.sistema.sisgesport.api.services.CargoService;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
@@ -55,12 +52,6 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 	private CargoService tS;
 	@Autowired
 	private EnderecoService eS;
-	@Autowired
-	private MunicipioService mS;
-	@Autowired
-	private BairroService bS;
-	@Autowired
-	private LogradouroService lS;
 
 	public ServidorController() {
 	}
@@ -109,25 +100,27 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			BindingResult result) throws NoSuchAlgorithmException {
 
 		log.info("Cadastrando o servidor: {}", servidorDTO.toString());
-		validarServidor(servidorDTO, result, false);
+		validarServidor(servidorDTO, result);
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados do novo servidor: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 		Servidor servidor = mappingDTOToEntity.AsGenericMapping(servidorDTO);
-
-		Optional<Cargo> turma = this.tS.BuscarPorId(servidorDTO.getCargo().getId());
-		turma.ifPresent(t -> servidor.setCargo(t));
-		servidor.setEndereco(this.mappingDTOToEntity.saveListAdress(servidor.getEndereco()));
+		servidor.setSenha(PasswordUtils.GerarBCrypt(servidorDTO.getSenha()));
+		List<Endereco> lista = servidor.getEndereco();
+		servidor.setEndereco(new ArrayList<Endereco>());
+		if(!lista.isEmpty())
+		lista.forEach(endereco -> servidor.AdicionarEndereco(endereco));
+		Optional<Cargo> cargo = this.tS.BuscarPorId(servidorDTO.getCargo().getId());
+		cargo.ifPresent(t -> servidor.setCargo(t));
 		this.entityService.Salvar(servidor);
 		response.setData(mappingEntityToDTO.AsGenericMapping(servidor));
 		return ResponseEntity.ok(response);
 	}
 
-	private void validarServidor(ServidorDTO servidorDTO, BindingResult result, boolean edit) {
-		if (!edit)
-			this.entityService.BuscarPorMatriculaSiap(servidorDTO.getMatriculaSiap())
+	private void validarServidor(ServidorDTO servidorDTO, BindingResult result) {
+		this.entityService.BuscarPorMatriculaSiap(servidorDTO.getMatriculaSiap())
 					.ifPresent(alu -> result.addError(new ObjectError("servidor", "Matrícula já cadastrada.")));
 
 		this.entityService.BuscarPorEmail(servidorDTO.getEmail())
@@ -147,33 +140,24 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			entityService.BuscarPorEmail(servidorDTO.getEmail())
 					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
 		}
-		if (servidorDTO.getSenha() != null) {
+		if (servidorDTO.getSenha() == null) {
 			servidorDTO.setSenha(PasswordUtils.GerarBCrypt(servidorDTO.getSenha()));
 		} else {
 			lista.add("senha");
 		}
 		if (servidor.isPresent()) {
-			lista.add("endereco");
 			lista.add("turma");
 			lista.add("id");
 			Servidor servidorEdit = mappingDTOToEntity.updateGeneric(servidorDTO, servidor.get(), lista);
 			servidor.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
-			if (servidorDTO.getEndereco().size() > 0) {
-				List<Endereco> enderecosServidor = mappingEntityChild.AsGenericMappingList(servidorDTO.getEndereco(), true);
-				enderecosServidor.forEach(endereco -> {
-					if (endereco.getLogradouro().getBairro().getMunicipio().getId() > 0)
-						this.mS.Salvar(endereco.getLogradouro().getBairro().getMunicipio());
-					if (endereco.getLogradouro().getBairro().getId() > 0)
-						this.bS.Salvar(endereco.getLogradouro().getBairro());
-					if (endereco.getLogradouro().getId() > 0)
-						this.lS.Salvar(endereco.getLogradouro());
-					this.eS.Salvar(endereco);
-				});
-				servidorEdit.setEndereco(enderecosServidor);
-			}
 			if (servidorDTO.getCargo() != null && servidorDTO.getCargo().getId() > 0) {
 				servidorEdit.setCargo(new Cargo());
 				servidorEdit.getCargo().setId(servidorDTO.getCargo().getId());
+			}
+			if(servidor.get().getEndereco() != null && servidor.get().getEndereco().size() > 0) {
+				List<Endereco> listaEndereco = servidor.get().getEndereco();
+				servidor.get().setEndereco(new ArrayList<Endereco>());
+					listaEndereco.forEach(endereco -> servidor.get().AdicionarEndereco(endereco));
 			}
 			this.entityService.Salvar(servidorEdit);
 			response.setData(mappingEntityToDTO.AsGenericMapping(servidorEdit));

@@ -26,6 +26,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(servidorRepositorio.findOne(id));
 	}
 
+	public Optional<Servidor> BuscarPorNome(String nome) {
+		log.info("Buscando servidor pelo nome {} ", nome);
+		return Optional.ofNullable(servidorRepositorio.findByNome(nome));
+	}
+	
 	public Optional<Servidor> BuscarPorEmail(String email) {
 		log.info("Buscando servidor pelo email {} ", email);
 		return Optional.ofNullable(servidorRepositorio.findByEmail(email));

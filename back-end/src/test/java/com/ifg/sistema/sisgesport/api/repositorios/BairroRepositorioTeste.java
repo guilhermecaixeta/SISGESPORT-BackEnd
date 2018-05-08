@@ -74,7 +74,7 @@ public class BairroRepositorioTeste {
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
 		mun.setNome("Luziania");
-		mun.setCep_municipio(cepMun);
+		mun.setCepMunicipio(cepMun);
 		mun.setSigla("LZA");
 		mun.setEstado(estado);
 		return mun;

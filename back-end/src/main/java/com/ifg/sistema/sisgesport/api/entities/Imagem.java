@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
@@ -58,7 +59,8 @@ public class Imagem implements Serializable {
 	@Column(name="data_imagem")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataImagem;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
 	private EntidadeComum entidadeComum;
@@ -128,9 +130,6 @@ public class Imagem implements Serializable {
 
 	public void setInformacaoEvento(List<InformacaoEvento> informacaoEvento) {
 		this.informacaoEvento = informacaoEvento;
-	}
-	public EntidadeComum getEntidadeComum() {
-		return entidadeComum;
 	}
 
 	public void setEntidadeComum(EntidadeComum entidadeComum) {

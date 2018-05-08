@@ -23,11 +23,17 @@ public interface EquipeService {
 	 */
 	Page<Equipe> BuscarEquipePorIdEventoPaginavel(Long id_evento, PageRequest pageRequest);
 	/**
-	 * Busca o curso pelo seu id
+	 * Busca uma equipe pelo seu id
 	 * @param id
 	 * @return Optional<Equipe>
 	 */
 	Optional<Equipe> BuscarPorCodigoEquipe(String codigo);
+	/**
+	 * Busca uma equipe pela matricula do capitão da equipe 
+	 * @param matricula
+	 * @return Optional<Equipe>
+	 */
+	Optional<Equipe> BuscarPorMatriculaCapitao(String matricula);
 	/**
 	 * Busca o curso pelo seu id
 	 * @param id

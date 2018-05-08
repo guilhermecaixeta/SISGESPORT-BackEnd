@@ -92,7 +92,7 @@ public class EnderecoRepositorioTeste {
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
 		mun.setNome("Luziania");
-		mun.setCep_municipio(cepMun);
+		mun.setCepMunicipio(cepMun);
 		mun.setSigla("LZA");
 		mun.setEstado(estado);
 		return mun;
@@ -109,7 +109,7 @@ public class EnderecoRepositorioTeste {
 	private static Logradouro Logradouro() {
 		Logradouro log = new Logradouro();
 		log.setLogradouro("Avenida Ouro Preto");
-		log.setCep_logradouro(cepLogradouro);
+		log.setCepLogradouro(cepLogradouro);
 		log.setBairro(bairro);
 		return log;
 	}

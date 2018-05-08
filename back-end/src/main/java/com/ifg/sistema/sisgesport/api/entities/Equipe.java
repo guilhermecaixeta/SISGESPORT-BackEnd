@@ -63,7 +63,7 @@ public class Equipe implements Serializable {
 	@JoinColumn(name = "aluno", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_aluno_equipe"))
 	private Aluno capitao;
 
-	@ManyToOne
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	@JoinColumn(name = "imagem", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_imagem_equipe"))
 	private Imagem imagem;
 

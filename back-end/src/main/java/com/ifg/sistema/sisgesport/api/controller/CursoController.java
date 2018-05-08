@@ -51,17 +51,15 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	@PostMapping
 	public ResponseEntity<Response<CursoDTO>> cadastrarCurso(@Valid @RequestBody CursoDTO cursoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
-
 		log.info("Cadastrando a instituicao: {}", cursoDTO.toString());
-		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova instituicao: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		Curso curso = mappingDTOToEntity.AsGenericMapping(cursoDTO);
-		this.entityService.Salvar(curso);
-		response.setData(mappingEntityToDTO.AsGenericMapping(curso));
+		entity = mappingDTOToEntity.AsGenericMapping(cursoDTO);
+		entity = this.entityService.Salvar(entity);
+		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
@@ -75,11 +73,9 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			
-			Curso cursoEdit = mappingDTOToEntity.updateGeneric(cursoDTO, curso.get(), lista);
-
-			this.entityService.Salvar(cursoEdit);
-			response.setData(mappingEntityToDTO.AsGenericMapping(cursoEdit));
+			entity = mappingDTOToEntity.updateGeneric(cursoDTO, curso.get(), lista);
+			entity = this.entityService.Salvar(entity);
+			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 			return ResponseEntity.ok(response);
 		}
 	}

@@ -32,6 +32,10 @@ public class EquipeServiceImplementation implements EquipeService {
 		log.info("Buscando equipe pelo código {}", codigo);
 		return Optional.ofNullable(equipeRepositorio.findByCodigoEquipe(codigo));
 	}
+	public Optional<Equipe> BuscarPorMatriculaCapitao(String matricula){
+		log.info("Buscando equipe pela matricula do capitão {}", matricula);
+		return Optional.ofNullable(equipeRepositorio.findByCapitaoMatricula(matricula));
+	}
 	public Optional<Equipe> BuscarPorId(Long id){
 		log.info("Buscando equipe pelo id {}", id);
 		return Optional.ofNullable(equipeRepositorio.findOne(id));

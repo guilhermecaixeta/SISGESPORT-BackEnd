@@ -2,6 +2,7 @@ package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -26,18 +27,17 @@ public class Bairro implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, unique = true, length = 30)
+	@Column(name = "nome", nullable = false, length = 30)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
 	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
-	@Column(name = "cep_bairro", nullable = false, unique = true, length = 3)
+	@Column(name = "cep_bairro", nullable = false, length = 3)
 	private String cepBairro;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "municipio", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_municipio_bairro"))
-	@NotNull(message = "O campo municipio não pode ser nulo.")
 	private Municipio municipio;
 
 	public Bairro() {

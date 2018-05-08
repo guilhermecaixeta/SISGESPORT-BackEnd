@@ -44,7 +44,7 @@
 		bR.save(bairro);
 		Logradouro log = new Logradouro();
 		log.setLogradouro("Avenida Ouro Preto");
-		log.setCep_logradouro(cepLogradouro);
+		log.setCepLogradouro(cepLogradouro);
 		log.setBairro(bairro);
 		lR.save(log);
 	}
@@ -65,7 +65,7 @@
 	public void testBuscarPorCepEquals() {
 		Logradouro log= lR.findByCepLogradouro(cepLogradouro);
 		
-		assertEquals(cepLogradouro, log.getCep_logradouro());
+		assertEquals(cepLogradouro, log.getCepLogradouro());
 	}
 	
 	@Test
@@ -85,7 +85,7 @@
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
 		mun.setNome("Luziania");
-		mun.setCep_municipio(cepMun);
+		mun.setCepMunicipio(cepMun);
 		mun.setSigla("LZA");
 		mun.setEstado(estado);
 		return mun;

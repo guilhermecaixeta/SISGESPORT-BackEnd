@@ -27,6 +27,12 @@ public interface EventoService {
 	 * @param id
 	 * @return
 	 */
+	Optional<Evento> BuscarPorCodigoEvento(String codigo_evento);
+	/**
+	 * Busca pelo codigo_evento do evento
+	 * @param id
+	 * @return
+	 */
 	Optional<Evento> BuscarPorId(Long id);
 	/**
 	 * Salva um novo evento no banco de dados

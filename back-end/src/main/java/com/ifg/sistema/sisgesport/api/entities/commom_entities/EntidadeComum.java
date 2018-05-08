@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.Endereco;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
 
@@ -24,10 +25,10 @@ public class EntidadeComum {
 	@Id
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	protected Long id;
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
 	protected List<Endereco> endereco = new ArrayList<Endereco>();
-
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="entidadeComum")
 	protected List<Imagem> imagem = new ArrayList<Imagem>();
 	

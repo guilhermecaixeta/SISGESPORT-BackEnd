@@ -15,6 +15,12 @@ public interface ServidorService {
 	 */
 	Optional<Servidor> BuscarPorId(Long id);
 	/**
+	 * Busca um servidor pelo nome
+	 * @param matricula
+	 * @return
+	 */
+	Optional<Servidor> BuscarPorNome(String nome);
+	/**
 	 * Busca um servidor pelo email
 	 * @param matricula
 	 * @return

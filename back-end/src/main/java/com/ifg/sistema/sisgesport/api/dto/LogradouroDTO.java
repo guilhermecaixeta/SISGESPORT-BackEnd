@@ -25,12 +25,12 @@ public class LogradouroDTO {
 		this.logradouro = logradouro;
 	}
 
-	public String getCepLogradouro() {
+	public String getCeplogradouro() {
 		return ceplogradouro;
 	}
 
-	public void setCepLogradouro(String cepLogradouro) {
-		this.ceplogradouro = cepLogradouro;
+	public void setCeplogradouro(String ceplogradouro) {
+		this.ceplogradouro = ceplogradouro;
 	}
 
 	public BairroDTO getBairro() {

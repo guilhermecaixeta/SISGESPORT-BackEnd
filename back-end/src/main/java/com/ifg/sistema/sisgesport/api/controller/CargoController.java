@@ -75,7 +75,7 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 			result.addError(new ObjectError("Cargo", "Cargo não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			
+			lista.add("id");
 			Cargo cargoEdit = mappingDTOToEntity.updateGeneric(cargoDTO, cargo.get(), lista);
 
 			this.entityService.Salvar(cargoEdit);

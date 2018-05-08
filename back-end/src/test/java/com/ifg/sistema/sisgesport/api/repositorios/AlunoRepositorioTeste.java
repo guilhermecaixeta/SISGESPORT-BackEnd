@@ -82,6 +82,13 @@ public class AlunoRepositorioTeste {
 	}
 	
 	@Test
+	public void testBuscarPorId() {
+		Aluno a = this.aR.findByNome("Guilherme");
+		assertNotNull(a);
+		assertEquals(matricula, a.getMatricula());
+	}
+	
+	@Test
 	public void testBuscarPorEmail() {
 		Aluno a = this.aR.findByEmail(email);
 		assertNotNull(a);

@@ -41,6 +41,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 	@Autowired
 	private EnderecoService eS;
+	
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
 	@GetMapping(value = "/buscarPorNome/{nome}")
@@ -55,7 +56,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		response.setData(mappingEntityToDTO.AsGenericMapping(instituto.get()));
 		return ResponseEntity.ok(response);
 	}
-	
+
 	@GetMapping(value = "/buscarPorId/{id}")
 	public ResponseEntity<Response<InstituicaoDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
@@ -70,9 +71,8 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<InstituicaoDTO>> cadastrarInstituicao(@Valid @RequestBody InstituicaoDTO instituicaoDTO,
-			BindingResult result) throws NoSuchAlgorithmException {
-
+	public ResponseEntity<Response<InstituicaoDTO>> cadastrarInstituicao(
+			@Valid @RequestBody InstituicaoDTO instituicaoDTO, BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando a instituicao: {}", instituicaoDTO.toString());
 		this.entityService.BuscarPorNomeInstituicao(instituicaoDTO.getNome())
 				.ifPresent(inst -> result.addError(new ObjectError("instituicao", "Nome já cadastrado.")));
@@ -81,9 +81,9 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
+		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
 		Instituicao instituto = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
-		instituto.setEndereco(this.mappingDTOToEntity.saveListAdress(instituto.getEndereco()));
-		this.entityService.Salvar(instituto);
+		instituto = this.entityService.Salvar(instituto);
 		response.setData(mappingEntityToDTO.AsGenericMapping(instituto));
 		return ResponseEntity.ok(response);
 	}
@@ -99,9 +99,12 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("endereco");
-			instituto.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
+			instituto.get().getEndereco().forEach(endereco -> {
+				if (endereco.getId() != null && endereco.getId() > 0)
+					this.eS.Deletar(endereco.getId());
+			});
 			Instituicao instituicaoEdit = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
-			if(institutoDTO.getEndereco().size() > 0) {
+			if (institutoDTO.getEndereco().size() > 0) {
 				List<Endereco> enderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), true);
 				enderecos.forEach(endereco -> this.eS.Salvar(endereco));
 				instituicaoEdit.setEndereco(enderecos);
@@ -111,11 +114,11 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.ok(response);
 		}
 	}
-	
-	@DeleteMapping(value="/{id}")
+
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Response<String>> deletarInstituicao(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
-		if(!this.entityService.BuscarPorId(id).isPresent()) {
+		if (!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);
 			response.getErrors().add("Erro ao remover dado. Nenhum registro encontrado para o id: " + id);
 			return ResponseEntity.badRequest().body(response);

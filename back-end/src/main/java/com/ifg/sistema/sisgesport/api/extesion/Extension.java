@@ -6,14 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
-import com.ifg.sistema.sisgesport.api.entities.Endereco;
-import com.ifg.sistema.sisgesport.api.services.BairroService;
-import com.ifg.sistema.sisgesport.api.services.EnderecoService;
-import com.ifg.sistema.sisgesport.api.services.LogradouroService;
-import com.ifg.sistema.sisgesport.api.services.MunicipioService;
 
 /**
  * Classe de metodos comuns
@@ -31,14 +24,6 @@ public class Extension<S, D> {
 	final Class<S> source;
 
 	private ModelMapper mapper = new ModelMapper();
-	@Autowired
-	private EnderecoService eS;
-	@Autowired
-	private MunicipioService mS;
-	@Autowired
-	private BairroService bS;
-	@Autowired
-	private LogradouroService lS;
 
 	public Extension(Class<S> source, Class<D> destiny) {
 		this.destiny = destiny;
@@ -54,7 +39,7 @@ public class Extension<S, D> {
 	}
 
 	/**
-	 * Converte um tipo S em um tipo D
+	 * Realiza o mapeamento de um tipo S em um tipo D
 	 * 
 	 * @param entitySource
 	 * @return entityD
@@ -157,7 +142,7 @@ public class Extension<S, D> {
 
 	/**
 	 * Percorre uma entidade recursivamente retornando todos os campos da mesma,
-	 * mesmo se ela tiver herança.
+	 * mesmo se ela possuir herança.
 	 * 
 	 * @param fields
 	 * @param type
@@ -171,27 +156,5 @@ public class Extension<S, D> {
 		}
 
 		return fields;
-	}
-
-	/**
-	 * Salva uma lista de enderecos, salvando municipio, bairro e logradouro caso
-	 * não cadastrados.
-	 * 
-	 * @param lista
-	 *            lista de Enderecos
-	 * @return
-	 */
-	public List<Endereco> saveListAdress(List<Endereco> lista) {
-		lista.forEach(endereco -> {
-			if (endereco.getLogradouro().getBairro().getMunicipio().getId() > 0)
-				endereco.getLogradouro().getBairro()
-						.setMunicipio(this.mS.Salvar(endereco.getLogradouro().getBairro().getMunicipio()));
-			if (endereco.getLogradouro().getBairro().getId() > 0)
-				endereco.getLogradouro().setBairro(this.bS.Salvar(endereco.getLogradouro().getBairro()));
-			if (endereco.getLogradouro().getId() > 0)
-				endereco.setLogradouro(this.lS.Salvar(endereco.getLogradouro()));
-			endereco = this.eS.Salvar(endereco);
-		});
-		return lista;
 	}
 }

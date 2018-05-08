@@ -12,8 +12,10 @@ import com.ifg.sistema.sisgesport.api.entities.Equipe;
 public interface EquipeRepositorio extends JpaRepository<Equipe, Long> {
 
 	Equipe findByCodigoEquipe(String codigo);
-
-	List<Equipe> findByEventoId(Long id);
 	
-	Page<Equipe> findByEventoId(Long id_equipe, Pageable pageable);
+	Equipe findByCapitaoMatricula(String matricula);
+	
+	List<Equipe> findByEventoId(Long id_evento);
+	
+	Page<Equipe> findByEventoId(Long id_evento, Pageable pageable);
 }

@@ -33,6 +33,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando modalidade evento pelo id do evento {} ",id);
 		return Optional.ofNullable(eventoRepositorio.findOne(id));
 	}
+	
+	public Optional<Evento> BuscarPorCodigoEvento(String codigo_evento) {
+		log.info("Buscando modalidade evento pelo codigo_evento {} ",codigo_evento);
+		return Optional.ofNullable(eventoRepositorio.findByCodigoEvento(codigo_evento));
+	}
 
 	public Evento Salvar(Evento evento) {
 		log.info("Salvando o evento {} ",evento.getNome());

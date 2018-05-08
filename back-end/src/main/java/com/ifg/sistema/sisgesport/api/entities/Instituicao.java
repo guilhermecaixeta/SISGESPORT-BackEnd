@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
@@ -35,7 +36,7 @@ public class Instituicao extends EntidadeComum implements Serializable {
 	@NotBlank(message="O campo nome não pode ser em branco.")
 	@Length(max= 60,message="O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="instituicao_cargo", 
 	joinColumns=

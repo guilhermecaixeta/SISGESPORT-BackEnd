@@ -52,7 +52,7 @@ public class ImagemRepositorioTeste {
 		i.setNome("amor.jpeg");
 		i.setTamanho(100.20);
 		i.setDescricaoImagem("Lorem ipsulun");
-		Path path = Paths.get("G:/Imagens/imagens e videos de humor/amor.jpeg");
+		Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
 		i.setImagem(Files.readAllBytes(path));
 
 		}catch(Exception e) {
@@ -64,7 +64,7 @@ public class ImagemRepositorioTeste {
 		i2.setNome("amor.jpeg");
 		i2.setTamanho(100.20);
 		i2.setDescricaoImagem("Lorem ipsulun");
-		Path path = Paths.get("G:/Imagens/imagens e videos de humor/amor.jpeg");
+		Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
 		i2.setImagem(Files.readAllBytes(path));
 
 		}catch(Exception e) {

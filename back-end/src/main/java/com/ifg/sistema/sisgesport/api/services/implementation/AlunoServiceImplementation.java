@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.repositorios.AlunoRepositorio;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
-import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @Service
 public class AlunoServiceImplementation implements AlunoService{
 	private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
@@ -25,7 +24,14 @@ public class AlunoServiceImplementation implements AlunoService{
 		log.info("realizando a busca por matrícula {}", matricula);
 		return Optional.ofNullable(alunoRepositorio.findByMatricula(matricula));
 	}
-
+	public Optional<Aluno> BuscarPorNome(String nome){
+		log.info("Buscando o aluno pelo nome {}", nome);
+		return Optional.ofNullable(alunoRepositorio.findByNome(nome));
+	}
+	public Optional<Aluno> BuscarPorId(Long id){
+		log.info("Buscando o aluno pelo id {}", id);
+		return Optional.ofNullable(alunoRepositorio.findOne(id));
+	}
 	public Optional<Aluno> BuscarPorEmail(String email) {
 		log.info("realizando a busca pelo email {}", email);
 		return Optional.ofNullable(alunoRepositorio.findByEmail(email));
@@ -50,13 +56,8 @@ public class AlunoServiceImplementation implements AlunoService{
 		return alunoRepositorio.findByEquipeId(id_equipe, pageRequest);
 	}
 	
-	public Optional<Aluno> BuscarPorId(Long id){
-		log.info("Buscando o aluno pelo id {}", id);
-		return Optional.ofNullable(alunoRepositorio.findOne(id));
-	}
 	public Aluno Salvar(Aluno aluno){
 		log.info("Salvando dado: {}", aluno);
-		aluno.setSenha(PasswordUtils.GerarBCrypt(aluno.getSenha()));
 		return alunoRepositorio.save(aluno);
 	}
 
