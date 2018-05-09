@@ -42,7 +42,8 @@ public class Extension<S, D> {
 	 * Realiza o mapeamento de um tipo S em um tipo D
 	 * 
 	 * @param entitySource
-	 * @return entityD
+	 *            Tipo Fonte (S - Source)
+	 * @return entityD - Tipo Destino (D - Destiny)
 	 */
 	public D AsGenericMapping(S entitySource) {
 		D destObject = mapper.map(entitySource, getDestiny());
@@ -74,8 +75,7 @@ public class Extension<S, D> {
 				try {
 					Field field = getFieldByName("id", getAllFields(new ArrayList<Field>(), entity.getClass()));
 					field.set(entity, (long) 0);
-				} catch (SecurityException | IllegalArgumentException
-						| IllegalAccessException e) {
+				} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

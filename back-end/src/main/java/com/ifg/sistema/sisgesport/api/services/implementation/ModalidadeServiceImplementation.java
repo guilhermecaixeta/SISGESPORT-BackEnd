@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
@@ -25,7 +27,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando logradouro pelo nome {} ", nome);
 		return Optional.ofNullable(modalidadeRepositorio.findByNome(nome));
 	}
-
+	public Page<Modalidade> BuscarTodos(PageRequest pageRequest){
+		log.info("Buscando todas as modalidades");
+		return modalidadeRepositorio.findAll(pageRequest);
+	}
 	public Modalidade Salvar(Modalidade modalidade) {
 		log.info("Salvando uma nova modalidade no banco de dados {} ", modalidade.getNome());
 		return modalidadeRepositorio.save(modalidade);
