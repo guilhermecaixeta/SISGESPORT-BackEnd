@@ -8,19 +8,10 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 
 public class ServidorDTO extends PessoaDTO {
-	private String matriculaSiap;
 	private Cargo cargo;
 	private List<Evento> eventos = new ArrayList<>();
 
 	public ServidorDTO() {
-	}
-
-	public String getMatriculaSiap() {
-		return matriculaSiap;
-	}
-
-	public void setMatriculaSiap(String matriculaSiap) {
-		this.matriculaSiap = matriculaSiap;
 	}
 
 	public Cargo getCargo() {

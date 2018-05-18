@@ -8,4 +8,6 @@ public interface PessoaRepositorio<T extends Pessoa> extends EntidadeComumReposi
 	public T findByEmail(String email);
 
 	public T findByNome(String nome);
+	
+	public T findByMatricula(String matricula);
 }

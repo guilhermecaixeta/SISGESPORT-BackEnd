@@ -21,12 +21,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	private EventoRepositorio eventoRepositorio;
 	public Optional<List<Evento>> BuscarPorMatriculaCriador(String matriculaSiap) {
 		log.info("Buscando o evento pela matricula Siap {} ",matriculaSiap);
-		return Optional.ofNullable(eventoRepositorio.findByCriadorMatriculaSiap(matriculaSiap));
+		return Optional.ofNullable(eventoRepositorio.findByCriadorMatricula(matriculaSiap));
 	}
 
 	public Page<Evento> BuscarPorMatriculaCriador(String matriculaSiap, PageRequest pageRequest) {
 		log.info("Buscando o evento pela matricula Siap {} ",matriculaSiap);
-		return eventoRepositorio.findByCriadorMatriculaSiap(matriculaSiap, pageRequest);
+		return eventoRepositorio.findByCriadorMatricula(matriculaSiap, pageRequest);
 	}
 
 	public Optional<Evento> BuscarPorId(Long id) {

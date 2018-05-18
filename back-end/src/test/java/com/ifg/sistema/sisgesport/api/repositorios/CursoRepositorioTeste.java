@@ -73,14 +73,14 @@ public class CursoRepositorioTeste {
 	private static Instituicao carregarInstituto() {
 		Instituicao instituto = new Instituicao();
 		instituto.setDescricao("IFG - Instituto Federal de Goiás - Campus Luziânia");
-		instituto.setNome("IFG - Campus Luziânia.");
+		instituto.setNome("IFG - Campus Inhumas.");
 		return instituto;
 	}
 	
 	private static Instituicao carregarInstituto2() {
 		Instituicao instituto = new Instituicao();
 		instituto.setDescricao("IFG - Instituto Federal de Goiás - Campus Luziânia");
-		instituto.setNome("IFG - Campus Luziânia.");
+		instituto.setNome("IFG - Campus Valparáiso.");
 		return instituto;
 	}
 }

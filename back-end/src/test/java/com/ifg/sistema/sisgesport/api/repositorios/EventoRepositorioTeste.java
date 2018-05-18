@@ -61,13 +61,13 @@ public class EventoRepositorioTeste {
 	@Test
 	public void testBuscarporCriadorPaginavel() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Evento> evento = evR.findByCriadorMatriculaSiap(servidor.getMatriculaSiap(), page);
+		Page<Evento> evento = evR.findByCriadorMatricula(servidor.getMatricula(), page);
 		assertNotNull(evento);
 	}
 
 	@Test
 	public void testBuscarporCriador() {
-		List<Evento> evento = evR.findByCriadorMatriculaSiap(servidor.getMatriculaSiap());
+		List<Evento> evento = evR.findByCriadorMatricula(servidor.getMatricula());
 		assertNotNull(evento);
 	}
 	
@@ -77,7 +77,7 @@ public class EventoRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatriculaSiap("20122080010047");
+		serv.setMatricula("20122080010047");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;

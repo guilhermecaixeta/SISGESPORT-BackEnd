@@ -37,8 +37,8 @@ public class EventoServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.eR.save(Mockito.any(Evento.class))).willReturn(new Evento());
 		BDDMockito.given(this.eR.findOne(Mockito.anyLong())).willReturn(new Evento());
-		BDDMockito.given(this.eR.findByCriadorMatriculaSiap(Mockito.anyString())).willReturn(new ArrayList<Evento>());
-		BDDMockito.given(this.eR.findByCriadorMatriculaSiap(Mockito.anyString(), Mockito.any(PageRequest.class)))
+		BDDMockito.given(this.eR.findByCriadorMatricula(Mockito.anyString())).willReturn(new ArrayList<Evento>());
+		BDDMockito.given(this.eR.findByCriadorMatricula(Mockito.anyString(), Mockito.any(PageRequest.class)))
 		.willReturn(new PageImpl<Evento>(new ArrayList<Evento>()));
 	}
 	

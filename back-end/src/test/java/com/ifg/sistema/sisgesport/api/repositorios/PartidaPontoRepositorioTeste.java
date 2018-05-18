@@ -62,7 +62,7 @@ public class PartidaPontoRepositorioTeste {
 	@Autowired
 	private PartidaPontoRepositorio ppR;	
 	private static final Turma turma = carregarTurma();
-	private static final String matricula ="20122080010047";
+	private static final String matricula ="20122080010021";
 	private static final Aluno aluno = carregarAluno();
 	private static final Evento evento = carregaEvento();
 	private static final Cargo cargo = cargoServidor();
@@ -125,7 +125,7 @@ public class PartidaPontoRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatriculaSiap("20122080010047");
+		serv.setMatricula("20122080010020");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -134,7 +134,7 @@ public class PartidaPontoRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor de Física");
 		return c;
 	}
 	
@@ -143,13 +143,13 @@ public class PartidaPontoRepositorioTeste {
 		t.setDataInicial(new Date());
 		t.setDataLimite(new Date());
 		t.setFlgAtivo(true);
-		t.setNome("20121/TADS");
+		t.setNome("20122/TADS");
 		return t;
 	}
 	
 	private static Aluno carregarAluno() {
 		Aluno aluno = new Aluno();
-		aluno.setNome("Guilherme Teste");
+		aluno.setNome("Aluno Teste 3");
 		aluno.setDataNascimento(new Date());
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');

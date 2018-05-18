@@ -43,7 +43,7 @@ public class BairroRepositorioTeste {
 		mR.save(municipio);
 		bairro.setCepBairro(cepBairro);
 		bairro.setMunicipio(municipio);
-		bairro.setNome("Bairro Jofre Parada");
+		bairro.setNome("Bairro Jofre Parada II");
 		bR.save(bairro);
 	}
 	
@@ -66,16 +66,16 @@ public class BairroRepositorioTeste {
 	
 	private static Estado Estado() {
 		Estado est = new Estado();
-		est.setNome("Goiás");
-		est.setUf("GO");
+		est.setNome("Distrito Federal");
+		est.setUf("DF");
 		return est;
 	}
 	
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
-		mun.setNome("Luziania");
+		mun.setNome("Brasília");
 		mun.setCepMunicipio(cepMun);
-		mun.setSigla("LZA");
+		mun.setSigla("BRA");
 		mun.setEstado(estado);
 		return mun;
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column ;
 import javax.persistence.Entity ;
 import javax.persistence.FetchType;
@@ -65,7 +66,7 @@ public class Imagem implements Serializable {
 	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
 	private EntidadeComum entidadeComum;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="informacao_evento_imagem", 
 	joinColumns=
 	@JoinColumn(name="imagem", referencedColumnName="id"),

@@ -25,21 +25,21 @@ public class EstadoRepositorioTeste {
 	@Before
 	public void setUp() throws Exception{
 			Estado estado = new Estado();
-			estado.setNome("Goiás");
-			estado.setUf("GO");
+			estado.setNome("Minas Gerais");
+			estado.setUf("MG");
 			this.esR.save(estado);
 	}
 	
 	@Test
 	public void testBuscarPorNome() {
-		Estado estado = this.esR.findByNomeOrUf("Goiás", "");
+		Estado estado = this.esR.findByNomeOrUf("Minas Gerais", "");
 		assertNotNull(estado);
 	}
 	
 	@Test
 	public void testBuscarPorUF() {
-		Estado estado = this.esR.findByNomeOrUf("", "GO");
-		assertEquals("GO", estado.getUf());
+		Estado estado = this.esR.findByNomeOrUf("", "MG");
+		assertEquals("MG", estado.getUf());
 	}
 	
 	@After

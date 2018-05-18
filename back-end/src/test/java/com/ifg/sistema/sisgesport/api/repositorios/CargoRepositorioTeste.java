@@ -42,7 +42,7 @@ public class CargoRepositorioTeste {
 		
 		Cargo cargo2 = new Cargo();
 		cargo2.setDescricao("Ministrar aulas aos alunos do ensino médio.");
-		cargo2.setNome("Professor do Ensino Médio");
+		cargo2.setNome("Professor do Ensino Médio e EJA");
 		
 		List<Instituicao> lista = new ArrayList<Instituicao>();
 		lista.add(instituto);

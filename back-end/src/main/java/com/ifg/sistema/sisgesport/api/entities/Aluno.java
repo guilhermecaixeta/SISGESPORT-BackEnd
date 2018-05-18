@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -21,9 +20,6 @@ public class Aluno extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 5195314769654228291L;
 
-	@Column(name = "matricula", nullable = false, unique = true, length = 20)
-	private String matricula;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "turma", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_turma_aluno"))
 	private Turma turma;
@@ -34,14 +30,6 @@ public class Aluno extends Pessoa implements Serializable {
 	private List<Equipe> equipe = new ArrayList<>();
 
 	public Aluno() {
-	}
-
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
 	}
 
 	public Turma getTurma() {

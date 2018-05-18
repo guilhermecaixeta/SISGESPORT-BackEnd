@@ -120,7 +120,7 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 	}
 
 	private void validarServidor(ServidorDTO servidorDTO, BindingResult result) {
-		this.entityService.BuscarPorMatriculaSiap(servidorDTO.getMatriculaSiap())
+		this.entityService.BuscarPorMatriculaSiap(servidorDTO.getMatricula())
 					.ifPresent(alu -> result.addError(new ObjectError("servidor", "Matrícula já cadastrada.")));
 
 		this.entityService.BuscarPorEmail(servidorDTO.getEmail())

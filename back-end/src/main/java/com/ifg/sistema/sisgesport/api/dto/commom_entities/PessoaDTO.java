@@ -11,6 +11,9 @@ public class PessoaDTO extends EntidadeComumDTO {
 	@NotEmpty(message="O campo nome não pode ser vazio.")
 	protected String nome;
 	protected Character sexo;
+	@NotEmpty(message = "O campo matrícula não pode ser vazio.")
+	@Length(message = "O campo matrícula deve conter até 20 caracteres.")
+	protected String matricula;
 	@NotEmpty(message="O campo senha não pode ser vazio.")
 	@Length(min= 5, max= 60, message="O campo senha deve conter entre 5 e até 60 caracteres.")
 	protected String senha;
@@ -22,6 +25,14 @@ public class PessoaDTO extends EntidadeComumDTO {
 	protected PerfilSistema perfil;
 
 	public PessoaDTO() {
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getNome() {

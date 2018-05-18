@@ -30,7 +30,7 @@ public class AlunoRepositorioTeste {
 	@Autowired
 	private TurmaRepositorio tR;
 	
-	private static final String matricula ="20122080010047";
+	private static final String matricula ="20122080010054";
 	private static final Turma turma = carregarturma();
 	private static final String email = "aluno@ifg.com.br";
 	@Before

@@ -37,6 +37,11 @@ public class Pessoa extends EntidadeComum implements Serializable {
 	@NotNull(message = "O campo sexo não pode ser nulo.")
 	protected Character sexo;
 
+	@Column(name = "matricula", nullable = false, unique = true, length = 20)
+	@NotNull(message = "O campo matricula não pode ser nulo.")
+	@NotBlank(message = "O campo matricula não pode ser em branco.")
+	protected String matricula;
+	
 	@Column(name = "senha", nullable = false, length = 60)
 	@NotNull(message = "O campo senha não pode ser nulo.")
 	@NotBlank(message = "O campo senha não pode ser em branco.")
@@ -73,6 +78,14 @@ public class Pessoa extends EntidadeComum implements Serializable {
 
 	public void setSexo(Character sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getSenha() {

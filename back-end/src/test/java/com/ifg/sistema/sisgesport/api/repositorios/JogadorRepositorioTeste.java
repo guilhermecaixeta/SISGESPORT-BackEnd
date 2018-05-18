@@ -93,10 +93,10 @@ public class JogadorRepositorioTeste {
 		jR.save(j);
 	}
 	
-	@After
-	public final void tearDown() {
-		jR.deleteAll();
-	}
+//	@After
+//	public final void tearDown() {
+//		jR.deleteAll();
+//	}
 	
 	@Test
 	public void testBuscarporEquipeId() {
@@ -161,7 +161,7 @@ public class JogadorRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatriculaSiap("20122080010047");
+		serv.setMatricula("20122080010047");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;

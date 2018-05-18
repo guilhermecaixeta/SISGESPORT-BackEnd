@@ -11,7 +11,6 @@ import com.ifg.sistema.sisgesport.api.repositorios.base.PessoaRepositorio;;
 @Transactional(readOnly=true)
 public interface ServidorRepositorio extends PessoaRepositorio<Servidor>{
 
-	Servidor findByMatriculaSiap(String matriculaSiap);	
 	List<Servidor> findByCargoId(Long id);
 	Page<Servidor> findByCargoId(Long id_cargo, Pageable pageable);
 	Page<Servidor> findByCargoInstituicaoId(Long id_instituicao, Pageable pageable);

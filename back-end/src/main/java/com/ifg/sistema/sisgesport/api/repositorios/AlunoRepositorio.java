@@ -10,8 +10,6 @@ import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.repositorios.base.PessoaRepositorio;
 @Transactional(readOnly=true)
 public interface AlunoRepositorio extends PessoaRepositorio<Aluno>{
-
-	Aluno findByMatricula(String matricula);
 		
 	List<Aluno> findByTurmaId(Long id_turma);
 	

@@ -62,7 +62,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	@Autowired
 	private PartidaPenalidadeRepositorio ppR;	
 	private static final Turma turma = carregarTurma();
-	private static final String matricula ="20122080010047";
+	private static final String matricula ="20122080010048";
 	private static final Aluno aluno = carregarAluno();
 	private static final Evento evento = carregaEvento();
 	private static final Cargo cargo = cargoServidor();
@@ -125,7 +125,7 @@ public class PartidaPenalidadeRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatriculaSiap("20122080010047");
+		serv.setMatricula("20122080010049");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -134,7 +134,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor De Quimíca");
 		return c;
 	}
 	
@@ -149,7 +149,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	
 	private static Aluno carregarAluno() {
 		Aluno aluno = new Aluno();
-		aluno.setNome("Guilherme Teste");
+		aluno.setNome("Aluno Teste");
 		aluno.setDataNascimento(new Date());
 		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		aluno.setSexo('M');

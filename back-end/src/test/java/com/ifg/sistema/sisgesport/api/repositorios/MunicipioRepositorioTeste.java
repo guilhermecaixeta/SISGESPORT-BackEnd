@@ -29,7 +29,7 @@ public class MunicipioRepositorioTeste {
 	private MunicipioRepositorio mR;
 
 
-	private static final String cepMun = "72";
+	private static final String cepMun = "51";
 	
 	private static final Estado estado = Estado();
 	
@@ -39,8 +39,8 @@ public class MunicipioRepositorioTeste {
 		Municipio municipio = new Municipio();
 		municipio.setCepMunicipio(cepMun);
 		municipio.setEstado(estado);
-		municipio.setNome("Luziânia");
-		municipio.setSigla("LZA");
+		municipio.setNome("Rio de Janeiro - Capital");
+		municipio.setSigla("RJC");
 		mR.save(municipio);
 
 	}
@@ -58,7 +58,7 @@ public class MunicipioRepositorioTeste {
 
 	@Test
 	public void testBuscarPorNome() {
-		Municipio mun = this.mR.findByNomeOrSigla("Luziânia", "");
+		Municipio mun = this.mR.findByNomeOrSigla("Rio de Janeiro - Capital", "");
 		assertNotNull(mun);
 	}
 	
@@ -77,8 +77,8 @@ public class MunicipioRepositorioTeste {
 	
 	private static Estado Estado() {
 		Estado est = new Estado();
-		est.setNome("Goiás");
-		est.setUf("GO");
+		est.setNome("Rio de Janeiro");
+		est.setUf("RJ");
 		return est;
 	}
 }

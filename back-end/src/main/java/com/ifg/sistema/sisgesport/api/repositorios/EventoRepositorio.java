@@ -13,7 +13,7 @@ public interface EventoRepositorio extends EntidadeComumRepositorio<Evento> {
 	
 	Evento findByCodigoEvento(String codigo_evento);
 	
-	List<Evento> findByCriadorMatriculaSiap(String matriculaSiap);
+	List<Evento> findByCriadorMatricula(String matriculaSiap);
 	
-	Page<Evento> findByCriadorMatriculaSiap(String matriculaSiap, Pageable page);
+	Page<Evento> findByCriadorMatricula(String matriculaSiap, Pageable page);
 }

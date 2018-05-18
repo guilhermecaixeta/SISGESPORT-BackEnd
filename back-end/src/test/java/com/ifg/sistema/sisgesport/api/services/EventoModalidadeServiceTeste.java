@@ -40,7 +40,7 @@ public class EventoModalidadeServiceTeste {
 	}
 	
 	@Test
-	public void TestPersistenciaEndereco() {
+	public void TestPersistenciaEvento() {
 		EventoModalidade e = this.evS.Salvar(new EventoModalidade());
 		assertNotNull(e);
 	}
