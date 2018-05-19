@@ -24,7 +24,7 @@ public class BairroServiceImplementation implements BairroService {
 	
 	public Optional<Bairro> BuscarPorNome(String nomeBairro) {
 		log.info("Buscando Bairro pelo nome: {}", nomeBairro);
-		return Optional.ofNullable(bairroRepositorio.findByNome(nomeBairro));
+		return Optional.ofNullable(bairroRepositorio.findByNomeEquals(nomeBairro));
 	}
 	
 	public Optional<Bairro> BuscarPorId(Long id){

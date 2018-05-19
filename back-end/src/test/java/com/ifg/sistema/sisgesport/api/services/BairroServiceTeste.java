@@ -37,7 +37,7 @@ public class BairroServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.bR.save(Mockito.any(Bairro.class))).willReturn(new Bairro());
 		BDDMockito.given(this.bR.findByCepBairro(Mockito.anyString())).willReturn(new Bairro());
-		BDDMockito.given(this.bR.findByNome(Mockito.anyString())).willReturn(new Bairro());
+		BDDMockito.given(this.bR.findByNomeEquals(Mockito.anyString())).willReturn(new Bairro());
 	}
 	
 	@Test

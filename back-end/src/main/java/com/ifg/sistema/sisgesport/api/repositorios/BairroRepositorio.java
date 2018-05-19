@@ -8,5 +8,5 @@ public interface BairroRepositorio extends JpaRepository<Bairro, Long> {
 
 	Bairro findByCepBairro(String cepBairro);
 	
-	Bairro findByNome(String nome);
+	Bairro findByNomeEquals(String nome);
 }

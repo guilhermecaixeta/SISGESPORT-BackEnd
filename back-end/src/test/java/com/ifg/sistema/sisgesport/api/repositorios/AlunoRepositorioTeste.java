@@ -32,7 +32,7 @@ public class AlunoRepositorioTeste {
 	
 	private static final String matricula ="20122080010054";
 	private static final Turma turma = carregarturma();
-	private static final String email = "aluno@ifg.com.br";
+	private static final String email = "alunoNovo@ifg.com.br";
 	@Before
 	public void setUp() throws Exception{
 		tR.save(turma);
