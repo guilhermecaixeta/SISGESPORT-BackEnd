@@ -93,10 +93,10 @@ public class JogadorRepositorioTeste {
 		jR.save(j);
 	}
 	
-//	@After
-//	public final void tearDown() {
-//		jR.deleteAll();
-//	}
+	@After
+	public final void tearDown() {
+		jR.deleteAll();
+	}
 	
 	@Test
 	public void testBuscarporEquipeId() {

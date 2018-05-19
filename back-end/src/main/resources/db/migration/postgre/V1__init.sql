@@ -1,7 +1,6 @@
     create sequence hibernate_sequence start 1 increment 1;
  
     create table aluno (
-        matricula varchar(20) not null,
         id int8 not null,
         turma int8 not null,
         primary key (id)
@@ -217,6 +216,7 @@
     create table pessoa (
         data_nasc timestamp not null,
         email varchar(60),
+        matricula varchar(20) not null,
         nome varchar(200) not null,
         perfil varchar(255) not null,
         senha varchar(60) not null,
@@ -235,7 +235,6 @@
     );
  
     create table servidor (
-        matricula_siap varchar(20) not null,
         id int8 not null,
         cargo int8,
         primary key (id)
@@ -268,9 +267,6 @@
         curso int8,
         primary key (id)
     );
- 
-    alter table aluno 
-        add constraint UK_prosr3jo55p8vlcu7e0g7s2ov unique (matricula);
  
     alter table cargo 
         add constraint UK_91fcfd99kg1af67rjv08heu1q unique (nome);
@@ -317,8 +313,8 @@
     alter table pessoa 
         add constraint UK_mc87q8fpvldpdyfo9o5633o5l unique (email);
  
-    alter table servidor 
-        add constraint UK_t0s1h25cb0n78scqd3h064ma9 unique (matricula_siap);
+    alter table pessoa 
+        add constraint UK_fthvu7gx1dgqwixgfy4qlbfvr unique (matricula);
  
     alter table aluno 
         add constraint fk_turma_aluno 
