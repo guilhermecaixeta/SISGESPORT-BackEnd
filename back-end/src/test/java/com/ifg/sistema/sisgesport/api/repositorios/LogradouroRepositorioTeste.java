@@ -29,9 +29,9 @@
 	private LogradouroRepositorio lR;
 	@Autowired
 
-	private static final String cepMun = "72";
+	private static final String cepMun = "73";
 	private static final String cepBairro = "811";
-	private static final String cepLogradouro = "320";
+	private static final String cepLogradouro = "322";
 	
 	private static final Estado estado = Estado();
 	private static final Municipio municipio = Municipio();
@@ -77,16 +77,16 @@
 	
 	private static Estado Estado() {
 		Estado est = new Estado();
-		est.setNome("Goiás");
-		est.setUf("GO");
+		est.setNome("Paraíba");
+		est.setUf("PB");
 		return est;
 	}
 	
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
-		mun.setNome("Luziania");
+		mun.setNome("Campina Grande");
 		mun.setCepMunicipio(cepMun);
-		mun.setSigla("LZA");
+		mun.setSigla("CPG");
 		mun.setEstado(estado);
 		return mun;
 	}

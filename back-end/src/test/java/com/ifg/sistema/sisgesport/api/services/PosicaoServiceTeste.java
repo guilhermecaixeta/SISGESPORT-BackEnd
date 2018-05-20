@@ -37,7 +37,7 @@ public class PosicaoServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.pR.save(Mockito.any(Posicao.class))).willReturn(new Posicao());
 		BDDMockito.given(this.pR.findOne(Mockito.anyLong())).willReturn(new Posicao());
-		BDDMockito.given(this.pR.findByNome(Mockito.anyString())).willReturn(new Posicao());
+		BDDMockito.given(this.pR.findByNomeEquals(Mockito.anyString())).willReturn(new Posicao());
 		BDDMockito.given(this.pR.findByModalidadeId(Mockito.anyLong())).willReturn(new ArrayList<Posicao>());
 		BDDMockito.given(this.pR.findByModalidadeId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
 		.willReturn(new PageImpl<Posicao>(new ArrayList<Posicao>()));

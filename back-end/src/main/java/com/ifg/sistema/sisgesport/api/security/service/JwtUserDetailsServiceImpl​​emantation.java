@@ -15,7 +15,7 @@ import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.ServidorService;
 
 @Service
-public class JwtUserDetailsServiceImpl​​ implements UserDetailsService {
+public class JwtUserDetailsServiceImpl​​emantation implements UserDetailsService {
 
 	@Autowired
 	private AlunoService aS;
@@ -31,7 +31,8 @@ public class JwtUserDetailsServiceImpl​​ implements UserDetailsService {
 			return JwtUserFactory.create(aluno.get());
 		} else {
 			servidor = this.sS.BuscarPorMatriculaSiap(username);
-	if(servidor.isPresent())return JwtUserFactory.create(servidor.get());
+			if (servidor.isPresent())
+				return JwtUserFactory.create(servidor.get());
 			throw new UsernameNotFoundException("Matricula não encontrada.");
 		}
 	}

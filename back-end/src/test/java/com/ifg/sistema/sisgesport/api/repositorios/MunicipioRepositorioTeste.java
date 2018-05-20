@@ -28,31 +28,27 @@ public class MunicipioRepositorioTeste {
 	@Autowired
 	private MunicipioRepositorio mR;
 
-
 	private static final String cepMun = "51";
-	
-	private static final Estado estado = Estado();
-	
+
+	private static final Estado estado = carregarEstado();
+	private static final Municipio municipio = carregarMunicipio();
+
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		esR.save(estado);
-		Municipio municipio = new Municipio();
-		municipio.setCepMunicipio(cepMun);
 		municipio.setEstado(estado);
-		municipio.setNome("Rio de Janeiro - Capital");
-		municipio.setSigla("RJC");
 		mR.save(municipio);
 
 	}
-	
-	@After
-	public final void tearDown() {
-		this.mR.deleteAll();
-	}
-	
+
+//	@After
+//	public final void tearDown() {
+//		this.mR.deleteAll();
+//	}
+
 	@Test
 	public void testBuscarCep() {
-		Municipio mun = this.mR.findByCepMunicipio(cepMun);		
+		Municipio mun = this.mR.findByCepMunicipio(cepMun);
 		assertEquals(cepMun, mun.getCepMunicipio());
 	}
 
@@ -61,24 +57,32 @@ public class MunicipioRepositorioTeste {
 		Municipio mun = this.mR.findByNomeOrSigla("Rio de Janeiro - Capital", "");
 		assertNotNull(mun);
 	}
-	
+
 	@Test
 	public void testBuscarEstado() {
-		List<Municipio> mun = this.mR.findByEstadoId(estado.getId());		
+		List<Municipio> mun = this.mR.findByEstadoId(estado.getId());
 		assertEquals(1, mun.size());
 	}
-	
+
 	@Test
 	public void testBuscarEstadoPaginavel() {
 		PageRequest page = new PageRequest(0, 10);
-		Page<Municipio> mun = this.mR.findByEstadoId(estado.getId(), page);		
+		Page<Municipio> mun = this.mR.findByEstadoId(estado.getId(), page);
 		assertEquals(1, mun.getNumberOfElements());
 	}
-	
-	private static Estado Estado() {
+
+	private static Estado carregarEstado() {
 		Estado est = new Estado();
 		est.setNome("Rio de Janeiro");
 		est.setUf("RJ");
 		return est;
+	}
+
+	private static Municipio carregarMunicipio() {
+		Municipio municipio = new Municipio();
+		municipio.setCepMunicipio(cepMun);
+		municipio.setNome("Rio de Janeiro - Capital");
+		municipio.setSigla("RJC");
+		return municipio;
 	}
 }

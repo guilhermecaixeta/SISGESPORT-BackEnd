@@ -33,27 +33,25 @@ public class CursoRepositorioTeste {
 	private static final Instituicao instituto = carregarInstituto();
 	private static final Instituicao instituto2 = carregarInstituto2();
 	
+	private static final Curso curso = carregarCurso();
+	private static final Curso curso2= carregarCurso2();
+	
 	@Before
 	public void setUp() throws Exception{
 		iR.save(instituto);
 		iR.save(instituto2);
-		Curso c = new Curso();
-		c.setFlg_ativo(true);
-		c.setInstituicao(instituto);
-		c.setNome("Tecnologia em Analise e Desenvolvimento de Sistemas");
-		cR.save(c);
+
+		curso.setInstituicao(instituto);
+		cR.save(curso);
 		
-		Curso c2 = new Curso();
-		c2.setFlg_ativo(true);
-		c2.setInstituicao(instituto2);
-		c2.setNome("Bacharelado em Sistemas da Informação");
-		cR.save(c2);
+		curso2.setInstituicao(instituto2);
+		cR.save(curso2);
 	}
 	
-	@After
-	public final void tearDown() {
-		cR.deleteAll();
-	}
+//	@After
+//	public final void tearDown() {
+//		cR.deleteAll();
+//	}
 	
 	@Test
 	public void TesteBuscarPorInstituto() {
@@ -82,5 +80,18 @@ public class CursoRepositorioTeste {
 		instituto.setDescricao("IFG - Instituto Federal de Goiás - Campus Luziânia");
 		instituto.setNome("IFG - Campus Valparáiso.");
 		return instituto;
+	}
+	public static Curso carregarCurso() {
+		Curso c = new Curso();
+		c.setFlg_ativo(true);
+		c.setNome("Tecnologia em Analise e Desenvolvimento de Sistemas");
+		return c;
+	}
+	
+	public static Curso carregarCurso2() {
+		Curso c2 = new Curso();
+		c2.setFlg_ativo(true);
+		c2.setNome("Bacharelado em Sistemas da Informação");
+		return c2;
 	}
 }

@@ -30,7 +30,7 @@ public class ServidorRepositorioTeste {
 	@Autowired
 	private CargoRepositorio cR;
 	
-	private static final String matriculasiap ="20122080010047";
+	private static final String matriculasiap ="20122080010021";
 	private static final Cargo cargo = cargoServidor();
 	@Before
 	public void setUp() throws Exception{
@@ -48,9 +48,9 @@ public class ServidorRepositorioTeste {
 		Servidor serv2 = new Servidor();
 		serv2.setNome("user");
 		serv2.setDataNascimento(new Date());
-		serv2.setSenha(PasswordUtils.GerarBCrypt("2012208001004220122080010042"));
+		serv2.setSenha(PasswordUtils.GerarBCrypt("201220800100422010042"));
 		serv2.setSexo('F');
-		serv2.setMatricula("20122080010042");
+		serv2.setMatricula("20122080018042");
 		serv2.setCargo(cargo);
 		serv2.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv2);
@@ -73,7 +73,7 @@ public class ServidorRepositorioTeste {
 		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
 		List<Servidor> compare = new ArrayList<>();
 		compare.add( this.servidorRepositorio.findByMatricula(matriculasiap));
-		compare.add( this.servidorRepositorio.findByMatricula("20122080010042"));
+		compare.add( this.servidorRepositorio.findByMatricula("20122080010999"));
 		int num1 =compare.size();
 		int num2 = serv.size();
 		

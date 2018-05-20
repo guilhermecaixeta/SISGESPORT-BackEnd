@@ -85,11 +85,11 @@ public class EquipeRepositorioTeste {
 	
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
-		serv.setNome("Guilherme");
+		serv.setNome("Guilherme Caixeta");
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010125");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -98,7 +98,7 @@ public class EquipeRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor EJA");
 		return c;
 	}
 	

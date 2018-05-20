@@ -28,7 +28,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 
 	public Optional<Posicao> BuscarPorNome(String nome) {
 		log.info("Buscando Posicao pelo nome {} ", nome);
-		return Optional.ofNullable(posicaoRepositorio.findByNome(nome));
+		return Optional.ofNullable(posicaoRepositorio.findByNomeEquals(nome));
 	}
 
 	public Optional<List<Posicao>> BuscarPorModalidadeId(Long id_modalidade) {

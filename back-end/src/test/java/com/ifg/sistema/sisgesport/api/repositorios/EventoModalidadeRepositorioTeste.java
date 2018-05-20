@@ -76,7 +76,7 @@ public class EventoModalidadeRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010177");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -85,7 +85,7 @@ public class EventoModalidadeRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor Superior");
+		c.setNome("Professor E. S.");
 		return c;
 	}
 	
@@ -103,8 +103,8 @@ public class EventoModalidadeRepositorioTeste {
 	}
 	private static Modalidade carregarModalidade() {
 		Modalidade mod = new Modalidade();
-		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
-		mod.setNome("Futebol");
+		mod.setDescricao("Esporte Coletivo de até 6 jogadores.");
+		mod.setNome("Vôlei");
 		mod.setNumMaxJogador(21);
 		mod.setNumMinJogador(11);
 		return mod;

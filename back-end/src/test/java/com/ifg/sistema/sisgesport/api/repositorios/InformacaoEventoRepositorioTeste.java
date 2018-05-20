@@ -40,42 +40,45 @@ public class InformacaoEventoRepositorioTeste {
 	@Autowired
 	private CargoRepositorio cR;
 	@Autowired
-	private ImagemRepositorio imR;
-	@Autowired
 	private InformacaoEventoRepositorio iEvR;
-	
+
 	private static final Cargo cargo = cargoInformacao();
 	private static final Servidor servidor = servidorInformacao();
 	private static final Evento evento = EventoInformacao();
 	private static final Imagem imagem = ImagemInformacao();
-	
+
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		cR.save(cargo);
 		srR.save(servidor);
 		evR.save(evento);
-		imR.save(imagem);
-		List<Imagem> listaI= new ArrayList<Imagem>();
+		List<Imagem> listaI = new ArrayList<Imagem>();
+		imagem.setId(null);
 		listaI.add(imagem);
-		InformacaoEvento iE= new InformacaoEvento();
+		InformacaoEvento iE = new InformacaoEvento();
+		iE.setId(null);
 		iE.setDataPostagem(new Date());
 		iE.setTitulo("Lorem ipsum dolor sit amet");
-		iE.setDescricao("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		iE.setDescricao(
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+				+ " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+				+ " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+				+ "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 		iE.setTipoInformacao('e');
 		iE.setEvento(evento);
 		iE.setImagem(listaI);
 		iEvR.save(iE);
 	}
-	
+
 	@After
 	public final void tearDown() {
 		iEvR.deleteAll();
 	}
-	
+
 	@Test
 	public void testBuscarPorEvento() {
 		List<InformacaoEvento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento());
-		
+
 		assertNotNull(lista);
 	}
 
@@ -83,17 +86,17 @@ public class InformacaoEventoRepositorioTeste {
 	public void testBuscarPorEventoPaginado() {
 		PageRequest page = new PageRequest(0, 10);
 		Page<InformacaoEvento> lista = this.iEvR.findByEventoCodigoEvento(evento.getCodigoEvento(), page);
-		
+
 		assertEquals(1, lista.getNumberOfElements());
 	}
-	
+
 	private static Cargo cargoInformacao() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
 		c.setNome("Professor Superior");
 		return c;
 	}
-	
+
 	private static Servidor servidorInformacao() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
@@ -105,7 +108,7 @@ public class InformacaoEventoRepositorioTeste {
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
-	
+
 	private static Evento EventoInformacao() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
@@ -118,17 +121,17 @@ public class InformacaoEventoRepositorioTeste {
 		ev.setCriador(servidor);
 		return ev;
 	}
-	
+
 	private static Imagem ImagemInformacao() {
 		Imagem i = new Imagem();
 		try {
-		i.setNome("amor.jpeg");
-		i.setTamanho(100.20);
-		i.setDescricaoImagem("Lorem ipsulun");
-		Path path = Paths.get("G:/Imagens/imagens e videos de humor/amor.jpeg");
-		i.setImagem(Files.readAllBytes(path));
+			i.setNome("s2.jpeg");
+			i.setTamanho(100.20);
+			i.setDescricaoImagem("Lorem ipsulun");
+			Path path = Paths.get("/home/guilherme/Imagens/s2.jpg");
+			i.setImagem(Files.readAllBytes(path));
 
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return i;

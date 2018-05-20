@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,32 +30,17 @@ public class CargoRepositorioTeste {
 	private CargoRepositorio cargoRepositorio;
 	
 	private static final Instituicao instituto = CarregarInstituto();
-	
+	private static final Cargo cargo = CarregarCargo();
 	@Before
-	public void setUp() throws Exception{
-		instituicaoRepo.save(instituto);
-		Cargo cargo = new Cargo();
-		cargo.setDescricao("Administração de alunos.");
-		cargo.setNome("Secretário");
-		
-		
-		Cargo cargo2 = new Cargo();
-		cargo2.setDescricao("Ministrar aulas aos alunos do ensino médio.");
-		cargo2.setNome("Professor do Ensino Médio e EJA");
+	public void setUp() throws Exception{		
+		instituicaoRepo.save(instituto);	
 		
 		List<Instituicao> lista = new ArrayList<Instituicao>();
 		lista.add(instituto);
 		cargo.setInstituicao(lista);
-		cargo2.setInstituicao(lista);
 		cargoRepositorio.save(cargo);
-		cargoRepositorio.save(cargo2);
 	}
-	
-	@After
-	public final void tearDown() {
-		cargoRepositorio.deleteAll();
-	}
-	
+
 	@Test
 	public void TesteBuscarPorNome() {
 		List<Cargo> cg = cargoRepositorio.findByNomeContains("Professor");
@@ -65,18 +49,18 @@ public class CargoRepositorioTeste {
 	}
 	
 	@Test
-	public void TesteBuscarPorNomeInstituto() {
+	public void TesteBuscarPorIdInstituto() {
 		List<Cargo> listaCargo = cargoRepositorio.findByInstituicaoId(instituto.getId());
 		
-		assertEquals(2, listaCargo.size());
+		assertEquals(1, listaCargo.size());
 	}
 	
 	@Test
 	public void TesteBuscarPorNomeInstitutoPaginavel() {
-		PageRequest page = new PageRequest(0, 10);
+		PageRequest page = new PageRequest(0, 5);
 		Page<Cargo> listaCargo = cargoRepositorio.findByInstituicaoId(instituto.getId(), page);
 		
-		assertEquals(2, listaCargo.getTotalElements());
+		assertEquals(1, listaCargo.getTotalElements());
 	}
 	
 	private static Instituicao CarregarInstituto() {
@@ -84,5 +68,12 @@ public class CargoRepositorioTeste {
 		inst.setDescricao("Instituto de Ciência e Tecnologia do estado de Goiás.");
 		inst.setNome("IFG - Instituto Federal de Goiás - Campus Luziânua");
 		return inst;
+	}
+	
+	private static Cargo CarregarCargo() {
+		Cargo cargo = new Cargo();
+		cargo.setDescricao("Administração de eventos.");
+		cargo.setNome("Administração de eventos");
+		return cargo;
 	}
 }

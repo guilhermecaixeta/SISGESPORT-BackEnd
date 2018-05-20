@@ -99,7 +99,7 @@ public class TimeRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010001");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -108,7 +108,7 @@ public class TimeRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor Mestre em Tecnologia");
 		return c;
 	}
 	
@@ -138,7 +138,7 @@ public class TimeRepositorioTeste {
 		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
-		mod.setNome("Futebol");
+		mod.setNome("Futebol De Quadra");
 		mod.setNumMaxJogador(21);
 		mod.setNumMinJogador(11);
 		return mod;

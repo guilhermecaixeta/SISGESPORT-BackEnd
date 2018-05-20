@@ -37,26 +37,21 @@ public class TurmaRepositorioTeste {
 	private static final Turma turma = carregarTurma();
 	
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		iR.save(instituto);
 		cR.save(curso);
-		Turma turma = new Turma();
-		turma.setDataInicial(new Date());
-		turma.setDataLimite(new Date());
-		turma.setFlgAtivo(true);
-		turma.setNome("20122/TADS");
 		turma.setCurso(curso);
 		tR.save(turma);
 	}
-	
-	@After
-	public final void tearDown() {
-		this.tR.deleteAll();
-	}
+//	
+//	@After
+//	public final void tearDown() {
+//		
+//	}
 	
 	@Test
 	public void testBuscarPorNome() {
-		Turma t = tR.findByNome("20122/TADS");
+		Turma t = tR.findByNomeEquals("20151/BSI");
 		
 		assertNotNull(t);
 	}
@@ -87,12 +82,16 @@ public class TurmaRepositorioTeste {
 		Curso c = new Curso();
 		c.setFlg_ativo(true);
 		c.setInstituicao(instituto);
-		c.setNome("Tecnologia em Analise e Desenvolvimento de Sistemas");
+		c.setNome("Bacharel em Sistemas da Informação");
 		return c;
 	}
 	
 	private static Turma carregarTurma() {
-
+		Turma turma = new Turma();
+		turma.setDataInicial(new Date());
+		turma.setDataLimite(new Date());
+		turma.setFlgAtivo(true);
+		turma.setNome("20151/BSI");
 		return turma;
 	}
 }

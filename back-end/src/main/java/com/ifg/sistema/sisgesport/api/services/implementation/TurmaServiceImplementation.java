@@ -27,7 +27,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 
 	public Optional<Turma> BuscarPorNome(String nome) {
 		log.info("Buscando Turma pelo nome {} ", nome);
-		return Optional.ofNullable(turmaRepositorio.findByNome(nome));
+		return Optional.ofNullable(turmaRepositorio.findByNomeEquals(nome));
 	}
 
 	public Optional<List<Turma>> BuscarPorCursoId(Long id_curso) {

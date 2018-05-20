@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,7 +53,7 @@ public class InformacaoEvento implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPostagem;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL)
 	@JoinTable(name="informacao_evento_imagem", 
 	joinColumns=
 	@JoinColumn(name="informacao_evento", referencedColumnName="id"),

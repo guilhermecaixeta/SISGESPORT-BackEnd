@@ -36,7 +36,7 @@ public class Endereco implements Serializable {
 	@Length(max = 60, message = "O campo complemento possui o limite máximo de {max} caracteres.")
 	private String complemento;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "logradouro", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_logradouro_endereco"))
 	@NotNull(message = "O campo logradouro não pode ser nulo.")
 	private Logradouro logradouro;

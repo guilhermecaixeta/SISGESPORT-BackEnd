@@ -108,11 +108,11 @@ public class PartidaRepositorioTeste {
 	
 	private static Servidor carregaServidor() {
 		Servidor serv = new Servidor();
-		serv.setNome("Guilherme");
+		serv.setNome("Guilherme L. P. Caixeta");
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010320");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -121,7 +121,7 @@ public class PartidaRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor Ensino Superior");
 		return c;
 	}
 	

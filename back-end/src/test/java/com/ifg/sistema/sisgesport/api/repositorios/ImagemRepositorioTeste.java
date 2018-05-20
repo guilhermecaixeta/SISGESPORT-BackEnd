@@ -40,85 +40,89 @@ public class ImagemRepositorioTeste {
 	private ImagemRepositorio imR;
 	@Autowired
 	private InformacaoEventoRepositorio iEvR;
-	
+
 	private static final Cargo cargo = cargoInformacao();
 	private static final Servidor servidor = servidorInformacao();
 	private static final Evento evento = EventoInformacao();
 	private static final InformacaoEvento informacao_evento = carregarInformacaoEvento();
+
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		Imagem i = new Imagem();
 		try {
-		i.setNome("amor.jpeg");
-		i.setTamanho(100.20);
-		i.setDescricaoImagem("Lorem ipsulun");
-		Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
-		i.setImagem(Files.readAllBytes(path));
+			i.setId(null);
+			i.setNome("s2.jpeg");
+			i.setTamanho(100.20);
+			i.setDescricaoImagem("Lorem ipsulun");
+			Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
+			i.setImagem(Files.readAllBytes(path));
 
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		Imagem i2 = new Imagem();
-		try {
-		i2.setNome("amor.jpeg");
-		i2.setTamanho(100.20);
-		i2.setDescricaoImagem("Lorem ipsulun");
-		Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
-		i2.setImagem(Files.readAllBytes(path));
-
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		imR.save(i2);
 		cR.save(cargo);
 		servidor.AdicionarImagem(i);
 		srR.save(servidor);
-		evR.save(evento);
-		List<Imagem> listaI= new ArrayList<Imagem>();
+
+		Imagem i2 = new Imagem();
+		try {
+			i2.setNome("amor.jpeg");
+			i2.setTamanho(100.20);
+			i2.setDescricaoImagem("Lorem ipsulun");
+			Path path = Paths.get("/home/guilherme/Imagens/ducreux.jpg");
+			i2.setImagem(Files.readAllBytes(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		imR.save(i2);
+		
+		informacao_evento.setEvento(evento);
+		List<Imagem> listaI = new ArrayList<Imagem>();
 		listaI.add(i2);
 		informacao_evento.setImagem(listaI);
-		iEvR.save(informacao_evento);
+		evR.save(evento);
 	}
-	
-	@After
-	public final void tearDown() {
-		imR.deleteAll();
-	}
+
+	 @After
+	 public final void tearDown() {
+	 imR.deleteAll();
+	 }
 
 	@Test
 	public void testBuscarPorInformacaoEventoId() {
 		List<Imagem> lista = this.imR.findByInformacaoEventoId(informacao_evento.getId());
-		
+
 		assertNotNull(lista);
 	}
-	
+
 	@Test
 	public void testBuscarPorInformacaoEntidadeComumId() {
 		List<Imagem> lista = this.imR.findByEntidadeComumId(servidor.getId());
-		
+
 		assertNotNull(lista);
 	}
-	
+
 	private static Cargo cargoInformacao() {
 		Cargo c = new Cargo();
-		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor Superior");
+		c.setId(null);
+		c.setDescricao("Coordenador de Instituto");
+		c.setNome("Coordenador");
 		return c;
 	}
-	
+
 	private static Servidor servidorInformacao() {
 		Servidor serv = new Servidor();
+		serv.setId(null);
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010821");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
 	}
-	
+
 	private static Evento EventoInformacao() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
@@ -131,14 +135,14 @@ public class ImagemRepositorioTeste {
 		ev.setCriador(servidor);
 		return ev;
 	}
-	
+
 	private static InformacaoEvento carregarInformacaoEvento() {
-		InformacaoEvento iE= new InformacaoEvento();
+		InformacaoEvento iE = new InformacaoEvento();
 		iE.setDataPostagem(new Date());
 		iE.setTitulo("Lorem ipsum dolor sit amet");
-		iE.setDescricao("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		iE.setDescricao(
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 		iE.setTipoInformacao('e');
-		iE.setEvento(evento);
 		return iE;
 	}
 }

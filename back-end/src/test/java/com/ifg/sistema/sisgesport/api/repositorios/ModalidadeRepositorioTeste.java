@@ -24,19 +24,17 @@ public class ModalidadeRepositorioTeste {
 
 	@Autowired
 	private ModalidadeRepositorio mR;
-	@Autowired
-	private TipoPontoRepositorio tpR;
 	@Before
 	public void setUp() throws Exception{
 		Modalidade mod = new Modalidade();
 		TipoPonto ponto = new TipoPonto();
-		ponto.setNome("gol");
+		ponto.setNome("cesta");
 		ponto.setValor(1);
-		tpR.save(ponto);
+		ponto.setId(null);
 		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
-		mod.setNome("Futebol");
+		mod.setNome("Basquete");
 		mod.setTipoPonto(lista);
 		mod.setNumMaxJogador(21);
 		mod.setNumMinJogador(11);
@@ -50,14 +48,14 @@ public class ModalidadeRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorNome() {
-		Modalidade mod = mR.findByNome("Futebol");
+		Modalidade mod = mR.findByNome("Basquete");
 		
 		assertNotNull(mod);
 	}
 	
 	@Test
 	public void testContainsPonto() {
-		Modalidade mod = mR.findByNome("Futebol");
+		Modalidade mod = mR.findByNome("Basquete");
 		
 		assertNotNull(mod.getTipoPonto());
 	}

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,16 +45,11 @@ public class EventoRepositorioTeste {
 		ev.setDataInicio(new Date());
 		ev.setDataFimInscricao(new Date());
 		ev.setDataInicioInscricao(new Date());
-		ev.setDescricao("Evento teste");
-		ev.setNome("Evento de Teste");
+		ev.setDescricao("Evento teste 01");
+		ev.setNome("Evento de Teste 01");
 		ev.setQntEquipes(3);
 		ev.setCriador(servidor);
 		evR.save(ev);
-	}
-	
-	@After
-	public final void tearDown() {
-		evR.deleteAll();
 	}
 	
 	@Test
@@ -77,7 +71,7 @@ public class EventoRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010547");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -86,7 +80,7 @@ public class EventoRepositorioTeste {
 	private static Cargo cargoServidor() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor Superior");
+		c.setNome("Educador de Ensino Superior");
 		return c;
 	}
 }

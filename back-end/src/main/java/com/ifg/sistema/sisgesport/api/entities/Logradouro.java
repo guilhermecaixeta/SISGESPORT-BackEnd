@@ -2,7 +2,6 @@ package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -36,7 +35,7 @@ public class Logradouro implements Serializable {
 	@Column(name = "cep_logradouro", nullable = false, length = 3)
 	private String cepLogradouro;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "bairro", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_bairro_logradouro"))
 	@NotNull(message = "O campo bairro não pode ser nulo.")
 	private Bairro bairro;

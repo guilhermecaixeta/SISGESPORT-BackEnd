@@ -238,7 +238,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static Posicao carregarPosicao() {
 		Posicao p = new Posicao();
 		p.setDescricao("Ataca o gol do outro time");
-		p.setNome("Atacante");
+		p.setNome("Atacante direito");
 		p.setNumMaxJogador(5);
 		p.setNumMinJogador(1);
 		List<Modalidade> lM = new ArrayList<Modalidade>();

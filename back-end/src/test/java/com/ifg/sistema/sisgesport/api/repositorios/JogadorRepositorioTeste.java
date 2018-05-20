@@ -56,12 +56,10 @@ public class JogadorRepositorioTeste {
 	@Autowired
 	private ModalidadeRepositorio mR;
 	@Autowired
-	private TipoPontoRepositorio tpR;
-	@Autowired
 	private PosicaoRepositorio psR;
 	
 	private static final Turma turma = carregarTurma();
-	private static final String matricula ="20122080010047";
+	private static final String matricula ="20122080010098";
 	private static final Aluno aluno = carregarAluno();
 	private static final Cargo cargo = carregarCargo();
 	private static final Servidor servidor = carregaServidor();
@@ -80,7 +78,6 @@ public class JogadorRepositorioTeste {
 		svR.save(servidor);
 		evR.save(evento);
 		eR.save(equipe);
-		tpR.save(ponto);
 		mR.save(modalidade);
 		tmR.save(time);
 		psR.save(posicao);
@@ -161,7 +158,7 @@ public class JogadorRepositorioTeste {
 		serv.setDataNascimento(new Date());
 		serv.setSenha(PasswordUtils.GerarBCrypt("usuario"));
 		serv.setSexo('M');
-		serv.setMatricula("20122080010047");
+		serv.setMatricula("20122080010097");
 		serv.setCargo(cargo);
 		serv.setPerfil(PerfilSistema.ROLE_ADMIN);
 		return serv;
@@ -200,7 +197,7 @@ public class JogadorRepositorioTeste {
 		List<TipoPonto> lista = new ArrayList<TipoPonto>();
 		lista.add(ponto);
 		mod.setDescricao("Esporte Coletivo de até 11 jogadores.");
-		mod.setNome("Futebol");
+		mod.setNome("Futsal");
 		mod.setTipoPonto(lista);
 		mod.setNumMaxJogador(21);
 		mod.setNumMinJogador(11);

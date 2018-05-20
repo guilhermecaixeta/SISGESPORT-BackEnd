@@ -56,7 +56,7 @@ public class InstituicaoRepositorioTeste {
 	private static Cargo CarregarCargo() {
 		Cargo c = new Cargo();
 		c.setDescricao("Lecionar aulas");
-		c.setNome("Professor");
+		c.setNome("Professor Mestrado");
 		return c;
 	}
 }

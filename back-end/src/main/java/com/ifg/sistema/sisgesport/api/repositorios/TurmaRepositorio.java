@@ -11,7 +11,7 @@ import com.ifg.sistema.sisgesport.api.entities.Turma;
 @Transactional(readOnly=true)
 public interface TurmaRepositorio  extends JpaRepository<Turma, Long> {
 
-	Turma findByNome(String nome);
+	Turma findByNomeEquals(String nome);
 	
 	List<Turma> findByCursoId(Long id_curso);
 	

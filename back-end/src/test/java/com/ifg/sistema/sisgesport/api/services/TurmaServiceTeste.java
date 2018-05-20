@@ -37,7 +37,7 @@ public class TurmaServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.tR.save(Mockito.any(Turma.class))).willReturn(new Turma());
 		BDDMockito.given(this.tR.findOne(Mockito.anyLong())).willReturn(new Turma());
-		BDDMockito.given(this.tR.findByNome(Mockito.anyString())).willReturn(new Turma());
+		BDDMockito.given(this.tR.findByNomeEquals(Mockito.anyString())).willReturn(new Turma());
 		BDDMockito.given(this.tR.findByCursoId(Mockito.anyLong())).willReturn(new ArrayList<Turma>());
 		BDDMockito.given(this.tR.findByCursoId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
 		.willReturn(new PageImpl<Turma>(new ArrayList<Turma>()));

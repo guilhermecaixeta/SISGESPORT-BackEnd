@@ -21,29 +21,33 @@ public class EstadoRepositorioTeste {
 	
 	@Autowired
 	private EstadoRepositorio esR;
-	
+	private static final Estado estado = carregarEstado();
 	@Before
 	public void setUp() throws Exception{
-			Estado estado = new Estado();
-			estado.setNome("Paraíba");
-			estado.setUf("PB");
 			this.esR.save(estado);
 	}
 	
 	@Test
 	public void testBuscarPorNome() {
-		Estado estado = this.esR.findByNomeOrUf("Paraíba", "");
+		Estado estado = this.esR.findByNomeOrUf("Rio Grande do Sul", "");
 		assertNotNull(estado);
 	}
 	
 	@Test
 	public void testBuscarPorUF() {
-		Estado estado = this.esR.findByNomeOrUf("", "PB");
-		assertEquals("PB", estado.getUf());
+		Estado estado = this.esR.findByNomeOrUf("", "RS");
+		assertEquals("RS", estado.getUf());
 	}
 	
-	@After
-	public final void tearDown() {
-		this.esR.deleteAll();
+//	@After
+//	public final void tearDown() {
+//		this.esR.deleteAll();
+//	}
+	
+	public static Estado carregarEstado() {
+		Estado estado = new Estado();
+		estado.setNome("Rio Grande do Sul");
+		estado.setUf("RS");
+		return estado;
 	}
 }

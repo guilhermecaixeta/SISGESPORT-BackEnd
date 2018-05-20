@@ -30,7 +30,7 @@ public class Posicao implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
 
-	@Column(name = "nome", nullable = false, length = 30)
+	@Column(name = "nome", nullable = false, length = 30, unique=true)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
 	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")

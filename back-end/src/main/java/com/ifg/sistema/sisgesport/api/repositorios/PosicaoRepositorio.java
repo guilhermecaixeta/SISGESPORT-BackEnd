@@ -11,7 +11,7 @@ import com.ifg.sistema.sisgesport.api.entities.Posicao;
 @Transactional(readOnly=true)
 public interface PosicaoRepositorio extends JpaRepository<Posicao, Long> {
 
-	Posicao findByNome(String nome);
+	Posicao findByNomeEquals(String nome);
 	
 	List<Posicao> findByModalidadeId(Long id_modalidade);
 	

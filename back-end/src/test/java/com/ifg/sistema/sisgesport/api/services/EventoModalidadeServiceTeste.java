@@ -39,12 +39,7 @@ public class EventoModalidadeServiceTeste {
 		BDDMockito.given(this.evR.findByModalidadeId(Mockito.anyLong())).willReturn(new ArrayList<EventoModalidade>());
 	}
 	
-	@Test
-	public void TestPersistenciaEvento() {
-		EventoModalidade e = this.evS.Salvar(new EventoModalidade());
-		assertNotNull(e);
-	}
-	
+
 	@Test
 	public void TestBuscaPorId() {
 		Optional<EventoModalidade> e = this.evS.BuscarPorId((long)1);
@@ -61,5 +56,11 @@ public class EventoModalidadeServiceTeste {
 	public void TestBuscaPorIdModalidade() {
 		Optional<List<EventoModalidade>> c = this.evS.BuscarPorModalidadeId(id);
 		assertTrue(c.isPresent());
+	}
+	
+	@Test
+	public void TestPersistenciaEventoModalidade() {
+		EventoModalidade e = this.evS.Salvar(new EventoModalidade());
+		assertNotNull(e);
 	}
 }

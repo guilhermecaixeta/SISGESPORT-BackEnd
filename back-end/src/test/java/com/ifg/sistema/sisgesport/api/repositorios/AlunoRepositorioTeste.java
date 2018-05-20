@@ -29,47 +29,33 @@ public class AlunoRepositorioTeste {
 	private AlunoRepositorio aR;
 	@Autowired
 	private TurmaRepositorio tR;
-	
-	private static final String matricula ="20122080010054";
+
+	private static final String matricula = "20122080010054";
 	private static final Turma turma = carregarturma();
 	private static final String email = "alunoNovo@ifg.com.br";
-	@Before
-	public void setUp() throws Exception{
-		tR.save(turma);
+	private static final Aluno aluno = carregarAluno();
+	private static final Aluno aluno2 = carregarAluno2();
 
-		Aluno aluno = new Aluno();
-		aluno.setNome("Guilherme");
-		aluno.setDataNascimento(new Date());
-		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
-		aluno.setSexo('M');
-		aluno.setMatricula(matricula);
+	@Before
+	public void setUp() throws Exception {
+		tR.save(turma);
 		aluno.setTurma(turma);
-		aluno.setPerfil(PerfilSistema.ROLE_USUARIO);
-		aluno.setEmail(email);
 		this.aR.save(aluno);
 
-		Aluno aluno2 = new Aluno();
-		aluno2.setNome("user");
-		aluno2.setDataNascimento(new Date());
-		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
-		aluno2.setSexo('F');
-		aluno2.setMatricula("20131100010042");
 		aluno2.setTurma(turma);
-		aluno2.setPerfil(PerfilSistema.ROLE_USUARIO);
-
 		this.aR.save(aluno2);
 	}
-	
-	@After
-	public final void tearDown() {
-		this.aR.deleteAll();
-	}
-	
+
+//	@After
+//	public final void tearDown() {
+//		this.aR.deleteAll();
+//	}
+
 	@Test
 	public void testBuscarPorTurma() {
 		PageRequest page = new PageRequest(0, 10);
 		Page<Aluno> aluno = this.aR.findByTurmaId(turma.getId(), page);
-		
+
 		assertEquals(2, aluno.getNumberOfElements());
 		assertNotNull(aluno);
 	}
@@ -80,21 +66,21 @@ public class AlunoRepositorioTeste {
 		assertNotNull(a);
 		assertEquals(matricula, a.getMatricula());
 	}
-	
+
 	@Test
 	public void testBuscarPorId() {
 		Aluno a = this.aR.findByNome("Guilherme");
 		assertNotNull(a);
 		assertEquals(matricula, a.getMatricula());
 	}
-	
+
 	@Test
 	public void testBuscarPorEmail() {
 		Aluno a = this.aR.findByEmail(email);
 		assertNotNull(a);
 		assertEquals(email, a.getEmail());
 	}
-	
+
 	private static Turma carregarturma() {
 		Turma t = new Turma();
 		t.setDataInicial(new Date());
@@ -102,5 +88,29 @@ public class AlunoRepositorioTeste {
 		t.setFlgAtivo(true);
 		t.setNome("20122/TADS");
 		return t;
+	}
+
+	private static Aluno carregarAluno() {
+		Aluno aluno = new Aluno();
+		aluno.setNome("Guilherme");
+		aluno.setDataNascimento(new Date());
+		aluno.setSenha(PasswordUtils.GerarBCrypt("usuario"));
+		aluno.setSexo('M');
+		aluno.setPerfil(PerfilSistema.ROLE_USUARIO);
+		aluno.setMatricula(matricula);
+		aluno.setEmail(email);
+		return aluno;
+	}
+	
+	private static Aluno carregarAluno2() {
+		Aluno aluno2 = new Aluno();
+		aluno2.setNome("user");
+		aluno2.setEmail("aluno2@gmail.com");
+		aluno2.setDataNascimento(new Date());
+		aluno2.setSenha(PasswordUtils.GerarBCrypt("201220800"));
+		aluno2.setSexo('F');
+		aluno2.setMatricula("20131100010042");
+		aluno2.setPerfil(PerfilSistema.ROLE_USUARIO);
+		return aluno2;
 	}
 }
