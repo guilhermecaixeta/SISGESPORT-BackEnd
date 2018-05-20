@@ -41,7 +41,7 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/sisgesport/aluno")
-public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoService> {
+public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoService> {
 	{
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
 		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
@@ -95,7 +95,7 @@ public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoServi
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping
+	@PostMapping(value = "/cadastrar")
 	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 
@@ -110,9 +110,9 @@ public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoServi
 		entity.setSenha(PasswordUtils.GerarBCrypt(alunoDTO.getSenha()));
 		List<Endereco> lista = entity.getEndereco();
 		entity.setEndereco(new ArrayList<Endereco>());
-		if(!lista.isEmpty())
-		lista.forEach(endereco -> entity.AdicionarEndereco(endereco));
-		
+		if (!lista.isEmpty())
+			lista.forEach(endereco -> entity.AdicionarEndereco(endereco));
+
 		Optional<Turma> turma = this.tS.BuscarPorId(alunoDTO.getTurma().getId());
 		turma.ifPresent(t -> entity.setTurma(t));
 		this.entityService.Salvar(entity);
@@ -122,7 +122,7 @@ public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoServi
 
 	private void validarAluno(AlunoDTO alunoDTO, BindingResult result) {
 		this.entityService.BuscarPorMatricula(alunoDTO.getMatricula())
-					.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
+				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
 
 		this.entityService.BuscarPorEmail(alunoDTO.getEmail())
 				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Email já cadastrado.")));
@@ -136,7 +136,7 @@ public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoServi
 		List<String> lista = new ArrayList<String>();
 		if (!aluno.isPresent())
 			result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
-		
+
 		if (alunoDTO.getEmail() != null && !alunoDTO.getEmail().equals(aluno.get().getEmail())) {
 			entityService.BuscarPorEmail(alunoDTO.getEmail())
 					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
@@ -155,10 +155,10 @@ public class AlunoController  extends baseController<AlunoDTO, Aluno, AlunoServi
 				entity.setTurma(new Turma());
 				entity.getTurma().setId(alunoDTO.getTurma().getId());
 			}
-			if(alunoDTO.getEndereco() != null && alunoDTO.getEndereco().size() > 0) {
+			if (alunoDTO.getEndereco() != null && alunoDTO.getEndereco().size() > 0) {
 				List<Endereco> listaEndereco = aluno.get().getEndereco();
 				aluno.get().setEndereco(new ArrayList<Endereco>());
-					listaEndereco.forEach(endereco -> aluno.get().AdicionarEndereco(endereco));
+				listaEndereco.forEach(endereco -> aluno.get().AdicionarEndereco(endereco));
 			}
 			this.entityService.Salvar(entity);
 			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
