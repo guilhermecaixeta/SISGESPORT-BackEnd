@@ -49,7 +49,7 @@ public class AuthenticationController {
 	 * 
 	 * @param jwtAuthDTO
 	 * @param result
-	 * @return TokenDTO
+	 * @return ResponseEntity<Response<TokenDTO>>
 	 * @throws AuthenticationException
 	 */
 	@PostMapping
@@ -72,7 +72,12 @@ public class AuthenticationController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping(value="/refresh")
+	/***
+	 * Atualiza o token do usuário, gerando um novo token e retornando.
+	 * @param request
+	 * @return ResponseEntity<Response<TokenDTO>>
+	 */
+	@PostMapping(value = "/refresh")
 	public ResponseEntity<Response<TokenDTO>> atualizarToken(HttpServletRequest request) {
 		log.info("Atualizando token JWT.");
 		Optional<String> token = Optional.ofNullable(request.getHeader(TOKEN_HEADER));
@@ -80,15 +85,14 @@ public class AuthenticationController {
 		if (token.isPresent() && token.get().startsWith(BEARER_PREFIX)) {
 			token = Optional.of(token.get().substring(7));
 		}
-		
 		if (!token.isPresent()) {
 			response.getErrors().add("Token não informado");
-		}else if(!jwtTokenUtil.tokenValido(token.get())){
+		} else if (!jwtTokenUtil.tokenValido(token.get())) {
 			response.getErrors().add("Token inválido ou expirado.");
 		}
-		
-		if(!response.getErrors().isEmpty())
+		if (!response.getErrors().isEmpty()) {
 			return ResponseEntity.badRequest().body(response);
+		}
 		response.setData(new TokenDTO(jwtTokenUtil.refreshToken(token.get())));
 		return ResponseEntity.ok(response);
 	}

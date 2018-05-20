@@ -15,22 +15,25 @@ import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.ServidorService;
 
 @Service
-public class JwtUserDetailsServiceImpl​​emantation implements UserDetailsService {
-
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
+	
 	@Autowired
 	private AlunoService aS;
 	@Autowired
 	private ServidorService sS;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Aluno> aluno;
 		Optional<Servidor> servidor;
+
 		if (this.aS.BuscarPorMatricula(username).isPresent()) {
+
 			aluno = this.aS.BuscarPorMatricula(username);
 			return JwtUserFactory.create(aluno.get());
 		} else {
 			servidor = this.sS.BuscarPorMatriculaSiap(username);
+
 			if (servidor.isPresent())
 				return JwtUserFactory.create(servidor.get());
 			throw new UsernameNotFoundException("Matricula não encontrada.");

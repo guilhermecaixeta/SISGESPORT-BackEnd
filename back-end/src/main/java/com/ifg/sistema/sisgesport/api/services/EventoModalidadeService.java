@@ -26,8 +26,12 @@ public interface EventoModalidadeService {
 	/**
 	 * Salva um novo evento modalidade no banco de dados.
 	 * @param evento_modalidade
-	 * @return
+	 * @return EventoModalidade
 	 */
 	EventoModalidade Salvar(EventoModalidade evento_modalidade);
+	/**
+	 * Deleta um evento modalidade pelo id
+	 * @param id
+	 */
 	void Deletar(Long id);
 }
