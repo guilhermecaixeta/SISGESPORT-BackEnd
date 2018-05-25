@@ -9,15 +9,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
-
-import { LoginRoutingModule } from './login/login-routing.module';
-import { SignupRoutingModule } from './signup/signup-routing.module';
-
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-
-import { MenuLoginComponent } from './menu-login-header/menu-login-header.component';
-
+import { Service } from './service/service.component';
+import { BaseComponent } from './base-components/base.component';
+import { BaseCrudComponent } from './base-components/base-crud.component';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -34,8 +28,6 @@ export const createTranslateLoader = (http: HttpClient) => {
     imports: [
         CommonModule,
         BrowserModule,
-        SignupRoutingModule,
-        LoginRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -47,12 +39,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule
     ],
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        SignupComponent,
-        MenuLoginComponent],
-    providers: [AuthGuard],
+    declarations: [AppComponent, BaseComponent, BaseCrudComponent],
+    providers: [AuthGuard, Service],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

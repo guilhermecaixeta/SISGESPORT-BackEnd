@@ -6,8 +6,8 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
     { path: '', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', loadChildren: './signup/signup.module#SignupModule' },
+    { path: 'login', loadChildren: './login/login.module#LoginModule' },
+    { path: 'cadastrar', loadChildren: './cadastrar/cadastrar.module#CadastrarModule' },
     { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
     { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },

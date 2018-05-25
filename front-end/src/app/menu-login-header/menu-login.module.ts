@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MenuLoginComponent } from './menu-login-header.component';
+import { MenuLoginHeaderComponent } from './menu-login-header.component';
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [MenuLoginComponent]
+    declarations: [MenuLoginHeaderComponent],
+    exports: [MenuLoginHeaderComponent]
 })
-export class MenuLoginModule {}
+export class MenuLoginHeaderModule {}

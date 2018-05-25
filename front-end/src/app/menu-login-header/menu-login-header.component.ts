@@ -8,6 +8,4 @@ import { Component } from '@angular/core';
     `,
     styleUrls: ['../login/login.component.scss'],
 })
-export class MenuLoginComponent{
-    Message = 'Sistema de Gestão de Eventos Esportivos'; 
-}
+export class MenuLoginHeaderComponent { Message = 'Sistema de Gestão de Eventos Esportivos'; }

@@ -63,7 +63,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		Optional<Instituicao> instituto = entityService.BuscarPorId(id);
 		if (!instituto.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
-			response.getErrors().add("Instituição não encontrado para o id " + id);
+			response.getErrors().add("Instituição não encontrado para o id " + id.toString());
 			return ResponseEntity.badRequest().body(response);
 		}
 		response.setData(mappingEntityToDTO.AsGenericMapping(instituto.get()));
@@ -80,8 +80,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			log.error("Erro ao validar dados da nova instituicao: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
-		}
-		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
+		}		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
 		entity = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
@@ -95,7 +94,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		Optional<Instituicao> instituto = this.entityService.BuscarPorId(id);
 		List<String> lista = new ArrayList<String>();
 		if (!instituto.isPresent()) {
-			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
+			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("endereco");

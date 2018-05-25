@@ -1,0 +1,14 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+        <app-menu-login-header></app-menu-login-header>
+        <div>
+            <a class="btn rounded-btn" [routerLink]="['./cadastrar-aluno/cadastrar-aluno']"> Registrar Aluno </a>&nbsp;
+        </div> 
+        <div>
+            <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Registrar Servidor </a>&nbsp;
+        </div>
+            <a class="btn rounded-btn" [routerLink]="['/login']"> Entrar </a>
+        </div>
+    </div>
+</div>
