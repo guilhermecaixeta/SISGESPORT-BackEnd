@@ -38,8 +38,7 @@ public class MunicipioServiceTeste {
 	public void setUp() throws Exception{
 		BDDMockito.given(this.mR.save(Mockito.any(Municipio.class))).willReturn(new Municipio());
 		BDDMockito.given(this.mR.findOne(Mockito.anyLong())).willReturn(new Municipio());
-		BDDMockito.given(this.mR.findByCepMunicipio(Mockito.anyString())).willReturn(new Municipio());
-		BDDMockito.given(this.mR.findByNomeOrSigla(Mockito.anyString(), Mockito.anyString())).willReturn(new Municipio());
+		BDDMockito.given(this.mR.findByNome(Mockito.anyString())).willReturn(new Municipio());
 		BDDMockito.given(this.mR.findByEstadoId(Mockito.anyLong())).willReturn(new ArrayList<Municipio>());
 		BDDMockito.given(this.mR.findByEstadoId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
 		.willReturn(new PageImpl<Municipio>(new ArrayList<Municipio>()));
@@ -54,12 +53,6 @@ public class MunicipioServiceTeste {
 	@Test
 	public void TestBuscaPorId() {
 		Optional<Municipio> e = this.mS.BuscarPorId((long)1);
-		assertNotNull(e);
-	}
-	
-	@Test
-	public void TestBuscarPorCepMunicipio() {
-		Optional<Municipio> e = this.mS.BuscarPorCepMunicipio(cepMunicipio);
 		assertNotNull(e);
 	}
 		

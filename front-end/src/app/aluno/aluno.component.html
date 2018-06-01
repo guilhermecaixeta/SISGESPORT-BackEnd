@@ -1,0 +1,9 @@
+<div class="login-page" [@routerTransition]>
+  <div class="row justify-content-md-center">
+      <div class="col-md-4">
+          <app-menu-login-header></app-menu-login-header>
+          <app-aluno-etapa1 [formulario]="formulario" [acao]="acao" [validacaoCustomizada]="validacaoCustomizada" [(multiValidacao)]="multiValidacao"  *ngIf="etapa == 0"></app-aluno-etapa1>
+          <base-crud-navegacao [formulario]="formulario" [(etapa)]="etapa" [etapasTotal]="etapasTotal" [acao]="acao" [validacaoCustomizada]="validacaoCustomizada" [multiValidacao]="multiValidacao" (finalizar)="finalizar()"></base-crud-navegacao>
+      </div>
+  </div>
+</div>

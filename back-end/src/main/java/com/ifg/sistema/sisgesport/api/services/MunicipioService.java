@@ -16,18 +16,12 @@ public interface MunicipioService {
 	 */
 	Optional<Municipio> BuscarPorId(Long id);
 	/**
-	 * Busca o municipio pelo cep municipio
-	 * @param cepMunicipio
-	 * @return Optional<Municipio>
-	 */
-	Optional<Municipio> BuscarPorCepMunicipio(String cepMunicipio);
-	/**
 	 * Busca o municipio pelo nome ou sigla
 	 * @param nome
 	 * @param sigla
 	 * @return Optional<Municipio>
 	 */
-	Optional<Municipio> BuscarPorNomeOrSigla(String nome, String sigla);
+	Optional<Municipio> BuscarPorNome(String nome);
 	/**
 	 * Busca uma lista de municipios pelo id do estado
 	 * @param id_estado

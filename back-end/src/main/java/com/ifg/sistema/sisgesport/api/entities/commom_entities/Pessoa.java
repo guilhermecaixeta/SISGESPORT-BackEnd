@@ -27,10 +27,10 @@ public class Pessoa extends EntidadeComum implements Serializable {
 
 	private static final long serialVersionUID = 2848996214116693556L;
 
-	@Column(name = "nome", nullable = false, length = 200)
+	@Column(name = "nome", nullable = false, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 200, message = "O campo possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo possui o limite máximo de {max} caracteres.")
 	protected String nome;
 
 	@Column(name = "sexo", nullable = false, length = 1)
@@ -48,8 +48,8 @@ public class Pessoa extends EntidadeComum implements Serializable {
 	@Length(max = 60, message = "A senha possui o limite máximo de {max} caracteres.")
 	protected String senha;
 
-	@Column(name = "email", length = 60, unique = true)
-	@Length(max = 60, message = "O email possui o limite máximo de {max} caracteres.")
+	@Column(name = "email", length = 255, unique = true)
+	@Length(max = 255, message = "O email possui o limite máximo de {max} caracteres.")
 	@Email(message = "Email não é válido.")
 	protected String email;
 

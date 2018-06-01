@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -28,7 +27,6 @@ import com.ifg.sistema.sisgesport.api.entities.Endereco;
 import com.ifg.sistema.sisgesport.api.entities.Instituicao;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
-import com.ifg.sistema.sisgesport.api.services.EnderecoService;
 import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
@@ -39,9 +37,6 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
 	}
-	@Autowired
-	private EnderecoService eS;
-	
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
 	@GetMapping(value = "/buscarPorNome/{nome}")
@@ -80,8 +75,14 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			log.error("Erro ao validar dados da nova instituicao: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
-		}		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
+		}
+		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
 		entity = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
+		List<Endereco> listaEnderecos = entity.getEndereco();
+		entity.setEndereco(null);
+		if (!listaEnderecos.isEmpty()) 
+			listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
+		
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
@@ -97,17 +98,13 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("endereco");
-			instituto.get().getEndereco().forEach(endereco -> {
-				if (endereco.getId() != null && endereco.getId() > 0)
-					this.eS.Deletar(endereco.getId());
-			});
+			lista.add("id");
 			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
-			if (institutoDTO.getEndereco().size() > 0) {
-				List<Endereco> enderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), true);
-				enderecos.forEach(endereco -> this.eS.Salvar(endereco));
-				entity.setEndereco(enderecos);
-			}
+			List<Endereco> listaEnderecos = entity.getEndereco();
+			entity.setEndereco(null);
+			if (!listaEnderecos.isEmpty()) 
+				listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
+			
 			this.entityService.Salvar(entity);
 			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 			return ResponseEntity.ok(response);

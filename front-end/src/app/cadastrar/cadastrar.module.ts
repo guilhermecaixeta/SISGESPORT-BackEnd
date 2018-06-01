@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { CadastrarRoutingModule } from './cadastrar-routing.module';
 import { CadastrarComponent } from './cadastrar.component';
 import { MenuLoginHeaderModule } from '../menu-login-header/menu-login.module';
-import { CadastrarAlunoComponent } from './cadastrar-aluno/cadastrar-aluno.component';
-
+  
 @NgModule({
   imports: [
     CommonModule,
     CadastrarRoutingModule,
     MenuLoginHeaderModule
   ],
-  declarations: [CadastrarComponent, CadastrarAlunoComponent]
+  declarations: [CadastrarComponent]
 })
 export class CadastrarModule { }

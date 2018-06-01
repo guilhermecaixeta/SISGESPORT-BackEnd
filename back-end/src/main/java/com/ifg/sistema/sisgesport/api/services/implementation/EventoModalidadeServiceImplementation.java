@@ -30,7 +30,7 @@ public class EventoModalidadeServiceImplementation implements EventoModalidadeSe
 		return Optional.ofNullable(eventoModalidadeRepositorio.findOne(id));
 	}
 	public EventoModalidade Salvar(EventoModalidade evento_modalidade) {
-		log.info("Salvando evento modalidade {} ", evento_modalidade.getEvento().getNome());
+		log.info("Salvando evento modalidade {} ", evento_modalidade);
 		return eventoModalidadeRepositorio.save(evento_modalidade);
 	}
 	public void Deletar(Long id) {

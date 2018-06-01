@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +27,6 @@ public class MunicipioRepositorioTeste {
 	@Autowired
 	private MunicipioRepositorio mR;
 
-	private static final String cepMun = "51";
-
 	private static final Estado estado = carregarEstado();
 	private static final Municipio municipio = carregarMunicipio();
 
@@ -47,14 +44,8 @@ public class MunicipioRepositorioTeste {
 //	}
 
 	@Test
-	public void testBuscarCep() {
-		Municipio mun = this.mR.findByCepMunicipio(cepMun);
-		assertEquals(cepMun, mun.getCepMunicipio());
-	}
-
-	@Test
 	public void testBuscarPorNome() {
-		Municipio mun = this.mR.findByNomeOrSigla("Rio de Janeiro - Capital", "");
+		Municipio mun = this.mR.findByNome("Rio de Janeiro - Capital");
 		assertNotNull(mun);
 	}
 
@@ -80,9 +71,7 @@ public class MunicipioRepositorioTeste {
 
 	private static Municipio carregarMunicipio() {
 		Municipio municipio = new Municipio();
-		municipio.setCepMunicipio(cepMun);
 		municipio.setNome("Rio de Janeiro - Capital");
-		municipio.setSigla("RJC");
 		return municipio;
 	}
 }

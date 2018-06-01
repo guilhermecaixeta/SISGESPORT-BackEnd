@@ -21,21 +21,13 @@ public class EnderecoRepositorioTeste {
 	private EstadoRepositorio esR;
 	@Autowired
 	private MunicipioRepositorio mR;
-	@Autowired
-	private BairroRepositorio bR;
-	@Autowired
-	private LogradouroRepositorio lR;
+
 	@Autowired
 	private EnderecoRepositorio eR;
 
-	private static final String cepMun = "72";
-	private static final String cepBairro = "811";
-	private static final String cepLogradouro = "320";
-
 	private static final Estado estado = Estado();
 	private static final Municipio municipio = Municipio();
-	private static final Bairro bairro = Bairro();
-	private static final Logradouro logradouro = Logradouro();
+	private static final String cep = "72811320";
 	private Long id;
 
 	@Before
@@ -43,20 +35,22 @@ public class EnderecoRepositorioTeste {
 		
 		esR.save(estado);
 		mR.save(municipio);
-		bR.save(bairro);
-		lR.save(logradouro);
 		
 		Endereco end = new Endereco();
+		end.setMunicipio(municipio);
 		end.setComplemento("Qd. 27 Lt. 34");
-		end.setLogradouro(new Logradouro());
-		end.getLogradouro().setId(logradouro.getId());
+		end.setCep(cep);
+		end.setLogradouro("Avenida gonvernador henrique santillo");
+		end.setBairro("Jofre Parada");
 		eR.save(end);
 		id = end.getId();
 		
 		Endereco end2 = new Endereco();
+		end2.setMunicipio(municipio);
+		end2.setCep("72812340");
 		end2.setComplemento("Qd. 27 Lt. 30");
-		end2.setLogradouro(new Logradouro());
-		end2.getLogradouro().setId(logradouro.getId());
+		end2.setLogradouro("Rua das Esmeraldas");
+		end2.setBairro("Norte Maravilha");
 		eR.save(end2);
 	}
 
@@ -72,6 +66,14 @@ public class EnderecoRepositorioTeste {
 		assertNotNull(endereco);
 	}
 
+	@Test
+	public void testBuscarPorCep() {
+		Endereco endereco = eR.findByCep(cep);
+
+		assertNotNull(endereco);
+	}
+
+	
 	private static Estado Estado() {
 		Estado est = new Estado();
 		est.setNome("Goiás");
@@ -82,25 +84,7 @@ public class EnderecoRepositorioTeste {
 	private static Municipio Municipio() {
 		Municipio mun = new Municipio();
 		mun.setNome("Luziania");
-		mun.setCepMunicipio(cepMun);
-		mun.setSigla("LZA");
 		mun.setEstado(estado);
 		return mun;
-	}
-
-	private static Bairro Bairro() {
-		Bairro bai = new Bairro();
-		bai.setNome("Bairro Jofre Mozart Parada");
-		bai.setCepBairro(cepBairro);
-		bai.setMunicipio(municipio);
-		return bai;
-	}
-
-	private static Logradouro Logradouro() {
-		Logradouro log = new Logradouro();
-		log.setLogradouro("Avenida Ouro Preto");
-		log.setCepLogradouro(cepLogradouro);
-		log.setBairro(bairro);
-		return log;
 	}
 }

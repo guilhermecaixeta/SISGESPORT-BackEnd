@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ifg.sistema.sisgesport.api.entities.Municipio;
 @Transactional(readOnly=true)
 public interface MunicipioRepositorio extends JpaRepository<Municipio, Long> {
-	Municipio findByCepMunicipio(String cepMunicipio);
-	Municipio findByNomeOrSigla(String nome, String sigla);
+	Municipio findByNome(String nome);
 	List<Municipio> findByEstadoId(Long id_estado);
 	Page<Municipio> findByEstadoId(Long id_estado, Pageable page);
 }

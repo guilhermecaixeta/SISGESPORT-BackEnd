@@ -30,10 +30,10 @@ public class Curso implements Serializable {
 	@NotNull(message = "O campo não pode ser nulo.")
 	private Boolean flg_ativo;
 
-	@Column(name = "nome", nullable = false, unique = true, length = 20)
+	@Column(name = "nome", nullable = false, unique = true, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 60, message = "O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
 	@ManyToOne

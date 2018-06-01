@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.AlunoDTO;
-import com.ifg.sistema.sisgesport.api.dto.EnderecoDTO;
 import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.entities.Endereco;
 import com.ifg.sistema.sisgesport.api.entities.Turma;
@@ -35,7 +34,6 @@ import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.EnderecoService;
-import com.ifg.sistema.sisgesport.api.services.TurmaService;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RestController
@@ -46,10 +44,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
 		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
 	}
-	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
-
-	@Autowired
-	private TurmaService tS;
+	
 	@Autowired
 	private EnderecoService eS;
 
@@ -113,8 +108,6 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		if (!lista.isEmpty())
 			lista.forEach(endereco -> entity.AdicionarEndereco(endereco));
 
-		Optional<Turma> turma = this.tS.BuscarPorId(alunoDTO.getTurma().getId());
-		turma.ifPresent(t -> entity.setTurma(t));
 		this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
@@ -155,7 +148,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 				entity.setTurma(new Turma());
 				entity.getTurma().setId(alunoDTO.getTurma().getId());
 			}
-			if (alunoDTO.getEndereco() != null && alunoDTO.getEndereco().size() > 0) {
+			if (!alunoDTO.getEndereco().isEmpty()) {
 				List<Endereco> listaEndereco = aluno.get().getEndereco();
 				aluno.get().setEndereco(new ArrayList<Endereco>());
 				listaEndereco.forEach(endereco -> aluno.get().AdicionarEndereco(endereco));

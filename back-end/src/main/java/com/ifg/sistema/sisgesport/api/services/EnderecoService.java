@@ -13,6 +13,12 @@ public interface EnderecoService {
 	 */
 	Optional<Endereco> BuscarPorId(Long id);
 	/**
+	 * Busca endereco pelo seu cep
+	 * @param id
+	 * @return Optional<Endereco>
+	 */
+	Optional<Endereco> BuscarPorCep(String cep);
+	/**
 	 * Salva um novo endereco
 	 * @param endereco
 	 * @return Endereco

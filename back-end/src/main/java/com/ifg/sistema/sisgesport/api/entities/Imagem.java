@@ -1,16 +1,17 @@
 package com.ifg.sistema.sisgesport.api.entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column ;
-import javax.persistence.Entity ;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue ;
-import javax.persistence.GenerationType ;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,7 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.Table ;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
@@ -31,51 +32,48 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 
 @Entity
-@Table(name="imagem")
+@Table(name = "imagem")
 public class Imagem implements Serializable {
-	
+
 	private static final long serialVersionUID = -1633920788416730387L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotNull(message="O campo imagem deve ser preenchido.")
-	@Column(name="imagem", nullable=false)
+
+	@NotNull(message = "O campo imagem deve ser preenchido.")
+	@Column(name = "imagem", nullable = false)
 	@Lob
 	private byte[] imagem;
-	
-	@Column(name="descricao_imagem", length=120)
-	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "descricao_imagem", length = 255)
+	@Length(max = 255, message = "O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricaoImagem;
-	
-	@Column(name="nome", length=120)
-	@Length(max=120, message="O campo nome possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "nome", length = 255)
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-	
-	@Column(name="tamanho")
-	@Min(value= 0, message="O campo não aceita valores negativos.")
+
+	@Column(name = "tamanho")
+	@Min(value = 0, message = "O campo não aceita valores negativos.")
 	private Double tamanho;
-	
-	@Column(name="data_imagem")
+
+	@Column(name = "data_imagem")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataImagem;
-	
+
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="entidade_comum", referencedColumnName="id", nullable=true, foreignKey = @ForeignKey(name="fk_entidade_comum_imagem"))
+	@JoinColumn(name = "entidade_comum", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "fk_entidade_comum_imagem"))
 	private EntidadeComum entidadeComum;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="informacao_evento_imagem", 
-	joinColumns=
-	@JoinColumn(name="imagem", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="informacao_evento", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"imagem", "informacao_evento"})})
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "informacao_evento_imagem", joinColumns = @JoinColumn(name = "imagem", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "informacao_evento", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "imagem", "informacao_evento" }) })
 	private List<InformacaoEvento> informacaoEvento = new ArrayList<InformacaoEvento>();
-	
-	public Imagem() {	}
+
+	public Imagem() {
+	}
 
 	public Long getId() {
 		return id;

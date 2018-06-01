@@ -1,14 +1,18 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
+
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
-import com.ifg.sistema.sisgesport.api.entities.Logradouro;
+
 
 public class EnderecoDTO {
 	private Long id;
+	private String cep;
 	private String complemento;
-	private Logradouro logradouro;
+	private String logradouro;
+	private String bairro;
+	private MunicipioDTO municipio;
 	private EntidadeComumDTO entidadeComum;
-
+	
 	public EnderecoDTO() {
 	}
 
@@ -20,6 +24,14 @@ public class EnderecoDTO {
 		this.id = id;
 	}
 
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	public String getComplemento() {
 		return complemento;
 	}
@@ -28,12 +40,28 @@ public class EnderecoDTO {
 		this.complemento = complemento;
 	}
 
-	public Logradouro getLogradouro() {
+	public String getLogradouro() {
 		return logradouro;
 	}
 
-	public void setLogradouro(Logradouro logradouro) {
+	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public MunicipioDTO getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(MunicipioDTO municipio) {
+		this.municipio = municipio;
 	}
 
 	public EntidadeComumDTO getEntidadeComum() {

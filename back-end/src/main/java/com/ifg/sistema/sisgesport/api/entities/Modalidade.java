@@ -22,19 +22,19 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="modalidade")
-public class Modalidade  implements Serializable{
+@Table(name = "modalidade")
+public class Modalidade implements Serializable {
 
 	private static final long serialVersionUID = 1594020995360031660L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, length = 30)
+	@Column(name = "nome", nullable = false, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
 	@Column(name = "descricao", length = 400)
@@ -47,7 +47,7 @@ public class Modalidade  implements Serializable{
 	@Column(name = "num_min_jogador")
 	private int numMinJogador;
 
-	@ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "modalidade_penalidade", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "penalidade", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "modalidade", "penalidade" }) })
 	private List<Penalidade> penalidade = new ArrayList<>();
@@ -61,8 +61,9 @@ public class Modalidade  implements Serializable{
 	@JoinTable(name = "modalidade_tipo_ponto", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tipo_ponto", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "modalidade", "tipo_ponto" }) })
 	private List<TipoPonto> tipoPonto = new ArrayList<>();
-	
-	public Modalidade() {	}
+
+	public Modalidade() {
+	}
 
 	public Long getId() {
 		return id;

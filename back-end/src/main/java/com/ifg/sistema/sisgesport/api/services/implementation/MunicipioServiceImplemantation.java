@@ -24,14 +24,9 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(municipioRepositorio.findOne(id));
 	}
 
-	public Optional<Municipio> BuscarPorCepMunicipio(String cepMunicipio) {
-		log.info("Buscando logradouro pelo nome {} ", cepMunicipio);
-		return Optional.ofNullable(municipioRepositorio.findByCepMunicipio(cepMunicipio));
-	}
-
-	public Optional<Municipio> BuscarPorNomeOrSigla(String nome, String sigla) {
-		log.info("Buscando logradouro pelo nome {1} ou pela sigla {2} ", nome, sigla);
-		return Optional.ofNullable(municipioRepositorio.findByNomeOrSigla(nome, sigla));
+	public Optional<Municipio> BuscarPorNome(String nome) {
+		log.info("Buscando logradouro pelo nome {1} ", nome);
+		return Optional.ofNullable(municipioRepositorio.findByNome(nome));
 	}
 
 	public Optional<List<Municipio>> BuscarPorEstadoId(Long id_estado) {

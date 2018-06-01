@@ -28,46 +28,43 @@ import org.hibernate.annotations.Check;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name="informacao_evento")
+@Table(name = "informacao_evento")
 public class InformacaoEvento implements Serializable {
 
 	private static final long serialVersionUID = 6469404273216225968L;
 
 	@Id
-	@GeneratedValue ( strategy = GenerationType . AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="tipo_informacao", nullable=false)
-	@Check(constraints="check_tipo_informacao CHECK (tipo_informacao IN('P', 'S'))")
+
+	@Column(name = "tipo_informacao", nullable = false)
+	@Check(constraints = "check_tipo_informacao CHECK (tipo_informacao IN('P', 'S'))")
 	private char tipoInformacao;
-	
-	@Column(name="", nullable=false, length= 120)
-	@Length(max=120, message="O campo descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "", nullable = false, length = 255)
+	@Length(max = 255, message = "O campo descricao possui o limite máximo de {max} caracteres.")
 	private String titulo;
-	
-	@Column(name="", nullable=false, length= 8000)
-	@Length(max=8000, message="O campo descricao possui o limite máximo de {max} caracteres.")
+
+	@Column(name = "", nullable = false, length = 8000)
+	@Length(max = 8000, message = "O campo descricao possui o limite máximo de {max} caracteres.")
 	private String descricao;
-	
-	@Column(name="data_postagem")
+
+	@Column(name = "data_postagem")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPostagem;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinTable(name="informacao_evento_imagem", 
-	joinColumns=
-	@JoinColumn(name="informacao_evento", referencedColumnName="id"),
-	inverseJoinColumns =
-	@JoinColumn(name="imagem", referencedColumnName="id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"informacao_evento", "imagem"})})
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "informacao_evento_imagem", joinColumns = @JoinColumn(name = "informacao_evento", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "imagem", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "informacao_evento", "imagem" }) })
 	private List<Imagem> imagem = new ArrayList<Imagem>();
-	
+
 	@ManyToOne
-	@JoinColumn(name="evento", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_informacao_evento"))
-	@NotNull(message="O campo evento não pode ser nulo.")
+	@JoinColumn(name = "evento", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_evento_informacao_evento"))
+	@NotNull(message = "O campo evento não pode ser nulo.")
 	private Evento evento;
 
-	public InformacaoEvento() {	}
+	public InformacaoEvento() {
+	}
 
 	public Long getId() {
 		return id;

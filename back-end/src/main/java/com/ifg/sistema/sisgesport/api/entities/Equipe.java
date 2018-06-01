@@ -37,10 +37,10 @@ public class Equipe implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, length = 30)
+	@Column(name = "nome", nullable = false, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 30, message = "O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 
 	@Column(name = "codigo_equipe", nullable = false, length = 20, unique = true)
@@ -49,7 +49,7 @@ public class Equipe implements Serializable {
 	@Length(max = 20, message = "O codigo nome possui o limite máximo de {max} caracteres.")
 	private String codigoEquipe;
 
-	@Column(name = "cor", nullable = false, length = 30)
+	@Column(name = "cor", nullable = false, length = 255)
 	@NotNull(message = "O campo cor não pode ser nulo.")
 	@NotBlank(message = "O campo cor não pode ser em branco.")
 	private String cor;

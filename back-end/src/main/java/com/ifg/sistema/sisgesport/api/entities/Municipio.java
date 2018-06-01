@@ -25,20 +25,11 @@ public class Municipio implements Serializable {
 	@GeneratedValue ( strategy = GenerationType . AUTO )
 	private Long id;
 
-	@Column(name = "nome", nullable = false, unique = true, length = 45)
+	@Column(name = "nome", nullable = false, unique = true, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 45, message = "O campo nome possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
-
-	@NotNull(message = "O campo sigla não pode ser nulo.")
-	@NotBlank(message = "O campo sigla não pode ser em branco.")
-	@Length(max = 5, message = "O sigla possui o limite máximo de {max} caracteres.")
-	@Column(name = "sigla", nullable = false, unique = true, length = 5)
-	private String sigla;
-
-	@Column(name = "cep_municipio", nullable = false, length = 2)
-	private String cepMunicipio;
 
 	@ManyToOne
 	@JoinColumn(name = "estado", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_estado_municipio"))
@@ -60,22 +51,6 @@ public class Municipio implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public String getCepMunicipio() {
-		return cepMunicipio;
-	}
-
-	public void setCepMunicipio(String cepMunicipio) {
-		this.cepMunicipio = cepMunicipio;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
 	}
 	
 	public Estado getEstado() {

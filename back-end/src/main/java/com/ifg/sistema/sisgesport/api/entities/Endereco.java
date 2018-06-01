@@ -2,7 +2,6 @@ package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -30,16 +29,31 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "complemento", nullable = false, length = 120)
+	@Column(name = "cep", nullable = false, length = 8)
+	private String cep;
+
+	@Column(name = "complemento", nullable = false, length = 255)
 	@NotNull(message = "O campo complemento não pode ser nulo.")
 	@NotBlank(message = "O campo complemento não pode ser em branco.")
-	@Length(max = 60, message = "O campo complemento possui o limite máximo de {max} caracteres.")
+	@Length(max = 255, message = "O campo complemento possui o limite máximo de {max} caracteres.")
 	private String complemento;
 
-	@ManyToOne
-	@JoinColumn(name = "logradouro", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_logradouro_endereco"))
+	@Column(name = "logradouro", nullable = false, length = 255)
 	@NotNull(message = "O campo logradouro não pode ser nulo.")
-	private Logradouro logradouro;
+	@NotBlank(message = "O campo logradouro não pode ser em branco.")
+	@Length(max = 255, message = "O campo logradouro possui o limite máximo de {max} caracteres.")
+	private String logradouro;
+
+	@Column(name = "bairro", nullable = false, length = 255)
+	@NotNull(message = "O campo bairro não pode ser nulo.")
+	@NotBlank(message = "O campo bairro não pode ser em branco.")
+	@Length(max = 255, message = "O bairro nome possui o limite máximo de {max} caracteres.")
+	private String bairro;
+
+	@ManyToOne
+	@JoinColumn(name = "municipio", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_municipio_endereco"))
+	private Municipio municipio;
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "entidade_comum", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "fk_entidade_comum_endereco"))
@@ -56,6 +70,14 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	public String getComplemento() {
 		return complemento;
 	}
@@ -64,16 +86,36 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
-	public Logradouro getLogradouro() {
+	public String getLogradouro() {
 		return logradouro;
 	}
 
-	public void setLogradouro(Logradouro logradouro) {
+	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
+	public EntidadeComum getEntidadeComum() {
+		return entidadeComum;
 	}
 
 	public void setEntidadeComum(EntidadeComum entidadeComum) {
 		this.entidadeComum = entidadeComum;
 	}
-
+	
 }

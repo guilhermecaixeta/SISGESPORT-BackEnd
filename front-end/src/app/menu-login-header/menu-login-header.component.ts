@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-menu-login-header',
@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
     `,
     styleUrls: ['../login/login.component.scss'],
 })
-export class MenuLoginHeaderComponent { Message = 'Sistema de Gestão de Eventos Esportivos'; }
+export class MenuLoginHeaderComponent { 
+    @Input() Message = 'Sistema de Gestão de Eventos Esportivos'; 
+}

@@ -10,8 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { Service } from './service/service.component';
-import { BaseComponent } from './base-components/base.component';
-import { BaseCrudComponent } from './base-components/base-crud.component';
+import { FormBuilder } from '@angular/forms';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -39,8 +38,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule
     ],
-    declarations: [AppComponent, BaseComponent, BaseCrudComponent],
-    providers: [AuthGuard, Service],
+    declarations: [
+        AppComponent
+    ],
+    providers: [AuthGuard, Service, FormBuilder],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -6,9 +6,6 @@ const routes: Routes = [
     {
         path: '',
         component: CadastrarComponent
-        // children: [
-        //     { path: 'cadastrar-aluno', loadChildren: './cadastrar-aluno/cadastrar-aluno.module#CadastrarAlunoModule' },
-        // ]
     }
 ];
 

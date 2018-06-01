@@ -17,6 +17,12 @@ public class EnderecoServiceImplementation implements EnderecoService {
 	@Autowired
 	private EnderecoRepositorio enderecoRepositorio;
 	
+	@Override
+	public Optional<Endereco> BuscarPorCep(String cep) {
+		log.info("Buscando endereço pelo cep {}", cep);
+		return Optional.ofNullable(enderecoRepositorio.findByCep(cep));
+	}
+	
 	public Optional<Endereco> BuscarPorId(Long id){
 		log.info("realizando a busca por id {}", id);
 		return Optional.ofNullable(enderecoRepositorio.findOne(id));

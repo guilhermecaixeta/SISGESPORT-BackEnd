@@ -30,16 +30,16 @@ public class Cargo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "nome", nullable = false, unique = true, length = 60)
+	@Column(name = "nome", nullable = false, unique = true, length = 255)
 	@NotNull(message = "O campo nome não pode ser nulo.")
 	@NotBlank(message = "O campo nome não pode ser em branco.")
-	@Length(max = 60, message = "O campo nome possui o limite máximo de {} caracteres.")
+	@Length(max = 255, message = "O campo nome possui o limite máximo de {} caracteres.")
 	private String nome;
 
-	@Column(name = "descricao", nullable = false, length = 120)
+	@Column(name = "descricao", nullable = false, length = 400)
 	@NotNull(message = "O campo descricao não pode ser nulo.")
 	@NotBlank(message = "O campo descricao não pode ser em branco.")
-	@Length(max = 120, message = "O campo descricao possui o limite máximo de {} caracteres.")
+	@Length(max = 400, message = "O campo descricao possui o limite máximo de {} caracteres.")
 	private String descricao;
 
 	@ManyToMany(fetch = FetchType.LAZY)

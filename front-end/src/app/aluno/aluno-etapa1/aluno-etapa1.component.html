@@ -1,0 +1,30 @@
+<form [formGroup]="formulario" novalidate>
+    <div class="form-content">
+        <div class="form-group">
+            <input type="text" class="form-control input-underline input-lg" formControlName="nome" placeholder="Nome Completo">
+              <app-validator [field]="formulario.controls.nome"></app-validator>
+          </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control input-underline input-lg" formControlName="matricula" placeholder="Matrícula">
+            <app-validator [field]="formulario.controls.matricula"></app-validator>
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control input-underline input-lg" formControlName="email" placeholder="Email">
+          <app-validator [field]="formulario.controls.email"></app-validator>
+    </div>
+      <div class="form-group">
+            <input type="password" class="form-control input-underline input-lg" formControlName="senha" placeholder="Senha">
+            <app-validator [field]="formulario.controls.senha"></app-validator>
+      </div>
+        <div class="form-group">
+            <input type="password" class="form-control input-underline input-lg" formControlName="confirmarSenha" placeholder="Confirmar Senha">
+            <app-validator [field]="formulario.controls.confirmarSenha"></app-validator>
+            <div *ngIf="!senhasIguais">
+                <div class="alert alert-error mb-0">
+                    As senhas não coincidem!
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
