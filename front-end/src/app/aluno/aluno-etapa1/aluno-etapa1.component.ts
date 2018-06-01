@@ -12,9 +12,11 @@ export class AlunoEtapa1Component extends BaseEtapaComponent {
   @Input() multiValidacao: any;
   @Output() multiValidacaoEmit: EventEmitter<any> = new EventEmitter<any>(true);
   
-  ngOnInit() {
+  init() {
     Object.assign(this.multiValidacao, this.multiValidacao, {emitirValidacao: () => this.validarEtapa()});
+    
     this.multiValidacaoEmit.emit(this.multiValidacao);
+    
     this.formulario.get('confirmarSenha').valueChanges.subscribe(data => {
       if (this.formulario.get('senha').value == null || this.formulario.get('senha').value !== data) {
         this.senhasIguais = false;
@@ -27,6 +29,8 @@ export class AlunoEtapa1Component extends BaseEtapaComponent {
   validarEtapa(){
       if( this.formulario.get('confirmarSenha').value == null ||  this.formulario.get('senha').value == null)
         this.multiValidacao.eValido = false;
-      else this.multiValidacao.eValido = this.senhasIguais;
+      else if(this.senhasIguais && this.formulario.valid)
+        this.multiValidacao.eValido = true;
+      else this.multiValidacao.eValido = false;
   }
 }

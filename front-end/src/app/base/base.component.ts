@@ -24,17 +24,23 @@ export class BaseComponent implements OnInit {
      */
     acao: any;
     /**
-     * Método a ser executado ao iniciar o componente
+     * Objeto usado para realizar a multipla validação de dados em uma etapa. Deve ser implementado na classe filha.
+     */
+    multiValidacao: any;
+    /**
+     * Método a ser executado ao iniciar o componente. Deve ser implementado nas classes filhas.
      */
     init() { }
     /**
-     * Método a ser executado após iniciar.
+     * Método a ser executado após iniciar. Deve ser implementado nas classes filhas.
      */
     afterInit() { }
     /**
      * Metodo que carrega os componentes iniciais, não sobrescrever em componentes onde serão realizados os cruds.
      */
-    ngOnInit() {    }
+    ngOnInit() { 
+      this.init();
+       }
 
     /**
      * Verifica se uma variável é nula ou vazia.

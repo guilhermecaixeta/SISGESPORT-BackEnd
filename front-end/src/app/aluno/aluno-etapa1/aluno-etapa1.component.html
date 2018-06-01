@@ -20,8 +20,8 @@
         <div class="form-group">
             <input type="password" class="form-control input-underline input-lg" formControlName="confirmarSenha" placeholder="Confirmar Senha">
             <app-validator [field]="formulario.controls.confirmarSenha"></app-validator>
-            <div *ngIf="!senhasIguais">
-                <div class="alert alert-error mb-0">
+            <div *ngIf="!senhasIguais && formulario.value.senha !== null && formulario.value.confirmarSenha !== null">
+                <div class="alert alert-danger">
                     As senhas não coincidem!
                 </div>
             </div>
