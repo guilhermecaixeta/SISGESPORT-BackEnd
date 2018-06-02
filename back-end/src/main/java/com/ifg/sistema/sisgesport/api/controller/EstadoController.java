@@ -20,82 +20,94 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
-import com.ifg.sistema.sisgesport.api.dto.MunicipioDTO;
-import com.ifg.sistema.sisgesport.api.entities.Municipio;
+import com.ifg.sistema.sisgesport.api.dto.EstadoDTO;
+import com.ifg.sistema.sisgesport.api.entities.Estado;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
-import com.ifg.sistema.sisgesport.api.services.MunicipioService;
+import com.ifg.sistema.sisgesport.api.services.EstadoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/municipio")
-public class MunicipioController extends baseController<MunicipioDTO, Municipio, MunicipioService> {
+@RequestMapping("api/sisgesport/estado")
+public class EstadoController extends baseController<EstadoDTO, Estado, EstadoService> {
 	{
-		mappingDTOToEntity = new Extension<>(MunicipioDTO.class, Municipio.class);
-		mappingEntityToDTO = new Extension<>(Municipio.class, MunicipioDTO.class);
+		mappingDTOToEntity = new Extension<>(EstadoDTO.class, Estado.class);
+		mappingEntityToDTO = new Extension<>(Estado.class, EstadoDTO.class);
 	}
 
-	@GetMapping(value = "/BuscarPorIdEstado/{id_estado}")
-	public ResponseEntity<Response<List<MunicipioDTO>>> BuscarPorIdEstado(@PathVariable("id_estado") Long id_estado) {
-		Optional<List<Municipio>> lista = entityService.BuscarPorEstadoId(id_estado);
-		if (lista.isPresent()) {
-			List<MunicipioDTO> listaDTO = mappingEntityToDTO.AsGenericMappingList(lista.get(), false);
-			responseList.setData(listaDTO);
+	@GetMapping(value = "/BuscarTodos")
+	public ResponseEntity<Response<List<EstadoDTO>>> BuscarTodos() {
+		Optional<List<Estado>> estadoLista = entityService.BuscarTodos();
+		if (estadoLista.isPresent()) {
+			List<EstadoDTO> estadoDTOLista = mappingEntityToDTO.AsGenericMappingList(estadoLista.get(), false);
+			responseList.setData(estadoDTOLista);
 		} else
-			responseList.getErrors().add("Municípios com o id do estado " + id_estado + " não encontrado.");
+			response.getErrors().add("Nenhum estado encontrado.");
 
 		return ResponseEntity.ok(responseList);
 	}
+	
+	@GetMapping(value = "/BuscarPorIdEstado/{id}")
+	public ResponseEntity<Response<EstadoDTO>> BuscarPorIdEstado(@PathVariable("id") Long id) {
+		Optional<Estado> estado = entityService.BuscarPorId(id);
+		if (estado.isPresent()) {
+			EstadoDTO estadoDTO = mappingEntityToDTO.AsGenericMapping(estado.get());
+			response.setData(estadoDTO);
+		} else
+			response.getErrors().add("Estado com o id " + id + " não encontrado.");
 
-	@GetMapping(value = "/BuscarPorNome/{nome}")
-	public ResponseEntity<Response<MunicipioDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
-		entityOptional = entityService.BuscarPorNome(nome);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping(value = "/BuscarPorNomeOuUF/{nome_uf}")
+	public ResponseEntity<Response<EstadoDTO>> BuscarPorNomeOuUF(@PathVariable("nome_uf") String nome_uf) {
+		entityOptional = entityService.BuscarPorNomeOuUF(nome_uf, nome_uf);
 		if (entityOptional.isPresent()) {
 			entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
 			response.setData(entityDTO);
 		} else
-			response.getErrors().add("Instituição com o nome" + nome + " não encontrado.");
+			response.getErrors().add("Instituição com o nome" + nome_uf + " não encontrado.");
 
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping(value = "/BuscarPorId/{id}")
-	public ResponseEntity<Response<MunicipioDTO>> BuscarPorId(@PathVariable("id") Long id) {
-		log.info("Buscando municipio com o id: {}", id);
-		Optional<Municipio> municipio = entityService.BuscarPorId(id);
-		if (!municipio.isPresent()) {
+	public ResponseEntity<Response<EstadoDTO>> BuscarPorId(@PathVariable("id") Long id) {
+		log.info("Buscando estado com o id: {}", id);
+		Optional<Estado> estado = entityService.BuscarPorId(id);
+		if (!estado.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(municipio.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(estado.get()));
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<MunicipioDTO>> cadastrarMunicipio(@Valid @RequestBody MunicipioDTO municipioDTO,
+	public ResponseEntity<Response<EstadoDTO>> cadastrarEstado(@Valid @RequestBody EstadoDTO estadoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando a municipio: {}", municipioDTO.toString());
+		log.info("Cadastrando a estado: {}", estadoDTO.toString());
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova Posicao: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		entity = mappingDTOToEntity.AsGenericMapping(municipioDTO);
+		entity = mappingDTOToEntity.AsGenericMapping(estadoDTO);
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<MunicipioDTO>> atualizarMunicipio(@PathVariable("id") Long id,
-			@Valid @RequestBody MunicipioDTO municipioDTO, BindingResult result) throws Exception {
-		log.info("Atualizando dados do municipio: {}", municipioDTO);
+	public ResponseEntity<Response<EstadoDTO>> atualizarEstado(@PathVariable("id") Long id,
+			@Valid @RequestBody EstadoDTO estadoDTO, BindingResult result) throws Exception {
+		log.info("Atualizando dados do estado: {}", estadoDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(municipioDTO, entityOptional.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(estadoDTO, entityOptional.get(), new ArrayList<String>());
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
@@ -103,7 +115,7 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<String>> deletarMunicipio(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<String>> deletarEstado(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
 		if (!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);

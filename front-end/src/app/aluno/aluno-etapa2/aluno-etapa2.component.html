@@ -1,3 +1,22 @@
-<p>
-  aluno-etapa2 works!
-</p>
+<form [formGroup]="formulario" novalidate>
+  <div class="form-content">
+      <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" formControlName="estado" >
+                <option *ngFor="let estado of estadosLista" [value]="estado.id">{{estado.nome}}</option>
+            </select>
+        </div>
+
+      <div class="form-group">
+          <label>Município</label>
+          <select class="form-control" formControlName="municipio">
+              <option *ngFor="let municipio of municipioLista" [value]="municipio.id">{{municipio.nome}}</option>
+          </select>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control input-underline input-lg" formControlName="cep" placeholder="CEP">
+          <app-validator [field]="formulario.controls.cep"></app-validator>
+      </div>      
+  </div>
+</form>

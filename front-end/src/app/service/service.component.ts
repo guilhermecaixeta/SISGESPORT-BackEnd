@@ -15,7 +15,7 @@ constructor(private http: HttpClient) {}
      * @param value valor do parametro de busca
      */
     Get(route: string, value?: any): Observable<any> {
-        return this.http.get(`${environment.apiEndPoint}/${route}/${value}`, getHeader()).pipe(map(response => response));
+        return this.http.get(`${environment.apiEndPoint}${route}${value !== undefined? '/'+ value: ''}`, getHeader()).pipe(map(response => response));
     }
 
     /**
@@ -24,7 +24,7 @@ constructor(private http: HttpClient) {}
      * @param obj objeto a ser persistido
      */
     Post(route: string, obj: any) {
-        return this.http.post(`${environment.apiEndPoint}/${route}`, obj, getHeader()).pipe(map(response => response));
+        return this.http.post(`${environment.apiEndPoint}${route}`, obj, getHeader()).pipe(map(response => response));
     }
 
     /**
@@ -33,7 +33,7 @@ constructor(private http: HttpClient) {}
      * @param obj objeto a ser atualizado
      */    
     Put(route: string, obj: any) {
-        return this.http.post(`${environment.apiEndPoint}/${route}`, obj, getHeader()).pipe(map(response => response));
+        return this.http.post(`${environment.apiEndPoint}${route}`, obj, getHeader()).pipe(map(response => response));
     }
     /**
      * Deleta um objeto a partir do valor do value passado.

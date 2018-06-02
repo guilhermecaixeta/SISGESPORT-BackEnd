@@ -4,6 +4,16 @@
             <input type="text" class="form-control input-underline input-lg" formControlName="nome" placeholder="Nome Completo">
               <app-validator [field]="formulario.controls.nome"></app-validator>
           </div>
+        
+        <div class="form-group">
+            <div class="input-group datepicker-input">
+                <input class="form-control input-underline input-lg" formControlName="dataNascimento" placeholder="Data de Nascimento" name="dp" ngbDatepicker #d="ngbDatepicker">
+                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                    <span class="fa fa-calendar"></span>
+                </button>
+            </div>
+            <app-validator [field]="formulario.controls.dataNascimento"></app-validator>
+        </div>
 
         <div class="form-group">
             <input type="text" class="form-control input-underline input-lg" formControlName="matricula" placeholder="Matrícula">

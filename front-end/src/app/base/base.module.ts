@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent, BaseCrudComponent, BaseValidatorsComponent, BaseCrudNavegacaoComponent, BaseEtapaComponent } from '../base/index';
+import { BaseComponent, BaseCrudComponent, BaseValidatorsComponent, 
+  BaseCrudNavegacaoComponent, BaseEtapaComponent } from '../base/index';
 
 @NgModule({
   imports: [

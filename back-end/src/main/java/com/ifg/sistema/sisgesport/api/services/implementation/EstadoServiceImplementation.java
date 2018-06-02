@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.services.implementation;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -16,6 +17,12 @@ public class EstadoServiceImplementation implements EstadoService {
 	
 	@Autowired
 	private EstadoRepositorio estadoRepositorio;
+	
+	public Optional<List<Estado>> BuscarTodos() {
+		log.info("Buscando todos os estados");
+		return Optional.ofNullable(estadoRepositorio.findAll());
+	}
+	
 	public Optional<Estado> BuscarPorNomeOuUF(String nome, String UF){
 		log.info("Buscando estado pelo nome: {1} ou UF: {2} ", nome, UF);
 		return Optional.ofNullable(estadoRepositorio.findByNomeOrUf(nome, UF));

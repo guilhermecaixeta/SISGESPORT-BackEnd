@@ -2,7 +2,8 @@
   <div class="row justify-content-md-center">
       <div class="col-md-4">
           <app-menu-login-header></app-menu-login-header>
-          <app-aluno-etapa1 [formulario]="formulario" [acao]="acao" [validacaoCustomizada]="validacaoCustomizada" [(multiValidacao)]="multiValidacao"  *ngIf="etapa == 0"></app-aluno-etapa1>
+          <app-aluno-etapa1 [formulario]="formulario.controls.cadastro" [acao]="acao" [validacaoCustomizada]="validacaoCustomizada" [(multiValidacao)]="multiValidacao"  *ngIf="etapa == 0"></app-aluno-etapa1>
+          <app-aluno-etapa2 [formulario]="formulario.controls.endereco" [acao]="acao"  *ngIf="etapa == 1"></app-aluno-etapa2>
           <base-crud-navegacao [formulario]="formulario" [(etapa)]="etapa" [etapasTotal]="etapasTotal" [acao]="acao" [validacaoCustomizada]="validacaoCustomizada" [multiValidacao]="multiValidacao" (finalizar)="finalizar()"></base-crud-navegacao>
       </div>
   </div>

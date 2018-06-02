@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseCrudComponent } from '../base/base-crud.component';
 import { routerTransition } from '../router.animations';
 import { Validators } from '@angular/forms';
+import { SomenteNumeros } from '../utils/utils.validators.component';
 
 @Component({
   selector: 'app-aluno',
@@ -13,16 +14,19 @@ export class AlunoComponent extends BaseCrudComponent {
   validacaoCustomizada: any;
 
   formulario = this.construtorFormulario.group({
-    id: [null],
-    nome: [null, [Validators.required, Validators.minLength(5)]],
-    matricula: [null, [Validators.required]],
-    email: [null, [Validators.required, Validators.email]],
-    senha: [null, [Validators.required, Validators.minLength(5)]],
-    confirmarSenha: [null, [Validators.required]],
-    dataNascimento: [null, [Validators.required]],
-    sexo: [null, [Validators.required]],
+    cadastro: this.construtorFormulario.group({
+      id: [null],
+      nome: [null, [Validators.required, Validators.minLength(5)]],
+      matricula: [null, [Validators.required, SomenteNumeros]],
+      email: [null, [Validators.required, Validators.email]],
+      senha: [null, [Validators.required, Validators.minLength(5)]],
+      confirmarSenha: [null, [Validators.required]],
+      dataNascimento: [null, [Validators.required]],
+      sexo: [null],
+    }),
     endereco: this.construtorFormulario.group({
       id:[null],
+      estado: [null],
       cep:[null,[Validators.required, Validators.maxLength(8)]],
       complemento: [null,[Validators.required, Validators.maxLength(255)]],
       logradouro:[null,[Validators.required, Validators.maxLength(255)]],
@@ -33,7 +37,7 @@ export class AlunoComponent extends BaseCrudComponent {
 
   multiValidacao = 
   {
-    formulario: this.formulario,
+    formulario: this.formulario.controls.cadastro,
     eValido: false
   };
    

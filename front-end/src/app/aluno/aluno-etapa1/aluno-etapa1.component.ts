@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BaseEtapaComponent } from '../../base';
+import { CustomLocalePtBR, I18n } from '../../utils/locale.util.component';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-aluno-etapa1',
   templateUrl: './aluno-etapa1.component.html',
-  styleUrls: ['./aluno-etapa1.component.scss']
+  styleUrls: ['./aluno-etapa1.component.scss'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomLocalePtBR}]
 })
 export class AlunoEtapa1Component extends BaseEtapaComponent {
   senhasIguais: boolean = true;
@@ -28,9 +31,10 @@ export class AlunoEtapa1Component extends BaseEtapaComponent {
  
   validarEtapa(){
       if( this.formulario.get('confirmarSenha').value == null ||  this.formulario.get('senha').value == null)
-        this.multiValidacao.eValido = false;
-      else if(this.senhasIguais && this.formulario.valid)
-        this.multiValidacao.eValido = true;
-      else this.multiValidacao.eValido = false;
+      //   this.multiValidacao.eValido = false;
+      // else if(this.senhasIguais && this.formulario.valid)
+      //   this.multiValidacao.eValido = true;
+      // else this.multiValidacao.eValido = false;
+      this.multiValidacao.eValido = true;
   }
 }

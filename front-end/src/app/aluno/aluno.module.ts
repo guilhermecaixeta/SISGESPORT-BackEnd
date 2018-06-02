@@ -6,6 +6,7 @@ import { MenuLoginHeaderModule } from '../menu-login-header/menu-login.module';
 import { BaseModule } from '../base/base.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AlunoEtapa1Module } from './aluno-etapa1/aluno-etapa1.module';
+import { AlunoEtapa2Module } from './aluno-etapa2/aluno-etapa2.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AlunoEtapa1Module } from './aluno-etapa1/aluno-etapa1.module';
     AlunoRoutingModule,
     MenuLoginHeaderModule,
     AlunoEtapa1Module,
+    AlunoEtapa2Module,
     BaseModule
     ],
   declarations: [AlunoComponent]

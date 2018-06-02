@@ -23,11 +23,14 @@ import { FormControl } from '@angular/forms';
     <div *ngIf="field.errors.email">
         E-mail inválido.
     </div>
+    <div *ngIf="field.errors.soNumero">
+        Campo inválido.
+    </div>    
 </div>
   `
 })
 export class BaseValidatorsComponent implements OnInit{
     @Input() field : FormControl;
 
-    ngOnInit(){  }
+    ngOnInit(){      }
 }
