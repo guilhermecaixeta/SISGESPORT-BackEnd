@@ -14,9 +14,37 @@
             </div>
             <app-validator [field]="formulario.controls.dataNascimento"></app-validator>
         </div>
-
         <div class="form-group">
-            <input type="text" class="form-control input-underline input-lg" formControlName="matricula" placeholder="Matrícula">
+            <label>Sexo</label>
+            <select class="form-control select-underline input-lg" formControlName="sexo">
+                <option value="F" >Feminino</option>
+                <option value="M" >Masculino</option>
+            </select>
+            <app-validator [field]="formulario.controls.sexo"></app-validator>
+        </div>
+        <div class="form-group">
+            <label>Instituição</label>
+            <select class="form-control select-underline input-lg" formControlName="instituicao">
+                    <option *ngFor="let instituicao of instituicaoLista" [value]="instituicao.id">{{instituicao.nome}}</option>
+            </select>
+            <app-validator [field]="formulario.controls.instituicao"></app-validator>
+        </div>          
+        <div class="form-group">
+            <label>Curso</label>
+            <select class="form-control select-underline input-lg" formControlName="curso">
+                    <option *ngFor="let curso of cursoLista" [value]="curso.id">{{curso.nome}}</option>
+            </select>
+            <app-validator [field]="formulario.controls.curso"></app-validator>
+        </div>          
+        <div class="form-group">
+            <label>Turma</label>
+            <select class="form-control select-underline input-lg" formControlName="turma">
+                    <option *ngFor="let turma of turmaLista" [value]="turma.id">{{turma.nome}}</option>
+            </select>
+            <app-validator [field]="formulario.controls.turma"></app-validator>
+        </div>        
+        <div class="form-group">
+            <input type="text" [textMask]="matriculaMask" class="form-control input-underline input-lg" formControlName="matricula" placeholder="Matrícula">
             <app-validator [field]="formulario.controls.matricula"></app-validator>
       </div>
       <div class="form-group">

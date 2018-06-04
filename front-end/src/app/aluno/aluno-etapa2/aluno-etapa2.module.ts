@@ -6,6 +6,7 @@ import { BaseModule } from '../../base/base.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AlunoEtapa2Component } from './aluno-etapa2.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     AlunoEtapa2RoutingModule,
     BaseModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    TextMaskModule
     ],
   exports:[AlunoEtapa2Component],
   declarations: [AlunoEtapa2Component]

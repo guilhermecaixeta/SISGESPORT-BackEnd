@@ -7,6 +7,9 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
@@ -35,6 +39,29 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		mappingDTOToEntity = new Extension<>(CursoDTO.class, Curso.class);
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
+	
+	@GetMapping(value = "/BuscarEquipePorIdCursoPaginavel/{id_instituicao}")
+	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdEventoPaginavel(
+			@PathVariable("id_instituicao") Long id_instituicao, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "order", defaultValue = "id") String order,
+			@RequestParam(value = "size", defaultValue = "10") int size,
+			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
+		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
+		Page<CursoDTO> pageServidorDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarEquipePorIdInstituicaoPaginavel(id_instituicao, pageRequest));
+		responsePage.setData(pageServidorDTO);
+		return ResponseEntity.ok(responsePage);
+	}
+	
+	@GetMapping(value = "/BuscarEquipePorIdInstituicao/{id_instituicao}")
+	public ResponseEntity<Response<List<CursoDTO>>> BuscarEquipePorIdEvento(
+			@PathVariable("id_instituicao") Long id_instituicao) {
+		List<CursoDTO> listServidorDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarEquipePorIdInstituicao(id_instituicao).get(), false);
+		responseList.setData(listServidorDTO);
+		return ResponseEntity.ok(responseList);
+	}
+	
 	@GetMapping(value = "/buscarPorId/{id}")
 	public ResponseEntity<Response<CursoDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
@@ -70,7 +97,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		Optional<Curso> curso = this.entityService.BuscarPorId(id);
 		List<String> lista = new ArrayList<String>();
 		if (!curso.isPresent()) {
-			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
+			result.addError(new ObjectError("instituicao", "Curso não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			entity = mappingDTOToEntity.updateGeneric(cursoDTO, curso.get(), lista);

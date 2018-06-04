@@ -25,7 +25,22 @@ import { FormControl } from '@angular/forms';
     </div>
     <div *ngIf="field.errors.soNumero">
         Campo inválido.
-    </div>    
+    </div>  
+    <div *ngIf="field.errors.ufValidation">
+        UF inválido.
+    </div>
+    <div *ngIf="field.errors.minLengthCustom">
+        {{field.errors.minLengthCustom}}
+    </div>
+    <div *ngIf="field.errors.maxLengthCustom">
+       {{field.errors.maxLengthCustom}}
+    </div>
+    <div *ngIf="field.errors.dateMoreThen">
+        {{field.errors.dateMoreThen}}.
+    </div>
+    <div *ngIf="field.errors.dateLessThen">
+        {{field.errors.dateLessThen}}
+    </div>                        
 </div>
   `
 })

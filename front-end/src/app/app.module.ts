@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { Service } from './service/service.component';
 import { FormBuilder } from '@angular/forms';
-
+import { MaskField } from './utils/mask.util.component';
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
@@ -41,7 +41,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     declarations: [
         AppComponent
     ],
-    providers: [AuthGuard, Service, FormBuilder],
+    providers: [AuthGuard, Service, FormBuilder, MaskField],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

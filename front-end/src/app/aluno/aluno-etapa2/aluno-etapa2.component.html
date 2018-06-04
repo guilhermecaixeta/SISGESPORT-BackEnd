@@ -2,21 +2,35 @@
   <div class="form-content">
       <div class="form-group">
             <label>Estado</label>
-            <select class="form-control" formControlName="estado" >
+            <select class="form-control select-underline input-lg" formControlName="estado" >
                 <option *ngFor="let estado of estadosLista" [value]="estado.id">{{estado.nome}}</option>
             </select>
+            <app-validator [field]="formulario.controls.estado"></app-validator>
         </div>
 
       <div class="form-group">
           <label>Município</label>
-          <select class="form-control" formControlName="municipio">
-              <option *ngFor="let municipio of municipioLista" [value]="municipio.id">{{municipio.nome}}</option>
+          <select class="form-control select-underline input-lg" formControlName="municipio">
+            <option *ngFor="let municipio of municipioLista" [value]="municipio.id">{{municipio.nome}}</option>
           </select>
+          <app-validator [field]="formulario.controls.municipio"></app-validator>
       </div>
 
       <div class="form-group">
-        <input type="text" class="form-control input-underline input-lg" formControlName="cep" placeholder="CEP">
-          <app-validator [field]="formulario.controls.cep"></app-validator>
-      </div>      
+        <input type="text" [textMask]="cepMask" class="form-control input-underline input-lg" formControlName="cep" placeholder="CEP">
+        <app-validator [field]="formulario.controls.cep"></app-validator>
+      </div>
+    <div class="form-group">
+        <input type="text" class="form-control input-underline input-lg" formControlName="bairro" placeholder="Bairro">
+        <app-validator [field]="formulario.controls.bairro"></app-validator>
+    </div>   
+    <div class="form-group">
+        <input type="text" class="form-control input-underline input-lg" formControlName="logradouro" placeholder="Logradouro">
+        <app-validator [field]="formulario.controls.logradouro"></app-validator>
+    </div>
+    <div class="form-group">
+            <input type="text" class="form-control input-underline input-lg" formControlName="complemento" placeholder="Complemento">
+            <app-validator [field]="formulario.controls.complemento"></app-validator>
+        </div>                    
   </div>
 </form>

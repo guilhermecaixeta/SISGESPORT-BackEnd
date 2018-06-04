@@ -49,7 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("api/sisgesport/aluno/cadastrar");
-	    web.ignoring().antMatchers("api/sisgesport/servidor/cadastrar");
+	    web.ignoring()
+	    .antMatchers("api/sisgesport/aluno/cadastrar")
+	    .antMatchers("api/sisgesport/servidor/cadastrar")
+	    .antMatchers("api/sisgesport/instituicao/BuscarTodos")
+	    .antMatchers("api/sisgesport/estado/BuscarTodos")
+	    .antMatchers("api/sisgesport/municipio/BuscarPorIdEstado");
 	}
 }

@@ -29,6 +29,9 @@ export class BaseCrudComponent extends BaseComponent {
     validacaoData: RegExp = /(((\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}))([+-](\d{2})\:(\d{2}))?Z?z?)/;
 
     ngOnInit(){
+        
+        this.init();
+
         this.activatedRoute.params.subscribe(param =>{
             this.id = param['id'];
             var linkLista = location.href.split('/');
@@ -63,12 +66,10 @@ export class BaseCrudComponent extends BaseComponent {
      * @param obj Objeto a ser persisitido
      */
     Persistir(obj: any) {
-        if(this.formulario.valid){
             this.acao == 'cadastrar' ?
-            this.service.Post(this.rota, obj) : this.service.Put(this.rota, obj);
-        }else{
-            this.TocarTodos(this.formulario);
-            console.log(this.formulario);
-        }
+            this.service.Post(this.rota, obj).subscribe(
+                data => this.router.navigate['../../'],
+                err => console.log('deu errado', err)
+            ) : this.service.Put(this.rota, obj);
     }
 }

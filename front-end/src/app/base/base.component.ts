@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Service } from '../service/service.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MaskField } from '../utils/mask.util.component';
 
 @Component({
   selector: 'app-base',
@@ -13,7 +14,8 @@ export class BaseComponent implements OnInit {
     public construtorFormulario: FormBuilder, 
     public service: Service,
     public router: Router,
-    public activatedRoute: ActivatedRoute) { }
+    public activatedRoute: ActivatedRoute,
+    ) { }
 
     /**
      * Rota a ser consumida pelo componente filho.
@@ -81,5 +83,15 @@ export class BaseComponent implements OnInit {
         else
             obj[func](opts);
     });
-}
+  }
+
+    /**
+     * Limpa todos os caracteres especiais da variavel passada, retorna uma string que possui caracateres alfanuméricos.
+     * @param campo Variável a ser limpa
+     */
+    LimparCaracterEspecial(campo: string): string {
+      if (campo != null)
+          return campo.replace(/[^0-9A-Za-z]/g, '');
+      else return '';
+  }
 }

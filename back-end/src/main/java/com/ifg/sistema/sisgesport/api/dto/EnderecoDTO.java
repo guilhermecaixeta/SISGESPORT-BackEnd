@@ -11,7 +11,6 @@ public class EnderecoDTO {
 	private String logradouro;
 	private String bairro;
 	private MunicipioDTO municipio;
-	private EntidadeComumDTO entidadeComum;
 	
 	public EnderecoDTO() {
 	}
@@ -62,14 +61,6 @@ public class EnderecoDTO {
 
 	public void setMunicipio(MunicipioDTO municipio) {
 		this.municipio = municipio;
-	}
-
-	public EntidadeComumDTO getEntidadeComum() {
-		return entidadeComum;
-	}
-
-	public void setEntidadeComum(EntidadeComumDTO entidadeComum) {
-		this.entidadeComum = entidadeComum;
 	}
 
 }

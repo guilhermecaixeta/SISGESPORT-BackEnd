@@ -31,7 +31,7 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/instituto")
+@RequestMapping("api/sisgesport/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
@@ -39,6 +39,18 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	}
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
+	@GetMapping(value = "/BuscarTodos")
+	public ResponseEntity<Response<List<InstituicaoDTO>>> BuscarTodos() {
+		Optional<List<Instituicao>> estadoLista = entityService.BuscarTodos();
+		if (estadoLista.isPresent()) {
+			List<InstituicaoDTO> estadoDTOLista = mappingEntityToDTO.AsGenericMappingList(estadoLista.get(), false);
+			responseList.setData(estadoDTOLista);
+		} else
+			response.getErrors().add("Nenhuma instituição encontrada.");
+
+		return ResponseEntity.ok(responseList);
+	}
+	
 	@GetMapping(value = "/buscarPorNome/{nome}")
 	public ResponseEntity<Response<InstituicaoDTO>> buscarPorNome(@PathVariable("nome") String nome) {
 		log.info("Buscando Instituição com o nome: {}", nome);
@@ -52,8 +64,8 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<InstituicaoDTO>> buscarPorId(@PathVariable("id") Long id) {
+	@GetMapping(value = "/BuscarPorId/{id}")
+	public ResponseEntity<Response<InstituicaoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
 		Optional<Instituicao> instituto = entityService.BuscarPorId(id);
 		if (!instituto.isPresent()) {
@@ -76,10 +88,9 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		instituicaoDTO.getEndereco().forEach(endereco -> endereco.setEntidadeComum(instituicaoDTO));
 		entity = mappingDTOToEntity.AsGenericMapping(instituicaoDTO);
 		List<Endereco> listaEnderecos = entity.getEndereco();
-		entity.setEndereco(null);
+		entity.setEndereco(new ArrayList<Endereco>());
 		if (!listaEnderecos.isEmpty()) 
 			listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
 		
@@ -101,7 +112,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			lista.add("id");
 			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
 			List<Endereco> listaEnderecos = entity.getEndereco();
-			entity.setEndereco(null);
+			entity.setEndereco(new ArrayList<Endereco>());
 			if (!listaEnderecos.isEmpty()) 
 				listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
 			
