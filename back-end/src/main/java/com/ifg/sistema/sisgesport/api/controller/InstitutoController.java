@@ -51,8 +51,8 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		return ResponseEntity.ok(responseList);
 	}
 	
-	@GetMapping(value = "/buscarPorNome/{nome}")
-	public ResponseEntity<Response<InstituicaoDTO>> buscarPorNome(@PathVariable("nome") String nome) {
+	@GetMapping(value = "/BuscarPorNomeInstituicao/{nome}")
+	public ResponseEntity<Response<InstituicaoDTO>> BuscarPorNomeInstituicao(@PathVariable("nome") String nome) {
 		log.info("Buscando Instituição com o nome: {}", nome);
 		Optional<Instituicao> instituto = entityService.BuscarPorNomeInstituicao(nome);
 		if (!instituto.isPresent()) {

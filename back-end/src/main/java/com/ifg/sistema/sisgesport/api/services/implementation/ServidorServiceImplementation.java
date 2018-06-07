@@ -38,7 +38,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	public Optional<Servidor> BuscarPorMatriculaSiap(String matriculaSiap) {
 		log.info("Buscando servidor pela matricula siap {} ", matriculaSiap);
-		return Optional.ofNullable(servidorRepositorio.findByMatricula(matriculaSiap));
+		return servidorRepositorio.findByMatricula(matriculaSiap);
 	}
 
 	public Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo) {

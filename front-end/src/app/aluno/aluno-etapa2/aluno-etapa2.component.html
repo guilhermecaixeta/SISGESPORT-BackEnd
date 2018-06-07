@@ -17,7 +17,7 @@
       </div>
 
       <div class="form-group">
-        <input type="text" [textMask]="cepMask" class="form-control input-underline input-lg" formControlName="cep" placeholder="CEP">
+        <input type="text" clearIfNotMatch="true" mask="00000-000" class="form-control input-underline input-lg" formControlName="cep" placeholder="CEP">
         <app-validator [field]="formulario.controls.cep"></app-validator>
       </div>
     <div class="form-group">

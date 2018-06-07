@@ -12,6 +12,7 @@ import { AuthGuard } from './shared';
 import { Service } from './service/service.component';
 import { FormBuilder } from '@angular/forms';
 import { MaskField } from './utils/mask.util.component';
+
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development

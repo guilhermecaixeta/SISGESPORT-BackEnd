@@ -12,7 +12,6 @@ export class AlunoEtapa2Component extends BaseEtapaComponent {
   municipioLista: any[];
   cepMask: any;
   init(){
-    this.cepMask = {mask: MaskField.cepMask};
     this.service.Get('estado/BuscarTodos').subscribe(object => {
       this.estadosLista = object.data;
     });

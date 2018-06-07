@@ -30,7 +30,7 @@ import com.ifg.sistema.sisgesport.api.security.utils.JwtTokenUtil;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
@@ -64,7 +64,7 @@ public class AuthenticationController {
 
 		log.info("Gerando token para a matrícula: {}", jwtAuthDTO.getMatricula());
 		Authentication auth = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(jwtAuthDTO.getMatricula(), jwtAuthDTO.getMatricula()));
+				new UsernamePasswordAuthenticationToken(jwtAuthDTO.getMatricula(), jwtAuthDTO.getSenha()));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthDTO.getMatricula());

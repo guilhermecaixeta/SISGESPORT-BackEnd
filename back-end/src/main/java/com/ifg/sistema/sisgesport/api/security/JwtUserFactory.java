@@ -10,6 +10,7 @@ import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 
 public class JwtUserFactory {
+	
 	private JwtUserFactory() {
 	}
 

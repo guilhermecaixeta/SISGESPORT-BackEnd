@@ -1,9 +1,5 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
-
-import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
-
-
 public class EnderecoDTO {
 	private Long id;
 	private String cep;

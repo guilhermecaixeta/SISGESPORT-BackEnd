@@ -77,8 +77,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		return ResponseEntity.ok(responsePage);
 	}
 
-	@GetMapping(value = "/buscarPorMatricula/{matricula}")
-	public ResponseEntity<Response<AlunoDTO>> buscarPorMatricula(@PathVariable("matricula") String matricula) {
+	@GetMapping(value = "/BuscarPorMatricula/{matricula}")
+	public ResponseEntity<Response<AlunoDTO>> BuscarPorMatricula(@PathVariable("matricula") String matricula) {
 		log.info("Buscando aluno com a matrícula: {}", matricula);
 		Optional<Aluno> aluno = entityService.BuscarPorMatricula(matricula);
 		if (!aluno.isPresent()) {

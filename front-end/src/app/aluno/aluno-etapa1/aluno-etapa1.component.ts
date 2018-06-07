@@ -20,7 +20,8 @@ export class AlunoEtapa1Component extends BaseEtapaComponent {
   turmaLista: any;
   cursoLista: any;
   instituicaoLista: any;
-  matriculaMask ={mask: MaskField.matriculaMask}
+  hasMatricula: boolean = false;
+
   init() {
     Object.assign(this.multiValidacao, this.multiValidacao, {emitirValidacao: () => this.validarEtapa()});
     
@@ -43,12 +44,19 @@ export class AlunoEtapa1Component extends BaseEtapaComponent {
         this.senhasIguais = true;
       }
     });
+
+    this.formulario.get('matricula').valueChanges.subscribe(data => {
+      if(String(data).length > 13)
+        this.service.Get('aluno/BuscarPorMatricula', data).subscribe(
+          r =>  this.hasMatricula = true,
+        error => this.hasMatricula = false)
+    });
   }
- 
+  
   validarEtapa(){
-      if( this.formulario.get('confirmarSenha').value == null ||  this.formulario.get('senha').value == null)
+      if( this.formulario.get('confirmarSenha').value == null ||  this.formulario.get('senha').value == null || this.hasMatricula)
         this.multiValidacao.eValido = false;
-      else if(this.senhasIguais && this.formulario.valid)
+      else if(this.senhasIguais && this.formulario.valid && !this.hasMatricula)
         this.multiValidacao.eValido = true;
       else this.multiValidacao.eValido = false;
   }

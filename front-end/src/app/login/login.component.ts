@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
+import { BaseCrudComponent } from '../base';
 
 @Component({
     selector: 'app-login',
@@ -8,12 +9,14 @@ import { routerTransition } from '../router.animations';
     styleUrls: ['./login.component.scss'],
     animations: [routerTransition()]
 })
-export class LoginComponent implements OnInit {
-    constructor(public router: Router) {}
-
-    ngOnInit() {}
+export class LoginComponent extends BaseCrudComponent {
+    
+    usuario = {
+    senha: '',
+    matricula: ''
+    };
 
     onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
+        this.service.Login(this.usuario);
     }
 }

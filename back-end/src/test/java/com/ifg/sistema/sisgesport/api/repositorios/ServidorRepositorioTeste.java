@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,17 +64,17 @@ public class ServidorRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorMatriculaSiap() {
-		Servidor serv = this.servidorRepositorio.findByMatricula(matriculasiap);
+		Optional<Servidor> serv = this.servidorRepositorio.findByMatricula(matriculasiap);
 		
-		assertEquals(matriculasiap, serv.getMatricula());
+		assertEquals(matriculasiap, serv.get().getMatricula());
 	}
 	
 	@Test
 	public void testBuscarPorCargo() {
 		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
 		List<Servidor> compare = new ArrayList<>();
-		compare.add( this.servidorRepositorio.findByMatricula(matriculasiap));
-		compare.add( this.servidorRepositorio.findByMatricula("20122080010999"));
+		compare.add( this.servidorRepositorio.findByMatricula(matriculasiap).get());
+		compare.add( this.servidorRepositorio.findByMatricula("20122080010999").get());
 		int num1 =compare.size();
 		int num2 = serv.size();
 		

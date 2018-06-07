@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ifg.sistema.sisgesport.api.entities.Evento;
-import com.ifg.sistema.sisgesport.api.repositorios.base.EntidadeComumRepositorio;
+import com.ifg.sistema.sisgesport.api.repositorios.base.EntidadeComumBaseRepositorio;
 @Transactional(readOnly=true)
-public interface EventoRepositorio extends EntidadeComumRepositorio<Evento> {
+public interface EventoRepositorio extends EntidadeComumBaseRepositorio<Evento> {
 	
 	Evento findByCodigoEvento(String codigo_evento);
 	

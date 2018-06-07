@@ -8,36 +8,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ifg.sistema.sisgesport.api.entities.Aluno;
-import com.ifg.sistema.sisgesport.api.entities.Servidor;
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 import com.ifg.sistema.sisgesport.api.security.JwtUserFactory;
-import com.ifg.sistema.sisgesport.api.services.AlunoService;
-import com.ifg.sistema.sisgesport.api.services.ServidorService;
+import com.ifg.sistema.sisgesport.api.services.UsuarioService;
 
 @Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
-	
+
 	@Autowired
-	private AlunoService aS;
-	@Autowired
-	private ServidorService sS;
-	
+	private UsuarioService uS;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Aluno> aluno;
-		Optional<Servidor> servidor;
+		Optional<Pessoa> usuario;
 
-		if (this.aS.BuscarPorMatricula(username).isPresent()) {
-
-			aluno = this.aS.BuscarPorMatricula(username);
-			return JwtUserFactory.create(aluno.get());
-		} else {
-			servidor = this.sS.BuscarPorMatriculaSiap(username);
-
-			if (servidor.isPresent())
-				return JwtUserFactory.create(servidor.get());
-			throw new UsernameNotFoundException("Matricula não encontrada.");
+		usuario = this.uS.BuscarPorMatricula(username);
+		if (usuario.isPresent()) {
+			return JwtUserFactory.create(usuario.get());
 		}
+		throw new UsernameNotFoundException("Matricula não encontrada.");
 	}
-
 }

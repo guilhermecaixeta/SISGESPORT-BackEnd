@@ -53,9 +53,11 @@ constructor(private http: HttpClient) {}
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-          // A client-side or network error occurred. Handle it accordingly.
+            console.log(error.error instanceof Array, error.error)
+            // A client-side or network error occurred. Handle it accordingly.
           for (let index = 0; index < error['errors'].length; index++) {
-            console.error('Um erro aconteceu :', error.error instanceof Array? error.error['errors'] : error.error);
+            console.log(error.error instanceof Array, error.error)
+            console.error('Um erro aconteceu :', error.error instanceof Array? console.log(error.error) : error.error);
           }
         } else {
           // The backend returned an unsuccessful response code.
@@ -69,4 +71,16 @@ constructor(private http: HttpClient) {}
         return throwError(
           'Algo ruim aconteceu; por favor tente novamente mais tarde.');
       };
+
+    //#region Login
+    /**
+     * Realiza o login do usuario
+     * @param obj objeto a ser persistido
+     */
+    Login(obj: any) {
+        return this.http.post<any>(`${environment.apiEndPointLogin}`, obj, getHeader())
+        .pipe(catchError(this.handleError)).subscribe(log => {
+            localStorage.setItem('token', `Bearer ${log.data.token}`)});
+    }
+    //#endregion   
 }
