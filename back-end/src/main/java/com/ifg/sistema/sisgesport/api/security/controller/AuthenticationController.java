@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.security.dto.JwtAuthenticationDTO;
-import com.ifg.sistema.sisgesport.api.security.dto.TokenDTO;
+import com.ifg.sistema.sisgesport.api.security.dto.UsuarioRetornoDTO;
 import com.ifg.sistema.sisgesport.api.security.utils.JwtTokenUtil;
 
 @RestController
@@ -36,7 +36,7 @@ public class AuthenticationController {
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer";
-	private Response<TokenDTO> response = new Response<TokenDTO>();
+	private Response<UsuarioRetornoDTO> response = new Response<UsuarioRetornoDTO>();
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
@@ -53,7 +53,7 @@ public class AuthenticationController {
 	 * @throws AuthenticationException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<TokenDTO>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDTO jwtAuthDTO,
+	public ResponseEntity<Response<UsuarioRetornoDTO>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDTO jwtAuthDTO,
 			BindingResult result) throws AuthenticationException {
 
 		if (result.hasErrors()) {
@@ -68,7 +68,9 @@ public class AuthenticationController {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
 		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthDTO.getMatricula());
-		response.setData(new TokenDTO(jwtTokenUtil.obterToken(userDetails)));
+		UsuarioRetornoDTO user = new UsuarioRetornoDTO(jwtTokenUtil.obterToken(userDetails));
+		user.setAuthorities(userDetails.getAuthorities());
+		response.setData(user);
 		return ResponseEntity.ok(response);
 	}
 
@@ -78,7 +80,7 @@ public class AuthenticationController {
 	 * @return ResponseEntity<Response<TokenDTO>>
 	 */
 	@PostMapping(value = "/refresh")
-	public ResponseEntity<Response<TokenDTO>> atualizarToken(HttpServletRequest request) {
+	public ResponseEntity<Response<UsuarioRetornoDTO>> atualizarToken(HttpServletRequest request) {
 		log.info("Atualizando token JWT.");
 		Optional<String> token = Optional.ofNullable(request.getHeader(TOKEN_HEADER));
 
@@ -93,7 +95,7 @@ public class AuthenticationController {
 		if (!response.getErrors().isEmpty()) {
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(new TokenDTO(jwtTokenUtil.refreshToken(token.get())));
+		response.setData(new UsuarioRetornoDTO(jwtTokenUtil.refreshToken(token.get())));
 		return ResponseEntity.ok(response);
 	}
 }

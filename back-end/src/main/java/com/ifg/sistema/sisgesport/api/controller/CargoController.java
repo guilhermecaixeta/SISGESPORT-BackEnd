@@ -48,6 +48,15 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping(value = "/BuscarPorInstituicaoId/{id_instituicao}")
+	public ResponseEntity<Response<List<CargoDTO>>> BuscarPorInstituicaoId(
+			@PathVariable("id_instituicao") Long id_instituicao) {
+		List<CargoDTO> listServidorDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarPorInstituicaoId(id_instituicao).get(), false);
+		responseList.setData(listServidorDTO);
+		return ResponseEntity.ok(responseList);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Response<CargoDTO>> cadastrarCargo(@Valid @RequestBody CargoDTO cargoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {

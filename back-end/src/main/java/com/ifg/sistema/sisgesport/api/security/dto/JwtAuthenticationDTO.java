@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class JwtAuthenticationDTO {
 	@NotEmpty(message="A matricula não pode ser vazia.")
 	private String matricula;
-	@NotEmpty(message="A matricula não pode ser vazia.")
+	@NotEmpty(message="A senha não pode ser vazia.")
 	private String senha;
 
 	public JwtAuthenticationDTO() {

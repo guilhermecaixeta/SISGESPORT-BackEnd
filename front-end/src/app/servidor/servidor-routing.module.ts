@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AlunoEtapa2Component } from './aluno-etapa2.component';
+import { ServidorComponent } from './servidor.component';
 
 const routes: Routes = [
     {
-        path: '', component: AlunoEtapa2Component
+        path: '', component: ServidorComponent
     }
 ];
 
@@ -12,5 +12,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AlunoEtapa2RoutingModule {
+export class ServidorRoutingModule {
 }

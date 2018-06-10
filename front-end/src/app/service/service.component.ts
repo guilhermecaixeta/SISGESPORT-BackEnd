@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import {map, catchError, retry} from 'rxjs/operators';
 import { getHeader } from '../utils/header.component';
 import { environment } from '../../environments/environment';
+import { usuario } from '../model/iusuario.model';
 
 @Injectable()
 export class Service {
@@ -64,9 +65,8 @@ constructor(private http: HttpClient) {}
           // The response body may contain clues as to what went wrong,
           console.error(
             `Backend retornou o código ${error.status}, ` +
-            `O erro é: ${error.error instanceof Array? error.error['errors'] : error.error.message}`);
+            `O erro é: ${error.error['errors'] instanceof Array? error.error['errors'][error.error['errors'].length - 1] : error.error.message}`);
         }
-        console.log(error.error.message);
         // return an observable with a user-facing error message
         return throwError(
           'Algo ruim aconteceu; por favor tente novamente mais tarde.');
@@ -75,12 +75,16 @@ constructor(private http: HttpClient) {}
     //#region Login
     /**
      * Realiza o login do usuario
-     * @param obj objeto a ser persistido
+     * @param user objeto a ser persistido
      */
-    Login(obj: any) {
-        return this.http.post<any>(`${environment.apiEndPointLogin}`, obj, getHeader())
+    Login(user: usuario) {
+        return this.http.post<any>(`${environment.apiEndPointLogin}`, user, getHeader())
         .pipe(catchError(this.handleError)).subscribe(log => {
-            localStorage.setItem('token', `Bearer ${log.data.token}`)});
+            localStorage.setItem('token', log.data.token)});
+    }
+
+    Logout(){
+        localStorage.removeItem('token');
     }
     //#endregion   
 }

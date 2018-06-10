@@ -47,8 +47,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/sisgesport/instituicao/BuscarTodos").permitAll().and().authorizeRequests().antMatchers("/auth/**").permitAll()
-				.anyRequest().authenticated();
+				.antMatchers("/api/sisgesport/instituicao/BuscarTodos",
+						"/api/sisgesport/curso/BuscarEquipePorIdInstituicao/**",
+						"/api/sisgesport/turma/BuscarPorCursoId/**", "/api/sisgesport/cargo/BuscarPorInstituicaoId/**",
+						"/api/sisgesport/aluno/cadastrar/**", "/api/sisgesport/aluno/BuscarPorMatricula/**",
+						"/api/sisgesport/servidor/cadastrar/**", "/api/sisgesport/estado/BuscarTodos/**",
+						"/api/sisgesport/municipio/BuscarPorIdEstado/**")
+				.permitAll().and().authorizeRequests().antMatchers().permitAll().and().authorizeRequests()
+				.antMatchers("/auth/**").permitAll().anyRequest().authenticated();
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		httpSecurity.headers().cacheControl();
 

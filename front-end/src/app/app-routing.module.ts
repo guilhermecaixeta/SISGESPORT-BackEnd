@@ -8,6 +8,7 @@ const routes: Routes = [
     { path: 'login', loadChildren: './login/login.module#LoginModule' },
     { path: 'cadastrar', loadChildren: './cadastrar/cadastrar.module#CadastrarModule' },
     { path: 'aluno', loadChildren: './aluno/aluno.module#AlunoModule' },
+    { path: 'servidor', loadChildren: './servidor/servidor.module#ServidorModule' },
     { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
     { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },

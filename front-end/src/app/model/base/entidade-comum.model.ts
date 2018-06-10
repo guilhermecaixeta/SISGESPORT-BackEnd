@@ -13,16 +13,16 @@ export class EntidadeComum{
         this.imagem = [];
     }
 
-    public adicionarEndereco(form: FormGroup){
+    public adicionarEndereco(form: any, cep: any){
 
         this.endereco.push({
-            id: form.value.id,
-            bairro: form.value.bairro,
-            cep: form.value.cep,
-            complemento: form.value.complemento,
-            logradouro: form.value.logradouro,
+            id: form.id,
+            bairro: form.bairro,
+            cep: cep,
+            complemento: form.complemento,
+            logradouro: form.logradouro,
             municipio: {
-                id: form.value.municipio,
+                id: form.municipio,
                 estado: null,
                 nome: null
             }

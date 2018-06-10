@@ -46,6 +46,7 @@ export class BaseCrudComponent extends BaseComponent {
                 this.carregarDados();
                 break;
         }
+        this.afterInit();
     }
 
     /**
@@ -58,7 +59,6 @@ export class BaseCrudComponent extends BaseComponent {
             });
             this.objetoRetorno = obj;
             this.formulario.patchValue(this.objetoRetorno);
-            this.afterInit();
         });
     }
     /**
@@ -68,7 +68,7 @@ export class BaseCrudComponent extends BaseComponent {
     Persistir(obj: any) {
             this.acao == 'cadastrar' ?
             this.service.Post(this.rota, obj).subscribe(
-                data => this.router.navigate['../../'],
+                data => this.router.navigate['./'],
                 err => console.log('deu errado', err)
             ) : this.service.Put(this.rota, obj);
     }

@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { BaseCrudComponent } from '../base/base-crud.component';
-import { routerTransition } from '../router.animations';
+import { Component, OnInit } from '@angular/core';
+import { BaseCrudComponent } from '../base';
+import { Servidor } from '../model/servidor.model';
 import { Validators } from '@angular/forms';
-import { SomenteNumeros, requiredMinLength } from '../utils/validators.utils.component';
-import { Aluno } from '../model/aluno.model';
+import { requiredMinLength, SomenteNumeros } from '../utils/validators.utils.component';
+import { routerTransition } from '../router.animations';
 
 @Component({
-  selector: 'app-aluno',
-  templateUrl: './aluno.component.html',
-  styleUrls: ['./aluno.component.scss'],
+  selector: 'app-servidor',
+  templateUrl: './servidor.component.html',
+  styleUrls: ['./servidor.component.scss'],
   animations: [routerTransition()]
 })
-export class AlunoComponent extends BaseCrudComponent {
+export class ServidorComponent extends BaseCrudComponent {
   validacaoCustomizada: any;
-  rota= 'aluno';  
+  rota= 'servidor';  
   formulario = this.construtorFormulario.group({
     cadastro: this.construtorFormulario.group({
       id: [null],
@@ -25,7 +25,7 @@ export class AlunoComponent extends BaseCrudComponent {
       dataNascimento: [null, [Validators.required]],
       sexo: [null, [Validators.required]],
       curso: [null],
-      turma: [null],
+      cargo: [null],
       instituicao: [null]
     }),
     endereco: this.construtorFormulario.group({
@@ -47,9 +47,9 @@ export class AlunoComponent extends BaseCrudComponent {
  
   finalizar(){
     if(this.formulario.valid){
-      let aluno = new Aluno(this.formulario.value.cadastro);
-      aluno.adicionarEndereco(this.formulario.controls.endereco.value, this.LimparCaracterEspecial(this.formulario.controls.endereco.value.cep));
-      this.Persistir(aluno);
+      let servidor = new Servidor(this.formulario.value.cadastro);
+      servidor.adicionarEndereco(this.formulario.controls.endereco.value, this.LimparCaracterEspecial(this.formulario.controls.endereco.value.cep));
+      this.Persistir(servidor);
     }else{
       this.TocarTodos(this.formulario);
   }

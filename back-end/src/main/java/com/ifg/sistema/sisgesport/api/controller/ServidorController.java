@@ -95,7 +95,7 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping
+	@PostMapping(value="/cadastrar")
 	public ResponseEntity<Response<ServidorDTO>> cadastrarServidor(@Valid @RequestBody ServidorDTO servidorDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 

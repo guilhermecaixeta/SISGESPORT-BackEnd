@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseEtapaComponent } from '../../base';
-import { MaskField } from '../../utils/mask.util.component';
+import { BaseEtapaComponent } from '../base';
+import { MaskField } from '../utils/mask.util.component';
 
 @Component({
-  selector: 'app-aluno-etapa2',
-  templateUrl: './aluno-etapa2.component.html',
-  styleUrls: ['./aluno-etapa2.component.scss']
+  selector: 'app-endereco',
+  templateUrl: './endereco.component.html',
+  styleUrls: ['./endereco.component.scss']
 })
-export class AlunoEtapa2Component extends BaseEtapaComponent {
+export class EnderecoComponent extends BaseEtapaComponent {
   estadosLista: any[];
   municipioLista: any[];
   cepMask: any;
