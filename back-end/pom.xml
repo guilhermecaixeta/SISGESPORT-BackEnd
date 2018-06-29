@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>SISGESPORT</name>
-	<description>Projeto TCC - Em Andamento </description>
+	<description>Projeto TCC - Em Andamento</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
