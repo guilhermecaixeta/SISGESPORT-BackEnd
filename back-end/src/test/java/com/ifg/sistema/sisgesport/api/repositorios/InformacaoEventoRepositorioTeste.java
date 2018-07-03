@@ -128,7 +128,7 @@ public class InformacaoEventoRepositorioTeste {
 			i.setNome("s2.jpeg");
 			i.setTamanho(100.20);
 			i.setDescricaoImagem("Lorem ipsulun");
-			Path path = Paths.get("/home/guilherme/Imagens/s2.jpg");
+			Path path = Paths.get("D:/Imagens/HuehueBR/futuro.jpg");
 			i.setImagem(Files.readAllBytes(path));
 
 		} catch (Exception e) {

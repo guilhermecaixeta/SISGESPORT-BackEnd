@@ -35,12 +35,12 @@ public class AlunoServiceTeste {
 	@Autowired
 	private AlunoService aS;
 	private static final Long id= (long) 1;
-	private static final String matricula = "20122080010047";
+	private static final String matricula = "20122080010023";
 	
 	@Before
 	public void setUp() throws Exception{
 		BDDMockito.given(this.aR.save(Mockito.any(Aluno.class))).willReturn(new Aluno());
-		BDDMockito.given(this.aR.findByMatricula(Mockito.anyString()).get()).willReturn(new Aluno());
+		BDDMockito.given(this.aR.findByMatricula(Mockito.anyString())).willReturn(new Aluno());
 		BDDMockito.given(this.aR.findByEquipeId(Mockito.anyLong())).willReturn(new ArrayList<Aluno>());
 		BDDMockito.given(this.aR.findByTurmaId(Mockito.anyLong())).willReturn(new ArrayList<Aluno>());
 		BDDMockito.given(this.aR.findByEquipeId(Mockito.anyLong(), Mockito.any(PageRequest.class)))

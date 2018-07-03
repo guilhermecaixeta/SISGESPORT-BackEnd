@@ -19,6 +19,6 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	public Optional<Pessoa> BuscarPorMatricula(String matricula){
 		log.info("Realizando a busca pela matrícula {}", matricula);
-		return pessoaRepositorio.findByMatricula(matricula);
+		return Optional.ofNullable(pessoaRepositorio.findByMatricula(matricula));
 	}
 }

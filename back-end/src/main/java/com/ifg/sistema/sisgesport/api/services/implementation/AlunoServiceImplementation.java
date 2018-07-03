@@ -22,7 +22,7 @@ public class AlunoServiceImplementation implements AlunoService{
 	
 	public Optional<Aluno> BuscarPorMatricula(String matricula){
 		log.info("realizando a busca por matrícula {}", matricula);
-		return alunoRepositorio.findByMatricula(matricula);
+		return Optional.ofNullable(alunoRepositorio.findByMatricula(matricula));
 	}
 	public Optional<Aluno> BuscarPorNome(String nome){
 		log.info("Buscando o aluno pelo nome {}", nome);

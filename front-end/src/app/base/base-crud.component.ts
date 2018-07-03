@@ -1,9 +1,9 @@
-import {Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {Service } from '../service/service.component';
-import {BaseComponent } from './base.component';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Service } from '../service/service.component';
+import { BaseComponent } from './base.component';
 
-@Component( {
+@Component({
     selector: 'app-base-crud',
     template: ''
 })
@@ -28,11 +28,11 @@ export class BaseCrudComponent extends BaseComponent {
 
     validacaoData: RegExp = /(((\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}))([+-](\d{2})\:(\d{2}))?Z?z?)/;
 
-    ngOnInit(){
-        
+    ngOnInit() {
+
         this.init();
 
-        this.activatedRoute.params.subscribe(param =>{
+        this.activatedRoute.params.subscribe(param => {
             this.id = param['id'];
             var linkLista = location.href.split('/');
             this.acao = (param['acao'] !== undefined ? param['acao'] : "cadastrar").toLowerCase();
@@ -66,10 +66,10 @@ export class BaseCrudComponent extends BaseComponent {
      * @param obj Objeto a ser persisitido
      */
     Persistir(obj: any) {
-            this.acao == 'cadastrar' ?
+        this.acao == 'cadastrar' ?
             this.service.Post(this.rota, obj).subscribe(
-                data => this.router.navigate['./'],
-                err => console.log('deu errado', err)
+                () => this.router.navigate(['../'], { relativeTo: this.activatedRoute }),
+                err => console.log('Ocorreu algum erro no servidor: ', err)
             ) : this.service.Put(this.rota, obj);
     }
 }

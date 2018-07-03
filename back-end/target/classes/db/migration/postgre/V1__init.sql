@@ -1,4 +1,4 @@
-    create sequence hibernate_sequence start 1 increment 1;
+﻿    create sequence hibernate_sequence start 1 increment 1;
  
     create table aluno (
         id int8 not null,
@@ -822,4 +822,23 @@ Insert into municipio (id,nome, estado)values(244,'Vicentinópolis',( SELECT id 
 Insert into municipio (id,nome, estado)values(245,'Vila Boa',( SELECT id FROM estado WHERE uf ='GO'));
 Insert into municipio (id,nome, estado)values(246,'Vila Propício',( SELECT id FROM estado WHERE uf ='GO'));
 Insert into municipio (id,nome, estado)values(247,'Brasília',( SELECT id FROM estado WHERE uf = 'DF'));
+
+INSERT INTO public.entidade_comum(
+            id)
+    VALUES (1);
+INSERT INTO public.instituicao(
+            descricao, nome, id)
+    VALUES ('Instituto Federal de Goiás - Campus Luziânia', 'IFG - Campus Luziânia', 1);
+INSERT INTO public.curso(
+            id, flg_ativo, nome, instituicao)
+    VALUES (1, true, 'TADS', 1);
+INSERT INTO public.turma(
+            id, data_inicial, data_limite, flg_ativo, nome, curso)
+    VALUES (1, '2018-01-01', '2022-01-01', true, 'TADS2018/1', 1);
+INSERT INTO public.cargo(
+            id, descricao, nome)
+    VALUES (1, 'Lecionar aulas de tecnologia', 'Professor de Informática');
+INSERT INTO public.instituicao_cargo(
+            instituicao, cargo)
+    VALUES (1,1);
 

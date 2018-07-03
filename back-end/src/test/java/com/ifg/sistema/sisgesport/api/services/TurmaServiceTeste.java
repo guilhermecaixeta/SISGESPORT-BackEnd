@@ -51,7 +51,7 @@ public class TurmaServiceTeste {
 	
 	@Test
 	public void TestBuscaPorId() {
-		Optional<Turma> e = this.tS.BuscarPorId((long)1);
+		Optional<Turma> e = this.tS.BuscarPorId(id);
 		assertNotNull(e);
 	}
 	

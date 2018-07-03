@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,9 +46,9 @@ public class UsuarioRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorMatricula() {
-		Optional<Pessoa> a = this.uR.findByMatricula(matricula);
+		Pessoa a = this.uR.findByMatricula(matricula);
 		assertNotNull(a);
-		assertEquals(matricula, a.get().getMatricula());
+		assertEquals(matricula, a.getMatricula());
 	}
 	
 	private static Turma carregarturma() {

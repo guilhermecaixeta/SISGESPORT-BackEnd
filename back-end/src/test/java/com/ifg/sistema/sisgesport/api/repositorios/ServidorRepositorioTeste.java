@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.After;
 import org.junit.Before;
@@ -51,7 +50,7 @@ public class ServidorRepositorioTeste {
 		serv2.setDataNascimento(new Date());
 		serv2.setSenha(PasswordUtils.GerarBCrypt("201220800100422010042"));
 		serv2.setSexo('F');
-		serv2.setMatricula("20122080018042");
+		serv2.setMatricula("20122080010999");
 		serv2.setCargo(cargo);
 		serv2.setPerfil(PerfilSistema.ROLE_ADMIN);
 		this.servidorRepositorio.save(serv2);
@@ -64,17 +63,17 @@ public class ServidorRepositorioTeste {
 	
 	@Test
 	public void testBuscarPorMatriculaSiap() {
-		Optional<Servidor> serv = this.servidorRepositorio.findByMatricula(matriculasiap);
+		Servidor serv = this.servidorRepositorio.findByMatricula(matriculasiap);
 		
-		assertEquals(matriculasiap, serv.get().getMatricula());
+		assertEquals(matriculasiap, serv.getMatricula());
 	}
 	
 	@Test
 	public void testBuscarPorCargo() {
 		List<Servidor> serv = this.servidorRepositorio.findByCargoId(cargo.getId());
 		List<Servidor> compare = new ArrayList<>();
-		compare.add( this.servidorRepositorio.findByMatricula(matriculasiap).get());
-		compare.add( this.servidorRepositorio.findByMatricula("20122080010999").get());
+		compare.add( this.servidorRepositorio.findByMatricula(matriculasiap));
+		compare.add( this.servidorRepositorio.findByMatricula("20122080010999"));
 		int num1 =compare.size();
 		int num2 = serv.size();
 		

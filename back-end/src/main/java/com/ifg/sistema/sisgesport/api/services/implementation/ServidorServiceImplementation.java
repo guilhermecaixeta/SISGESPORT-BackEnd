@@ -16,7 +16,7 @@ import com.ifg.sistema.sisgesport.api.services.ServidorService;
 
 @Service
 public class ServidorServiceImplementation implements ServidorService {
-private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
+private static final Logger log = LoggerFactory.getLogger(ServidorServiceImplementation.class);
 	
 	@Autowired
 	private ServidorRepositorio servidorRepositorio;
@@ -38,7 +38,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	public Optional<Servidor> BuscarPorMatriculaSiap(String matriculaSiap) {
 		log.info("Buscando servidor pela matricula siap {} ", matriculaSiap);
-		return servidorRepositorio.findByMatricula(matriculaSiap);
+		return Optional.ofNullable(servidorRepositorio.findByMatricula(matriculaSiap));
 	}
 
 	public Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo) {
