@@ -1,1 +1,1 @@
-web: java -Dserver .port-$PORT -Dspring.profiles.active=prod -jar target/sisgesport-0.0.1-Noob.jar
+web: java -Dserver.port-$PORT -Dspring.profiles.active=prod -jar target/sisgesport-0.0.1-Noob.jar
