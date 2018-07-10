@@ -8,5 +8,4 @@ install:
  
 
 before_install:
-- cd back-end/
 - chmod +x mvnw
