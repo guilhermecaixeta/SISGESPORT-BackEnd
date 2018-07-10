@@ -12,6 +12,8 @@ import { AuthGuard } from './shared';
 import { Service } from './service/service.component';
 import { FormBuilder } from '@angular/forms';
 import { MaskField } from './utils/mask.util.component';
+import { ObservablePadrao } from './utils/observable.util.component';
+import { LayoutSistemaComponent } from './layout-sistema/layout-sistema.component';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -40,9 +42,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppRoutingModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        LayoutSistemaComponent,
     ],
-    providers: [AuthGuard, Service, FormBuilder, MaskField],
+    providers: [AuthGuard, Service, FormBuilder, MaskField, ObservablePadrao],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

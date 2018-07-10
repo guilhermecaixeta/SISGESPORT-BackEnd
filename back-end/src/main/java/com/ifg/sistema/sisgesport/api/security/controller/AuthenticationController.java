@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifg.sistema.sisgesport.api.repositorios.UsuarioRepositorio;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.security.dto.JwtAuthenticationDTO;
 import com.ifg.sistema.sisgesport.api.security.dto.UsuarioRetornoDTO;
@@ -43,7 +44,8 @@ public class AuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 	@Autowired
 	private UserDetailsService userDetailsService;
-
+	@Autowired
+	private UsuarioRepositorio uR;
 	/**
 	 * Gera um novo token para o usuário.
 	 * 
@@ -70,6 +72,7 @@ public class AuthenticationController {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthDTO.getMatricula());
 		UsuarioRetornoDTO user = new UsuarioRetornoDTO(jwtTokenUtil.obterToken(userDetails));
 		user.setAuthorities(userDetails.getAuthorities());
+		user.setName(uR.findByMatricula(userDetails.getUsername()).getNome());
 		response.setData(user);
 		return ResponseEntity.ok(response);
 	}

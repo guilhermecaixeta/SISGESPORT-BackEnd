@@ -1,19 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseCrudComponent } from '../base';
+import { CadastroCrudComponent } from './../cadastrar/cadastro-crud/cadastro-crud.component';
 import { Servidor } from '../model/servidor.model';
 import { Validators } from '@angular/forms';
-import { requiredMinLength, SomenteNumeros } from '../utils/validators.utils.component';
-import { routerTransition } from '../router.animations';
+import { requiredMinLength, SomenteNumeros } from '../utils/validators.util.component';
 
-@Component({
-  selector: 'app-servidor',
-  templateUrl: './servidor.component.html',
-  styleUrls: ['./servidor.component.scss'],
-  animations: [routerTransition()]
-})
-export class ServidorComponent extends BaseCrudComponent {
-  validacaoCustomizada: any;
-  rota= 'servidor';  
+export class ServidorComponent extends CadastroCrudComponent {
+  validacaoCustomizada: any = true;
+  rota = 'servidor';
   formulario = this.construtorFormulario.group({
     cadastro: this.construtorFormulario.group({
       id: [null],
@@ -24,34 +16,27 @@ export class ServidorComponent extends BaseCrudComponent {
       confirmarSenha: [null, [Validators.required]],
       dataNascimento: [null, [Validators.required]],
       sexo: [null, [Validators.required]],
-      curso: [null],
-      cargo: [null],
-      instituicao: [null]
+      cargo: [null, [Validators.required]],
+      instituicao: [null, [Validators.required]]
     }),
     endereco: this.construtorFormulario.group({
-      id:[null],
-      estado: [null,[Validators.required]],
-      municipio: [null,[Validators.required]],
-      cep:[null,[Validators.required, requiredMinLength(8, true)]],
-      complemento: [null,[Validators.required, Validators.maxLength(255)]],
-      logradouro:[null,[Validators.required, Validators.maxLength(255)]],
-      bairro: [null,[Validators.required, Validators.maxLength(255)]]
+      id: [null],
+      estado: [null, [Validators.required]],
+      municipio: [null, [Validators.required]],
+      cep: [null, [Validators.required, requiredMinLength(8, true)]],
+      complemento: [null, [Validators.required, Validators.maxLength(255)]],
+      logradouro: [null, [Validators.required, Validators.maxLength(255)]],
+      bairro: [null, [Validators.required, Validators.maxLength(255)]]
     })
   });
 
-  multiValidacao = 
-  {
-    formulario: this.formulario.controls.cadastro,
-    eValido: false
-  };
- 
-  finalizar(){
-    if(this.formulario.valid){
+  finalizar() {
+    if (this.formulario.valid) {
       let servidor = new Servidor(this.formulario.value.cadastro);
       servidor.adicionarEndereco(this.formulario.controls.endereco.value, this.LimparCaracterEspecial(this.formulario.controls.endereco.value.cep));
       this.Persistir(servidor);
-    }else{
+    } else {
       this.TocarTodos(this.formulario);
-  }
+    }
   }
 }

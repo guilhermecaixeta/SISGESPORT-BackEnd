@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServidorEtapa1Component } from './servidor-etapa1.component';
+import { CadastroCrudComponent } from './cadastro-crud.component';
 
-describe('ServidorEtapa1Component', () => {
-  let component: ServidorEtapa1Component;
-  let fixture: ComponentFixture<ServidorEtapa1Component>;
+describe('AlunoComponent', () => {
+  let component: CadastroCrudComponent;
+  let fixture: ComponentFixture<CadastroCrudComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ServidorEtapa1Component ]
+      declarations: [ CadastroCrudComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ServidorEtapa1Component);
+    fixture = TestBed.createComponent(CadastroCrudComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

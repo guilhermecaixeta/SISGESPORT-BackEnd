@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Service } from '../service/service.component';
+import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BaseComponent } from './base.component';
 
 @Component({
@@ -27,14 +26,23 @@ export class BaseCrudComponent extends BaseComponent {
     etapasTotal = 2;
 
     validacaoData: RegExp = /(((\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2}))([+-](\d{2})\:(\d{2}))?Z?z?)/;
+    /**
+     * Objeto usado para realizar a multipla validação de dados em uma etapa. Deve ser implementado na classe filha.
+     */
+    multiValidacao =
+        {
+            formulario: this.formulario,
+            eValido: false,
+            validarEtapa: (opt?: any) => this.validarEtapa(opt)
+        };
 
     ngOnInit() {
 
-        this.init();
+        this.iniciar();
 
         this.activatedRoute.params.subscribe(param => {
             this.id = param['id'];
-            var linkLista = location.href.split('/');
+            let linkLista = location.href.split('/');
             this.acao = (param['acao'] !== undefined ? param['acao'] : "cadastrar").toLowerCase();
         });
 
@@ -46,7 +54,7 @@ export class BaseCrudComponent extends BaseComponent {
                 this.carregarDados();
                 break;
         }
-        this.afterInit();
+        this.aposIniciar();
     }
 
     /**

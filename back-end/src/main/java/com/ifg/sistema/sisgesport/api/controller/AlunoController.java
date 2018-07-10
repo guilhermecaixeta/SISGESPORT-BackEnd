@@ -48,31 +48,30 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	@Autowired
 	private EnderecoService eS;
 
-	public AlunoController() {
-	}
+	public AlunoController() {}
 
-	@GetMapping(value = "/buscarPorIdEquipePaginavel/{id_turma}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> buscarPorIdEquipePaginavel(@PathVariable("id_turma") Long id_turma,
+	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_turma}")
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_turma") Long id_turma,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_turma, pageRequest));
+				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_turma, pageRequest));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
-	@GetMapping(value = "/buscarPorIdTurmaPaginavel/{id_equipe}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> buscarPorIdTurmaPaginavel(@PathVariable("id_equipe") Long id_equipe,
+	@GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_equipe}")
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel(@PathVariable("id_equipe") Long id_equipe,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_equipe, pageRequest));
+				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_equipe, pageRequest));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}

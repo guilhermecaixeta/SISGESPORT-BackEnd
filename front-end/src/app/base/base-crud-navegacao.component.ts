@@ -65,9 +65,9 @@ export class BaseCrudNavegacaoComponent {
             this.multiValidacao = this.multiValidacao == null ? {
                 formulario: this.formulario,
                 eValido: false,
-                emitirValidacao: () => this.ValidacaoComum()
+                validarEtapa: () => this.ValidacaoComum()
             } : this.multiValidacao;
-            this.multiValidacao.emitirValidacao();
+            this.multiValidacao.validarEtapa();
             if (this.multiValidacao.eValido) {
                 this.etapa++;
             } else {

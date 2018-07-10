@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
@@ -16,7 +17,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private UsuarioRepositorio pessoaRepositorio;
-	
+	@Cacheable("BuscarDadosCache")
 	public Optional<Pessoa> BuscarPorMatricula(String matricula){
 		log.info("Realizando a busca pela matrícula {}", matricula);
 		return Optional.ofNullable(pessoaRepositorio.findByMatricula(matricula));

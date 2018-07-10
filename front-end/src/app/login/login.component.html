@@ -12,9 +12,12 @@
                         <input type="password" class="form-control input-underline input-lg" name="senha" [(ngModel)]="usuario.senha" placeholder="Senha">
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Entrar </a>
+                <a class="btn rounded-btn" (click)="onLoggedin()"> Entrar </a>
                 &nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/cadastrar']">Registrar</a>
+                <hr />
+                <ngb-alert [type]="alerta.type" (close)="fecharAlerta(alerta)" *ngFor="let alerta of alertas">{{ alerta.message }}</ngb-alert>
+                <hr />
             </form>
         </div>
     </div>

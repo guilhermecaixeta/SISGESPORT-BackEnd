@@ -11,7 +11,7 @@ export class EnderecoComponent extends BaseEtapaComponent {
   estadosLista: any[];
   municipioLista: any[];
   cepMask: any;
-  init(){
+  iniciar(){
     this.service.Get('estado/BuscarTodos').subscribe(object => {
       this.estadosLista = object.data;
     });

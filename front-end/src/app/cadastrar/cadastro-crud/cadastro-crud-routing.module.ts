@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AlunoEtapa1Component } from './aluno-etapa1.component';
+import { CadastroCrudComponent } from './cadastro-crud.component';
 
 const routes: Routes = [
     {
-        path: '', component: AlunoEtapa1Component
+        path: '', component: CadastroCrudComponent
     }
 ];
 
@@ -12,5 +12,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AlunoEtapa1RoutingModule {
+export class CadastroCrudRoutingModule {
 }

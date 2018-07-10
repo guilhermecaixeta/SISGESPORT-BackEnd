@@ -82,8 +82,8 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 		return ResponseEntity.ok(responsePage);
 	}
 
-	@GetMapping(value = "/buscarPorMatricula/{matriculaSiap}")
-	public ResponseEntity<Response<ServidorDTO>> buscarPorMatricula(@PathVariable("matriculaSiap") String matriculaSiap) {
+	@GetMapping(value = "/BuscarPorMatricula/{matriculaSiap}")
+	public ResponseEntity<Response<ServidorDTO>> BuscarPorMatriculaSiap(@PathVariable("matriculaSiap") String matriculaSiap) {
 		log.info("Buscando servidor com a matrícula: {}", matriculaSiap);
 		Optional<Servidor> servidor = entityService.BuscarPorMatriculaSiap(matriculaSiap);
 		if (!servidor.isPresent()) {

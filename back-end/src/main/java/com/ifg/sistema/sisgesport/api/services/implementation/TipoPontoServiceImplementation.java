@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,27 +21,27 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private TipoPontoRepositorio tipoPontoRepositorio;
-	
+	@Cacheable("BuscarDadosCache")
 	public Optional<TipoPonto> BuscarPorId(Long id) {
 		log.info("Buscando servidor pelo id {} ", id);
 		return Optional.ofNullable(tipoPontoRepositorio.findOne(id));
 	}
-
+	@Cacheable("BuscarDadosCache")
 	public Optional<TipoPonto> BuscarPorNome(String nome) {
 		log.info("Buscando servidor pelo id {} ", nome);
 		return Optional.ofNullable(tipoPontoRepositorio.findByNome(nome));
 	}
-
+	@Cacheable("BuscarDadosCache")
 	public Optional<List<TipoPonto>> BuscarPorModalidadeId(Long id_modalidade) {
 		log.info("Buscando Tipo Ponto pelo id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(tipoPontoRepositorio.findByModalidadeId(id_modalidade));
 	}
-
+	@Cacheable("BuscarDadosCache")
 	public Page<TipoPonto> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
 		log.info("Buscando servidor pelo id modalidade {} ", id_modalidade);
 		return tipoPontoRepositorio.findByModalidadeId(id_modalidade, pageRequest);
 	}
-
+	@CachePut("BuscarDadosCache")
 	public TipoPonto Salvar(TipoPonto tipo_ponto) {
 		log.info("Salvando um novo tipo ponto no banco de dados {} ", tipo_ponto);
 		return tipoPontoRepositorio.save(tipo_ponto);

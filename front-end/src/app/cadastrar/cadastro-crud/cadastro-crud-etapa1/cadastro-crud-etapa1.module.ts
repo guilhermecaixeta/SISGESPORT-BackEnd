@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AlunoEtapa1RoutingModule } from './aluno-etapa1-routing.module';
-import { BaseModule } from '../../base/base.module';
+import { CadastroCrudEtapa1RoutingModule } from './cadastro-crud-etapa1-routing.module';
+import { BaseModule } from '../../../base/base.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AlunoEtapa1Component } from './aluno-etapa1.component';
+import { CadastroCrudEtapa1Component } from './cadastro-crud-etapa1.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxMaskModule} from 'ngx-mask';
 
@@ -13,12 +13,12 @@ import {NgxMaskModule} from 'ngx-mask';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AlunoEtapa1RoutingModule,
+    CadastroCrudEtapa1RoutingModule,
     BaseModule,
     NgbModule.forRoot(),
     NgxMaskModule.forRoot(),
     ],
-  exports:[AlunoEtapa1Component],
-  declarations: [AlunoEtapa1Component]
+  exports:[CadastroCrudEtapa1Component],
+  declarations: [CadastroCrudEtapa1Component]
 })
-export class AlunoEtapa1Module { }
+export class CadastroCrudEtapa1Module { }

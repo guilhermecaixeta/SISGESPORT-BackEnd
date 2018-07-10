@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,12 @@ public class EquipeServiceImplementation implements EquipeService {
 	
 	@Autowired
 	private EquipeRepositorio equipeRepositorio;
-
+	@Cacheable("BuscarDadosCache")
 	public Optional<List<Equipe>> BuscarEquipePorIdEvento(Long id_evento){
 		log.info("Buscando equipe pelo id evento {}", id_evento);
 		return Optional.ofNullable(equipeRepositorio.findByEventoId(id_evento));
 	}
+	@Cacheable("BuscarDadosCache")
 	public Page<Equipe> BuscarEquipePorIdEventoPaginavel(Long id_evento, PageRequest pageRequest){
 		log.info("Buscando equipe pelo id evento {}", id_evento);
 		return equipeRepositorio.findByEventoId(id_evento, pageRequest);

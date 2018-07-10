@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,12 @@ public class CursoServiceImplementation implements CursoService {
 		log.info("realizando a busca por id {}", id);
 		return Optional.ofNullable(cursoRepositorio.findOne(id));
 	}
+	@Cacheable("BuscarDadosCache")
 	public Optional<List<Curso>> BuscarEquipePorIdInstituicao(Long id_instituicao){
 		log.info("realizando a busca por matrícula {}", id_instituicao);
 		return Optional.ofNullable(cursoRepositorio.findByInstituicaoId(id_instituicao));
 	}
+	@Cacheable("BuscarDadosCache")
 	public Page<Curso> BuscarEquipePorIdInstituicaoPaginavel(Long id_instituicao, PageRequest pageRequest){
 		log.info("realizando a busca por id da instituicao {}", id_instituicao);
 		return cursoRepositorio.findByInstituicaoId(id_instituicao, pageRequest);

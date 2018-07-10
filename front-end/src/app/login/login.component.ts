@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { routerTransition } from '../router.animations';
 import { BaseCrudComponent } from '../base';
 
@@ -10,13 +9,20 @@ import { BaseCrudComponent } from '../base';
     animations: [routerTransition()]
 })
 export class LoginComponent extends BaseCrudComponent {
-    
+
     usuario = {
-    senha: '',
-    matricula: ''
+        senha: '',
+        matricula: ''
     };
 
     onLoggedin() {
-        this.service.Login(this.usuario);
+        this.service.Login(this.usuario).subscribe(
+            () => this.router.navigate(['/dashboard'], { relativeTo: this.activatedRoute }),
+            err => this.alertas.push({
+                id: 1,
+                type: 'danger',
+                message: err
+            })
+        );
     }
 }

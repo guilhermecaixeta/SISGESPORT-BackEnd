@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Estado;
@@ -17,16 +18,17 @@ public class EstadoServiceImplementation implements EstadoService {
 	
 	@Autowired
 	private EstadoRepositorio estadoRepositorio;
-	
+	@Cacheable("BuscarDadosCache")
 	public Optional<List<Estado>> BuscarTodos() {
 		log.info("Buscando todos os estados");
 		return Optional.ofNullable(estadoRepositorio.findAll());
 	}
-	
+	@Cacheable("BuscarDadosCache")
 	public Optional<Estado> BuscarPorNomeOuUF(String nome, String UF){
 		log.info("Buscando estado pelo nome: {1} ou UF: {2} ", nome, UF);
 		return Optional.ofNullable(estadoRepositorio.findByNomeOrUf(nome, UF));
 	}
+	@Cacheable("BuscarDadosCache")
 	public Optional<Estado> BuscarPorId(Long id){
 		log.info("Buscando estado pelo id {} ", id);
 		return Optional.ofNullable(estadoRepositorio.findOne(id));
