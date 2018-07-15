@@ -50,11 +50,7 @@ public class PessoaDTO extends EntidadeComumDTO {
 	public void setSexo(Character sexo) {
 		this.sexo = sexo;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
