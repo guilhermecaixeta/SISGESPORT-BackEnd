@@ -12,13 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.TipoPontoDTO;
@@ -27,6 +21,9 @@ import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.TipoPontoService;
 
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("api/tipoPonto")
 public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto, TipoPontoService> {
 	{
 		mappingDTOToEntity = new Extension<>(TipoPontoDTO.class, TipoPonto.class);

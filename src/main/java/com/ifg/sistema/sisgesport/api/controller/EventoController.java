@@ -37,7 +37,7 @@ import com.ifg.sistema.sisgesport.api.services.EventoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/evento")
+@RequestMapping("api/evento")
 public class EventoController extends baseController<EventoDTO, Evento, EventoService> {
 	{
 		mappingDTOToEntity = new Extension<>(EventoDTO.class, Evento.class);

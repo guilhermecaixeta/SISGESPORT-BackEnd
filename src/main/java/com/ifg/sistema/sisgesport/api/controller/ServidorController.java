@@ -40,7 +40,7 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/servidor")
+@RequestMapping("api/servidor")
 public class ServidorController  extends baseController<ServidorDTO, Servidor, ServidorService> {
 	{
 		mappingDTOToEntity = new Extension<>(ServidorDTO.class, Servidor.class);

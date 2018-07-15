@@ -29,7 +29,7 @@ import com.ifg.sistema.sisgesport.api.services.CargoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/cargo")
+@RequestMapping("api/cargo")
 public class CargoController extends baseController<CargoDTO, Cargo, CargoService>{
 	{
 		mappingDTOToEntity = new Extension<>(CargoDTO.class, Cargo.class);

@@ -39,7 +39,7 @@ public class AlunoControllerTest {
 	@MockBean
 	private TurmaService tS;
 	
-	private static final String url_Busca_Aluno = "/api/sisgesport/aluno/BuscarPorMatricula/";
+	private static final String url_Busca_Aluno = "/api/aluno/BuscarPorMatricula/";
 	private static final Long id = Long.valueOf(1);
 	private static final String matricula = "123456";
 	private static final String nome = "Aluno Teste";

@@ -34,7 +34,7 @@ import com.ifg.sistema.sisgesport.api.services.JogadorService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/jogador")
+@RequestMapping("api/jogador")
 public class JogadorController extends baseController<JogadorDTO, Jogador, JogadorService> {
 	{
 		mappingDTOToEntity = new Extension<>(JogadorDTO.class, Jogador.class);

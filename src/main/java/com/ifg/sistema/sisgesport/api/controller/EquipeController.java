@@ -35,7 +35,7 @@ import com.ifg.sistema.sisgesport.api.services.ImagemService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/equipe")
+@RequestMapping("api/equipe")
 public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeService> {
 	{
 		mappingDTOToEntity = new Extension<>(EquipeDTO.class, Equipe.class);

@@ -31,7 +31,7 @@ import com.ifg.sistema.sisgesport.api.services.ModalidadeService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/modalidade")
+@RequestMapping("api/modalidade")
 public class ModalidadeController extends baseController<ModalidadeDTO, Modalidade, ModalidadeService> {
 	{
 		mappingDTOToEntity = new Extension<>(ModalidadeDTO.class, Modalidade.class);

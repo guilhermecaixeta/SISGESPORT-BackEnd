@@ -28,7 +28,7 @@ import com.ifg.sistema.sisgesport.api.services.MunicipioService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/municipio")
+@RequestMapping("api/municipio")
 public class MunicipioController extends baseController<MunicipioDTO, Municipio, MunicipioService> {
 	{
 		mappingDTOToEntity = new Extension<>(MunicipioDTO.class, Municipio.class);

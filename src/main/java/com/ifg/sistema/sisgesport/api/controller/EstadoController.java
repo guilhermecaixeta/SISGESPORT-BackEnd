@@ -28,7 +28,7 @@ import com.ifg.sistema.sisgesport.api.services.EstadoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/estado")
+@RequestMapping("api/estado")
 public class EstadoController extends baseController<EstadoDTO, Estado, EstadoService> {
 	{
 		mappingDTOToEntity = new Extension<>(EstadoDTO.class, Estado.class);

@@ -33,7 +33,7 @@ import com.ifg.sistema.sisgesport.api.services.TurmaService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/sisgesport/turma")
+@RequestMapping("api/turma")
 public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaService>{
 	{
 		mappingDTOToEntity = new Extension<>(TurmaDTO.class, Turma.class);

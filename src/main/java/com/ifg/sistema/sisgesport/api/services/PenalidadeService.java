@@ -3,6 +3,8 @@ package com.ifg.sistema.sisgesport.api.services;
 import java.util.List;
 import java.util.Optional;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface PenalidadeService {
 	/**
@@ -23,6 +25,13 @@ public interface PenalidadeService {
 	 * @return
 	 */
 	Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade);
+	/**
+	 * Busca uma lista paginada de posicao pelo id da modalidade id
+	 * @param id_modalidade
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Penalidade> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
 	/**
 	 * Salva uma nova penalidade no banco de dados
 	 * @param penalidade
