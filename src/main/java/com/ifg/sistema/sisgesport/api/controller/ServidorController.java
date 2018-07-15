@@ -56,15 +56,17 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 	public ServidorController() {
 	}
 
-	@GetMapping(value = "/buscarTodosPorEquipe/{id_instituicao}")
-	public ResponseEntity<Response<Page<ServidorDTO>>> buscarPorIdEquipePaginavel(@PathVariable("id_instituicao") Long id_instituicao,
+	@GetMapping(value = "/BuscarPorCargoInstituicaoIdPaginavel/{id_instituicao}")
+	public ResponseEntity<Response<Page<ServidorDTO>>> BuscarPorCargoInstituicaoIdPaginavel(@PathVariable("id_instituicao") Long id_instituicao,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
+
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<ServidorDTO> pageServidorDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCargoInstituicaoIdPaginavel(id_instituicao, pageRequest));
+        pageServidorDTO.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageServidorDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -75,9 +77,11 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "size", defaultValue = "10") int size,
 			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
+        response = new Response<ServidorDTO>();
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<ServidorDTO> pageServidorDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCargoIdPaginavel(idCargo, pageRequest));
+		pageServidorDTO.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageServidorDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -85,12 +89,14 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 	@GetMapping(value = "/BuscarPorMatricula/{matriculaSiap}")
 	public ResponseEntity<Response<ServidorDTO>> BuscarPorMatriculaSiap(@PathVariable("matriculaSiap") String matriculaSiap) {
 		log.info("Buscando servidor com a matrícula: {}", matriculaSiap);
+        response = new Response<ServidorDTO>();
 		Optional<Servidor> servidor = entityService.BuscarPorMatriculaSiap(matriculaSiap);
 		if (!servidor.isPresent()) {
 			log.info("Servidor com a matrícula: {}, não cadastrado.", matriculaSiap);
 			response.getErrors().add("Servidor não encontrado para a matrícula " + matriculaSiap);
 			return ResponseEntity.badRequest().body(response);
 		}
+		servidor.get().setSenha(null);
 		response.setData(mappingEntityToDTO.AsGenericMapping(servidor.get()));
 		return ResponseEntity.ok(response);
 	}

@@ -59,6 +59,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_turma, pageRequest));
+        pageAlunoDTO.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -72,6 +73,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
 		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_equipe, pageRequest));
+		pageAlunoDTO.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageAlunoDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -85,6 +87,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			response.getErrors().add("Aluno não encontrado para a matrícula " + matricula);
 			return ResponseEntity.badRequest().body(response);
 		}
+		aluno.get().setSenha(null);
 		response.setData(mappingEntityToDTO.AsGenericMapping(aluno.get()));
 		return ResponseEntity.ok(response);
 	}
