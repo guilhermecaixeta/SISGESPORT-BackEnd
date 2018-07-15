@@ -46,12 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/api/sisgesport/instituicao/BuscarTodos",
-                        "/api/sisgesport/curso/BuscarEquipePorIdInstituicao/**",
-                        "/api/sisgesport/turma/BuscarPorCursoId/**", "/api/sisgesport/cargo/BuscarPorInstituicaoId/**",
-                        "/api/sisgesport/aluno/cadastrar/**", "/api/sisgesport/aluno/BuscarPorMatricula/**",
-                        "/api/sisgesport/servidor/cadastrar/**", "/api/sisgesport/servidor/BuscarPorMatricula/**", "/api/sisgesport/estado/BuscarTodos/**",
-                        "/api/sisgesport/municipio/BuscarPorIdEstado/**", "/v2/api-docs",
+                .antMatchers("/api/instituicao/BuscarTodos",
+                        "/api/curso/BuscarEquipePorIdInstituicao/**",
+                        "/api/turma/BuscarPorCursoId/**", "/api/cargo/BuscarPorInstituicaoId/**",
+                        "/api/aluno/cadastrar/**", "/api/aluno/BuscarPorMatricula/**",
+                        "/api/servidor/cadastrar/**", "/api/servidor/BuscarPorMatricula/**", "/api/estado/BuscarTodos/**",
+                        "/api/municipio/BuscarPorIdEstado/**", "/v2/api-docs",
                         "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
                 .permitAll().and().authorizeRequests().antMatchers().permitAll().and().authorizeRequests()
                 .antMatchers("/auth/**").permitAll().anyRequest().authenticated();
