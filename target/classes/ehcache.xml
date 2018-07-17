@@ -4,4 +4,44 @@
             maxEntriesLocalHeap="200"
             timeToLiveSeconds="3600">
     </cache>
+    <cache  name="BuscarDadosCacheInstituicao"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheCargo"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheCurso"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheEvento"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheModalidade"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCachePenalidade"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCachePosicao"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheTipoPonto"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheTurma"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
+    <cache  name="BuscarDadosCacheEquipe"
+            maxEntriesLocalHeap="200"
+            timeToLiveSeconds="3600">
+    </cache>
 </ehcache>

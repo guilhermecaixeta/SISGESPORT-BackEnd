@@ -20,22 +20,22 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private ModalidadeRepositorio modalidadeRepositorio;
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheModalidade")
 	public Optional<Modalidade> BuscarPorId(Long id) {
 		log.info("Buscando logradouro pelo nome {} ", id);
 		return Optional.ofNullable(modalidadeRepositorio.findOne(id));
 	}
-    @Cacheable("BuscarDadosCache")
+    @Cacheable("BuscarDadosCacheModalidade")
 	public Optional<Modalidade> BuscarPorNome(String nome) {
 		log.info("Buscando logradouro pelo nome {} ", nome);
 		return Optional.ofNullable(modalidadeRepositorio.findByNome(nome));
 	}
-    @Cacheable("BuscarDadosCache")
+    @Cacheable("BuscarDadosCacheModalidade")
 	public Page<Modalidade> BuscarTodos(PageRequest pageRequest){
 		log.info("Buscando todas as modalidades");
 		return modalidadeRepositorio.findAll(pageRequest);
 	}
-    @CachePut("BuscarDadosCache")
+    @CachePut("BuscarDadosCacheModalidade")
 	public Modalidade Salvar(Modalidade modalidade) {
 		log.info("Salvando uma nova modalidade no banco de dados {} ", modalidade.getNome());
 		return modalidadeRepositorio.save(modalidade);

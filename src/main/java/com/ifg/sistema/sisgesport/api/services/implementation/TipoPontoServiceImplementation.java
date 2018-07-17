@@ -21,27 +21,27 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private TipoPontoRepositorio tipoPontoRepositorio;
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheTipoPonto")
 	public Optional<TipoPonto> BuscarPorId(Long id) {
 		log.info("Buscando servidor pelo id {} ", id);
 		return Optional.ofNullable(tipoPontoRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheTipoPonto")
 	public Optional<TipoPonto> BuscarPorNome(String nome) {
 		log.info("Buscando servidor pelo id {} ", nome);
 		return Optional.ofNullable(tipoPontoRepositorio.findByNome(nome));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheTipoPonto")
 	public Optional<List<TipoPonto>> BuscarPorModalidadeId(Long id_modalidade) {
 		log.info("Buscando Tipo Ponto pelo id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(tipoPontoRepositorio.findByModalidadeId(id_modalidade));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheTipoPonto")
 	public Page<TipoPonto> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
 		log.info("Buscando servidor pelo id modalidade {} ", id_modalidade);
 		return tipoPontoRepositorio.findByModalidadeId(id_modalidade, pageRequest);
 	}
-	@CachePut("BuscarDadosCache")
+	@CachePut("BuscarDadosCacheTipoPonto")
 	public TipoPonto Salvar(TipoPonto tipo_ponto) {
 		log.info("Salvando um novo tipo ponto no banco de dados {} ", tipo_ponto);
 		return tipoPontoRepositorio.save(tipo_ponto);

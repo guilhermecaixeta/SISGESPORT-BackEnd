@@ -25,12 +25,12 @@ public class CursoServiceImplementation implements CursoService {
 		log.info("realizando a busca por id {}", id);
 		return Optional.ofNullable(cursoRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheCurso")
 	public Optional<List<Curso>> BuscarEquipePorIdInstituicao(Long id_instituicao){
 		log.info("realizando a busca por matrícula {}", id_instituicao);
 		return Optional.ofNullable(cursoRepositorio.findByInstituicaoId(id_instituicao));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheCurso")
 	public Page<Curso> BuscarEquipePorIdInstituicaoPaginavel(Long id_instituicao, PageRequest pageRequest){
 		log.info("realizando a busca por id da instituicao {}", id_instituicao);
 		return cursoRepositorio.findByInstituicaoId(id_instituicao, pageRequest);

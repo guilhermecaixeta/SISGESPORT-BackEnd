@@ -20,7 +20,7 @@ public class CargoServiceImplementation implements CargoService {
 	
 	@Autowired
 	private CargoRepositorio cargoRepositorio;
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheCargo")
 	public Optional<List<Cargo>> BuscarPorNome(String nome){
 		log.info("realizando a busca por matrícula {}", nome);
 		return Optional.ofNullable(cargoRepositorio.findByNomeContains(nome));
@@ -29,12 +29,12 @@ public class CargoServiceImplementation implements CargoService {
 		log.info("realizando a busca por matrícula {}", id);
 		return Optional.ofNullable(cargoRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheCargo")
 	public Optional<List<Cargo>> BuscarPorInstituicaoId(Long id_instituicao){
 		log.info("Buscando cargos pelo id da intituicao {}", id_instituicao);
 		return Optional.ofNullable(cargoRepositorio.findByInstituicaoId(id_instituicao));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheCargo")
 	public Page<Cargo> BuscarPorInstituicaoIdPaginavel(Long id_instituicao, PageRequest pageRequest){
 		log.info("Buscando cargos pelo id da intituicao {}", id_instituicao);
 		return cargoRepositorio.findByInstituicaoId(id_instituicao, pageRequest);

@@ -20,22 +20,22 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	@Autowired
 	private InstituicaoRepositorio instituicaoRepositorio;
 
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<List<Instituicao>> BuscarTodos() {
 		log.info("Buscando todos os institutos");
 		return Optional.ofNullable(instituicaoRepositorio.findAll());
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<Instituicao> BuscarPorNomeInstituicao(String nome) {
 		log.info("Buscando Instituicao pelo nome {} ",nome);
 		return Optional.ofNullable(instituicaoRepositorio.findByNome(nome));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<Instituicao> BuscarPorId(Long id) {
 		log.info("Buscando Instituicao pelo id {} ",id);
 		return Optional.ofNullable(instituicaoRepositorio.findOne(id));
 	}
-	@CachePut("BuscarDadosCache")
+	@CachePut("BuscarDadosCacheInstituicao")
 	public Instituicao Salvar(Instituicao instituicao) {
 		log.info("Buscando Instituicao pelo codigo {} ",instituicao.getNome());
 		return instituicaoRepositorio.save(instituicao);

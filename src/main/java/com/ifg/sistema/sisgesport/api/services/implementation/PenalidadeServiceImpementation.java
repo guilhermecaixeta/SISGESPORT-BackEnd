@@ -23,27 +23,27 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private PenalidadeRepositorio penalidadeRepositorio;
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCachePenalidade")
 	public Optional<Penalidade> BuscarPorId(Long id) {
 		log.info("Buscando Penalidade pelo id {} ", id);
 		return Optional.ofNullable(penalidadeRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCachePenalidade")
 	public Optional<Penalidade> BuscarPorNome(String nome) {
 		log.info("Buscando Penalidade pelo nome {} ", nome);
 		return Optional.ofNullable(penalidadeRepositorio.findByNome(nome));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCachePenalidade")
 	public Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade) {
 		log.info("Buscando Penalidade pelo id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(penalidadeRepositorio.findByModalidadeId(id_modalidade));
 	}
-    @Cacheable("BuscarDadosCache")
+    @Cacheable("BuscarDadosCachePenalidade")
     public Page<Penalidade> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
         log.info("Buscando uma lista paginada de Posicao pelo id modalidade {} ", id_modalidade);
         return penalidadeRepositorio.findByModalidadeId(id_modalidade, pageRequest);
     }
-	@CachePut("BuscarDadosCache")
+	@CachePut("BuscarDadosCachePenalidade")
 	public Penalidade Salvar(Penalidade penalidade) {
 		log.info("Salvando uma nova Penalidade no banco de dados {} ", penalidade);
 		return penalidadeRepositorio.save(penalidade);

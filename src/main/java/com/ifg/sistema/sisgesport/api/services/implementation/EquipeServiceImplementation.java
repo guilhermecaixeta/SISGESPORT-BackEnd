@@ -20,12 +20,12 @@ public class EquipeServiceImplementation implements EquipeService {
 	
 	@Autowired
 	private EquipeRepositorio equipeRepositorio;
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheEquipe")
 	public Optional<List<Equipe>> BuscarEquipePorIdEvento(Long id_evento){
 		log.info("Buscando equipe pelo id evento {}", id_evento);
 		return Optional.ofNullable(equipeRepositorio.findByEventoId(id_evento));
 	}
-	@Cacheable("BuscarDadosCache")
+	@Cacheable("BuscarDadosCacheEquipe")
 	public Page<Equipe> BuscarEquipePorIdEventoPaginavel(Long id_evento, PageRequest pageRequest){
 		log.info("Buscando equipe pelo id evento {}", id_evento);
 		return equipeRepositorio.findByEventoId(id_evento, pageRequest);
