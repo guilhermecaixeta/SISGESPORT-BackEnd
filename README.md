@@ -5,11 +5,14 @@ Sistema desenvolvido como trabalho de conclusão de curso para o Instituto Feder
 Esse sistema possui o proposito de prover uma resposta a necessidade do campus.
 
 Nesse sistema foram utilizadas as seguintes tecnologias.
-Angular - v.6.x
 Java - v.8.x
 Spring Boot - 1.5.9
 Spring Security
 JPA
-Hibernate 
+Hibernate
+Flyway
+EhCache
+Swagger(acesso via url disponível apenas para o perfil dev)
 
-Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia.
+Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia, possuindo um pacote dedicado aos testes do sistema.
+Teste das Controllers ainda se encontram em desenvolvimento.
