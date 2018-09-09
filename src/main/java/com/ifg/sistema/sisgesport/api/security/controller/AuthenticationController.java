@@ -30,8 +30,8 @@ import com.ifg.sistema.sisgesport.api.security.dto.UsuarioRetornoDTO;
 import com.ifg.sistema.sisgesport.api.security.utils.JwtTokenUtil;
 
 @RestController
-@RequestMapping("/auth")
 @CrossOrigin(origins = "*")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
