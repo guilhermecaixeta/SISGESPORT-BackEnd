@@ -17,11 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ifg.sistema.sisgesport.api.repositorios.UsuarioRepositorio;
 import com.ifg.sistema.sisgesport.api.response.Response;
@@ -37,7 +33,7 @@ public class AuthenticationController {
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer";
-	private Response<UsuarioRetornoDTO> response = new Response<UsuarioRetornoDTO>();
+	private Response<UsuarioRetornoDTO> response;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
@@ -57,7 +53,6 @@ public class AuthenticationController {
 	@PostMapping
 	public ResponseEntity<Response<UsuarioRetornoDTO>> gerarTokenJwt(@Valid @RequestBody JwtAuthenticationDTO jwtAuthDTO,
 			BindingResult result) throws AuthenticationException {
-
 		if (result.hasErrors()) {
 			log.error("Erro ao validar acesso: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
@@ -65,15 +60,12 @@ public class AuthenticationController {
 		}
 
 		log.info("Gerando token para a matrícula: {}", jwtAuthDTO.getMatricula());
-		Authentication auth = authenticationManager.authenticate(
+        response = new Response<UsuarioRetornoDTO>();
+        Authentication auth = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(jwtAuthDTO.getMatricula(), jwtAuthDTO.getSenha()));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
-		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthDTO.getMatricula());
-		UsuarioRetornoDTO user = new UsuarioRetornoDTO(jwtTokenUtil.obterToken(userDetails));
-		user.setAuthorities(userDetails.getAuthorities());
-		user.setName(uR.findByMatricula(userDetails.getUsername()).getNome());
-		response.setData(user);
+		response.setData(obterUsuarioRetorno(jwtAuthDTO.getMatricula(), null));
 		return ResponseEntity.ok(response);
 	}
 
@@ -85,6 +77,7 @@ public class AuthenticationController {
 	@PostMapping(value = "/refresh")
 	public ResponseEntity<Response<UsuarioRetornoDTO>> atualizarToken(HttpServletRequest request) {
 		log.info("Atualizando token JWT.");
+        response = new Response<UsuarioRetornoDTO>();
 		Optional<String> token = Optional.ofNullable(request.getHeader(TOKEN_HEADER));
 
 		if (token.isPresent() && token.get().startsWith(BEARER_PREFIX)) {
@@ -101,4 +94,39 @@ public class AuthenticationController {
 		response.setData(new UsuarioRetornoDTO(jwtTokenUtil.refreshToken(token.get())));
 		return ResponseEntity.ok(response);
 	}
+
+	@GetMapping(value = "/ObterUsuarioLogado")
+	public  ResponseEntity<Response<UsuarioRetornoDTO>> obterUsuarioLogado(HttpServletRequest request){
+		log.info("Obtendo dados do usuário logado.");
+        response = new Response<UsuarioRetornoDTO>();
+		Optional<String> token = Optional.ofNullable(request.getHeader(TOKEN_HEADER));
+
+		if (token.isPresent() && token.get().startsWith(BEARER_PREFIX)) {
+			token = Optional.of(token.get().substring(7));
+		}
+		if (!token.isPresent()) {
+			response.getErrors().add("Token não informado");
+		} else if (!jwtTokenUtil.tokenValido(token.get())) {
+			response.getErrors().add("Token inválido ou expirado.");
+		}
+		if (!response.getErrors().isEmpty()) {
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		response.setData(obterUsuarioRetorno(jwtTokenUtil.getUsernameFromToken(token.get()), token.get()));
+		return ResponseEntity.ok(response);
+	}
+
+	public UsuarioRetornoDTO obterUsuarioRetorno(String matricula, String token){
+        UserDetails userDetails = userDetailsService.loadUserByUsername(matricula);
+        UsuarioRetornoDTO user = null;
+        if(token == null){
+            user = new UsuarioRetornoDTO(jwtTokenUtil.obterToken(userDetails));
+        }else{
+            user = new UsuarioRetornoDTO(token);
+        }
+        user.setAuthorities(userDetails.getAuthorities());
+        user.setName(uR.findByMatricula(userDetails.getUsername()).getNome());
+        return user;
+    }
 }
