@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ifg.sistema.sisgesport.api.entities.Instituicao;
@@ -20,6 +22,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	@Autowired
 	private InstituicaoRepositorio instituicaoRepositorio;
 
+	public Page<Instituicao> BuscarTodosPaginavel(PageRequest pageRequest){
+		log.info("Realizando a busca paginada das instituições.");
+		return instituicaoRepositorio.findAll(pageRequest);
+	}
 	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<List<Instituicao>> BuscarTodos() {
 		log.info("Buscando todos os institutos");

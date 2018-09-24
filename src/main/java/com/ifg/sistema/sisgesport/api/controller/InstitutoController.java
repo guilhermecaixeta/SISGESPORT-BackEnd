@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -37,10 +41,22 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
 	}
+
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
+    @GetMapping(value = "/BuscarTodosPaginavel")
+	public ResponseEntity<Response<Page<InstituicaoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
+    {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
+		Page<InstituicaoDTO> pageDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
+		responsePage.setData(pageDTO );
+		return ResponseEntity.ok(responsePage);
+	}
+
 	@GetMapping(value = "/BuscarTodos")
-	public ResponseEntity<Response<List<InstituicaoDTO>>> BuscarTodos() {
+	public ResponseEntity<Response<List<InstituicaoDTO>>> BuscarTodos()
+    {
 		Optional<List<Instituicao>> estadoLista = entityService.BuscarTodos();
 		if (estadoLista.isPresent()) {
 			List<InstituicaoDTO> estadoDTOLista = mappingEntityToDTO.AsGenericMappingList(estadoLista.get(), false);

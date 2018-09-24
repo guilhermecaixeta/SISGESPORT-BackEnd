@@ -4,8 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ifg.sistema.sisgesport.api.entities.Instituicao;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface InstituicaoService {
+    /**
+     * Retorna uma lista paginada de instituições.
+     * @param pageRequest
+     * @return
+     */
+	Page<Instituicao> BuscarTodosPaginavel(PageRequest pageRequest);
 	/**
 	 * Busca todas as instituicoes cadastradas
 	 * @param nome

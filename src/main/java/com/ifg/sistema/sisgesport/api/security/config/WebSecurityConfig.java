@@ -5,6 +5,7 @@ import com.ifg.sistema.sisgesport.api.security.filter.JwtAuthenticationTokenFilt
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/api/**").permitAll()
                 .antMatchers("/api/instituicao/BuscarTodos", "/auth/**",
                         "/api/curso/BuscarEquipePorIdInstituicao/**",
                         "/api/turma/BuscarPorCursoId/**", "/api/cargo/BuscarPorInstituicaoId/**",

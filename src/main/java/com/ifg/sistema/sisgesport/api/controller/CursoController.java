@@ -7,22 +7,14 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.CursoDTO;
@@ -42,11 +34,8 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	
 	@GetMapping(value = "/BuscarEquipePorIdCursoPaginavel/{id_instituicao}")
 	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdEventoPaginavel(
-			@PathVariable("id_instituicao") Long id_instituicao, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
+			@PathVariable("id_instituicao") Long id_instituicao, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		Page<CursoDTO> pageServidorDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarEquipePorIdInstituicaoPaginavel(id_instituicao, pageRequest));
 		responsePage.setData(pageServidorDTO);
@@ -62,8 +51,8 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		return ResponseEntity.ok(responseList);
 	}
 	
-	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<CursoDTO>> buscarPorId(@PathVariable("id") Long id) {
+	@GetMapping(value = "/BuscarPorId/{id}")
+	public ResponseEntity<Response<CursoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
 		Optional<Curso> curso = entityService.BuscarPorId(id);
 		if (!curso.isPresent()) {
