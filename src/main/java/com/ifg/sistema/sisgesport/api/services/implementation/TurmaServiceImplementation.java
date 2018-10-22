@@ -41,6 +41,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Turma pelo id {} ", id_curso);
 		return turmaRepositorio.findByCursoId(id_curso, pageRequest);
 	}
+	@Cacheable("BuscarDadosCacheTurma")
+	public Page<Turma> BuscarTodosPaginavel( PageRequest pageRequest) {
+		log.info("Buscando todas as turmas paginadas");
+		return turmaRepositorio.findAll(pageRequest);
+	}
 	@CachePut("BuscarDadosCacheTurma")
 	public Turma Salvar(Turma turma) {
 		log.info("Salvando uma nova Turma no banco de dados {} ", turma);

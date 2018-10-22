@@ -34,7 +34,7 @@ import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{

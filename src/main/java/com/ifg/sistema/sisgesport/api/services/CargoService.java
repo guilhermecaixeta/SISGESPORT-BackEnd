@@ -36,6 +36,13 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 	 */
 	Page<Cargo> BuscarPorInstituicaoIdPaginavel(Long id, PageRequest pageRequest);
 	/**
+	 * Busca todos os cargos paginados
+	 * @param id
+	 * @param page
+	 * @return Optional<Cargo>
+	 */
+	Page<Cargo> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
 	 * Salva um novo cargo
 	 * @param cargo
 	 * @return

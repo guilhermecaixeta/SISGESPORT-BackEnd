@@ -39,6 +39,11 @@ public class CargoServiceImplementation implements CargoService {
 		log.info("Buscando cargos pelo id da intituicao {}", id_instituicao);
 		return cargoRepositorio.findByInstituicaoId(id_instituicao, pageRequest);
 	}
+	@Cacheable("BuscarDadosCacheCargo")
+	public Page<Cargo> BuscarTodosPaginavel( PageRequest pageRequest){
+		log.info("Buscando todos os cargos paginados");
+		return cargoRepositorio.findAll(pageRequest);
+	}
 	public Cargo Salvar(Cargo cargo){
 		log.info("Salvando um novo cargo: {}", cargo.getNome());
 		return cargoRepositorio.save(cargo);

@@ -7,8 +7,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -89,6 +91,16 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 		Page<TurmaDTO> pageTurmaDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCursoIdPaginavel(id_curso,pageRequest));
 		responsePage.setData(pageTurmaDTO);
+		return ResponseEntity.ok(responsePage);
+	}
+
+	@GetMapping(value = "/BuscarTodosPaginavel")
+	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
+	{
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
+		Page<TurmaDTO> pageDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
+		responsePage.setData(pageDTO );
 		return ResponseEntity.ok(responsePage);
 	}
 	

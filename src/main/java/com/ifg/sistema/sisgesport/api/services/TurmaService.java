@@ -34,6 +34,13 @@ public interface TurmaService {
 	 */
 	Page<Turma> BuscarPorCursoIdPaginavel(Long id_curso, PageRequest pageRequest);
 	/**
+	 * Busca todos os cargos paginados
+	 * @param id
+	 * @param page
+	 * @return Optional<Cargo>
+	 */
+	Page<Turma> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
 	 * Salva uma nova turma no banco de dados
 	 * @param turma
 	 * @return
