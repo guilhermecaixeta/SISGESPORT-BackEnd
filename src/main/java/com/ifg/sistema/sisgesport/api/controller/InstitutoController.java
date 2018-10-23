@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.EnderecoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -34,15 +36,17 @@ import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
 	}
+    @Autowired
+    protected EnderecoService enderecoService;
 
-	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
+    protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
     @GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<InstituicaoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
@@ -126,12 +130,14 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
+			lista.add("endereco");
 			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
 			List<Endereco> listaEnderecos = entity.getEndereco();
 			entity.setEndereco(new ArrayList<Endereco>());
-			if (!listaEnderecos.isEmpty()) 
-				listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
-			
+			if (!listaEnderecos.isEmpty()) {
+                instituto.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
+                listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
+            }
 			this.entityService.Salvar(entity);
 			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 			return ResponseEntity.ok(response);
