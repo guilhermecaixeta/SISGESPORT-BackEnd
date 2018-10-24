@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -38,7 +31,7 @@ public class Instituicao extends EntidadeComum implements Serializable {
 	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "instituicao_cargo", joinColumns = @JoinColumn(name = "instituicao", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cargo", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "instituicao", "cargo" }) })
 	private List<Cargo> cargos = new ArrayList<Cargo>();

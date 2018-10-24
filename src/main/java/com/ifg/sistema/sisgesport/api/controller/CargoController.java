@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,6 +41,9 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 		mappingDTOToEntity = new Extension<>(CargoDTO.class, Cargo.class);
 		mappingEntityToDTO = new Extension<>(Cargo.class, CargoDTO.class);
 	}
+
+	@Autowired
+	private InstituicaoService instituicaoService;
 
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<CargoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)

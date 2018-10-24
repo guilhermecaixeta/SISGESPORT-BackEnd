@@ -38,5 +38,6 @@ public interface InstituicaoService {
 	 * @return
 	 */
 	Instituicao Salvar(Instituicao instituicao);
+
 	void Deletar(Long id);
 }

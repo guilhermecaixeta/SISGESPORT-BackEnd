@@ -34,12 +34,10 @@ public class CargoServiceImplementation implements CargoService {
 		log.info("Buscando cargos pelo id da intituicao {}", id_instituicao);
 		return Optional.ofNullable(cargoRepositorio.findByInstituicaoId(id_instituicao));
 	}
-	@Cacheable("BuscarDadosCacheCargo")
 	public Page<Cargo> BuscarPorInstituicaoIdPaginavel(Long id_instituicao, PageRequest pageRequest){
 		log.info("Buscando cargos pelo id da intituicao {}", id_instituicao);
 		return cargoRepositorio.findByInstituicaoId(id_instituicao, pageRequest);
 	}
-	@Cacheable("BuscarDadosCacheCargo")
 	public Page<Cargo> BuscarTodosPaginavel( PageRequest pageRequest){
 		log.info("Buscando todos os cargos paginados");
 		return cargoRepositorio.findAll(pageRequest);

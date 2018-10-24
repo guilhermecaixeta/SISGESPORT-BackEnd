@@ -32,7 +32,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
 	
-	@GetMapping(value = "/BuscarEquipePorIdCursoPaginavel/{id_instituicao}")
+		@GetMapping(value = "/BuscarEquipePorIdInstituicaoPaginavel/{id_instituicao}")
 	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdEventoPaginavel(
 			@PathVariable("id_instituicao") Long id_instituicao, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
