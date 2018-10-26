@@ -64,7 +64,7 @@ public class Extension<S, D> {
 	/**
 	 * Converte uma List<S> para uma List<D>
 	 * 
-	 * @param entitySourcePageList
+	 * @param entitySourceList
 	 *            Lista paginada de entidade fonte
 	 * @return Page<D>
 	 */
@@ -101,6 +101,7 @@ public class Extension<S, D> {
 	public D updateGeneric(S source, D destiny, List<String> listExceptions) throws Exception {
 		List<Field> fieldListSource = getAllFields(new ArrayList<Field>(), getSource());
 		List<Field> fieldListDestiny = getAllFields(new ArrayList<Field>(), getDestiny());
+		D dataReturn = destiny;
 		for (int i = 0; i < fieldListSource.size(); i++) {
 			Field sourceF = fieldListSource.get(i);
 			Field destinyF = getFieldByName(sourceF.getName(), fieldListDestiny);
@@ -113,11 +114,11 @@ public class Extension<S, D> {
 			}
 			if (sourceF.get(source) != null && sourceF.get(source) != destinyF.get(destiny)
 					&& !listExceptions.contains(sourceF.getName())) {
-				destinyF.set(destiny, sourceF.get(source));
+				destinyF.set(dataReturn, sourceF.get(source));
 			}
 		}
 
-		return destiny;
+		return dataReturn;
 	}
 
 	/**

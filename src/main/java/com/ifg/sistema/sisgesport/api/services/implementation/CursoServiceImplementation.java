@@ -25,7 +25,7 @@ public class CursoServiceImplementation implements CursoService {
 		log.info("realizando a busca por id {}", id);
 		return Optional.ofNullable(cursoRepositorio.findOne(id));
 	}
-	
+
 	public Optional<List<Curso>> BuscarEquipePorIdInstituicao(Long id_instituicao){
 		log.info("realizando a busca por matrícula {}", id_instituicao);
 		return Optional.ofNullable(cursoRepositorio.findByInstituicaoId(id_instituicao));

@@ -113,9 +113,7 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		entity.setEndereco(new ArrayList<Endereco>());
 		if (!listaEnderecos.isEmpty()) 
 			listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
-		
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
@@ -132,14 +130,13 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			lista.add("id");
 			lista.add("endereco");
 			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
-			List<Endereco> listaEnderecos = entity.getEndereco();
+			List<Endereco> listaEnderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), false);
 			entity.setEndereco(new ArrayList<Endereco>());
-			if (!listaEnderecos.isEmpty()) {
+			if (!institutoDTO.getEndereco().isEmpty()) {
                 instituto.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
                 listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
             }
-			this.entityService.Salvar(entity);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}
 	}
