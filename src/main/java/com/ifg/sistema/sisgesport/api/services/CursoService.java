@@ -21,14 +21,14 @@ public interface CursoService {
 	 * @param id
 	 * @return
 	 */ 
-	Optional<List<Curso>> BuscarEquipePorIdInstituicao(Long id_instituicao);
+	Optional<List<Curso>> BuscarCursoPorIdInstituicao(Long id_instituicao);
 	/**
 	 * Busca o curso pelo id da instituicao com paginacao
 	 * @param id
 	 * @param page
 	 * @return
 	 */
-	Page<Curso> BuscarEquipePorIdInstituicaoPaginavel(Long id_instituicao, PageRequest pageRequest);
+	Page<Curso> BuscarCursoPorIdInstituicaoPaginavel(Long id_instituicao, PageRequest pageRequest);
 	/**
 	 * Salva um novo curso no banco de dados
 	 * @param curso

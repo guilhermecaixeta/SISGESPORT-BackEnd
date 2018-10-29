@@ -56,7 +56,7 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	}
 
 	@GetMapping(value = "/BuscarPorNome/{nome}")
-	public ResponseEntity<Response<TurmaDTO>> buscarPorNome(@PathVariable("nome") String nome) {
+	public ResponseEntity<Response<TurmaDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
 		log.info("Buscando Turma com o nome: {}", nome);
 		Optional<Turma> turma = entityService.BuscarPorNome(nome);
 		if (!turma.isPresent()) {
@@ -69,7 +69,7 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	}
 	
 	@GetMapping(value = "/BuscarPorCursoId/{id_curso}")
-	public ResponseEntity<Response<List<TurmaDTO>>> buscarPorCurso(@PathVariable("id_curso") Long id_curso) {
+	public ResponseEntity<Response<List<TurmaDTO>>> BuscarPorCursoId(@PathVariable("id_curso") Long id_curso) {
 		log.info("Buscando Turma com o curso de id : {}", id_curso);
 		Optional<List<Turma>> turmas = entityService.BuscarPorCursoId(id_curso);
 		if (!turmas.isPresent()) {
@@ -81,8 +81,8 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 		return ResponseEntity.ok(responseList);
 	}
 
-	@GetMapping(value = "/buscarTodosPorCurso/{id_curso}")
-	public ResponseEntity<Response<Page<TurmaDTO>>> buscarTodosPorCursoPaginavel(@PathVariable("id_curso") Long id_curso,
+	@GetMapping(value = "/BuscarPorCursoIdPaginavel/{id_curso}")
+	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarPorCursoIdPaginavel(@PathVariable("id_curso") Long id_curso,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "size", defaultValue = "10") int size,

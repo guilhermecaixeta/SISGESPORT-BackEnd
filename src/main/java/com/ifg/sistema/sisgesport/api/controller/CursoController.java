@@ -32,21 +32,21 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
 	
-		@GetMapping(value = "/BuscarEquipePorIdInstituicaoPaginavel/{id_instituicao}")
-	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdEventoPaginavel(
+		@GetMapping(value = "/BuscarCursoPorIdInstituicaoPaginavel/{id_instituicao}")
+	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdInstituicaoPaginavel(
 			@PathVariable("id_instituicao") Long id_instituicao, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		Page<CursoDTO> pageServidorDTO = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarEquipePorIdInstituicaoPaginavel(id_instituicao, pageRequest));
+				.AsGenericMappingListPage(entityService.BuscarCursoPorIdInstituicaoPaginavel(id_instituicao, pageRequest));
 		responsePage.setData(pageServidorDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 	
-	@GetMapping(value = "/BuscarEquipePorIdInstituicao/{id_instituicao}")
-	public ResponseEntity<Response<List<CursoDTO>>> BuscarEquipePorIdEvento(
+	@GetMapping(value = "/BuscarCursoPorIdInstituicao/{id_instituicao}")
+	public ResponseEntity<Response<List<CursoDTO>>> BuscarCursoPorIdInstituicao(
 			@PathVariable("id_instituicao") Long id_instituicao) {
 		List<CursoDTO> listServidorDTO = mappingEntityToDTO
-				.AsGenericMappingList(entityService.BuscarEquipePorIdInstituicao(id_instituicao).get(), false);
+				.AsGenericMappingList(entityService.BuscarCursoPorIdInstituicao(id_instituicao).get(), false);
 		responseList.setData(listServidorDTO);
 		return ResponseEntity.ok(responseList);
 	}

@@ -36,12 +36,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Turma pelo id curso {} ", id_curso);
 		return Optional.ofNullable(turmaRepositorio.findByCursoId(id_curso));
 	}
-	@Cacheable("BuscarDadosCacheTurma")
+
 	public Page<Turma> BuscarPorCursoIdPaginavel(Long id_curso, PageRequest pageRequest) {
 		log.info("Buscando Turma pelo id {} ", id_curso);
 		return turmaRepositorio.findByCursoId(id_curso, pageRequest);
 	}
-	@Cacheable("BuscarDadosCacheTurma")
+
 	public Page<Turma> BuscarTodosPaginavel( PageRequest pageRequest) {
 		log.info("Buscando todas as turmas paginadas");
 		return turmaRepositorio.findAll(pageRequest);

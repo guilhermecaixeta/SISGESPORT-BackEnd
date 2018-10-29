@@ -58,13 +58,13 @@ public class CursoServiceTeste {
 	
 	@Test
 	public void TestBuscaPorIdInstituicao() {
-		Optional<List<Curso>> c = this.cS.BuscarEquipePorIdInstituicao(id);
+		Optional<List<Curso>> c = this.cS.BuscarCursoPorIdInstituicao(id);
 		assertTrue(c.isPresent());
 	}
 	
 	@Test
 	public void TestBuscaPorIdInstituicaoPaginavel() {
-		Page<Curso> c = this.cS.BuscarEquipePorIdInstituicaoPaginavel(id, new PageRequest(0,10));
+		Page<Curso> c = this.cS.BuscarCursoPorIdInstituicaoPaginavel(id, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 	
