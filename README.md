@@ -17,4 +17,4 @@ Swagger(acesso via url disponível apenas para o perfil dev)
 Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia, possuindo um pacote dedicado aos testes do sistema.
 Teste das Controllers ainda se encontram em desenvolvimento.
 
-Status: [![Build Status](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd.svg?branch=master)](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd)
+[![Build Status](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd.svg?branch=master)](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd)
