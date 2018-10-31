@@ -34,6 +34,13 @@ public interface TipoPontoService {
 	 */ 
 	Page<TipoPonto> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
 	/**
+	 * Busca uma lista paginada tipo ponto pelo id modalidade
+	 * @param id
+	 * @param page
+	 * @return Optional<Page<Tipo_Ponto>>
+	 */
+	Page<TipoPonto> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
 	 * Salva um tipo ponto no banco de dados
 	 * @param tipo_ponto
 	 * @return

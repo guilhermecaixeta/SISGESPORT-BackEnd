@@ -26,12 +26,18 @@ public interface PenalidadeService {
 	 */
 	Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade);
 	/**
-	 * Busca uma lista paginada de posicao pelo id da modalidade id
+	 * Busca uma lista paginada de penalidade pelo id da modalidade
 	 * @param id_modalidade
 	 * @param pageRequest
 	 * @return
 	 */
 	Page<Penalidade> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
+	/**
+	 * Busca uma lista paginada de penalidade
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Penalidade> BuscarTodosPaginavel(PageRequest pageRequest);
 	/**
 	 * Salva uma nova penalidade no banco de dados
 	 * @param penalidade

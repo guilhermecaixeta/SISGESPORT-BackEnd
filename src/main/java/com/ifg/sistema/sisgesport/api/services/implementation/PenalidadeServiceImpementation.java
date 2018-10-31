@@ -33,15 +33,20 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Penalidade pelo nome {} ", nome);
 		return Optional.ofNullable(penalidadeRepositorio.findByNome(nome));
 	}
-	@Cacheable("BuscarDadosCachePenalidade")
+
 	public Optional<List<Penalidade>> BuscarPorModalidadeId(Long id_modalidade) {
 		log.info("Buscando Penalidade pelo id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(penalidadeRepositorio.findByModalidadeId(id_modalidade));
 	}
-    @Cacheable("BuscarDadosCachePenalidade")
+
     public Page<Penalidade> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
         log.info("Buscando uma lista paginada de Posicao pelo id modalidade {} ", id_modalidade);
         return penalidadeRepositorio.findByModalidadeId(id_modalidade, pageRequest);
+    }
+
+    public Page<Penalidade> BuscarTodosPaginavel(PageRequest pageRequest) {
+        log.info("Buscando uma lista paginada de Penalidade");
+        return penalidadeRepositorio.findAll(pageRequest);
     }
 	@CachePut("BuscarDadosCachePenalidade")
 	public Penalidade Salvar(Penalidade penalidade) {

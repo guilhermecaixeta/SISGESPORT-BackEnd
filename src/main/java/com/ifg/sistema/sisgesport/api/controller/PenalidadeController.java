@@ -2,6 +2,7 @@ package com.ifg.sistema.sisgesport.api.controller;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.PenalidadeDTO;
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
@@ -18,27 +19,27 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("api/penalidade")
 public class PenalidadeController  extends baseController<PenalidadeDTO, Penalidade, PenalidadeService> {
     {
         mappingDTOToEntity = new Extension<>(PenalidadeDTO.class, Penalidade.class);
         mappingEntityToDTO = new Extension<>(Penalidade.class, PenalidadeDTO.class);
     }
 
-    @GetMapping(value = "/BuscarTodos/{id_modalidade}")
-    public ResponseEntity<Response<Page<PenalidadeDTO>>> BuscarTodos(
+    @GetMapping(value = "/BuscarPorModalidadeIdPaginavel/{id_modalidade}")
+    public ResponseEntity<Response<Page<PenalidadeDTO>>> BuscarPorModalidadeIdPaginavel(
             @PathVariable("id_modalidade") Long id_modalidade,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "order", defaultValue = "id") String order,
-            @RequestParam(value = "size", defaultValue = "10") int size,
-            @RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.valueOf(sort), order);
+            PageConfiguration pageConfig) {
+        PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
         Page<PenalidadeDTO> pagePenalidadeDTO = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
         responsePage.setData(pagePenalidadeDTO);
         return ResponseEntity.ok(responsePage);
     }
 
-    @GetMapping(value = "/BuscarPorNome/{nome}")
+   @GetMapping(value = "/BuscarPorNome/{nome}")
     public ResponseEntity<Response<PenalidadeDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
         entityOptional = entityService.BuscarPorNome(nome);
         if (entityOptional.isPresent()) {
@@ -48,6 +49,15 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
             response.getErrors().add("Penalidade com o nome" + nome + " não encontrado.");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/BuscarTodosPaginavel")
+    public ResponseEntity<Response<Page<PenalidadeDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig) {
+        PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
+        Page<PenalidadeDTO> pagePenalidadeDTO = mappingEntityToDTO
+                .AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
+        responsePage.setData(pagePenalidadeDTO);
+        return ResponseEntity.ok(responsePage);
     }
 
     @GetMapping(value = "/BuscarPorId/{id}")
