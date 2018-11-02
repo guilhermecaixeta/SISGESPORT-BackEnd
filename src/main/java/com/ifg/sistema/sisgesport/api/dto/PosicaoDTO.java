@@ -11,7 +11,7 @@ public class PosicaoDTO {
 	private String descricao;
 	private int numMaxJogador;
 	private int numMinJogador;
-	private List<Modalidade> modalidade = new ArrayList<>();
+//	private List<Modalidade> modalidade = new ArrayList<>();
 
 	public PosicaoDTO() {
 	}
@@ -55,13 +55,13 @@ public class PosicaoDTO {
 	public void setNumMinJogador(int numMinJogador) {
 		this.numMinJogador = numMinJogador;
 	}
-
-	public List<Modalidade> getModalidade() {
-		return modalidade;
-	}
-
-	public void setModalidade(List<Modalidade> modalidade) {
-		this.modalidade = modalidade;
-	}
+//
+//	public List<Modalidade> getModalidade() {
+//		return modalidade;
+//	}
+//
+//	public void setModalidade(List<Modalidade> modalidade) {
+//		this.modalidade = modalidade;
+//	}
 
 }

@@ -9,7 +9,7 @@ public class PenalidadeDTO {
 	private Long id;
 	private String nome;
 	private String descricao;
-	private List<Modalidade> modalidade = new ArrayList<>();
+//	private List<Modalidade> modalidade = new ArrayList<>();
 
 	public PenalidadeDTO() {
 	}
@@ -38,12 +38,12 @@ public class PenalidadeDTO {
 		this.descricao = descricao;
 	}
 
-	public List<Modalidade> getModalidade() {
-		return modalidade;
-	}
-
-	public void setModalidade(List<Modalidade> modalidade) {
-		this.modalidade = modalidade;
-	}
+//	public List<Modalidade> getModalidade() {
+//		return modalidade;
+//	}
+//
+//	public void setModalidade(List<Modalidade> modalidade) {
+//		this.modalidade = modalidade;
+//	}
 	
 }

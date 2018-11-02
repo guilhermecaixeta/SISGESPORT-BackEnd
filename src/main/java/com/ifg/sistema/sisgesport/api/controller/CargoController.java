@@ -105,10 +105,10 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
-			Cargo cargoEdit = mappingDTOToEntity.updateGeneric(cargoDTO, cargo.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(cargoDTO, cargo.get(), lista);
 
-			this.entityService.Salvar(cargoEdit);
-			response.setData(mappingEntityToDTO.AsGenericMapping(cargoEdit));
+			this.entityService.Salvar(entity);
+			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 			return ResponseEntity.ok(response);
 		}
 	}

@@ -22,24 +22,28 @@ public interface TipoPontoService {
 	Optional<TipoPonto> BuscarPorNome(String nome);
 	/**
 	 * Busca uma lista tipo ponto pelo id modalidade
-	 * @param id
+	 * @param id_modalidade
 	 * @return Optional<List<Tipo_Ponto>>
 	 */
 	Optional<List<TipoPonto>> BuscarPorModalidadeId(Long id_modalidade);
 	/**
 	 * Busca uma lista paginada tipo ponto pelo id modalidade
-	 * @param id
-	 * @param page
+	 * @param id_modalidade
+	 * @param pageRequest
 	 * @return Optional<Page<Tipo_Ponto>>
 	 */ 
 	Page<TipoPonto> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
 	/**
-	 * Busca uma lista paginada tipo ponto pelo id modalidade
-	 * @param id
-	 * @param page
+	 * Busca uma lista paginada tipo ponto
+	 * @param pageRequest
 	 * @return Optional<Page<Tipo_Ponto>>
 	 */
 	Page<TipoPonto> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
+	 * Busca uma lista paginada tipo ponto
+	 * @return Optional<Page<Tipo_Ponto>>
+	 */
+    Optional<List<TipoPonto>> BuscarTodos();
 	/**
 	 * Salva um tipo ponto no banco de dados
 	 * @param tipo_ponto

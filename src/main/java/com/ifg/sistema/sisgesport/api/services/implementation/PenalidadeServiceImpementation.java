@@ -48,6 +48,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
         log.info("Buscando uma lista paginada de Penalidade");
         return penalidadeRepositorio.findAll(pageRequest);
     }
+	public Optional<List<Penalidade>> BuscarTodos() {
+		log.info("Buscando uma lista de Tipo Ponto");
+		return Optional.ofNullable(penalidadeRepositorio.findAll());
+	}
 	@CachePut("BuscarDadosCachePenalidade")
 	public Penalidade Salvar(Penalidade penalidade) {
 		log.info("Salvando uma nova Penalidade no banco de dados {} ", penalidade);

@@ -27,12 +27,23 @@ public interface PosicaoService {
 	 */
 	Optional<List<Posicao>> BuscarPorModalidadeId(Long id_modalidade);
 	/**
-	 * Busca uma lista paginada de posicao pelo id da modalidade id
+	 * Busca uma lista paginada de posicao pelo id da modalidade
 	 * @param id_modalidade
 	 * @param pageRequest
 	 * @return
 	 */
 	Page<Posicao> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest);
+	/**
+	 * Busca uma lista paginada de posicao
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Posicao> BuscarTodosPaginavel( PageRequest pageRequest);
+    /**
+     * Busca uma lista paginada tipo ponto
+     * @return Optional<Page<Penalidade>>
+     */
+    Optional<List<Posicao>> BuscarTodos();
 	/**
 	 * Salva uma nova posicao no banco de dados
 	 * @param salvar

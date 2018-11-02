@@ -71,6 +71,18 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping(value = "/BuscarTodos")
+	public ResponseEntity<Response<List<TipoPontoDTO>>> BuscarTodos()
+	{
+		Optional<List<TipoPonto>> tipoPontoLista = entityService.BuscarTodos();
+		if (tipoPontoLista.isPresent()) {
+			List<TipoPontoDTO> tipoPontoListaDTO = mappingEntityToDTO.AsGenericMappingList(tipoPontoLista.get(), false);
+			responseList.setData(tipoPontoListaDTO);
+		} else
+			response.getErrors().add("Nenhuma instituição encontrada.");
+		return ResponseEntity.ok(responseList);
+	}
+
 	@PostMapping
 	public ResponseEntity<Response<TipoPontoDTO>> cadastrarTipoPonto(@Valid @RequestBody TipoPontoDTO tipoPontoDTO, BindingResult result)
 			throws NoSuchAlgorithmException {

@@ -22,26 +22,30 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private PosicaoRepositorio posicaoRepositorio;
-	@Cacheable("BuscarDadosCachePosicao")
 	public Optional<Posicao> BuscarPorId(Long id) {
 		log.info("Buscando Posicao pelo id {} ", id);
 		return Optional.ofNullable(posicaoRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCachePosicao")
 	public Optional<Posicao> BuscarPorNome(String nome) {
 		log.info("Buscando Posicao pelo nome {} ", nome);
 		return Optional.ofNullable(posicaoRepositorio.findByNomeEquals(nome));
 	}
-	@Cacheable("BuscarDadosCachePosicao")
 	public Optional<List<Posicao>> BuscarPorModalidadeId(Long id_modalidade) {
 		log.info("Buscando Posicao pelo nome id modalidade {} ", id_modalidade);
 		return Optional.ofNullable(posicaoRepositorio.findByModalidadeId(id_modalidade));
 	}
-	@Cacheable("BuscarDadosCachePosicao")
 	public Page<Posicao> BuscarPorModalidadeIdPaginavel(Long id_modalidade, PageRequest pageRequest) {
 		log.info("Buscando uma lista paginada de Posicao pelo id modalidade {} ", id_modalidade);
 		return posicaoRepositorio.findByModalidadeId(id_modalidade, pageRequest);
 	}
+	public Page<Posicao> BuscarTodosPaginavel(PageRequest pageRequest) {
+		log.info("Buscando uma lista paginada de Posicao");
+		return posicaoRepositorio.findAll(pageRequest);
+	}
+    public Optional<List<Posicao>> BuscarTodos() {
+        log.info("Buscando uma lista de Tipo Ponto");
+        return Optional.ofNullable(posicaoRepositorio.findAll());
+    }
 	@CachePut("BuscarDadosCachePosicao")
 	public Posicao Salvar(Posicao posicao) {
 		log.info("Salvando uma nova posicao no banco de dados {} ", posicao);

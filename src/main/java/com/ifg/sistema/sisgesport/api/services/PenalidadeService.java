@@ -38,11 +38,18 @@ public interface PenalidadeService {
 	 * @return
 	 */
 	Page<Penalidade> BuscarTodosPaginavel(PageRequest pageRequest);
+
 	/**
-	 * Salva uma nova penalidade no banco de dados
-	 * @param penalidade
-	 * @return
+	 * Busca uma lista paginada tipo ponto
+	 * @return Optional<Page<Penalidade>>
 	 */
+	Optional<List<Penalidade>> BuscarTodos();
+
+    /**
+     * Salva uma nova penalidade no banco de dados
+     * @param penalidade
+     * @return
+     */
 	Penalidade Salvar(Penalidade penalidade);
 	void Deletar(Long id);
 }

@@ -20,18 +20,15 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private ModalidadeRepositorio modalidadeRepositorio;
-	@Cacheable("BuscarDadosCacheModalidade")
 	public Optional<Modalidade> BuscarPorId(Long id) {
 		log.info("Buscando logradouro pelo nome {} ", id);
 		return Optional.ofNullable(modalidadeRepositorio.findOne(id));
 	}
-    @Cacheable("BuscarDadosCacheModalidade")
 	public Optional<Modalidade> BuscarPorNome(String nome) {
 		log.info("Buscando logradouro pelo nome {} ", nome);
 		return Optional.ofNullable(modalidadeRepositorio.findByNome(nome));
 	}
-    @Cacheable("BuscarDadosCacheModalidade")
-	public Page<Modalidade> BuscarTodos(PageRequest pageRequest){
+	public Page<Modalidade> BuscarTodosPaginavel(PageRequest pageRequest){
 		log.info("Buscando todas as modalidades");
 		return modalidadeRepositorio.findAll(pageRequest);
 	}

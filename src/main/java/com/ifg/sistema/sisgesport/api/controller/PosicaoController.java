@@ -2,10 +2,12 @@ package com.ifg.sistema.sisgesport.api.controller;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -28,19 +30,26 @@ public class PosicaoController extends baseController<PosicaoDTO, Posicao, Posic
 		mappingEntityToDTO = new Extension<>(Posicao.class, PosicaoDTO.class);
 	}
 
-	@GetMapping(value = "/BuscarTodos/{id_modalidade}")
-	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarTodos(
+	@GetMapping(value = "/BuscarPorModalidadeIdPaginavel/{id_modalidade}")
+	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarPorModalidadeIdPaginavel(
 			@PathVariable("id_modalidade") Long id_modalidade,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
+			PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		Page<PosicaoDTO> pageServidorDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
 		responsePage.setData(pageServidorDTO);
 		return ResponseEntity.ok(responsePage);
 	}
+
+	@GetMapping(value = "/BuscarTodosPaginavel")
+	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarTodosPaginavel(
+			PageConfiguration pageConfig) {
+        PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+        Page<PosicaoDTO> pageServidorDTO = mappingEntityToDTO
+                .AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
+        responsePage.setData(pageServidorDTO);
+        return ResponseEntity.ok(responsePage);
+    }
 
 	@GetMapping(value = "/BuscarPorNome/{nome}")
 	public ResponseEntity<Response<PosicaoDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
@@ -66,6 +75,18 @@ public class PosicaoController extends baseController<PosicaoDTO, Posicao, Posic
 		response.setData(mappingEntityToDTO.AsGenericMapping(posicao.get()));
 		return ResponseEntity.ok(response);
 	}
+
+    @GetMapping(value = "/BuscarTodos")
+    public ResponseEntity<Response<List<PosicaoDTO>>> BuscarTodos()
+    {
+        Optional<List<Posicao>> posicaoLista = entityService.BuscarTodos();
+        if (posicaoLista.isPresent()) {
+            List<PosicaoDTO> posicaoListaDTO = mappingEntityToDTO.AsGenericMappingList(posicaoLista .get(), false);
+            responseList.setData(posicaoListaDTO);
+        } else
+            response.getErrors().add("Nenhuma instituição encontrada.");
+        return ResponseEntity.ok(responseList);
+    }
 
 	@PostMapping
 	public ResponseEntity<Response<PosicaoDTO>> cadastrarPosicao(@Valid @RequestBody PosicaoDTO posicaoDTO,

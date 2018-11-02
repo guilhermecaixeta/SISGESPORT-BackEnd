@@ -47,17 +47,17 @@ public class Modalidade implements Serializable {
 	@Column(name = "num_min_jogador")
 	private int numMinJogador;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "modalidade_penalidade", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "penalidade", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "modalidade", "penalidade" }) })
 	private List<Penalidade> penalidade = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "modalidade_posicao", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "posicao", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "modalidade", "posicao" }) })
 	private List<Posicao> posicao = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "modalidade_tipo_ponto", joinColumns = @JoinColumn(name = "modalidade", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tipo_ponto", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "modalidade", "tipo_ponto" }) })
 	private List<TipoPonto> tipoPonto = new ArrayList<>();

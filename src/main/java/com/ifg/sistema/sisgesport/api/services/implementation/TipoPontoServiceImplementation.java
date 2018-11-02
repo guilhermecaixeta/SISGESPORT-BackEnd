@@ -41,6 +41,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando todos os tipos pontos ");
 		return tipoPontoRepositorio.findAll( pageRequest);
 	}
+	public Optional<List<TipoPonto>> BuscarTodos() {
+		log.info("Buscando uma lista de Tipo Ponto");
+		return Optional.ofNullable(tipoPontoRepositorio.findAll());
+	}
 	@CachePut("BuscarDadosCacheTipoPonto")
 	public TipoPonto Salvar(TipoPonto tipo_ponto) {
 		log.info("Salvando um novo tipo ponto no banco de dados {} ", tipo_ponto);

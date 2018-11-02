@@ -13,9 +13,9 @@ public class ModalidadeDTO {
 	private String descricao;
 	private int numMaxJogador;
 	private int numMinJogador;
-	private List<Penalidade> penalidade = new ArrayList<>();
-	private List<Posicao> posicao = new ArrayList<>();
-	private List<TipoPonto> tipoPonto = new ArrayList<>();
+	private List<PenalidadeDTO> penalidade = new ArrayList<>();
+	private List<PosicaoDTO> posicao = new ArrayList<>();
+	private List<TipoPontoDTO> tipoPonto = new ArrayList<>();
 
 	public ModalidadeDTO() {
 	}
@@ -60,27 +60,27 @@ public class ModalidadeDTO {
 		this.numMinJogador = numMinJogador;
 	}
 
-	public List<Penalidade> getPenalidade() {
+	public List<PenalidadeDTO> getPenalidade() {
 		return penalidade;
 	}
 
-	public void setPenalidade(List<Penalidade> penalidade) {
+	public void setPenalidade(List<PenalidadeDTO> penalidade) {
 		this.penalidade = penalidade;
 	}
 
-	public List<Posicao> getPosicao() {
+	public List<PosicaoDTO> getPosicao() {
 		return posicao;
 	}
 
-	public void setPosicao(List<Posicao> posicao) {
+	public void setPosicao(List<PosicaoDTO> posicao) {
 		this.posicao = posicao;
 	}
 
-	public List<TipoPonto> getTipoPonto() {
+	public List<TipoPontoDTO> getTipoPonto() {
 		return tipoPonto;
 	}
 
-	public void setTipoPonto(List<TipoPonto> tipoPonto) {
+	public void setTipoPonto(List<TipoPontoDTO> tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
 

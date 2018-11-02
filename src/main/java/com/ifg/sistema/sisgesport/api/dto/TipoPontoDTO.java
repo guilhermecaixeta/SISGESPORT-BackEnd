@@ -9,7 +9,7 @@ public class TipoPontoDTO {
 	private Long id;
 	private String nome;
 	private int valor;
-	private List<Modalidade> modalidade = new ArrayList<>();
+//	private List<Modalidade> modalidade = new ArrayList<>();
 
 	public TipoPontoDTO() {
 	}
@@ -37,13 +37,13 @@ public class TipoPontoDTO {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-
-	public List<Modalidade> getModalidade() {
-		return modalidade;
-	}
-
-	public void setModalidade(List<Modalidade> modalidade) {
-		this.modalidade = modalidade;
-	}
+//
+//	public List<Modalidade> getModalidade() {
+//		return modalidade;
+//	}
+//
+//	public void setModalidade(List<Modalidade> modalidade) {
+//		this.modalidade = modalidade;
+//	}
 
 }

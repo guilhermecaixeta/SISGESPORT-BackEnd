@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -63,14 +64,26 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
     @GetMapping(value = "/BuscarPorId/{id}")
     public ResponseEntity<Response<PenalidadeDTO>> BuscarPorId(@PathVariable("id") Long id) {
         log.info("Buscando Penalidade com o id: {}", id);
-        Optional<Penalidade> Penalidade = entityService.BuscarPorId(id);
-        if (!Penalidade.isPresent()) {
+        Optional<Penalidade> penalidade = entityService.BuscarPorId(id);
+        if (!penalidade .isPresent()) {
             log.info("Instituição com o id: {}, não cadastrado.", id);
             response.getErrors().add("Instituição não encontrado para o id " + id);
             return ResponseEntity.badRequest().body(response);
         }
-        response.setData(mappingEntityToDTO.AsGenericMapping(Penalidade.get()));
+        response.setData(mappingEntityToDTO.AsGenericMapping(penalidade.get()));
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/BuscarTodos")
+    public ResponseEntity<Response<List<PenalidadeDTO>>> BuscarTodos()
+    {
+        Optional<List<Penalidade>> penalidadeLista = entityService.BuscarTodos();
+        if (penalidadeLista.isPresent()) {
+            List<PenalidadeDTO> penalidadeListaDTO = mappingEntityToDTO.AsGenericMappingList(penalidadeLista .get(), false);
+            responseList.setData(penalidadeListaDTO);
+        } else
+            response.getErrors().add("Nenhuma instituição encontrada.");
+        return ResponseEntity.ok(responseList);
     }
 
     @PostMapping

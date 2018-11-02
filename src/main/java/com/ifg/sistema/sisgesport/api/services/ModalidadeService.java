@@ -24,7 +24,7 @@ public interface ModalidadeService {
 	 * Retorna todas as modalidades
 	 * @return
 	 */
-	Page<Modalidade> BuscarTodos(PageRequest pageRequest);
+	Page<Modalidade> BuscarTodosPaginavel(PageRequest pageRequest);
 	/**
 	 * Salva uma nova modalidade no banco de dados
 	 * @param modalidade
