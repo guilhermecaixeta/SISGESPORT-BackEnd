@@ -23,12 +23,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 	
 	@Autowired
 	private PenalidadeRepositorio penalidadeRepositorio;
-	@Cacheable("BuscarDadosCachePenalidade")
+
 	public Optional<Penalidade> BuscarPorId(Long id) {
 		log.info("Buscando Penalidade pelo id {} ", id);
 		return Optional.ofNullable(penalidadeRepositorio.findOne(id));
 	}
-	@Cacheable("BuscarDadosCachePenalidade")
+
 	public Optional<Penalidade> BuscarPorNome(String nome) {
 		log.info("Buscando Penalidade pelo nome {} ", nome);
 		return Optional.ofNullable(penalidadeRepositorio.findByNome(nome));
