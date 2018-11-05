@@ -52,9 +52,9 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	public ResponseEntity<Response<Page<InstituicaoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
     {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<InstituicaoDTO> pageDTO = mappingEntityToDTO
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageDTO );
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -74,13 +74,13 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	@GetMapping(value = "/BuscarPorNomeInstituicao/{nome}")
 	public ResponseEntity<Response<InstituicaoDTO>> BuscarPorNomeInstituicao(@PathVariable("nome") String nome) {
 		log.info("Buscando Instituição com o nome: {}", nome);
-		Optional<Instituicao> instituto = entityService.BuscarPorNomeInstituicao(nome);
-		if (!instituto.isPresent()) {
+		entityOptional = entityService.BuscarPorNomeInstituicao(nome);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o nome: {}, não cadastrado.", nome);
 			response.getErrors().add("Instituição não encontrado para o nome " + nome);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(instituto.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -121,19 +121,18 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	public ResponseEntity<Response<InstituicaoDTO>> atualizarInstituicao(@PathVariable("id") Long id,
 			@Valid @RequestBody InstituicaoDTO institutoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", institutoDTO);
-		Optional<Instituicao> instituto = this.entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
-		if (!instituto.isPresent()) {
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
 			lista.add("endereco");
-			entity = mappingDTOToEntity.updateGeneric(institutoDTO, instituto.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(institutoDTO, entityOptional.get(), lista);
 			List<Endereco> listaEnderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), false);
 			entity.setEndereco(new ArrayList<Endereco>());
 			if (!institutoDTO.getEndereco().isEmpty()) {
-                instituto.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
+				entityOptional.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
                 listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
             }
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));

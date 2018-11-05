@@ -62,13 +62,13 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<MunicipioDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando municipio com o id: {}", id);
-		Optional<Municipio> municipio = entityService.BuscarPorId(id);
-		if (!municipio.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(municipio.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -82,8 +82,7 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(municipioDTO);
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
@@ -95,7 +94,8 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(municipioDTO, entityOptional.get(), new ArrayList<String>());
+			lista.add("id");
+			entity = mappingDTOToEntity.updateGeneric(municipioDTO, entityOptional.get(), lista);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.controller.base;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,10 @@ public abstract class baseController<S, D, ES> {
 	protected Extension<D, S> mappingEntityToDTO;
 	@Autowired
 	protected ES entityService;
+    /**
+     * Lista usada para exceções no mapeamento
+     */
+    protected List<String> lista = new ArrayList<String>();
 	/**
 	 * Instancia da Entidade destino para persistencia no banco de dados
 	 */
@@ -43,6 +48,10 @@ public abstract class baseController<S, D, ES> {
 	 * Instancia da Entidade Opcional destino
 	 */
 	protected Optional<D> entityOptional;
+	/**
+	 * Instancia base para a paginação
+	 */
+	protected  Page<S> pageEntity;
 	/*
 	 * Instancia da Entidade DTO para retorno dos métodos
 	 */
@@ -50,6 +59,6 @@ public abstract class baseController<S, D, ES> {
 	/**
 	 * Instancia da Entidade Opcional destino
 	 */
-	protected Optional<S> entityDTOOptional;
+	protected List<S> entityListDTO;
 
 }

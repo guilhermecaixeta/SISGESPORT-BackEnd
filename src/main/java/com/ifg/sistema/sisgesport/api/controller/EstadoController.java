@@ -39,8 +39,8 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 	public ResponseEntity<Response<List<EstadoDTO>>> BuscarTodos() {
 		Optional<List<Estado>> estadoLista = entityService.BuscarTodos();
 		if (estadoLista.isPresent()) {
-			List<EstadoDTO> estadoDTOLista = mappingEntityToDTO.AsGenericMappingList(estadoLista.get(), false);
-			responseList.setData(estadoDTOLista);
+			entityListDTO = mappingEntityToDTO.AsGenericMappingList(estadoLista.get(), false);
+			responseList.setData(entityListDTO);
 		} else
 			response.getErrors().add("Nenhum estado encontrado.");
 
@@ -49,9 +49,9 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 	
 	@GetMapping(value = "/BuscarPorIdEstado/{id}")
 	public ResponseEntity<Response<EstadoDTO>> BuscarPorIdEstado(@PathVariable("id") Long id) {
-		Optional<Estado> estado = entityService.BuscarPorId(id);
-		if (estado.isPresent()) {
-			EstadoDTO estadoDTO = mappingEntityToDTO.AsGenericMapping(estado.get());
+		entityOptional = entityService.BuscarPorId(id);
+		if (entityOptional.isPresent()) {
+			EstadoDTO estadoDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
 			response.setData(estadoDTO);
 		} else
 			response.getErrors().add("Estado com o id " + id + " não encontrado.");
@@ -74,13 +74,13 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<EstadoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando estado com o id: {}", id);
-		Optional<Estado> estado = entityService.BuscarPorId(id);
-		if (!estado.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(estado.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -94,8 +94,7 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(estadoDTO);
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
@@ -107,7 +106,8 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(estadoDTO, entityOptional.get(), new ArrayList<String>());
+			lista.add("id");
+			entity = mappingDTOToEntity.updateGeneric(estadoDTO, entityOptional.get(), lista);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

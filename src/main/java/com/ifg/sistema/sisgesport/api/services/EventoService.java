@@ -11,20 +11,27 @@ import com.ifg.sistema.sisgesport.api.entities.Evento;
 public interface EventoService {
 	/**
 	 * Busca pela matricula do criador do evento
-	 * @param matricula
+	 * @param matriculaSiap
 	 * @return Optional<List<Evento>>
 	 */
 	Optional<List<Evento>> BuscarPorMatriculaCriador(String matriculaSiap);
+
 	/**
-	 * Busca pela matricula do criador do evento paginada
-	 * @param matricula
-	 * @param page
+	 * Busca uma lista de eventos paginados pelo id do criador
+	 * @param matriculaSiap
+	 * @param pageRequest
 	 * @return
 	 */
-	Page<Evento> BuscarPorMatriculaCriador(String matriculaSiap, PageRequest pageRequest);
+	Page<Evento> BuscarPorMatriculaCriadorPaginavel(String matriculaSiap, PageRequest pageRequest);
+    /**
+     * Busca uma lista de eventos paginados pelo id do criador
+     * @param pageRequest
+     * @return
+     */
+    Page<Evento> BuscarTodosPaginavel(PageRequest pageRequest);
 	/**
 	 * Busca pelo id do evento
-	 * @param id
+	 * @param codigo_evento
 	 * @return
 	 */
 	Optional<Evento> BuscarPorCodigoEvento(String codigo_evento);

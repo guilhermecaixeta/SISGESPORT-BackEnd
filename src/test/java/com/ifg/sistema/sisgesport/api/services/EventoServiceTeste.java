@@ -62,7 +62,7 @@ public class EventoServiceTeste {
 	
 	@Test
 	public void TestBuscaPorMatriculaCriadorPaginavel() {
-		Page<Evento> c = this.eS.BuscarPorMatriculaCriador(matriculaSiap, new PageRequest(0,10));
+		Page<Evento> c = this.eS.BuscarPorMatriculaCriadorPaginavel(matriculaSiap, new PageRequest(0,10));
 		assertNotNull(c);
 	}
 }

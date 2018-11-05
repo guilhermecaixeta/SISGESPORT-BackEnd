@@ -32,35 +32,35 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
 	
-		@GetMapping(value = "/BuscarCursoPorIdInstituicaoPaginavel/{id_instituicao}")
+	@GetMapping(value = "/BuscarCursoPorIdInstituicaoPaginavel/{id_instituicao}")
 	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdInstituicaoPaginavel(
 			@PathVariable("id_instituicao") Long id_instituicao, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<CursoDTO> pageServidorDTO = mappingEntityToDTO
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarCursoPorIdInstituicaoPaginavel(id_instituicao, pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 	
 	@GetMapping(value = "/BuscarCursoPorIdInstituicao/{id_instituicao}")
 	public ResponseEntity<Response<List<CursoDTO>>> BuscarCursoPorIdInstituicao(
 			@PathVariable("id_instituicao") Long id_instituicao) {
-		List<CursoDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarCursoPorIdInstituicao(id_instituicao).get(), false);
-		responseList.setData(listServidorDTO);
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
 	
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<CursoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
-		Optional<Curso> curso = entityService.BuscarPorId(id);
-		if (!curso.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(curso.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -74,8 +74,7 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(cursoDTO);
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
@@ -83,15 +82,14 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	public ResponseEntity<Response<CursoDTO>> AtualizarCurso(@PathVariable("id") Long id,
 			@Valid @RequestBody CursoDTO cursoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", cursoDTO);
-		Optional<Curso> curso = this.entityService.BuscarPorId(id);
+		entityOptional = this.entityService.BuscarPorId(id);
 		List<String> lista = new ArrayList<String>();
-		if (!curso.isPresent()) {
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("instituicao", "Curso não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(cursoDTO, curso.get(), lista);
-			entity = this.entityService.Salvar(entity);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+			entity = mappingDTOToEntity.updateGeneric(cursoDTO, entityOptional.get(), lista);
+			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}
 	}

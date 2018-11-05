@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,41 +50,46 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 	
 	@GetMapping(value = "/BuscarPorMatriculaCriadorPaginavel/{matriculaSiap}")
-	public ResponseEntity<Response<Page<EventoDTO>>> BuscarPorMatriculaCriadorPaginavel(@PathVariable("matriculaSiap") String matriculaSiap,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<EventoDTO> pageServidorDTO = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarPorMatriculaCriador(matriculaSiap, pageRequest));
-		responsePage.setData(pageServidorDTO);
+	public ResponseEntity<Response<Page<EventoDTO>>> BuscarPorMatriculaCriadorPaginavel(@PathVariable("matriculaSiap") String matriculaSiap, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorMatriculaCriadorPaginavel(matriculaSiap, pageRequest));
+		responsePage.setData(pageEntity);
+		return ResponseEntity.ok(responsePage);
+	}
+
+	@GetMapping(value = "/BuscarTodosPaginavel")
+	public ResponseEntity<Response<Page<EventoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 	
 	@GetMapping(value = "/BuscarPorMatriculaCriador/{matriculaSiap}")
 	public ResponseEntity<Response<List<EventoDTO>>> BuscarPorMatriculaCriador(@PathVariable("matriculaSiap") String matriculaSiap) {
-		List<EventoDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarPorMatriculaCriador(matriculaSiap).get(), false);
-		responseList.setData(listServidorDTO);
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
 	
-	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<EventoDTO>> buscarPorId(@PathVariable("id") Long id) {
+	@GetMapping(value = "/BuscarPorId/{id}")
+	public ResponseEntity<Response<EventoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
-		Optional<Evento> evento = entityService.BuscarPorId(id);
-		if (!evento.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(evento.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<EventoDTO>> cadastrarEvento(@Valid @RequestBody EventoDTO eventoDTO,
+	public ResponseEntity<Response<EventoDTO>> CadastrarEvento(@Valid @RequestBody EventoDTO eventoDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando a evento: {}", eventoDTO.toString());
 		this.entityService.BuscarPorCodigoEvento(eventoDTO.getCodigoEvento())
@@ -94,24 +100,22 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(eventoDTO);
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<EventoDTO>> atualizarEvento(@PathVariable("id") Long id,
-			@Valid @RequestBody EventoDTO eventoDTO, BindingResult result) throws Exception {
+	public ResponseEntity<Response<EventoDTO>> AtualizarEvento(@PathVariable("id") Long id, @Valid @RequestBody EventoDTO eventoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", eventoDTO);
-		Optional<Evento> evento = this.entityService.BuscarPorId(id);
+		entityOptional = this.entityService.BuscarPorId(id);
 		List<String> lista = new ArrayList<String>();
-		if (!evento.isPresent()) {
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("evento", "Evento não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("endereco");
-			evento.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
-			entity = mappingDTOToEntity.updateGeneric(eventoDTO, evento.get(), lista);
+			entityOptional.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
+			entity = mappingDTOToEntity.updateGeneric(eventoDTO, entityOptional.get(), lista);
 			if(eventoDTO.getEndereco().size() > 0) {
 				List<Endereco> enderecos = mappingEntityChild.AsGenericMappingList(eventoDTO.getEndereco(), true);
 				enderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));

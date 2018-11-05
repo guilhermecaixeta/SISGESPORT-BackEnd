@@ -34,9 +34,9 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
             @PathVariable("id_modalidade") Long id_modalidade,
             PageConfiguration pageConfig) {
         PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-        Page<PenalidadeDTO> pagePenalidadeDTO = mappingEntityToDTO
+        pageEntity = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
-        responsePage.setData(pagePenalidadeDTO);
+        responsePage.setData(pageEntity);
         return ResponseEntity.ok(responsePage);
     }
 
@@ -55,22 +55,22 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
     @GetMapping(value = "/BuscarTodosPaginavel")
     public ResponseEntity<Response<Page<PenalidadeDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig) {
         PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-        Page<PenalidadeDTO> pagePenalidadeDTO = mappingEntityToDTO
+        pageEntity = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-        responsePage.setData(pagePenalidadeDTO);
+        responsePage.setData(pageEntity);
         return ResponseEntity.ok(responsePage);
     }
 
     @GetMapping(value = "/BuscarPorId/{id}")
     public ResponseEntity<Response<PenalidadeDTO>> BuscarPorId(@PathVariable("id") Long id) {
         log.info("Buscando Penalidade com o id: {}", id);
-        Optional<Penalidade> penalidade = entityService.BuscarPorId(id);
-        if (!penalidade .isPresent()) {
+        entityOptional = entityService.BuscarPorId(id);
+        if (!entityOptional.isPresent()) {
             log.info("Instituição com o id: {}, não cadastrado.", id);
             response.getErrors().add("Instituição não encontrado para o id " + id);
             return ResponseEntity.badRequest().body(response);
         }
-        response.setData(mappingEntityToDTO.AsGenericMapping(penalidade.get()));
+        response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
         return ResponseEntity.ok(response);
     }
 
@@ -79,8 +79,8 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
     {
         Optional<List<Penalidade>> penalidadeLista = entityService.BuscarTodos();
         if (penalidadeLista.isPresent()) {
-            List<PenalidadeDTO> penalidadeListaDTO = mappingEntityToDTO.AsGenericMappingList(penalidadeLista .get(), false);
-            responseList.setData(penalidadeListaDTO);
+            entityListDTO = mappingEntityToDTO.AsGenericMappingList(penalidadeLista .get(), false);
+            responseList.setData(entityListDTO);
         } else
             response.getErrors().add("Nenhuma instituição encontrada.");
         return ResponseEntity.ok(responseList);

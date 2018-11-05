@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.services.implementation;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -29,8 +30,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(modalidadeRepositorio.findByNome(nome));
 	}
 	public Page<Modalidade> BuscarTodosPaginavel(PageRequest pageRequest){
-		log.info("Buscando todas as modalidades");
+		log.info("Buscando todas as modalidades paginadas.");
 		return modalidadeRepositorio.findAll(pageRequest);
+	}
+	public Optional<List<Modalidade>> BuscarTodos(){
+		log.info("Buscando todas as modalidades");
+		return Optional.ofNullable(modalidadeRepositorio.findAll());
 	}
     @CachePut("BuscarDadosCacheModalidade")
 	public Modalidade Salvar(Modalidade modalidade) {

@@ -42,29 +42,26 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 		mappingEntityToDTO = new Extension<>(Cargo.class, CargoDTO.class);
 	}
 
-	@Autowired
-	private InstituicaoService instituicaoService;
-
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<CargoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
 	{
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<CargoDTO> pageDTO = mappingEntityToDTO
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageDTO );
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<CargoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Cargo com o id: {}", id);
-		Optional<Cargo> cargo = entityService.BuscarPorId(id);
-		if (!cargo.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Cargo com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Cargo não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(cargo.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -78,9 +75,8 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 	}
 	
 	@PostMapping
-	public ResponseEntity<Response<CargoDTO>> cadastrarCargo(@Valid @RequestBody CargoDTO cargoDTO,
-			BindingResult result) throws NoSuchAlgorithmException {
-
+	public ResponseEntity<Response<CargoDTO>> cadastrarCargo(@Valid @RequestBody CargoDTO cargoDTO, BindingResult result)
+			throws NoSuchAlgorithmException {
 		log.info("Cadastrando a Cargo: {}", cargoDTO.toString());
 		
 		if (result.hasErrors()) {
@@ -88,27 +84,24 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		Cargo cargo = mappingDTOToEntity.AsGenericMapping(cargoDTO);
-		this.entityService.Salvar(cargo);
-		response.setData(mappingEntityToDTO.AsGenericMapping(cargo));
+		entity = mappingDTOToEntity.AsGenericMapping(cargoDTO);
+		this.entityService.Salvar(entity);
+		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Response<CargoDTO>> AtualizarCargo(@PathVariable("id") Long id,
-			@Valid @RequestBody CargoDTO cargoDTO, BindingResult result) throws Exception {
+            @Valid @RequestBody CargoDTO cargoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Cargo: {}", cargoDTO);
-		Optional<Cargo> cargo = this.entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
-		if (!cargo.isPresent()) {
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("Cargo", "Cargo não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(cargoDTO, cargo.get(), lista);
-
-			this.entityService.Salvar(entity);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+			entity = mappingDTOToEntity.updateGeneric(cargoDTO, entityOptional.get(), lista);
+			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}
 	}

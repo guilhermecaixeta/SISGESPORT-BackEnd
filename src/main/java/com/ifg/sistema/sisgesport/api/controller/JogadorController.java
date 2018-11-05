@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -43,51 +44,54 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_jogador}")
 	public ResponseEntity<Response<Page<JogadorDTO>>> BuscarJogadorPorIdEventoPaginavel(
-			@PathVariable("id_jogador") Long id_jogador, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<JogadorDTO> pageServidorDTO = mappingEntityToDTO
+            @PathVariable("id_jogador") Long id_jogador,
+            PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_jogador, pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarJogadorPorIdEvento/{id_jogador}")
 	public ResponseEntity<Response<List<JogadorDTO>>> BuscarJogadorPorIdEvento(
 			@PathVariable("id_jogador") Long id_jogador) {
-		List<JogadorDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarPorEquipeId(id_jogador).get(), false);
-		responseList.setData(listServidorDTO);
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
 
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<JogadorDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
-		Optional<Jogador> jogador = entityService.BuscarPorId(id);
-		if (!jogador.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(jogador.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
+    /**
+     * Controller para adicionar um novo jogador
+     * @param jogadorDTO
+     * @param result
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
 	@PostMapping
-	public ResponseEntity<Response<JogadorDTO>> cadastrarJogador(@Valid @RequestBody JogadorDTO jogadorDTO,
-			BindingResult result) throws NoSuchAlgorithmException {
+	public ResponseEntity<Response<JogadorDTO>> CadastrarJogador(@Valid @RequestBody JogadorDTO jogadorDTO, BindingResult result)
+            throws NoSuchAlgorithmException {
 		log.info("Cadastrando a jogador: {}", jogadorDTO.toString());
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova jogador: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-
 		entity = mappingDTOToEntity.AsGenericMapping(jogadorDTO);
-		
 		List<PartidaPenalidade> lista = entity.getPartidaPenalidade();
 		entity.setPartidaPenalidade(new ArrayList<PartidaPenalidade>());
 		if (!lista.isEmpty())
@@ -103,23 +107,35 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		return ResponseEntity.ok(response);
 	}
 
+    /**
+     * Controller para atualização dos dados do jogador
+     * @param id
+     * @param jogadorDTO
+     * @param result
+     * @return
+     * @throws Exception
+     */
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<JogadorDTO>> atualizarJogador(@PathVariable("id") Long id,
+	public ResponseEntity<Response<JogadorDTO>> AtualizarJogador(@PathVariable("id") Long id,
 			@Valid @RequestBody JogadorDTO jogadorDTO, BindingResult result) throws Exception {
-		log.info("Atualizando dados do Instituto: {}", jogadorDTO);
-		Optional<Jogador> jogador = this.entityService.BuscarPorId(id);
-		if (!jogador.isPresent()) {
+		log.info("Atualizando dados do Jogador: {}", jogadorDTO);
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, jogador.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, entityOptional.get(), new ArrayList<String>());
 		}
-		this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
+    /**
+     * Controller para a deleção do jogador
+     * @param id
+     * @return
+     */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<String>> deletarJogador(@PathVariable("id") Long id) {
+	public ResponseEntity<Response<String>> DeletarJogador(@PathVariable("id") Long id) {
 		Response<String> response = new Response<String>();
 		if (!this.entityService.BuscarPorId(id).isPresent()) {
 			log.info("Erro ao remover dados ligados ao id: {}", id);

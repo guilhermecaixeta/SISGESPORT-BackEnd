@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,14 +47,12 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 
 	@GetMapping(value = "/BuscarEquipePorIdEventoPaginavel/{id_evento}")
 	public ResponseEntity<Response<Page<EquipeDTO>>> BuscarEquipePorIdEventoPaginavel(
-			@PathVariable("id_evento") Long id_evento, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<EquipeDTO> pageServidorDTO = mappingEntityToDTO
+			@PathVariable("id_evento") Long id_evento,
+			PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarEquipePorIdEventoPaginavel(id_evento, pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -102,14 +101,14 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 			@Valid @RequestBody EquipeDTO equipeDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", equipeDTO);
 		Equipe equipeEdit;
-		Optional<Equipe> equipe = this.entityService.BuscarPorId(id);
-		if (equipe.isPresent()) {
-			if (equipe.get().getImagem().getId() != null && equipe.get().getImagem().getId() < 1)
-				this.iS.Salvar(equipe.get().getImagem());
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (entityOptional.isPresent()) {
+			if (entityOptional.get().getImagem().getId() != null && entityOptional.get().getImagem().getId() < 1)
+				this.iS.Salvar(entityOptional.get().getImagem());
 			result.addError(new ObjectError("equipe", "Equipe não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			equipeEdit = mappingDTOToEntity.updateGeneric(equipeDTO, equipe.get(), new ArrayList<String>());
+			equipeEdit = mappingDTOToEntity.updateGeneric(equipeDTO, entityOptional.get(), new ArrayList<String>());
 		}
 		this.entityService.Salvar(equipeEdit);
 		response.setData(mappingEntityToDTO.AsGenericMapping(equipeEdit));

@@ -20,8 +20,8 @@ public class EventoDTO extends EntidadeComumDTO {
 	private Date dataInicio;
 	private Date dataFim;
 	private Servidor criador;
-	private List<InformacaoEvento> informacaoEvento = new ArrayList<InformacaoEvento>();
-	private List<EventoModalidade> eventoModalidade = new ArrayList<EventoModalidade>();
+	private List<InformacaoEventoDTO> informacaoEvento = new ArrayList<InformacaoEventoDTO>();
+	private List<EventoModalidadeDTO> eventoModalidade = new ArrayList<EventoModalidadeDTO>();
 
 	public EventoDTO() {
 	}
@@ -106,19 +106,19 @@ public class EventoDTO extends EntidadeComumDTO {
 		this.criador = criador;
 	}
 
-	public List<InformacaoEvento> getInformacaoEvento() {
+	public List<InformacaoEventoDTO> getInformacaoEvento() {
 		return informacaoEvento;
 	}
 
-	public void setInformacaoEvento(List<InformacaoEvento> informacaoEvento) {
+	public void setInformacaoEvento(List<InformacaoEventoDTO> informacaoEvento) {
 		this.informacaoEvento = informacaoEvento;
 	}
 
-	public List<EventoModalidade> getEventoModalidade() {
+	public List<EventoModalidadeDTO> getEventoModalidade() {
 		return eventoModalidade;
 	}
 
-	public void setEventoModalidade(List<EventoModalidade> eventoModalidade) {
+	public void setEventoModalidade(List<EventoModalidadeDTO> eventoModalidade) {
 		this.eventoModalidade = eventoModalidade;
 	}
 

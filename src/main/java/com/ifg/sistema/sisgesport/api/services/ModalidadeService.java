@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -21,10 +22,15 @@ public interface ModalidadeService {
 	 */
 	Optional<Modalidade> BuscarPorNome(String nome);
 	/**
-	 * Retorna todas as modalidades
+	 * Retorna todas as modalidades paginadas
 	 * @return
 	 */
 	Page<Modalidade> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
+	 * Retorna todas as modalidades
+	 * @return
+	 */
+    Optional<List<Modalidade>> BuscarTodos();
 	/**
 	 * Salva uma nova modalidade no banco de dados
 	 * @param modalidade

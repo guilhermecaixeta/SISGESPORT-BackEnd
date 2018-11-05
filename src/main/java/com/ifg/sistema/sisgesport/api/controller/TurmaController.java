@@ -45,26 +45,26 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<TurmaDTO>> buscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Turma com o id: {}", id);
-		Optional<Turma> turma = entityService.BuscarPorId(id);
-		if (!turma.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Turma com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(turma.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping(value = "/BuscarPorNome/{nome}")
 	public ResponseEntity<Response<TurmaDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
 		log.info("Buscando Turma com o nome: {}", nome);
-		Optional<Turma> turma = entityService.BuscarPorNome(nome);
-		if (!turma.isPresent()) {
+		entityOptional = entityService.BuscarPorNome(nome);
+		if (!entityOptional.isPresent()) {
 			log.info("Turma com o nome: {}, não cadastrado.", nome);
 			response.getErrors().add("Instituição não encontrado para o nome " + nome);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(turma.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 	
@@ -83,14 +83,11 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 
 	@GetMapping(value = "/BuscarPorCursoIdPaginavel/{id_curso}")
 	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarPorCursoIdPaginavel(@PathVariable("id_curso") Long id_curso,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<TurmaDTO> pageTurmaDTO = mappingEntityToDTO
+			PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCursoIdPaginavel(id_curso,pageRequest));
-		responsePage.setData(pageTurmaDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -98,18 +95,16 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
 	{
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<TurmaDTO> pageDTO = mappingEntityToDTO
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageDTO );
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 	
 	@PostMapping
 	public ResponseEntity<Response<TurmaDTO>> cadastrarTurma(@Valid @RequestBody TurmaDTO turmaDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
-
 		log.info("Cadastrando a instituicao: {}", turmaDTO.toString());
-		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova instituicao: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
@@ -125,17 +120,14 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	public ResponseEntity<Response<TurmaDTO>> atualizarTurma(@PathVariable("id") Long id,
 			@Valid @RequestBody TurmaDTO turmaDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", turmaDTO);
-		Optional<Turma> turma = this.entityService.BuscarPorId(id);
+		entityOptional = this.entityService.BuscarPorId(id);
 		List<String> lista = new ArrayList<String>();
-		if (!turma.isPresent()) {
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			
-			Turma turmaEdit = mappingDTOToEntity.updateGeneric(turmaDTO, turma.get(), lista);
-
-			this.entityService.Salvar(turmaEdit);
-			response.setData(mappingEntityToDTO.AsGenericMapping(turmaEdit));
+			entity = mappingDTOToEntity.updateGeneric(turmaDTO, entityOptional.get(), lista);
+			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}
 	}

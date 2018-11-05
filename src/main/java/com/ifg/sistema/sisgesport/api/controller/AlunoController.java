@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,51 +52,42 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	public AlunoController() {}
 
 	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_turma}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_turma") Long id_turma,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_turma") Long id_turma, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_turma, pageRequest));
-        pageAlunoDTO.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageAlunoDTO);
+		pageEntity.forEach(data -> data.setSenha(null));
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_equipe}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel(@PathVariable("id_equipe") Long id_equipe,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<AlunoDTO> pageAlunoDTO = mappingEntityToDTO
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_equipe, pageRequest));
-		pageAlunoDTO.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageAlunoDTO);
+		pageEntity.forEach(data -> data.setSenha(null));
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarPorMatricula/{matricula}")
 	public ResponseEntity<Response<AlunoDTO>> BuscarPorMatricula(@PathVariable("matricula") String matricula) {
 		log.info("Buscando aluno com a matrícula: {}", matricula);
-		Optional<Aluno> aluno = entityService.BuscarPorMatricula(matricula);
-		if (!aluno.isPresent()) {
+		entityOptional = entityService.BuscarPorMatricula(matricula);
+		if (!entityOptional.isPresent()) {
 			log.info("Aluno com a matrícula: {}, não cadastrado.", matricula);
 			response.getErrors().add("Aluno não encontrado para a matrícula " + matricula);
 			return ResponseEntity.badRequest().body(response);
 		}
-		aluno.get().setSenha(null);
-		response.setData(mappingEntityToDTO.AsGenericMapping(aluno.get()));
+		entityOptional.get().setSenha(null);
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping(value = "/cadastrar")
-	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO,
-			BindingResult result) throws NoSuchAlgorithmException {
-
+	@PostMapping()
+	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result)
+			throws NoSuchAlgorithmException {
 		log.info("Cadastrando o aluno: {}", alunoDTO.toString());
 		validarAluno(alunoDTO, result);
 		if (result.hasErrors()) {
@@ -128,7 +120,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Aluno: {}", alunoDTO);
 		Optional<Aluno> aluno = entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
+
 		if (!aluno.isPresent())
 			result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -32,14 +33,11 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_time}")
 	public ResponseEntity<Response<Page<TimeDTO>>> BuscarTimePorIdEventoPaginavel(
-			@PathVariable("id_time") Long id_time, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<TimeDTO> pageServidorDTO = mappingEntityToDTO
+			@PathVariable("id_time") Long id_time, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_time, pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 

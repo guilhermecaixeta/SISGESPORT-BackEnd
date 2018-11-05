@@ -10,9 +10,7 @@ import javax.validation.Valid;
 import com.ifg.sistema.sisgesport.api.dto.PenalidadeDTO;
 import com.ifg.sistema.sisgesport.api.dto.PosicaoDTO;
 import com.ifg.sistema.sisgesport.api.dto.TipoPontoDTO;
-import com.ifg.sistema.sisgesport.api.entities.Penalidade;
-import com.ifg.sistema.sisgesport.api.entities.Posicao;
-import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
+import com.ifg.sistema.sisgesport.api.entities.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -31,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.ModalidadeDTO;
-import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.ModalidadeService;
@@ -50,16 +47,26 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
 
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<ModalidadeDTO>>> BuscarTodosPaginavel(
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "order", defaultValue = "id") String order,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "sort", defaultValue = "DESC") String sort) {
-		PageRequest pageRequest = new PageRequest(page, size, Direction.valueOf(sort), order);
-		Page<ModalidadeDTO> pageServidorDTO = mappingEntityToDTO
+            PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
+
+    @GetMapping(value = "/BuscarTodos")
+    public ResponseEntity<Response<List<ModalidadeDTO>>> BuscarTodos() {
+        Optional<List<Modalidade>> listaOptional = entityService.BuscarTodos();
+        if(listaOptional.isPresent()) {
+             entityListDTO = mappingEntityToDTO
+                    .AsGenericMappingList(listaOptional.get(), false);
+            responseList.setData(entityListDTO);
+        }else{
+            response.getErrors().add("Não existem modalidades cadastradas.");
+        }
+        return ResponseEntity.ok(responseList);
+    }
 
 	@GetMapping(value = "/BuscarPorNome/{nome}")
 	public ResponseEntity<Response<ModalidadeDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
@@ -76,13 +83,13 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<ModalidadeDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando modalidade com o id: {}", id);
-		Optional<Modalidade> modalidade = entityService.BuscarPorId(id);
-		if (!modalidade.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(modalidade.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -96,8 +103,7 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(modalidadeDTO);
-		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
 
@@ -106,8 +112,6 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
 			@Valid @RequestBody ModalidadeDTO modalidadeDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do modalidade: {}", modalidadeDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
-        List<String> lista = new ArrayList<String>();
-
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {

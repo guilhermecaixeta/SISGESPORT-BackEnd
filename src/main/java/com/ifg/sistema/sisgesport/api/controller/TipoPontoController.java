@@ -61,13 +61,13 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<TipoPontoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);
-		Optional<TipoPonto> tipoPonto = entityService.BuscarPorId(id);
-		if (!tipoPonto.isPresent()) {
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			log.info("Instituição com o id: {}, não cadastrado.", id);
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(tipoPonto.get()));
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
 
@@ -76,8 +76,8 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 	{
 		Optional<List<TipoPonto>> tipoPontoLista = entityService.BuscarTodos();
 		if (tipoPontoLista.isPresent()) {
-			List<TipoPontoDTO> tipoPontoListaDTO = mappingEntityToDTO.AsGenericMappingList(tipoPontoLista.get(), false);
-			responseList.setData(tipoPontoListaDTO);
+			entityListDTO = mappingEntityToDTO.AsGenericMappingList(tipoPontoLista.get(), false);
+			responseList.setData(entityListDTO);
 		} else
 			response.getErrors().add("Nenhuma instituição encontrada.");
 		return ResponseEntity.ok(responseList);
