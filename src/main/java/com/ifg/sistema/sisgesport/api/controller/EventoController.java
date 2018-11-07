@@ -7,7 +7,13 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.dto.EventoModalidadeDTO;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.EquipeService;
+import com.ifg.sistema.sisgesport.api.services.EventoModalidadeService;
+import com.ifg.sistema.sisgesport.api.utils.EventoUtils;
+import com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,8 +52,13 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 	}
 	@Autowired
 	private EnderecoService eS;
-	
+	@Autowired
+    private EventoModalidadeService emS;
+    @Autowired
+    private EquipeService eqS;
+
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
+    protected Extension<EventoModalidadeDTO, EventoModalidade> mappingEntityChildII = new Extension<>(EventoModalidadeDTO.class, EventoModalidade.class);
 	
 	@GetMapping(value = "/BuscarPorMatriculaCriadorPaginavel/{matriculaSiap}")
 	public ResponseEntity<Response<Page<EventoDTO>>> BuscarPorMatriculaCriadorPaginavel(@PathVariable("matriculaSiap") String matriculaSiap, PageConfiguration pageConfig) {
@@ -100,7 +111,22 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(eventoDTO);
-		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
+		List<EventoModalidade> listaEventoModalidade= new ArrayList<EventoModalidade>();
+
+		if(entity.getEventoModalidade().size() > 0) {
+            listaEventoModalidade.addAll(mappingEntityChildII.AsGenericMappingList(eventoDTO.getEventoModalidade(), true));
+            entity.setEventoModalidade(new ArrayList<EventoModalidade>());
+		}
+		entity = this.entityService.Salvar(entity);
+		listaEventoModalidade.forEach(x -> {
+		    x.setEvento(entity);
+		    x = emS.Salvar(x);
+		});
+        entity.setEventoModalidade(listaEventoModalidade);
+        EventoUtils eventoUtils = new EventoUtils();
+        eventoUtils.GerarEquipes(entity.getQntEquipes(), entity).forEach(e -> eqS.Salvar(e));
+
+		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
