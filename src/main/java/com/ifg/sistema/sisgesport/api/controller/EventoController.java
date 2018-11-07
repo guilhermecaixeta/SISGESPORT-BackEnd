@@ -126,7 +126,7 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
         EventoUtils eventoUtils = new EventoUtils();
         eventoUtils.GerarEquipes(entity.getQntEquipes(), entity).forEach(e -> eqS.Salvar(e));
 
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+		response.setData(mappingEntityToDTO.AsGenericMapping(new Evento()));
 		return ResponseEntity.ok(response);
 	}
 
