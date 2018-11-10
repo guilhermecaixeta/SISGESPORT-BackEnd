@@ -14,7 +14,6 @@ public class InformacaoEventoDTO {
 	private String descricao;
 	private Date dataPostagem;
 	private List<Imagem> imagem = new ArrayList<Imagem>();
-	private Evento evento;
 
 	public InformacaoEventoDTO() {
 	}
@@ -65,14 +64,6 @@ public class InformacaoEventoDTO {
 
 	public void setImagem(List<Imagem> imagem) {
 		this.imagem = imagem;
-	}
-
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
 	}
 
 }

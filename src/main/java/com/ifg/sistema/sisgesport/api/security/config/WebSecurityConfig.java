@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/api/**").permitAll()
                 .antMatchers("/api/instituicao/BuscarTodos", "/auth/**",
-                        "/api/curso/BuscarEquipePorIdInstituicao/**",
+                        "/api/curso/BuscarCursoPorIdInstituicao/**",
                         "/api/turma/BuscarPorCursoId/**", "/api/cargo/BuscarPorInstituicaoId/**",
                         "/api/aluno/cadastrar/**", "/api/aluno/BuscarPorMatricula/**",
                         "/api/servidor/cadastrar/**", "/api/servidor/BuscarPorMatricula/**", "/api/estado/BuscarTodos/**",

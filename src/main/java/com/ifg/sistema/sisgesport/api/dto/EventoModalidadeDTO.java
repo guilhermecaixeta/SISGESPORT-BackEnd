@@ -5,8 +5,7 @@ import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 
 public class EventoModalidadeDTO {
 	private Long id;
-	private Evento evento;
-	private Modalidade modalidade;
+	private ModalidadeDTO modalidade;
 	private char sexo;
 	private int idadeMaximaPermitida;
 
@@ -21,19 +20,11 @@ public class EventoModalidadeDTO {
 		this.id = id;
 	}
 
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
-
-	public Modalidade getModalidade() {
+	public ModalidadeDTO getModalidade() {
 		return modalidade;
 	}
 
-	public void setModalidade(Modalidade modalidade) {
+	public void setModalidade(ModalidadeDTO modalidade) {
 		this.modalidade = modalidade;
 	}
 

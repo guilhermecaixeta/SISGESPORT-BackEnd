@@ -17,6 +17,7 @@ public class EventoModalidadeServiceImplementation implements EventoModalidadeSe
 	
 	@Autowired
 	private EventoModalidadeRepositorio eventoModalidadeRepositorio;
+
 	public Optional<List<EventoModalidade>> BuscarPorEventoId(Long id_evento){
 		log.info("Buscando modalidade evento pelo id do evento {} ",id_evento);
 		return Optional.ofNullable(eventoModalidadeRepositorio.findByEventoId(id_evento));

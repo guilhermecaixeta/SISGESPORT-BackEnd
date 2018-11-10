@@ -127,9 +127,8 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
-			lista.add("endereco");
-			entity = mappingDTOToEntity.updateGeneric(institutoDTO, entityOptional.get(), lista);
-			List<Endereco> listaEnderecos = mappingEntityChild.AsGenericMappingList(institutoDTO.getEndereco(), false);
+			entity = mappingDTOToEntity.AsGenericMapping(institutoDTO);
+			List<Endereco> listaEnderecos = entity.getEndereco();
 			entity.setEndereco(new ArrayList<Endereco>());
 			if (!institutoDTO.getEndereco().isEmpty()) {
 				entityOptional.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));

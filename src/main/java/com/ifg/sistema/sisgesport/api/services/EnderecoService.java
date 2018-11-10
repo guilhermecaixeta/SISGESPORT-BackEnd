@@ -24,5 +24,9 @@ public interface EnderecoService {
 	 * @return Endereco
 	 */
 	Endereco Salvar(Endereco endereco);
+	/**
+	 * Deleta uma endereço
+	 * @param id
+	 */
 	void Deletar(Long id);
 }

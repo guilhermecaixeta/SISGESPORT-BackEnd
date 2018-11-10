@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -73,10 +74,10 @@ public class Evento extends EntidadeComum implements Serializable {
 	@JoinColumn(name = "servidor", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_servidor_evento"))
 	private Servidor criador;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evento")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
 	private List<InformacaoEvento> informacaoEvento = new ArrayList<InformacaoEvento>();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evento")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
 	private List<EventoModalidade> eventoModalidade = new ArrayList<EventoModalidade>();
 
 	public Evento() {
