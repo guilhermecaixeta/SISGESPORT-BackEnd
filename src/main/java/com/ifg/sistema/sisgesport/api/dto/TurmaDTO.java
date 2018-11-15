@@ -10,7 +10,7 @@ public class TurmaDTO {
 	private String nome;
 	private Date dataLimite;
 	private Date dataInicial;
-	private Curso curso;
+	private CursoDTO curso;
 
 	public TurmaDTO() {
 	}
@@ -55,11 +55,11 @@ public class TurmaDTO {
 		this.dataInicial = dataInicial;
 	}
 
-	public Curso getCurso() {
+	public CursoDTO getCurso() {
 		return curso;
 	}
 
-	public void setCurso(Curso curso) {
+	public void setCurso(CursoDTO curso) {
 		this.curso = curso;
 	}
 
