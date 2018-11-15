@@ -3,17 +3,10 @@ package com.ifg.sistema.sisgesport.api.entities.commom_entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.ifg.sistema.sisgesport.api.entities.Instituicao;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -60,6 +53,10 @@ public class Pessoa extends EntidadeComum implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "perfil", nullable = false)
 	protected PerfilSistema perfil;
+
+	@ManyToOne
+	@JoinColumn(name = "instituicao", referencedColumnName = "id", nullable = true, foreignKey = @ForeignKey(name = "fk_pessoa_instituicao"))
+	private Instituicao instituicao;
 
 	public Pessoa() {
 	}
@@ -120,4 +117,11 @@ public class Pessoa extends EntidadeComum implements Serializable {
 		this.perfil = perfil;
 	}
 
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
 }

@@ -71,9 +71,9 @@ public class Equipe implements Serializable {
 	private List<Time> time = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "equipe_aluno", joinColumns = @JoinColumn(name = "equipe", referencedColumnName = "id"), 
-		   inverseJoinColumns = @JoinColumn(name = "aluno", referencedColumnName = "id"), uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "aluno", "equipe" }) })
+	@JoinTable(name = "equipe_aluno", joinColumns = @JoinColumn(name = "equipe", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "aluno", referencedColumnName = "id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "equipe", "aluno" }) })
 	private List<Aluno> aluno = new ArrayList<>();
 
 	public Equipe() {

@@ -26,22 +26,18 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Realizando a busca paginada das instituições.");
 		return instituicaoRepositorio.findAll(pageRequest);
 	}
-	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<List<Instituicao>> BuscarTodos() {
 		log.info("Buscando todos os institutos");
 		return Optional.ofNullable(instituicaoRepositorio.findAll());
 	}
-	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<Instituicao> BuscarPorNomeInstituicao(String nome) {
 		log.info("Buscando Instituicao pelo nome {} ",nome);
 		return Optional.ofNullable(instituicaoRepositorio.findByNome(nome));
 	}
-	@Cacheable("BuscarDadosCacheInstituicao")
 	public Optional<Instituicao> BuscarPorId(Long id) {
 		log.info("Buscando Instituicao pelo id {} ",id);
 		return Optional.ofNullable(instituicaoRepositorio.findOne(id));
 	}
-	@CachePut("BuscarDadosCacheInstituicao")
 	public Instituicao Salvar(Instituicao instituicao) {
 		log.info("Buscando Instituicao pelo codigo {} ",instituicao.getNome());
 		return instituicaoRepositorio.save(instituicao);

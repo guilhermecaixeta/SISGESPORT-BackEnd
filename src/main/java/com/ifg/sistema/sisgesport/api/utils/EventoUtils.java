@@ -16,6 +16,9 @@ import static java.lang.String.valueOf;
  *
  */
 public class EventoUtils {
+
+    private final int valorParaCor1 = 0x1095730;
+    private final int valorParaCor2 = 0x8996980;
     /**
      *
      * @param quantidadeEquipe
@@ -25,16 +28,20 @@ public class EventoUtils {
         Random rand = new Random();
         List<Equipe> lista = new ArrayList<Equipe>();
         String nomeEquipe = "";
+        String cor = "";
         while (quantidadeEquipe > 0) {
             Equipe equipe = new Equipe();
-            int myRandomNumber = rand.nextInt(0x100) * 0x10;
+            cor = Integer.toHexString(rand.nextInt(valorParaCor1) * valorParaCor2).substring(0,6);
             nomeEquipe = randomIdentifier();
             if(!lista.isEmpty() ){
                 while(ExisteNome(lista, nomeEquipe)){
                     nomeEquipe = randomIdentifier();
                 }
+                while(ExisteCor(lista, cor)){
+                    cor = Integer.toHexString(rand.nextInt(valorParaCor1) * valorParaCor2).substring(0,6);
+                }
             }
-            equipe.setCor(Integer.toHexString(myRandomNumber));
+            equipe.setCor("#"+cor);
             equipe.setEvento(evento);
             equipe.setNome(nomeEquipe);
             equipe.setCodigoEquipe(GerarCodigoUnicoEquipe());
@@ -77,6 +84,10 @@ public class EventoUtils {
      */
     public boolean ExisteNome(final List<Equipe> lista, final String nome){
         return lista.stream().filter(e -> e.getNome().equals(nome)).findAny().isPresent();
+    }
+
+    public boolean ExisteCor(final List<Equipe> lista, final String cor){
+        return lista.stream().filter(e -> e.getCor().equals(cor)).findAny().isPresent();
     }
 
     public List<Time> GerarTimes(Evento evento){

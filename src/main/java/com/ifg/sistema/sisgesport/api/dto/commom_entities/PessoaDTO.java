@@ -2,6 +2,7 @@ package com.ifg.sistema.sisgesport.api.dto.commom_entities;
 
 import java.util.Date;
 
+import com.ifg.sistema.sisgesport.api.dto.InstituicaoDTO;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class PessoaDTO extends EntidadeComumDTO {
 	protected String email;
 	protected Date dataNascimento;
 	protected PerfilSistema perfil;
+	private InstituicaoDTO instituicao;
 
 	public PessoaDTO() {
 	}
@@ -83,4 +85,11 @@ public class PessoaDTO extends EntidadeComumDTO {
 		this.perfil = perfil;
 	}
 
+    public InstituicaoDTO getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(InstituicaoDTO instituicao) {
+        this.instituicao = instituicao;
+    }
 }

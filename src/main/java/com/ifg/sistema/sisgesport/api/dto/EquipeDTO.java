@@ -1,23 +1,17 @@
 package com.ifg.sistema.sisgesport.api.dto;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ifg.sistema.sisgesport.api.entities.Aluno;
-import com.ifg.sistema.sisgesport.api.entities.Evento;
-import com.ifg.sistema.sisgesport.api.entities.Imagem;
-import com.ifg.sistema.sisgesport.api.entities.Time;
 
 public class EquipeDTO {
 	private Long id;
 	private String nome;
 	private String codigoEquipe;
 	private String cor;
-	private Evento evento;
-	private Aluno capitao;
-	private Imagem imagem;
-	private List<Time> time = new ArrayList<>();
-	private List<Aluno> aluno = new ArrayList<>();
+        private AlunoDTO capitao;
+	private ImagemDTO imagem;
+	private EventoDTO evento;
+	private List<TimeDTO> time = new ArrayList<>();
+	private List<AlunoDTO> aluno = new ArrayList<>();
 
 	public EquipeDTO() {
 	}
@@ -54,44 +48,43 @@ public class EquipeDTO {
 		this.cor = cor;
 	}
 
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
-
-	public Aluno getCapitao() {
+	public AlunoDTO getCapitao() {
 		return capitao;
 	}
 
-	public void setCapitao(Aluno capitao) {
+	public void setCapitao(AlunoDTO capitao) {
 		this.capitao = capitao;
 	}
 
-	public Imagem getImagem() {
+	public ImagemDTO getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(Imagem imagem) {
+	public void setImagem(ImagemDTO imagem) {
 		this.imagem = imagem;
 	}
 
-	public List<Time> getTime() {
-		return time;
-	}
-
-	public void setTime(List<Time> time) {
-		this.time = time;
-	}
-
-	public List<Aluno> getAluno() {
+	public List<AlunoDTO> getAluno() {
 		return aluno;
 	}
 
-	public void setAluno(List<Aluno> aluno) {
+	public void setAluno(List<AlunoDTO> aluno) {
 		this.aluno = aluno;
 	}
 
+	public EventoDTO getEvento() {
+		return evento;
+	}
+
+	public void setEvento(EventoDTO evento) {
+		this.evento = evento;
+	}
+
+    public List<TimeDTO> getTime() {
+        return time;
+    }
+
+    public void setTime(List<TimeDTO> time) {
+        this.time = time;
+    }
 }

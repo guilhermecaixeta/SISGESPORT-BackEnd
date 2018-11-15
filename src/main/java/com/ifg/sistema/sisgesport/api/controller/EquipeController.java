@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.entities.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +40,10 @@ import com.ifg.sistema.sisgesport.api.services.ImagemService;
 @RequestMapping("api/equipe")
 public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeService> {
 	{
+        lista.add("id");
+        lista.add("time");
+        lista.add("evento");
+        lista.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(EquipeDTO.class, Equipe.class);
 		mappingEntityToDTO = new Extension<>(Equipe.class, EquipeDTO.class);
 	}
@@ -52,6 +57,10 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		pageEntity = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarEquipePorIdEventoPaginavel(id_evento, pageRequest));
+		pageEntity.forEach(x ->{
+		    x.setTime(null);
+		    x.setEvento(null);
+        });
 		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -65,16 +74,19 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 		return ResponseEntity.ok(responseList);
 	}
 
-	@GetMapping(value = "/buscarPorId/{id}")
-	public ResponseEntity<Response<EquipeDTO>> buscarPorId(@PathVariable("id") Long id) {
-		log.info("Buscando Instituição com o id: {}", id);
-		Optional<Equipe> equipe = entityService.BuscarPorId(id);
-		if (!equipe.isPresent()) {
-			log.info("Instituição com o id: {}, não cadastrado.", id);
-			response.getErrors().add("Instituição não encontrado para o id " + id);
+	@GetMapping(value = "/BuscarPorId/{id}")
+	public ResponseEntity<Response<EquipeDTO>> BuscarPorId(@PathVariable("id") Long id) {
+		log.info("Buscando equipe com o id: {}", id);
+		entityOptional = entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
+			log.info("Equipe com o id: {}, não cadastrado.", id);
+			response.getErrors().add("Equipe não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(equipe.get()));
+        entityOptional.get().getAluno();
+		entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
+		entityDTO.getEvento().getCriador().setSenha(null);
+		response.setData(entityDTO);
 		return ResponseEntity.ok(response);
 	}
 
@@ -89,29 +101,26 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		Equipe equipe = mappingDTOToEntity.AsGenericMapping(equipeDTO);
-		this.iS.Salvar(equipe.getImagem());
-		equipe = this.entityService.Salvar(equipe);
-		response.setData(mappingEntityToDTO.AsGenericMapping(equipe));
+		entity = mappingDTOToEntity.AsGenericMapping(equipeDTO);
+		this.entityService.Salvar(entity);
+		response.setData(new EquipeDTO());
 		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Response<EquipeDTO>> atualizarEquipe(@PathVariable("id") Long id,
 			@Valid @RequestBody EquipeDTO equipeDTO, BindingResult result) throws Exception {
-		log.info("Atualizando dados do Instituto: {}", equipeDTO);
-		Equipe equipeEdit;
+		log.info("Atualizando dados da equipe: {}", equipeDTO.getNome());
 		entityOptional = this.entityService.BuscarPorId(id);
-		if (entityOptional.isPresent()) {
-			if (entityOptional.get().getImagem().getId() != null && entityOptional.get().getImagem().getId() < 1)
-				this.iS.Salvar(entityOptional.get().getImagem());
+		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("equipe", "Equipe não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			equipeEdit = mappingDTOToEntity.updateGeneric(equipeDTO, entityOptional.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(equipeDTO, entityOptional.get(), lista);
+
+			this.entityService.Salvar(entity);
+			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		}
-		this.entityService.Salvar(equipeEdit);
-		response.setData(mappingEntityToDTO.AsGenericMapping(equipeEdit));
 		return ResponseEntity.ok(response);
 	}
 

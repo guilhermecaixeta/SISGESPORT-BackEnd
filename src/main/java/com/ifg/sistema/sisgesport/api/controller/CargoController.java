@@ -77,8 +77,7 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 	@PostMapping
 	public ResponseEntity<Response<CargoDTO>> cadastrarCargo(@Valid @RequestBody CargoDTO cargoDTO, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando a Cargo: {}", cargoDTO.toString());
-		
+		log.info("Cadastrando a Cargo: {}", cargoDTO.getNome());
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova Cargo: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
@@ -96,11 +95,12 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 		log.info("Atualizando dados do Cargo: {}", cargoDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
 		if (!entityOptional.isPresent()) {
-			result.addError(new ObjectError("Cargo", "Cargo não encontrada para o id: " + id));
+			result.addError(new ObjectError("Cargo", "Cargo não encontrado para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(cargoDTO, entityOptional.get(), lista);
+            lista.add("serialVersionUID");
+            entity = mappingDTOToEntity.updateGeneric(cargoDTO, entityOptional.get(), lista);
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}

@@ -33,6 +33,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando todos os eventos");
 		return eventoRepositorio.findAll(pageRequest);
 	}
+	public List<Evento> BuscarTodos() {
+		log.info("Buscando todos os eventos");
+		return eventoRepositorio.findAll();
+	}
 	public Optional<Evento> BuscarPorId(Long id) {
 		log.info("Buscando modalidade evento pelo id do evento {} ",id);
 		return Optional.ofNullable(eventoRepositorio.findOne(id));

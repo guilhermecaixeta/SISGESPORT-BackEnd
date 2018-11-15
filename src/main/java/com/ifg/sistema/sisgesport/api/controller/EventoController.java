@@ -80,7 +80,13 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
-	
+    @GetMapping(value = "/BuscarTodos")
+    public ResponseEntity<Response<List<EventoDTO>>> BuscarTodos() {
+        entityListDTO = mappingEntityToDTO
+                .AsGenericMappingList(entityService.BuscarTodos(), false);
+        responseList.setData(entityListDTO);
+        return ResponseEntity.ok(responseList);
+    }
 	@GetMapping(value = "/BuscarPorMatriculaCriador/{matriculaSiap}")
 	public ResponseEntity<Response<List<EventoDTO>>> BuscarPorMatriculaCriador(@PathVariable("matriculaSiap") String matriculaSiap) {
 		entityListDTO = mappingEntityToDTO

@@ -6,7 +6,6 @@ public class TimeDTO {
 	private int numDerrota;
 	private int numEmpate;
 	private int pontuacao;
-	private EquipeDTO equipe;
 	private ModalidadeDTO modalidade;
 
 	public TimeDTO() {
@@ -50,14 +49,6 @@ public class TimeDTO {
 
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
-	}
-
-	public EquipeDTO getEquipe() {
-		return equipe;
-	}
-
-	public void setEquipe(EquipeDTO equipe) {
-		this.equipe = equipe;
 	}
 
 	public ModalidadeDTO getModalidade() {

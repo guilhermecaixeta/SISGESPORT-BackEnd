@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.PessoaDTO;
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
 
 public class AlunoDTO extends PessoaDTO {
 
 	private TurmaDTO turma;
-	private List<Equipe> equipe = new ArrayList<>();
+	private List<EquipeDTO> equipe = new ArrayList<>();
 
 	public AlunoDTO() {
 	}
@@ -22,11 +21,11 @@ public class AlunoDTO extends PessoaDTO {
 		this.turma = turma;
 	}
 
-	public List<Equipe> getEquipe() {
+	public List<EquipeDTO> getEquipe() {
 		return equipe;
 	}
 
-	public void setEquipe(List<Equipe> equipe) {
+	public void setEquipe(List<EquipeDTO> equipe) {
 		this.equipe = equipe;
 	}
 

@@ -40,6 +40,7 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
+		lista.add("id");
 		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
 	}
@@ -126,7 +127,6 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("id");
 			entity = mappingDTOToEntity.AsGenericMapping(institutoDTO);
 			List<Endereco> listaEnderecos = entity.getEndereco();
 			entity.setEndereco(new ArrayList<Endereco>());

@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 
 @Entity
@@ -24,8 +25,10 @@ public class Aluno extends Pessoa implements Serializable {
 	@JoinColumn(name = "turma", referencedColumnName = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_turma_aluno"))
 	private Turma turma;
 
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "equipe_aluno", joinColumns = @JoinColumn(name = "aluno", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipe", referencedColumnName = "id"), uniqueConstraints = {
+	@JoinTable(name = "equipe_aluno", joinColumns = @JoinColumn(name = "aluno", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "equipe", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "equipe", "aluno" }) })
 	private List<Equipe> equipe = new ArrayList<>();
 

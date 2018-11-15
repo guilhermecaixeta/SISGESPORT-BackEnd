@@ -51,21 +51,50 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 
 	public AlunoController() {}
 
-	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_turma}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_turma") Long id_turma, PageConfiguration pageConfig) {
+	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_equipe}")
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		pageEntity = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_turma, pageRequest));
+				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_equipe, pageRequest));
 		pageEntity.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);
 	}
 
-	@GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_equipe}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
-		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+	@GetMapping(value = "/BuscarPorIdTurma/{id_turma}")
+	public ResponseEntity<Response<List<AlunoDTO>>> BuscarPorIdTurma(@PathVariable("id_turma") Long id_turma) {
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarPorIdTurma(id_turma).get(), false);
+        entityListDTO.forEach(data -> data.setSenha(null));
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
+	}
+
+    @GetMapping(value = "/BuscarPorIdTurmaEEvento/{id_turma}/{id_evento}")
+    public ResponseEntity<Response<List<AlunoDTO>>> BuscarPorIdTurma
+            (@PathVariable("id_turma") Long id_turma, @PathVariable("id_evento") Long id_evento) {
+	    List<AlunoDTO> listaRemocao = new ArrayList<AlunoDTO>();
+	    Optional<List<Aluno>> lis = entityService.BuscarPorIdTurma(id_turma);
+        entityListDTO = mappingEntityToDTO
+                .AsGenericMappingList(lis.get(), false);
+        entityListDTO.forEach(data -> {
+            data.getEquipe().forEach(equipe ->{
+                if(equipe.getEvento().getId() == id_evento)
+                    listaRemocao.add(data);
+            });
+            data.setSenha(null);
+        });
+        entityListDTO.removeAll(listaRemocao);
+        responseList.setData(entityListDTO);
+        return ResponseEntity.ok(responseList);
+    }
+	@GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_turma}")
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel
+            (@PathVariable("id_turma") Long id_turma, PageConfiguration pageConfig) {
+		PageRequest pageRequest =
+                new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		pageEntity = mappingEntityToDTO
-				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_equipe, pageRequest));
+				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_turma, pageRequest));
 		pageEntity.forEach(data -> data.setSenha(null));
 		responsePage.setData(pageEntity);
 		return ResponseEntity.ok(responsePage);

@@ -91,8 +91,8 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			response.getErrors().add("Servidor não encontrado para a matrícula " + matriculaSiap);
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entityOptional.get().setSenha(null);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
+			entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
+			response.setData(entityDTO);
 			return ResponseEntity.ok(response);
 		}
 	}

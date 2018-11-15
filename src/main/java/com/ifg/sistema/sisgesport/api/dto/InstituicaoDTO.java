@@ -9,7 +9,6 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 public class InstituicaoDTO extends EntidadeComumDTO {
 	private String descricao;
 	private String nome;
-	private List<Cargo> cargos = new ArrayList<Cargo>();
 
 	public InstituicaoDTO() {
 	}
@@ -28,14 +27,6 @@ public class InstituicaoDTO extends EntidadeComumDTO {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<Cargo> getCargos() {
-		return cargos;
-	}
-
-	public void setCargos(List<Cargo> cargos) {
-		this.cargos = cargos;
 	}
 
 }

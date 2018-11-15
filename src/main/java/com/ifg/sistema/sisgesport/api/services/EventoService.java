@@ -24,11 +24,16 @@ public interface EventoService {
 	 */
 	Page<Evento> BuscarPorMatriculaCriadorPaginavel(String matriculaSiap, PageRequest pageRequest);
     /**
-     * Busca uma lista de eventos paginados pelo id do criador
+     * Busca uma lista de eventos paginados
      * @param pageRequest
      * @return
      */
     Page<Evento> BuscarTodosPaginavel(PageRequest pageRequest);
+	/**
+	 * Busca uma lista de eventos
+	 * @return
+	 */
+	List<Evento> BuscarTodos();
 	/**
 	 * Busca pelo id do evento
 	 * @param codigo_evento

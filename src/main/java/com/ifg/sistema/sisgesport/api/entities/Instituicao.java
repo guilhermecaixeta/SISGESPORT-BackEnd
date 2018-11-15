@@ -31,8 +31,9 @@ public class Instituicao extends EntidadeComum implements Serializable {
 	@Length(max = 255, message = "O campo nome possui o limite máximo de {max} caracteres.")
 	private String nome;
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "instituicao_cargo", joinColumns = @JoinColumn(name = "instituicao", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cargo", referencedColumnName = "id"), uniqueConstraints = {
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "instituicao_cargo", joinColumns = @JoinColumn(name = "instituicao", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "cargo", referencedColumnName = "id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "instituicao", "cargo" }) })
 	private List<Cargo> cargos = new ArrayList<Cargo>();
 

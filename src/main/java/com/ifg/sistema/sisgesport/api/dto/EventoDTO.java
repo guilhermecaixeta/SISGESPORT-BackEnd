@@ -1,13 +1,8 @@
 package com.ifg.sistema.sisgesport.api.dto;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
-import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
-import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
-import com.ifg.sistema.sisgesport.api.entities.Servidor;
 
 public class EventoDTO extends EntidadeComumDTO {
 	private int qntEquipes;
@@ -19,8 +14,7 @@ public class EventoDTO extends EntidadeComumDTO {
 	private Date dataCriacao;
 	private Date dataInicio;
 	private Date dataFim;
-	private Servidor criador;
-	private List<InformacaoEventoDTO> informacaoEvento = new ArrayList<InformacaoEventoDTO>();
+	private ServidorDTO criador;
 	private List<EventoModalidadeDTO> eventoModalidade = new ArrayList<EventoModalidadeDTO>();
 
 	public EventoDTO() {
@@ -98,22 +92,14 @@ public class EventoDTO extends EntidadeComumDTO {
 		this.dataFim = dataFim;
 	}
 
-	public Servidor getCriador() {
+	public ServidorDTO getCriador() {
 		return criador;
 	}
 
-	public void setCriador(Servidor criador) {
+	public void setCriador(ServidorDTO criador) {
 		this.criador = criador;
 	}
-
-	public List<InformacaoEventoDTO> getInformacaoEvento() {
-		return informacaoEvento;
-	}
-
-	public void setInformacaoEvento(List<InformacaoEventoDTO> informacaoEvento) {
-		this.informacaoEvento = informacaoEvento;
-	}
-
+	
 	public List<EventoModalidadeDTO> getEventoModalidade() {
 		return eventoModalidade;
 	}

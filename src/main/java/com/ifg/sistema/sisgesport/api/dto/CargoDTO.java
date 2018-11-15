@@ -9,7 +9,7 @@ public class CargoDTO {
 	private Long id;
 	private String nome;
 	private String descricao;
-	private List<Instituicao> instituicao = new ArrayList<>();
+	private List<InstituicaoDTO> instituicao = new ArrayList<>();
 
 	public CargoDTO() {
 	}
@@ -38,11 +38,11 @@ public class CargoDTO {
 		this.descricao = descricao;
 	}
 
-	public List<Instituicao> getInstituicao() {
+	public List<InstituicaoDTO> getInstituicao() {
 		return instituicao;
 	}
 
-	public void setInstituicao(List<Instituicao> instituicao) {
+	public void setInstituicao(List<InstituicaoDTO> instituicao) {
 		this.instituicao = instituicao;
 	}
 

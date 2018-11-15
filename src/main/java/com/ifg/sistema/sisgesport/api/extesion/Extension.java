@@ -99,22 +99,18 @@ public class Extension<S, D> {
 	 * @throws Exception
 	 */
 	public D updateGeneric(S source, D destiny, List<String> listExceptions) throws Exception {
-		List<Field> fieldListSource = getAllFields(new ArrayList<Field>(), getSource());
-		List<Field> fieldListDestiny = getAllFields(new ArrayList<Field>(), getDestiny());
+	    List<Field> fieldListDestiny = getAllFields(new ArrayList<Field>(), getDestiny());
 		D dataReturn = destiny;
-		for (int i = 0; i < fieldListSource.size(); i++) {
-			Field sourceF = fieldListSource.get(i);
-			Field destinyF = getFieldByName(sourceF.getName(), fieldListDestiny);
+		D dataMappedFromDTO = AsGenericMapping(source);
+		for (int i = 0; i < fieldListDestiny.size(); i++) {
+			Field field = fieldListDestiny.get(i);
 
-			if (!sourceF.isAccessible()) {
-				sourceF.setAccessible(true);
+			if (!field.isAccessible()) {
+                field.setAccessible(true);
 			}
-			if (!destinyF.isAccessible()) {
-				destinyF.setAccessible(true);
-			}
-			if (sourceF.get(source) != null && sourceF.get(source) != destinyF.get(destiny)
-					&& !listExceptions.contains(sourceF.getName())) {
-				destinyF.set(dataReturn, sourceF.get(source));
+			if (field.get(dataMappedFromDTO) != null && field.get(dataMappedFromDTO) != field.get(destiny)
+					&& !listExceptions.contains(field.getName())) {
+                field.set(dataReturn, field.get(dataMappedFromDTO));
 			}
 		}
 
