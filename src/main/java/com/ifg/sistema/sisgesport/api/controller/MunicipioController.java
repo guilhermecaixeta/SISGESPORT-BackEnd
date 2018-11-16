@@ -31,6 +31,8 @@ import com.ifg.sistema.sisgesport.api.services.MunicipioService;
 @RequestMapping("api/municipio")
 public class MunicipioController extends baseController<MunicipioDTO, Municipio, MunicipioService> {
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(MunicipioDTO.class, Municipio.class);
 		mappingEntityToDTO = new Extension<>(Municipio.class, MunicipioDTO.class);
 	}
@@ -39,8 +41,8 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 	public ResponseEntity<Response<List<MunicipioDTO>>> BuscarPorIdEstado(@PathVariable("id_estado") Long id_estado) {
 		Optional<List<Municipio>> lista = entityService.BuscarPorEstadoId(id_estado);
 		if (lista.isPresent()) {
-			List<MunicipioDTO> listaDTO = mappingEntityToDTO.AsGenericMappingList(lista.get(), false);
-			responseList.setData(listaDTO);
+			entityListDTO = mappingEntityToDTO.AsGenericMappingList(lista.get(), false);
+			responseList.setData(entityListDTO);
 		} else
 			responseList.getErrors().add("Municípios com o id do estado " + id_estado + " não encontrado.");
 
@@ -94,8 +96,7 @@ public class MunicipioController extends baseController<MunicipioDTO, Municipio,
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(municipioDTO, entityOptional.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(municipioDTO, entityOptional.get(), listaExcecao);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

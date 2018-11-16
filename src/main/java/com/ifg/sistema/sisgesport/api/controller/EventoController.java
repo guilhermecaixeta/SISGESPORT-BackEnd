@@ -41,6 +41,13 @@ import com.ifg.sistema.sisgesport.api.response.Response;
 @RequestMapping("api/evento")
 public class EventoController extends baseController<EventoDTO, Evento, EventoService> {
 	{
+		listaExcecao.add("id");
+        listaExcecao.add("equipe");
+        listaExcecao.add("qntEquipes");
+        listaExcecao.add("codigoEvento");
+        listaExcecao.add("serialVersionUID");
+        listaExcecao.add("eventoModalidade");
+        listaExcecao.add("informacaoEvento");
 		mappingDTOToEntity = new Extension<>(EventoDTO.class, Evento.class);
 		mappingEntityToDTO = new Extension<>(Evento.class, EventoDTO.class);
 	}
@@ -66,18 +73,18 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 	@GetMapping(value = "/BuscarPorMatriculaCriadorPaginavel/{matriculaSiap}")
 	public ResponseEntity<Response<Page<EventoDTO>>> BuscarPorMatriculaCriadorPaginavel(@PathVariable("matriculaSiap") String matriculaSiap, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorMatriculaCriadorPaginavel(matriculaSiap, pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<EventoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
     @GetMapping(value = "/BuscarTodos")
@@ -156,15 +163,12 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 	public ResponseEntity<Response<EventoDTO>> AtualizarEvento(@PathVariable("id") Long id, @Valid @RequestBody EventoDTO eventoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", eventoDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
 		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("evento", "Evento não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("id");
-            entity = mappingDTOToEntity.AsGenericMapping(eventoDTO);
+            entity = mappingDTOToEntity.updateGeneric(eventoDTO, entityOptional.get(), listaExcecao);
             List<Endereco> listaEnderecos = entity.getEndereco();
-
             entity.setEndereco(new ArrayList<Endereco>());
 
             if (!eventoDTO.getEndereco().isEmpty()) {

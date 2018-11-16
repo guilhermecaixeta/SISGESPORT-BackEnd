@@ -7,7 +7,7 @@ public class EquipeDTO {
 	private String nome;
 	private String codigoEquipe;
 	private String cor;
-        private AlunoDTO capitao;
+	private AlunoDTO capitao;
 	private ImagemDTO imagem;
 	private EventoDTO evento;
 	private List<TimeDTO> time = new ArrayList<>();

@@ -40,10 +40,10 @@ import com.ifg.sistema.sisgesport.api.services.ImagemService;
 @RequestMapping("api/equipe")
 public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeService> {
 	{
-        lista.add("id");
-        lista.add("time");
-        lista.add("evento");
-        lista.add("serialVersionUID");
+        listaExcecao.add("id");
+        listaExcecao.add("time");
+        listaExcecao.add("evento");
+        listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(EquipeDTO.class, Equipe.class);
 		mappingEntityToDTO = new Extension<>(Equipe.class, EquipeDTO.class);
 	}
@@ -54,24 +54,59 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 	public ResponseEntity<Response<Page<EquipeDTO>>> BuscarEquipePorIdEventoPaginavel(
 			@PathVariable("id_evento") Long id_evento,
 			PageConfiguration pageConfig) {
-		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort),
+                pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarEquipePorIdEventoPaginavel(id_evento, pageRequest));
-		pageEntity.forEach(x ->{
+        entityPageListDTO.forEach(x ->{
+            if(x.getCapitao() != null) {
+                x.getCapitao().setPerfil(null);
+                x.getCapitao().setEquipe(null);
+                x.getCapitao().setTurma(null);
+                x.getCapitao().setEndereco(null);
+                x.getCapitao().setImagem(null);
+                x.getCapitao().setInstituicao(null);
+                x.getCapitao().setSenha(null);
+            }
+            if(x.getAluno() != null)
+                x.setAluno(null);
 		    x.setTime(null);
 		    x.setEvento(null);
         });
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
-	@GetMapping(value = "/BuscarPorMatriculaCriador/{matriculaSiap}")
+	@GetMapping(value = "/BuscarEquipePorIdEvento/{id_evento}")
 	public ResponseEntity<Response<List<EquipeDTO>>> BuscarEquipePorIdEvento(
 			@PathVariable("id_evento") Long id_evento) {
-		List<EquipeDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarEquipePorIdEvento(id_evento).get(), false);
-		responseList.setData(listServidorDTO);
+        entityListDTO.forEach(x ->{
+            if(x.getCapitao() != null) {
+                x.getCapitao().setEquipe(null);
+                x.getCapitao().setPerfil(null);
+                x.getCapitao().setEndereco(null);
+                x.getCapitao().setSenha(null);
+                x.getCapitao().setTurma(null);
+                x.getCapitao().setImagem(null);
+            }
+            x.setAluno(null);
+            x.setImagem(null);
+			x.setTime(null);
+			x.setEvento(null);
+		});
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
+	}
+
+	@GetMapping(value = "/BuscarPorMatriculaCriador/{matriculaSiap}")
+	public ResponseEntity<Response<EquipeDTO>> BuscarEquipePorIdEvento(
+			@PathVariable("matriculaSiap") String matriculaSiap) {
+		entityDTO = mappingEntityToDTO
+				.AsGenericMapping(entityService.BuscarPorMatriculaCapitao(matriculaSiap).get());
+		response.setData(entityDTO);
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping(value = "/BuscarPorId/{id}")
@@ -83,9 +118,22 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 			response.getErrors().add("Equipe não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-        entityOptional.get().getAluno();
+
 		entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
 		entityDTO.getEvento().getCriador().setSenha(null);
+        entityDTO.getEvento().getCriador().setCargo(null);
+        entityDTO.getEvento().getCriador().setEndereco(null);
+        entityDTO.getEvento().getCriador().setPerfil(null);
+        entityDTO.getEvento().getCriador().setImagem(null);
+		entityDTO.getAluno().forEach(x ->{
+		    x.setPerfil(null);
+		    x.setSenha(null);
+		    x.setInstituicao(null);
+		    x.setImagem(null);
+            x.setEquipe(null);
+            x.setEmail(null);
+            x.setEndereco(null);
+        });
 		response.setData(entityDTO);
 		return ResponseEntity.ok(response);
 	}
@@ -95,7 +143,8 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando a equipe: {}", equipeDTO.toString());
 		this.entityService.BuscarPorCodigoEquipe(equipeDTO.getCodigoEquipe())
-				.ifPresent(inst -> result.addError(new ObjectError("equipe", "Codigo equipe já cadastrado.")));
+				.ifPresent(inst -> result.addError(
+				        new ObjectError("equipe", "Codigo equipe já cadastrado.")));
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da nova equipe: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
@@ -116,10 +165,9 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 			result.addError(new ObjectError("equipe", "Equipe não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(equipeDTO, entityOptional.get(), lista);
-
+			entity = mappingDTOToEntity.updateGeneric(equipeDTO, entityOptional.get(), listaExcecao);
 			this.entityService.Salvar(entity);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+			response.setData(new EquipeDTO());
 		}
 		return ResponseEntity.ok(response);
 	}

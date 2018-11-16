@@ -38,6 +38,8 @@ import com.ifg.sistema.sisgesport.api.services.CargoService;
 @RequestMapping("api/cargo")
 public class CargoController extends baseController<CargoDTO, Cargo, CargoService>{
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(CargoDTO.class, Cargo.class);
 		mappingEntityToDTO = new Extension<>(Cargo.class, CargoDTO.class);
 	}
@@ -46,9 +48,9 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 	public ResponseEntity<Response<Page<CargoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
 	{
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -98,9 +100,7 @@ public class CargoController extends baseController<CargoDTO, Cargo, CargoServic
 			result.addError(new ObjectError("Cargo", "Cargo não encontrado para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("id");
-            lista.add("serialVersionUID");
-            entity = mappingDTOToEntity.updateGeneric(cargoDTO, entityOptional.get(), lista);
+            entity = mappingDTOToEntity.updateGeneric(cargoDTO, entityOptional.get(), listaExcecao);
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}

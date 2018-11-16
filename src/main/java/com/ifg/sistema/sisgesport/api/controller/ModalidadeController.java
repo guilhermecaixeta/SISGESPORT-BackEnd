@@ -38,6 +38,8 @@ import com.ifg.sistema.sisgesport.api.services.ModalidadeService;
 @RequestMapping("api/modalidade")
 public class ModalidadeController extends baseController<ModalidadeDTO, Modalidade, ModalidadeService> {
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(ModalidadeDTO.class, Modalidade.class);
 		mappingEntityToDTO = new Extension<>(Modalidade.class, ModalidadeDTO.class);
 	}
@@ -49,9 +51,9 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
 	public ResponseEntity<Response<Page<ModalidadeDTO>>> BuscarTodosPaginavel(
             PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -118,11 +120,10 @@ public class ModalidadeController extends baseController<ModalidadeDTO, Modalida
             List<Penalidade> listaI = new ArrayList<Penalidade>();
             List<TipoPonto> listaII = new ArrayList<TipoPonto>();
             List<Posicao> listaIII = new ArrayList<Posicao>();
-		    lista.add("id");
 		    modalidadeDTO.getPenalidade().forEach(x -> listaI.add(mappingEntityChildIII.AsGenericMapping(x)));
             modalidadeDTO.getTipoPonto().forEach(x -> listaII.add(mappingEntityChildII.AsGenericMapping(x)));
             modalidadeDTO.getPosicao().forEach(x -> listaIII.add(mappingEntityChildI.AsGenericMapping(x)));
-			entity = mappingDTOToEntity.updateGeneric(modalidadeDTO, entityOptional.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(modalidadeDTO, entityOptional.get(), listaExcecao);
 			entity.setPenalidade(listaI);
             entity.setTipoPonto(listaII);
             entity.setPosicao(listaIII);

@@ -27,6 +27,10 @@ import com.ifg.sistema.sisgesport.api.services.TimeService;
 @RequestMapping("api/time")
 public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 	{
+        listaExcecao.add("id");
+        listaExcecao.add("equipe");
+        listaExcecao.add("modalidade");
+        listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(TimeDTO.class, Time.class);
 		mappingEntityToDTO = new Extension<>(Time.class, TimeDTO.class);
 	}
@@ -35,17 +39,17 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 	public ResponseEntity<Response<Page<TimeDTO>>> BuscarTimePorIdEventoPaginavel(
 			@PathVariable("id_time") Long id_time, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_time, pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarTimePorIdEvento/{id_time}")
 	public ResponseEntity<Response<List<TimeDTO>>> BuscarTimePorIdEvento(@PathVariable("id_time") Long id_time) {
-		List<TimeDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarPorEquipeId(id_time).get(), false);
-		responseList.setData(listServidorDTO);
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
 
@@ -85,7 +89,7 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		if (!time.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(timeDTO, time.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(timeDTO, time.get(), listaExcecao);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

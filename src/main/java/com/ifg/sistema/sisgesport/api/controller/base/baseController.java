@@ -31,15 +31,18 @@ public abstract class baseController<S, D, ES> {
 	protected Response<S> response = new Response<S>();
 	protected Response<Page<S>> responsePage = new Response<Page<S>>();
 	protected Response<List<S>> responseList = new Response<List<S>>();
+
 	protected static final Logger log = LoggerFactory.getLogger(baseController.class);
+
 	protected Extension<S, D> mappingDTOToEntity;
 	protected Extension<D, S> mappingEntityToDTO;
+
 	@Autowired
 	protected ES entityService;
     /**
      * Lista usada para exceções no mapeamento
      */
-    protected List<String> lista = new ArrayList<String>();
+    protected List<String> listaExcecao = new ArrayList<String>();
 	/**
 	 * Instancia da Entidade destino para persistencia no banco de dados
 	 */
@@ -48,10 +51,6 @@ public abstract class baseController<S, D, ES> {
 	 * Instancia da Entidade Opcional destino
 	 */
 	protected Optional<D> entityOptional;
-	/**
-	 * Instancia base para a paginação
-	 */
-	protected  Page<S> pageEntity;
 	/*
 	 * Instancia da Entidade DTO para retorno dos métodos
 	 */
@@ -60,5 +59,9 @@ public abstract class baseController<S, D, ES> {
 	 * Instancia da Entidade Opcional destino
 	 */
 	protected List<S> entityListDTO;
+    /**
+     * Instancia base para a paginação
+     */
+    protected  Page<S> entityPageListDTO;
 
 }

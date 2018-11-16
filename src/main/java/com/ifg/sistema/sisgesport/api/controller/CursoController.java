@@ -28,6 +28,7 @@ import com.ifg.sistema.sisgesport.api.services.CursoService;
 @RequestMapping("api/curso")
 public class CursoController extends baseController<CursoDTO, Curso, CursoService>{
 	{
+		listaExcecao.add("id");
 		mappingDTOToEntity = new Extension<>(CursoDTO.class, Curso.class);
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}
@@ -36,9 +37,9 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 	public ResponseEntity<Response<Page<CursoDTO>>> BuscarCursoPorIdInstituicaoPaginavel(
 			@PathVariable("id_instituicao") Long id_instituicao, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarCursoPorIdInstituicaoPaginavel(id_instituicao, pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 	
@@ -83,12 +84,11 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 			@Valid @RequestBody CursoDTO cursoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", cursoDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
 		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("instituicao", "Curso não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(cursoDTO, entityOptional.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(cursoDTO, entityOptional.get(), listaExcecao);
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}

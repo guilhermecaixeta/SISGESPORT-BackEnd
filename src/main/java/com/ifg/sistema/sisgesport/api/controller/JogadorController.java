@@ -38,6 +38,8 @@ import com.ifg.sistema.sisgesport.api.services.JogadorService;
 @RequestMapping("api/jogador")
 public class JogadorController extends baseController<JogadorDTO, Jogador, JogadorService> {
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(JogadorDTO.class, Jogador.class);
 		mappingEntityToDTO = new Extension<>(Jogador.class, JogadorDTO.class);
 	}
@@ -47,9 +49,9 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
             @PathVariable("id_jogador") Long id_jogador,
             PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_jogador, pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -123,7 +125,7 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, entityOptional.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, entityOptional.get(), listaExcecao);
 		}
 		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);

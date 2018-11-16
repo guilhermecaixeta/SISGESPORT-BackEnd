@@ -31,6 +31,7 @@ import com.ifg.sistema.sisgesport.api.services.EstadoService;
 @RequestMapping("api/estado")
 public class EstadoController extends baseController<EstadoDTO, Estado, EstadoService> {
 	{
+		listaExcecao.add("id");
 		mappingDTOToEntity = new Extension<>(EstadoDTO.class, Estado.class);
 		mappingEntityToDTO = new Extension<>(Estado.class, EstadoDTO.class);
 	}
@@ -106,8 +107,7 @@ public class EstadoController extends baseController<EstadoDTO, Estado, EstadoSe
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(estadoDTO, entityOptional.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(estadoDTO, entityOptional.get(), listaExcecao);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

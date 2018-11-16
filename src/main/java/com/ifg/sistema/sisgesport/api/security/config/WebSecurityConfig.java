@@ -49,12 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/api/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/aluno").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/servidor").permitAll()
                 .antMatchers("/api/instituicao/BuscarTodos", "/auth/**",
                         "/api/curso/BuscarCursoPorIdInstituicao/**",
-                        "/api/turma/BuscarPorCursoId/**", "/api/cargo/BuscarPorInstituicaoId/**",
-                        "/api/aluno/cadastrar/**", "/api/aluno/BuscarPorMatricula/**",
-                        "/api/servidor/cadastrar/**", "/api/servidor/BuscarPorMatricula/**", "/api/estado/BuscarTodos/**",
-                        "/api/municipio/BuscarPorIdEstado/**", "/v2/api-docs",
+                        "/api/turma/BuscarPorCursoId/**", "/api/cargo/BuscarPorInstituicaoId/**"
+                        , "/api/aluno/BuscarPorMatricula/**", "/api/servidor/BuscarPorMatricula/**",
+                        "/api/estado/BuscarTodos/**", "/api/municipio/BuscarPorIdEstado/**", "/v2/api-docs",
                         "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
                 .permitAll().anyRequest().authenticated();
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

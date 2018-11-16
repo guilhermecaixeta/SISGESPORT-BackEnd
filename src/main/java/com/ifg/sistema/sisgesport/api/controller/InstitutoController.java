@@ -40,8 +40,9 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
-		lista.add("id");
-		mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
+		listaExcecao.add("id");
+        listaExcecao.add("serialVersionUID");
+        mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
 	}
     @Autowired
@@ -53,9 +54,9 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 	public ResponseEntity<Response<Page<InstituicaoDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
     {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -124,10 +125,11 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
 		log.info("Atualizando dados do Instituto: {}", institutoDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
 		if (!entityOptional.isPresent()) {
-			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id.toString()));
+			result.addError(new ObjectError("instituicao",
+                    "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.AsGenericMapping(institutoDTO);
+			entity = mappingDTOToEntity.updateGeneric(institutoDTO, entityOptional.get(), listaExcecao);
 			List<Endereco> listaEnderecos = entity.getEndereco();
 			entity.setEndereco(new ArrayList<Endereco>());
 			if (!institutoDTO.getEndereco().isEmpty()) {

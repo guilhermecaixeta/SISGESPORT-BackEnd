@@ -2,7 +2,7 @@ package com.ifg.sistema.sisgesport.api.dto;
 
 public class TimeDTO {
 	private Long id;
-	private int numVitoria;
+		private int numVitoria;
 	private int numDerrota;
 	private int numEmpate;
 	private int pontuacao;

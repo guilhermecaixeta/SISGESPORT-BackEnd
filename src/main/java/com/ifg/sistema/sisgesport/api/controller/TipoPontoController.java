@@ -27,6 +27,8 @@ import com.ifg.sistema.sisgesport.api.services.TipoPontoService;
 @RequestMapping("api/tipoPonto")
 public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto, TipoPontoService> {
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(TipoPontoDTO.class, TipoPonto.class);
 		mappingEntityToDTO = new Extension<>(TipoPonto.class, TipoPontoDTO.class);
 	}
@@ -35,26 +37,26 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 	public ResponseEntity<Response<Page<TipoPontoDTO>>> BuscarPorModalidadeIdPaginavel(
 			@PathVariable("id_modalidade") Long id_modalidade, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<TipoPontoDTO> pageServidorDTO = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<TipoPontoDTO>>> BuscarTodosPaginavel( PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		Page<TipoPontoDTO> pageServidorDTO = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageServidorDTO);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarPorModalidadeId/{id_modalidade}")
 	public ResponseEntity<Response<List<TipoPontoDTO>>> BuscarPorModalidadeId(@PathVariable("id_modalidade") Long id_modalidade) {
-		List<TipoPontoDTO> listServidorDTO = mappingEntityToDTO
+		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarPorModalidadeId(id_modalidade).get(), false);
-		responseList.setData(listServidorDTO);
+		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
 
@@ -79,7 +81,7 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 			entityListDTO = mappingEntityToDTO.AsGenericMappingList(tipoPontoLista.get(), false);
 			responseList.setData(entityListDTO);
 		} else
-			response.getErrors().add("Nenhuma instituição encontrada.");
+			response.getErrors().add("Nenhum tipo ponto encontrado.");
 		return ResponseEntity.ok(responseList);
 	}
 
@@ -102,11 +104,11 @@ public class TipoPontoController extends baseController<TipoPontoDTO, TipoPonto,
 	public ResponseEntity<Response<TipoPontoDTO>> atualizarTipoPonto(@PathVariable("id") Long id,
 			@Valid @RequestBody TipoPontoDTO tipoPontoDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", tipoPontoDTO);
-		Optional<TipoPonto> entityDTO = this.entityService.BuscarPorId(id);
-		if (!entityDTO.isPresent()) {
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(tipoPontoDTO, entityDTO.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(tipoPontoDTO, entityOptional.get(), listaExcecao);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));

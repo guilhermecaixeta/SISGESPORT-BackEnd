@@ -25,6 +25,8 @@ import java.util.Optional;
 @RequestMapping("api/penalidade")
 public class PenalidadeController  extends baseController<PenalidadeDTO, Penalidade, PenalidadeService> {
     {
+        listaExcecao.add("id");
+        listaExcecao.add("serialVersionUID");
         mappingDTOToEntity = new Extension<>(PenalidadeDTO.class, Penalidade.class);
         mappingEntityToDTO = new Extension<>(Penalidade.class, PenalidadeDTO.class);
     }
@@ -34,9 +36,9 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
             @PathVariable("id_modalidade") Long id_modalidade,
             PageConfiguration pageConfig) {
         PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-        pageEntity = mappingEntityToDTO
+        entityPageListDTO= mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
-        responsePage.setData(pageEntity);
+        responsePage.setData(entityPageListDTO);
         return ResponseEntity.ok(responsePage);
     }
 
@@ -55,9 +57,9 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
     @GetMapping(value = "/BuscarTodosPaginavel")
     public ResponseEntity<Response<Page<PenalidadeDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig) {
         PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-        pageEntity = mappingEntityToDTO
+        entityPageListDTO = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-        responsePage.setData(pageEntity);
+        responsePage.setData(entityPageListDTO);
         return ResponseEntity.ok(responsePage);
     }
 
@@ -108,7 +110,7 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
         if (!entityOptional.isPresent()) {
             return ResponseEntity.badRequest().body(response);
         } else {
-            entity = mappingDTOToEntity.updateGeneric(PenalidadeDTO, entityOptional.get(), new ArrayList<String>());
+            entity = mappingDTOToEntity.updateGeneric(PenalidadeDTO, entityOptional.get(), listaExcecao);
         }
         entity = this.entityService.Salvar(entity);
         response.setData(mappingEntityToDTO.AsGenericMapping(entity));

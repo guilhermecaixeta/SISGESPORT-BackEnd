@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.ifg.sistema.sisgesport.api.entities.Instituicao;
+import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -124,4 +125,9 @@ public class Pessoa extends EntidadeComum implements Serializable {
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
     }
+
+	@PrePersist
+	public void PrePersist() {
+		senha = PasswordUtils.GerarBCrypt(this.senha);
+	}
 }

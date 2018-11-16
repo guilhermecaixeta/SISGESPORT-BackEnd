@@ -38,6 +38,8 @@ import com.ifg.sistema.sisgesport.api.services.TurmaService;
 @RequestMapping("api/turma")
 public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaService>{
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(TurmaDTO.class, Turma.class);
 		mappingEntityToDTO = new Extension<>(Turma.class, TurmaDTO.class);
 	}
@@ -85,9 +87,9 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarPorCursoIdPaginavel(@PathVariable("id_curso") Long id_curso,
 			PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCursoIdPaginavel(id_curso,pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -95,9 +97,9 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 	public ResponseEntity<Response<Page<TurmaDTO>>> BuscarTodosPaginavel(PageConfiguration pageConfig)
 	{
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 	
@@ -121,12 +123,11 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 			@Valid @RequestBody TurmaDTO turmaDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", turmaDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
 		if (!entityOptional.isPresent()) {
 			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(turmaDTO, entityOptional.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(turmaDTO, entityOptional.get(), listaExcecao);
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);
 		}

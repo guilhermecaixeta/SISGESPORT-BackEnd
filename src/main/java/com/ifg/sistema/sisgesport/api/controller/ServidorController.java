@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,28 +45,27 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @RequestMapping("api/servidor")
 public class ServidorController  extends baseController<ServidorDTO, Servidor, ServidorService> {
 	{
+        listaExcecao.add("serialVersionUID");
+        listaExcecao.add("senha");
+        listaExcecao.add("turma");
+        listaExcecao.add("id");
 		mappingDTOToEntity = new Extension<>(ServidorDTO.class, Servidor.class);
 		mappingEntityToDTO = new Extension<>(Servidor.class, ServidorDTO.class);
 	}
 	protected Extension<EnderecoDTO, Endereco> mappingEntityChild = new Extension<>(EnderecoDTO.class, Endereco.class);
 
-	@Autowired
-	private CargoService tS;
-	@Autowired
-	private EnderecoService eS;
-
-	public ServidorController() {
-	}
+    @Autowired
+    protected EnderecoService enderecoService;
 
 	@GetMapping(value = "/BuscarPorCargoInstituicaoIdPaginavel/{id_instituicao}")
 	public ResponseEntity<Response<Page<ServidorDTO>>> BuscarPorCargoInstituicaoIdPaginavel(@PathVariable("id_instituicao") Long id_instituicao,
 		PageConfiguration pageConfig) {
 
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCargoInstituicaoIdPaginavel(id_instituicao, pageRequest));
-		pageEntity.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageEntity);
+		entityPageListDTO.forEach(data -> data.setSenha(null));
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -74,10 +74,10 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			PageConfiguration pageConfig) {
         response = new Response<ServidorDTO>();
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorCargoIdPaginavel(idCargo, pageRequest));
-		pageEntity.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageEntity);
+		entityPageListDTO.forEach(data -> data.setSenha(null));
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -108,13 +108,11 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(servidorDTO);
-        entity.setSenha(PasswordUtils.GerarBCrypt(servidorDTO.getSenha()));
+		entity.setPerfil(PerfilSistema.ROLE_USUARIO);
 		List<Endereco> listaEndereco = entity.getEndereco();
         entity.setEndereco(new ArrayList<Endereco>());
 		if(!listaEndereco.isEmpty())
             listaEndereco.forEach(endereco -> entity.AdicionarEndereco(endereco));
-		Optional<Cargo> cargo = this.tS.BuscarPorId(servidorDTO.getCargo().getId());
-		cargo.ifPresent(t -> entity.setCargo(t));
 		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 		return ResponseEntity.ok(response);
 	}
@@ -132,7 +130,6 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			@Valid @RequestBody ServidorDTO servidorDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Servidor: {}", servidorDTO);
 		entityOptional = entityService.BuscarPorId(id);
-		List<String> lista = new ArrayList<String>();
 		if (!entityOptional.isPresent())
 			result.addError(new ObjectError("Servidor", "Servidor não encontrado"));
 		
@@ -140,25 +137,14 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 			entityService.BuscarPorEmail(servidorDTO.getEmail())
 					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
 		}
-		if (servidorDTO.getSenha() == null) {
-			servidorDTO.setSenha(PasswordUtils.GerarBCrypt(servidorDTO.getSenha()));
-		} else {
-			lista.add("senha");
-		}
 		if (entityOptional.isPresent()) {
-			lista.add("turma");
-			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(servidorDTO, entityOptional.get(), lista);
-            entityOptional.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
-			if (servidorDTO.getCargo() != null && servidorDTO.getCargo().getId() > 0) {
-                entity.setCargo(new Cargo());
-                entity.getCargo().setId(servidorDTO.getCargo().getId());
-			}
-			if(entityOptional.get().getEndereco() != null && entityOptional.get().getEndereco().size() > 0) {
-				List<Endereco> listaEndereco = entityOptional.get().getEndereco();
-                entityOptional.get().setEndereco(new ArrayList<Endereco>());
-					listaEndereco.forEach(endereco -> entityOptional.get().AdicionarEndereco(endereco));
-			}
+			entity = mappingDTOToEntity.updateGeneric(servidorDTO, entityOptional.get(), listaExcecao);
+            List<Endereco> listaEnderecos = entity.getEndereco();
+            entity.setEndereco(new ArrayList<Endereco>());
+            if (!servidorDTO.getEndereco().isEmpty()) {
+                entityOptional.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
+                listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
+            }
 			this.entityService.Salvar(entity);
 			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		} else {

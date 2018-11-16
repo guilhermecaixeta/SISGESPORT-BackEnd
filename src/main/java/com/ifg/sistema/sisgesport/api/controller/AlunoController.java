@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +43,10 @@ import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 @RequestMapping("api/aluno")
 public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoService> {
 	{
+        listaExcecao.add("serialVersionUID");
+        listaExcecao.add("senha");
+        listaExcecao.add("turma");
+        listaExcecao.add("id");
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
 		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
 	}
@@ -54,10 +59,10 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_equipe}")
 	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_equipe, pageRequest));
-		pageEntity.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageEntity);
+        entityPageListDTO.forEach(data -> data.setSenha(null));
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -93,10 +98,10 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
             (@PathVariable("id_turma") Long id_turma, PageConfiguration pageConfig) {
 		PageRequest pageRequest =
                 new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+        entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdTurmaPaginavel(id_turma, pageRequest));
-		pageEntity.forEach(data -> data.setSenha(null));
-		responsePage.setData(pageEntity);
+        entityPageListDTO.forEach(data -> data.setSenha(null));
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
@@ -110,6 +115,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			return ResponseEntity.badRequest().body(response);
 		}
 		entityOptional.get().setSenha(null);
+        entityOptional.get().setEquipe(null);
+        entityOptional.get().setEndereco(null);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
@@ -117,7 +124,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	@PostMapping()
 	public ResponseEntity<Response<AlunoDTO>> cadastrarAluno(@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando o aluno: {}", alunoDTO.toString());
+		log.info("Cadastrando o aluno: {}", alunoDTO.getNome());
 		validarAluno(alunoDTO, result);
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados do novo aluno: {}", result.getAllErrors());
@@ -125,7 +132,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			return ResponseEntity.badRequest().body(response);
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(alunoDTO);
-		entity.setSenha(PasswordUtils.GerarBCrypt(alunoDTO.getSenha()));
+        entity.setPerfil(PerfilSistema.ROLE_USUARIO);
 		List<Endereco> lista = entity.getEndereco();
 		entity.setEndereco(new ArrayList<Endereco>());
 		if (!lista.isEmpty())
@@ -157,15 +164,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			entityService.BuscarPorEmail(alunoDTO.getEmail())
 					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
 		}
-		if (alunoDTO.getSenha() == null) {
-			alunoDTO.setSenha(PasswordUtils.GerarBCrypt(alunoDTO.getSenha()));
-		} else {
-			lista.add("senha");
-		}
 		if (aluno.isPresent()) {
-			lista.add("turma");
-			lista.add("id");
-			entity = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get(), lista);
+			entity = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get(), listaExcecao);
 			aluno.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
 			if (alunoDTO.getTurma() != null && alunoDTO.getTurma().getId() > 0) {
 				entity.setTurma(new Turma());

@@ -26,6 +26,8 @@ import com.ifg.sistema.sisgesport.api.services.PosicaoService;
 @RequestMapping("api/posicao")
 public class PosicaoController extends baseController<PosicaoDTO, Posicao, PosicaoService> {
 	{
+		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(PosicaoDTO.class, Posicao.class);
 		mappingEntityToDTO = new Extension<>(Posicao.class, PosicaoDTO.class);
 	}
@@ -34,20 +36,22 @@ public class PosicaoController extends baseController<PosicaoDTO, Posicao, Posic
 	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarPorModalidadeIdPaginavel(
 			@PathVariable("id_modalidade") Long id_modalidade,
 			PageConfiguration pageConfig) {
-		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		pageEntity = mappingEntityToDTO
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort),
+                pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorModalidadeIdPaginavel(id_modalidade, pageRequest));
-		responsePage.setData(pageEntity);
+		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
 
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarTodosPaginavel(
 			PageConfiguration pageConfig) {
-        PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-        pageEntity = mappingEntityToDTO
+        PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort),
+                pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarTodosPaginavel(pageRequest));
-        responsePage.setData(pageEntity);
+        responsePage.setData(entityPageListDTO);
         return ResponseEntity.ok(responsePage);
     }
 
@@ -110,7 +114,7 @@ public class PosicaoController extends baseController<PosicaoDTO, Posicao, Posic
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(posicaoDTO, entityOptional.get(), new ArrayList<String>());
+			entity = mappingDTOToEntity.updateGeneric(posicaoDTO, entityOptional.get(), listaExcecao);
 		}
 		entity = this.entityService.Salvar(entity);
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
