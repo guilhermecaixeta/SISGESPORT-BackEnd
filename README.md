@@ -14,8 +14,10 @@ Java - v.8.x
 ,EhCache 
 e Swagger(acesso via url disponível apenas para o perfil dev)
 
-Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia, possuindo um pacote dedicado aos testes do sistema.
+Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia utilizando a autenticação Oauth para acesso as controllers.
 
 *Teste das Controllers ainda se encontram em desenvolvimento.
+
 **Status Travis**
+
 [![Build Status](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd.svg?branch=master)](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd)
