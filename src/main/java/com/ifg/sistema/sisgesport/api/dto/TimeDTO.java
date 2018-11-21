@@ -1,12 +1,16 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimeDTO {
 	private Long id;
-		private int numVitoria;
+	private int numVitoria;
 	private int numDerrota;
 	private int numEmpate;
 	private int pontuacao;
 	private ModalidadeDTO modalidade;
+	private List<JogadorDTO> jogador = new ArrayList<>();
 
 	public TimeDTO() {
 	}
@@ -58,5 +62,12 @@ public class TimeDTO {
 	public void setModalidade(ModalidadeDTO modalidade) {
 		this.modalidade = modalidade;
 	}
-	
+
+    public List<JogadorDTO> getJogador() {
+        return jogador;
+    }
+
+    public void setJogador(List<JogadorDTO> jogador) {
+        this.jogador = jogador;
+    }
 }

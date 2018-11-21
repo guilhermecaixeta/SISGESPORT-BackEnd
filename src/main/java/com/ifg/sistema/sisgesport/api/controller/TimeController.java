@@ -38,7 +38,8 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_time}")
 	public ResponseEntity<Response<Page<TimeDTO>>> BuscarTimePorIdEventoPaginavel(
 			@PathVariable("id_time") Long id_time, PageConfiguration pageConfig) {
-		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort),
+				pageConfig.order);
 		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_time, pageRequest));
 		responsePage.setData(entityPageListDTO);

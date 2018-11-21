@@ -1,16 +1,10 @@
 package com.ifg.sistema.sisgesport.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -34,6 +28,9 @@ public class Time implements Serializable {
 	
 	@Column(name="pontuacao")
 	private int pontuacao;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="time")
+	private List<Jogador> jogador = new ArrayList<Jogador>();
 	
 	@ManyToOne
 	@JoinColumn(name="equipe", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_equipe_time"))
@@ -103,4 +100,11 @@ public class Time implements Serializable {
 		this.modalidade = modalidade;
 	}
 
+    public List<Jogador> getJogador() {
+        return jogador;
+    }
+
+    public void setJogador(List<Jogador> jogador) {
+        this.jogador = jogador;
+    }
 }

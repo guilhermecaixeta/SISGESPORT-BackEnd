@@ -66,7 +66,7 @@ public class EventoUtils {
      */
     public String randomIdentifier() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Time ");
+        builder.append("Equipe ");
             for (int i = 0; i < 3; i++) {
                 builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
             }

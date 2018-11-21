@@ -48,6 +48,12 @@ public class CursoController extends baseController<CursoDTO, Curso, CursoServic
 			@PathVariable("id_instituicao") Long id_instituicao) {
 		entityListDTO = mappingEntityToDTO
 				.AsGenericMappingList(entityService.BuscarCursoPorIdInstituicao(id_instituicao).get(), false);
+		List<CursoDTO> listaRemocao = new ArrayList<>();
+		entityListDTO.forEach(x -> {
+			if(!x.getFlg_ativo())
+				listaRemocao.add(x);
+		});
+		entityListDTO.removeAll(listaRemocao);
 		responseList.setData(entityListDTO);
 		return ResponseEntity.ok(responseList);
 	}
