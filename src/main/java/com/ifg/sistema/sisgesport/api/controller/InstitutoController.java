@@ -4,9 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.Valid;
-
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import com.ifg.sistema.sisgesport.api.services.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.EnderecoDTO;
 import com.ifg.sistema.sisgesport.api.dto.InstituicaoDTO;
@@ -40,7 +37,8 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
-		listaExcecao.add("id");
+	listaExcecao.add("id");
+	listaExcecao.add("cargo");
         listaExcecao.add("serialVersionUID");
         mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);
