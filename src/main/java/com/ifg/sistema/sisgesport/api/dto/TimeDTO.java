@@ -1,5 +1,8 @@
 package com.ifg.sistema.sisgesport.api.dto;
 
+import com.ifg.sistema.sisgesport.api.dto.dto_retorno.EquipeRetornoDTO;
+import com.ifg.sistema.sisgesport.api.dto.dto_retorno.JogadorRetornoDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +12,9 @@ public class TimeDTO {
 	private int numDerrota;
 	private int numEmpate;
 	private int pontuacao;
+	private EquipeRetornoDTO equipe;
 	private ModalidadeDTO modalidade;
-	private List<JogadorDTO> jogador = new ArrayList<>();
+	private List<JogadorRetornoDTO> jogador = new ArrayList<JogadorRetornoDTO>();
 
 	public TimeDTO() {
 	}
@@ -63,11 +67,19 @@ public class TimeDTO {
 		this.modalidade = modalidade;
 	}
 
-    public List<JogadorDTO> getJogador() {
+    public List<JogadorRetornoDTO> getJogador() {
         return jogador;
     }
 
-    public void setJogador(List<JogadorDTO> jogador) {
+    public void setJogador(List<JogadorRetornoDTO> jogador) {
         this.jogador = jogador;
+    }
+
+    public EquipeRetornoDTO getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(EquipeRetornoDTO equipe) {
+        this.equipe = equipe;
     }
 }

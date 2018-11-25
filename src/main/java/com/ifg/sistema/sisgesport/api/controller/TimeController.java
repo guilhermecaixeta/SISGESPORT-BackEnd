@@ -7,7 +7,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.Jogador;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.JogadorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -34,6 +37,9 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		mappingDTOToEntity = new Extension<>(TimeDTO.class, Time.class);
 		mappingEntityToDTO = new Extension<>(Time.class, TimeDTO.class);
 	}
+
+	@Autowired
+	private JogadorService jogadorService;
 
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_time}")
 	public ResponseEntity<Response<Page<TimeDTO>>> BuscarTimePorIdEventoPaginavel(
@@ -78,7 +84,7 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		}
 		entity = mappingDTOToEntity.AsGenericMapping(timeDTO);
 		entity = this.entityService.Salvar(entity);
-		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+        response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}
 
@@ -92,7 +98,14 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		} else {
 			entity = mappingDTOToEntity.updateGeneric(timeDTO, time.get(), listaExcecao);
 		}
-		entity = this.entityService.Salvar(entity);
+        List<Jogador> listaJogador = new ArrayList<>();
+        listaJogador = entity.getJogador();
+        entity.setJogador(null);
+        entity = this.entityService.Salvar(entity);
+        listaJogador.forEach(x -> {
+            x.setTime(entity);
+            jogadorService.Salvar(x);
+        });
 		response.setData(mappingEntityToDTO.AsGenericMapping(entity));
 		return ResponseEntity.ok(response);
 	}

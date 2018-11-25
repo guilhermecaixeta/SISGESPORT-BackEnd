@@ -66,6 +66,21 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		return ResponseEntity.ok(responsePage);
 	}
 
+	@GetMapping(value = "/BuscarPorIdEquipe/{id_equipe}")
+	public ResponseEntity<Response<List<AlunoDTO>>> BuscarPorId(@PathVariable("id_equipe") Long id_equipe) {
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarPorIdEquipe(id_equipe).get(), false);
+		entityListDTO.forEach(data -> {
+		    data.setSenha(null);
+		    data.setEquipe(null);
+		    data.setEndereco(null);
+		    data.setPerfil(null);
+		    data.setInstituicao(null);
+		});
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
+	}
+
 	@GetMapping(value = "/BuscarPorIdTurma/{id_turma}")
 	public ResponseEntity<Response<List<AlunoDTO>>> BuscarPorIdTurma(@PathVariable("id_turma") Long id_turma) {
 		entityListDTO = mappingEntityToDTO

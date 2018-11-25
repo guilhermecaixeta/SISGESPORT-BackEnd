@@ -29,7 +29,7 @@ public class Time implements Serializable {
 	@Column(name="pontuacao")
 	private int pontuacao;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="time")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="time")
 	private List<Jogador> jogador = new ArrayList<Jogador>();
 	
 	@ManyToOne

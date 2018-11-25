@@ -12,11 +12,11 @@ import com.ifg.sistema.sisgesport.api.entities.Time;
 public class JogadorDTO {
 	private Long id;
 	private int numCamisa;
-	private Aluno jogador;
-	private Time time;
-	private Posicao posicao;
-	private List<PartidaPenalidade> partidaPenalidade = new ArrayList<PartidaPenalidade>();
-	private List<PartidaPonto> partidaPonto = new ArrayList<PartidaPonto>();
+	private AlunoDTO jogador;
+	private TimeDTO time;
+	private PosicaoDTO posicao;
+	private List<PartidaPenalidadeDTO> partidaPenalidade = new ArrayList<>();
+	private List<PartidaPontoDTO> partidaPonto = new ArrayList<>();
 
 	public JogadorDTO() {
 	}
@@ -37,43 +37,43 @@ public class JogadorDTO {
 		this.numCamisa = numCamisa;
 	}
 
-	public Aluno getJogador() {
+	public AlunoDTO getJogador() {
 		return jogador;
 	}
 
-	public void setJogador(Aluno jogador) {
+	public void setJogador(AlunoDTO jogador) {
 		this.jogador = jogador;
 	}
 
-	public Time getTime() {
+	public TimeDTO getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(TimeDTO time) {
 		this.time = time;
 	}
 
-	public Posicao getPosicao() {
+	public PosicaoDTO getPosicao() {
 		return posicao;
 	}
 
-	public void setPosicao(Posicao posicao) {
+	public void setPosicao(PosicaoDTO posicao) {
 		this.posicao = posicao;
 	}
 
-	public List<PartidaPenalidade> getPartidaPenalidade() {
+	public List<PartidaPenalidadeDTO> getPartidaPenalidade() {
 		return partidaPenalidade;
 	}
 
-	public void setPartidaPenalidade(List<PartidaPenalidade> partidaPenalidade) {
+	public void setPartidaPenalidade(List<PartidaPenalidadeDTO> partidaPenalidade) {
 		this.partidaPenalidade = partidaPenalidade;
 	}
 
-	public List<PartidaPonto> getPartidaPonto() {
+	public List<PartidaPontoDTO> getPartidaPonto() {
 		return partidaPonto;
 	}
 
-	public void setPartidaPonto(List<PartidaPonto> partidaPonto) {
+	public void setPartidaPonto(List<PartidaPontoDTO> partidaPonto) {
 		this.partidaPonto = partidaPonto;
 	}
 

@@ -44,6 +44,15 @@ public class PosicaoController extends baseController<PosicaoDTO, Posicao, Posic
 		return ResponseEntity.ok(responsePage);
 	}
 
+	@GetMapping(value = "/BuscarPorModalidadeId/{id_modalidade}")
+	public ResponseEntity<Response<List<PosicaoDTO>>> BuscarPorModalidadeId(
+			@PathVariable("id_modalidade") Long id_modalidade) {
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarPorModalidadeId(id_modalidade).get(), false);
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
+	}
+
 	@GetMapping(value = "/BuscarTodosPaginavel")
 	public ResponseEntity<Response<Page<PosicaoDTO>>> BuscarTodosPaginavel(
 			PageConfiguration pageConfig) {
