@@ -40,6 +40,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		log.info("Buscando Partida pelo id evento {} ", id_evento);
 		return Optional.ofNullable(partidaRepositorio.findByEventoId(id_evento));
 	}
+	public Optional<List<Partida>> BuscarPorEventoIdEModalidadeId(Long id_evento, Long id_modalidade) {
+		log.info("Buscando Partida pelo id evento {} e id modalidade {}", id_evento, id_modalidade);
+		return Optional.ofNullable(partidaRepositorio.findByEventoIdAndTimeCasaModalidadeId(id_evento, id_modalidade));
+	}
 
 	public Page<Partida> BuscarPorEventoIdPaginavel(Long id_evento, PageRequest pageRequest) {
 		log.info("Buscando Partida pelo id evento {} ", id_evento);

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class EventoRetornoDTO {
     private Long id;
-    private List<EquipeRetornoDTO> equipe;
+//    private List<EquipeRetornoDTO> equipe;
 
     public Long getId() {
         return id;
@@ -15,11 +15,11 @@ public class EventoRetornoDTO {
     }
 
 
-    public List<EquipeRetornoDTO> getEquipe() {
-        return equipe;
-    }
-
-    public void setEquipe(List<EquipeRetornoDTO> equipe) {
-        this.equipe = equipe;
-    }
+//    public List<EquipeRetornoDTO> getEquipe() {
+//        return equipe;
+//    }
+//
+//    public void setEquipe(List<EquipeRetornoDTO> equipe) {
+//        this.equipe = equipe;
+//    }
 }

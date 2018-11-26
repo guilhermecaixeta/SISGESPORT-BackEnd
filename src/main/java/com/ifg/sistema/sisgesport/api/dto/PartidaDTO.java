@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
+import com.ifg.sistema.sisgesport.api.dto.commom_entities.PessoaDTO;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.PartidaPenalidade;
@@ -17,13 +18,13 @@ public class PartidaDTO extends EntidadeComumDTO {
 	private Date dataPartida;
 	private double duracaoPartida;
 	private double acrescimo;
-	private Pessoa juiz;
-	private Time timeCasa;
-	private Time timeVisita;
-	private Evento evento;
-	private Modalidade modalidade;
-	private List<PartidaPenalidade> partidaPenalidade = new ArrayList<PartidaPenalidade>();
-	private List<PartidaPonto> partidaPonto = new ArrayList<PartidaPonto>();
+	private PessoaDTO juiz;
+	private TimeDTO timeCasa;
+	private TimeDTO timeVisita;
+	private EventoDTO evento;
+	private ModalidadeDTO modalidade;
+	private List<PartidaPenalidadeDTO> partidaPenalidade = new ArrayList<PartidaPenalidadeDTO>();
+	private List<PartidaPontoDTO> partidaPonto = new ArrayList<PartidaPontoDTO>();
 
 	public PartidaDTO() {
 	}
@@ -60,59 +61,59 @@ public class PartidaDTO extends EntidadeComumDTO {
 		this.acrescimo = acrescimo;
 	}
 
-	public Pessoa getJuiz() {
+	public PessoaDTO getJuiz() {
 		return juiz;
 	}
 
-	public void setJuiz(Pessoa juiz) {
+	public void setJuiz(PessoaDTO juiz) {
 		this.juiz = juiz;
 	}
 
-	public Time getTimeCasa() {
+	public TimeDTO getTimeCasa() {
 		return timeCasa;
 	}
 
-	public void setTimeCasa(Time timeCasa) {
+	public void setTimeCasa(TimeDTO timeCasa) {
 		this.timeCasa = timeCasa;
 	}
 
-	public Time getTimeVisita() {
+	public TimeDTO getTimeVisita() {
 		return timeVisita;
 	}
 
-	public void setTimeVisita(Time timeVisita) {
+	public void setTimeVisita(TimeDTO timeVisita) {
 		this.timeVisita = timeVisita;
 	}
 
-	public Evento getEvento() {
+	public EventoDTO getEvento() {
 		return evento;
 	}
 
-	public void setEvento(Evento evento) {
+	public void setEvento(EventoDTO evento) {
 		this.evento = evento;
 	}
 
-	public Modalidade getModalidade() {
+	public ModalidadeDTO getModalidade() {
 		return modalidade;
 	}
 
-	public void setModalidade(Modalidade modalidade) {
+	public void setModalidade(ModalidadeDTO modalidade) {
 		this.modalidade = modalidade;
 	}
 
-	public List<PartidaPenalidade> getPartidaPenalidade() {
+	public List<PartidaPenalidadeDTO> getPartidaPenalidade() {
 		return partidaPenalidade;
 	}
 
-	public void setPartidaPenalidade(List<PartidaPenalidade> partidaPenalidade) {
+	public void setPartidaPenalidade(List<PartidaPenalidadeDTO> partidaPenalidade) {
 		this.partidaPenalidade = partidaPenalidade;
 	}
 
-	public List<PartidaPonto> getPartidaPonto() {
+	public List<PartidaPontoDTO> getPartidaPonto() {
 		return partidaPonto;
 	}
 
-	public void setPartidaPonto(List<PartidaPonto> partidaPonto) {
+	public void setPartidaPonto(List<PartidaPontoDTO> partidaPonto) {
 		this.partidaPonto = partidaPonto;
 	}
 

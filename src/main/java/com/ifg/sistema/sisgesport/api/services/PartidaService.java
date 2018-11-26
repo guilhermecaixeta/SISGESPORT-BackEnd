@@ -35,6 +35,12 @@ public interface PartidaService {
 	 */
 	Optional<List<Partida>> BuscarPorEventoId(Long id_evento);
 	/**
+	 * Busca uma lista de partidas pelo id do evento
+	 * @param id_evento
+	 * @return
+	 */
+	Optional<List<Partida>> BuscarPorEventoIdEModalidadeId(Long id_evento, Long id_modalidade);
+	/**
 	 * Busca uma lista de partidas pelo id do evento paginada
 	 * @param id_evento
 	 * @param page

@@ -8,6 +8,7 @@ public class JogadorRetornoDTO {
     private int numCamisa;
     private AlunoRetornoDTO jogador;
     private PosicaoDTO posicao;
+    private TimeRetornoDTO time;
 
     public Long getId() {
         return id;
@@ -39,5 +40,13 @@ public class JogadorRetornoDTO {
 
     public void setPosicao(PosicaoDTO posicao) {
         this.posicao = posicao;
+    }
+
+    public TimeRetornoDTO getTime() {
+        return time;
+    }
+
+    public void setTime(TimeRetornoDTO time) {
+        this.time = time;
     }
 }

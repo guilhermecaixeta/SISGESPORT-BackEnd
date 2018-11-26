@@ -3,10 +3,10 @@ package com.ifg.sistema.sisgesport.api.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.dto.dto_retorno.JogadorRetornoDTO;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
@@ -43,14 +42,30 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		mappingDTOToEntity = new Extension<>(JogadorDTO.class, Jogador.class);
 		mappingEntityToDTO = new Extension<>(Jogador.class, JogadorDTO.class);
 	}
+    protected Extension<Jogador, JogadorRetornoDTO> mappingEntityToDTOReturn =
+            new Extension<>(Jogador.class, JogadorRetornoDTO.class);
 
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_jogador}")
-	public ResponseEntity<Response<Page<JogadorDTO>>> BuscarJogadorPorIdEventoPaginavel(
+	public ResponseEntity<Response<Page<JogadorRetornoDTO>>> BuscarPorEquipeIdPaginavel(
             @PathVariable("id_jogador") Long id_jogador,
             PageConfiguration pageConfig) {
-		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
-		entityPageListDTO = mappingEntityToDTO
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size,
+                Direction.valueOf(pageConfig.sort), pageConfig.order);
+        Response<Page<JogadorRetornoDTO>> responsePageReturn = new Response<Page<JogadorRetornoDTO>>();
+		Page<JogadorRetornoDTO> entityPageListDTOReturn = mappingEntityToDTOReturn
 				.AsGenericMappingListPage(entityService.BuscarPorEquipeIdPaginavel(id_jogador, pageRequest));
+		responsePageReturn.setData(entityPageListDTOReturn);
+		return ResponseEntity.ok(responsePageReturn);
+	}
+
+	@GetMapping(value = "/BuscarPorTimeIdPaginavel/{id_time}")
+	public ResponseEntity<Response<Page<JogadorDTO>>> BuscarPorTimeIdPaginavel(
+			@PathVariable("id_time") Long id_time,
+			PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size,
+                Direction.valueOf(pageConfig.sort), pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorTimeIdPaginavel(id_time, pageRequest));
 		responsePage.setData(entityPageListDTO);
 		return ResponseEntity.ok(responsePage);
 	}
@@ -73,7 +88,15 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 			response.getErrors().add("Instituição não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
+		entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
+        entityDTO.getTime().setJogador(null);
+        entityDTO.getJogador().setInstituicao(null);
+        entityDTO.getJogador().setPerfil(null);
+        entityDTO.getJogador().setEndereco(null);
+        entityDTO.getJogador().setEquipe(null);
+        entityDTO.getJogador().setTurma(null);
+        entityDTO.getJogador().setSenha(null);
+		response.setData(entityDTO);
 		return ResponseEntity.ok(response);
 	}
 
@@ -85,7 +108,8 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
      * @throws NoSuchAlgorithmException
      */
 	@PostMapping
-	public ResponseEntity<Response<JogadorDTO>> CadastrarJogador(@Valid @RequestBody JogadorDTO jogadorDTO, BindingResult result)
+	public ResponseEntity<Response<JogadorDTO>> CadastrarJogador(
+	        @Valid @RequestBody JogadorDTO jogadorDTO, BindingResult result)
             throws NoSuchAlgorithmException {
 		log.info("Cadastrando a jogador: {}", jogadorDTO.toString());
 		if (result.hasErrors()) {

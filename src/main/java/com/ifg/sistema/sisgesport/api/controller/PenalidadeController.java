@@ -42,6 +42,15 @@ public class PenalidadeController  extends baseController<PenalidadeDTO, Penalid
         return ResponseEntity.ok(responsePage);
     }
 
+    @GetMapping(value = "/BuscarPorModalidadeId/{id_modalidade}")
+    public ResponseEntity<Response<List<PenalidadeDTO>>> BuscarPorModalidadeId(
+            @PathVariable("id_modalidade") Long id_modalidade){
+        entityListDTO= mappingEntityToDTO
+                .AsGenericMappingList(entityService.BuscarPorModalidadeId(id_modalidade).get(), false);
+        responseList.setData(entityListDTO);
+        return ResponseEntity.ok(responseList);
+    }
+
    @GetMapping(value = "/BuscarPorNome/{nome}")
     public ResponseEntity<Response<PenalidadeDTO>> BuscarPorNome(@PathVariable("nome") String nome) {
         entityOptional = entityService.BuscarPorNome(nome);
