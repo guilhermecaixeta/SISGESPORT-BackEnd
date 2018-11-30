@@ -26,6 +26,13 @@ public interface TimeService {
 	 * @return
 	 */
 	Optional<List<Time>> BuscarPorEquipeId(Long id_equipe);
+    /**
+     * Busca uma lista de times pelo evento e modalidade
+     * @param id_evento
+     * @param id_modalidade
+     * @return
+     */
+    Optional<List<Time>> BuscarPorEventoIdEModalidadeId(Long id_evento, Long id_modalidade);
 	/**
 	 * Busca uma lista paginada de times pelo id equipe 
 	 * @param id_equipe

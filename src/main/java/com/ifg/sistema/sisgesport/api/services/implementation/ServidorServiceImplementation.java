@@ -41,6 +41,11 @@ private static final Logger log = LoggerFactory.getLogger(ServidorServiceImpleme
 		return Optional.ofNullable(servidorRepositorio.findByMatricula(matriculaSiap));
 	}
 
+	public Optional<List<Servidor>> BuscarTodos() {
+		log.info("Buscando uma lista de servidores ");
+		return Optional.ofNullable(servidorRepositorio.findAll());
+	}
+
 	public Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo) {
 		log.info("Buscando servidor pelo id instituicao {} ", id_cargo);
 		return Optional.ofNullable(servidorRepositorio.findByCargoId(id_cargo));

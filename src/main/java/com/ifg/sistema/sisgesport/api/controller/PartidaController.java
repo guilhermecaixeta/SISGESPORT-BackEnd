@@ -30,7 +30,7 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
         mappingEntityToDTO = new Extension<>(Partida.class, PartidaDTO.class);
     }
 
-    @GetMapping(value = "/BuscarPorEventoIdPaginavel/{id_evento}")
+        @GetMapping(value = "/BuscarPorEventoIdPaginavel/{id_evento}")
     public ResponseEntity<Response<Page<PartidaDTO>>> BuscarPorEventoIdPaginavel(
             @PathVariable("id_evento") Long id_evento,
             PageConfiguration pageConfig) {

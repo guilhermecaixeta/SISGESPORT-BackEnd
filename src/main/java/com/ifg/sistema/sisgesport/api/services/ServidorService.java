@@ -16,13 +16,13 @@ public interface ServidorService {
 	Optional<Servidor> BuscarPorId(Long id);
 	/**
 	 * Busca um servidor pelo nome
-	 * @param matricula
+	 * @param nome
 	 * @return
 	 */
 	Optional<Servidor> BuscarPorNome(String nome);
 	/**
 	 * Busca um servidor pelo email
-	 * @param matricula
+	 * @param email
 	 * @return
 	 */
 	Optional<Servidor> BuscarPorEmail(String email);
@@ -33,14 +33,19 @@ public interface ServidorService {
 	 */
 	Optional<Servidor> BuscarPorMatriculaSiap(String matriculaSiap);
 	/**
+	 * Busca uma lista de servidores
+	 * @return
+	 */
+	Optional<List<Servidor>> BuscarTodos();
+	/**
 	 * Busca uma lista de servidores pelo cargo id
-	 * @param id_instituicao
+	 * @param id_cargo
 	 * @return
 	 */
 	Optional<List<Servidor>> BuscarPorCargoId(Long id_cargo);
 	/**
 	 * Busca uma lista paginada de servidores pelo cargo id
-	 * @param id_instituicao
+	 * @param id_cargo
 	 * @param pageRequest
 	 * @return
 	 */

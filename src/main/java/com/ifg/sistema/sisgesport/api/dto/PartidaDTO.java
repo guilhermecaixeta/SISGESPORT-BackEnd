@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.EntidadeComumDTO;
 import com.ifg.sistema.sisgesport.api.dto.commom_entities.PessoaDTO;
+import com.ifg.sistema.sisgesport.api.dto.dto_retorno.TimeRetornoDTO;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
 import com.ifg.sistema.sisgesport.api.entities.PartidaPenalidade;
@@ -19,8 +20,8 @@ public class PartidaDTO extends EntidadeComumDTO {
 	private double duracaoPartida;
 	private double acrescimo;
 	private PessoaDTO juiz;
-	private TimeDTO timeCasa;
-	private TimeDTO timeVisita;
+	private TimeRetornoDTO timeCasa;
+	private TimeRetornoDTO timeVisita;
 	private EventoDTO evento;
 	private ModalidadeDTO modalidade;
 	private List<PartidaPenalidadeDTO> partidaPenalidade = new ArrayList<PartidaPenalidadeDTO>();
@@ -69,19 +70,19 @@ public class PartidaDTO extends EntidadeComumDTO {
 		this.juiz = juiz;
 	}
 
-	public TimeDTO getTimeCasa() {
+	public TimeRetornoDTO getTimeCasa() {
 		return timeCasa;
 	}
 
-	public void setTimeCasa(TimeDTO timeCasa) {
+	public void setTimeCasa(TimeRetornoDTO timeCasa) {
 		this.timeCasa = timeCasa;
 	}
 
-	public TimeDTO getTimeVisita() {
+	public TimeRetornoDTO getTimeVisita() {
 		return timeVisita;
 	}
 
-	public void setTimeVisita(TimeDTO timeVisita) {
+	public void setTimeVisita(TimeRetornoDTO timeVisita) {
 		this.timeVisita = timeVisita;
 	}
 

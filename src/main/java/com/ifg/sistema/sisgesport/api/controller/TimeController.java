@@ -60,6 +60,16 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		return ResponseEntity.ok(responseList);
 	}
 
+	@GetMapping(value = "/BuscarPorEventoIdEModalidadeId/{id_evento}/{id_modalidade}")
+	public ResponseEntity<Response<List<TimeDTO>>> BuscarPorEventoIdEModalidadeId(
+			@PathVariable("id_evento") Long id_evento, @PathVariable("id_modalidade") Long id_modalidade) {
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarPorEventoIdEModalidadeId(id_evento, id_modalidade).get(),
+						false);
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
+	}
+
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<TimeDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando Instituição com o id: {}", id);

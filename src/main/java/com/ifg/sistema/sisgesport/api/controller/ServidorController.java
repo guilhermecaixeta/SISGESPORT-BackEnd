@@ -81,6 +81,16 @@ public class ServidorController  extends baseController<ServidorDTO, Servidor, S
 		return ResponseEntity.ok(responsePage);
 	}
 
+	@GetMapping(value = "/BuscarTodos")
+	public ResponseEntity<Response<List<ServidorDTO>>> BuscarTodos() {
+		responseList = new Response<List<ServidorDTO>>();
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(entityService.BuscarTodos().get(), false);
+		entityListDTO.forEach(data -> data.setSenha(null));
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
+	}
+
 	@GetMapping(value = "/BuscarPorMatricula/{matriculaSiap}")
 	public ResponseEntity<Response<ServidorDTO>> BuscarPorMatriculaSiap(@PathVariable("matriculaSiap") String matriculaSiap) {
 		log.info("Buscando servidor com a matrícula: {}", matriculaSiap);
