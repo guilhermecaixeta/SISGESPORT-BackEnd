@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.entities.*;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,19 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
 import com.ifg.sistema.sisgesport.api.dto.AlunoDTO;
-import com.ifg.sistema.sisgesport.api.entities.Aluno;
-import com.ifg.sistema.sisgesport.api.entities.Endereco;
-import com.ifg.sistema.sisgesport.api.entities.Turma;
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.EnderecoService;
-import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -108,7 +103,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
         responseList.setData(entityListDTO);
         return ResponseEntity.ok(responseList);
     }
-	@GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_turma}")
+
+    @GetMapping(value = "/BuscarPorIdTurmaPaginavel/{id_turma}")
 	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdTurmaPaginavel
             (@PathVariable("id_turma") Long id_turma, PageConfiguration pageConfig) {
 		PageRequest pageRequest =
@@ -166,38 +162,60 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Email já cadastrado.")));
 	}
 
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<AlunoDTO>> atualizarAluno(@PathVariable("id") Long id,
-			@Valid @RequestBody AlunoDTO alunoDTO, BindingResult result) throws Exception {
-		log.info("Atualizando dados do Aluno: {}", alunoDTO);
-		Optional<Aluno> aluno = entityService.BuscarPorId(id);
+	@GetMapping(value = "/AdicionarEquipe/{id_aluno}/{id_equipe}")
+	public ResponseEntity<Response<AlunoDTO>> AdicionarEquipe(
+	        @PathVariable("id_aluno") Long id_aluno, @PathVariable("id_equipe") Long id_equipe) throws Exception {
+		log.info("Atualizando dados do Aluno: {}", id_aluno);
+		entityOptional = entityService.BuscarPorId(id_aluno);
 
-		if (!aluno.isPresent())
-			result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
+		if (!entityOptional.isPresent()) {
+            return ResponseEntity.badRequest().body(response);
+        } else {
+            entity = entityOptional.get();
+            List<Equipe> equipeLista= new ArrayList<>();
+            Equipe equipe = new Equipe();
+            equipe.setId(id_equipe);
+            equipeLista.add(equipe);
+            entity.setEquipe(equipeLista);
 
-		if (alunoDTO.getEmail() != null && !alunoDTO.getEmail().equals(aluno.get().getEmail())) {
-			entityService.BuscarPorEmail(alunoDTO.getEmail())
-					.ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
-		}
-		if (aluno.isPresent()) {
-			entity = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get(), listaExcecao);
-			aluno.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
-			if (alunoDTO.getTurma() != null && alunoDTO.getTurma().getId() > 0) {
-				entity.setTurma(new Turma());
-				entity.getTurma().setId(alunoDTO.getTurma().getId());
-			}
-			if (!alunoDTO.getEndereco().isEmpty()) {
-				List<Endereco> listaEndereco = aluno.get().getEndereco();
-				aluno.get().setEndereco(new ArrayList<Endereco>());
-				listaEndereco.forEach(endereco -> aluno.get().AdicionarEndereco(endereco));
-			}
 			this.entityService.Salvar(entity);
-			response.setData(mappingEntityToDTO.AsGenericMapping(entity));
-		} else {
-			return ResponseEntity.badRequest().body(response);
-		}
-		return ResponseEntity.ok(response);
+			response.setData(mappingEntityToDTO.AsGenericMapping(new Aluno()));
+            return ResponseEntity.ok(response);
+        }
 	}
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Response<AlunoDTO>> atualizarAluno(@PathVariable("id") Long id,
+                                                             @Valid @RequestBody AlunoDTO alunoDTO, BindingResult result) throws Exception {
+        log.info("Atualizando dados do Aluno: {}", alunoDTO);
+        Optional<Aluno> aluno = entityService.BuscarPorId(id);
+
+        if (!aluno.isPresent())
+            result.addError(new ObjectError("Aluno", "Aluno não encontrado"));
+
+        if (alunoDTO.getEmail() != null && !alunoDTO.getEmail().equals(aluno.get().getEmail())) {
+            entityService.BuscarPorEmail(alunoDTO.getEmail())
+                    .ifPresent(al -> result.addError(new ObjectError("email", "Email já cadastrado")));
+        }
+        if (aluno.isPresent()) {
+            entity = mappingDTOToEntity.updateGeneric(alunoDTO, aluno.get(), listaExcecao);
+            aluno.get().getEndereco().forEach(endereco -> this.eS.Deletar(endereco.getId()));
+            if (alunoDTO.getTurma() != null && alunoDTO.getTurma().getId() > 0) {
+                entity.setTurma(new Turma());
+                entity.getTurma().setId(alunoDTO.getTurma().getId());
+            }
+            if (!alunoDTO.getEndereco().isEmpty()) {
+                List<Endereco> listaEndereco = aluno.get().getEndereco();
+                aluno.get().setEndereco(new ArrayList<Endereco>());
+                listaEndereco.forEach(endereco -> aluno.get().AdicionarEndereco(endereco));
+            }
+            this.entityService.Salvar(entity);
+            response.setData(mappingEntityToDTO.AsGenericMapping(entity));
+        } else {
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Response<String>> deletarAluno(@PathVariable("id") Long id) {

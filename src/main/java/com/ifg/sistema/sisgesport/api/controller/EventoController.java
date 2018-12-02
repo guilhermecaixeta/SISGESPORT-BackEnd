@@ -102,6 +102,19 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 		return ResponseEntity.ok(responseList);
 	}
 	
+	@GetMapping(value = "/BuscarPorCodigoEvento/{codigo}")
+	public ResponseEntity<Response<EventoDTO>> BuscarPorCodigoEvento(@PathVariable("codigo") String codigo) {
+		log.info("Buscando evento com o código: {}", codigo);
+		entityOptional = entityService.BuscarPorCodigoEvento(codigo);
+		if (!entityOptional.isPresent()) {
+			log.info("Evento com o código: {}, não cadastrado.", codigo);
+			response.getErrors().add("Evento não encontrado para o id " + codigo);
+			return ResponseEntity.badRequest().body(response);
+		}
+		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
+		return ResponseEntity.ok(response);
+	}
+
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<EventoDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando evento com o id: {}", id);
@@ -114,6 +127,8 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
 		response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
 		return ResponseEntity.ok(response);
 	}
+
+
 
 	@PostMapping
 	public ResponseEntity<Response<EventoDTO>> CadastrarEvento(@Valid @RequestBody EventoDTO eventoDTO,

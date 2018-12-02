@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 
 public class UsuarioRetornoDTO {
+	private Long id;
 	private String name;
 	private String token;
 	private Collection<? extends GrantedAuthority> authorities;
@@ -37,5 +38,13 @@ public class UsuarioRetornoDTO {
 
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

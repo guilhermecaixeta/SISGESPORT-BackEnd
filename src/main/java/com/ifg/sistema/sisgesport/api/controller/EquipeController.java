@@ -7,8 +7,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.dto.EventoDTO;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import com.ifg.sistema.sisgesport.api.entities.Time;
+import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,6 +51,8 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 	}
 	@Autowired
 	private ImagemService iS;
+    @Autowired
+    private AlunoService alunoService;
 
 	@GetMapping(value = "/BuscarEquipePorIdEventoPaginavel/{id_evento}")
 	public ResponseEntity<Response<Page<EquipeDTO>>> BuscarEquipePorIdEventoPaginavel(
@@ -109,6 +113,18 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping(value = "/BuscarPorCodigoEquipe/{codigo}")
+	public ResponseEntity<Response<EquipeDTO>> BuscarPorCodigoEquipe(
+			@PathVariable("codigo") String codigo) {
+		entityDTO = mappingEntityToDTO
+				.AsGenericMapping(entityService.BuscarPorCodigoEquipe(codigo).get());
+		response.setData(entityDTO);
+        entityDTO.getEvento().setCriador(null);
+        entityDTO.setCapitao(null);
+        entityDTO.setTime(null);
+		return ResponseEntity.ok(response);
+	}
+
 	@GetMapping(value = "/BuscarPorId/{id}")
 	public ResponseEntity<Response<EquipeDTO>> BuscarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando equipe com o id: {}", id);
@@ -138,6 +154,18 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 		return ResponseEntity.ok(response);
 	}
 
+    @GetMapping(value = "/BuscarEquipePorIdAluno/{id_aluno}")
+    public ResponseEntity<Response<List<EquipeDTO>>> BuscarEquipePorIdAluno(@PathVariable("id_aluno") Long id_aluno) {
+        entityListDTO = mappingEntityToDTO
+                .AsGenericMappingList(alunoService.BuscarPorId(id_aluno).get().getEquipe(), false);
+        entityListDTO.forEach(data -> {
+            data.setTime(null);
+            data.setAluno(null);
+            data.setCapitao(null);
+        });
+        responseList.setData(entityListDTO);
+        return ResponseEntity.ok(responseList);
+    }
 	@PostMapping
 	public ResponseEntity<Response<EquipeDTO>> cadastrarEquipe(@Valid @RequestBody EquipeDTO equipeDTO,
 			BindingResult result) throws NoSuchAlgorithmException {

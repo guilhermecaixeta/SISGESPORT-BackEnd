@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class AuthenticationController {
 				new UsernamePasswordAuthenticationToken(jwtAuthDTO.getMatricula(), jwtAuthDTO.getSenha()));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
-		response.setData(obterUsuarioRetorno(jwtAuthDTO.getMatricula(), null));
+		response.setData(ObterUsuarioRetorno(jwtAuthDTO.getMatricula(), null));
 		return ResponseEntity.ok(response);
 	}
 
@@ -113,11 +114,11 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(obterUsuarioRetorno(jwtTokenUtil.getUsernameFromToken(token.get()), token.get()));
+		response.setData(ObterUsuarioRetorno(jwtTokenUtil.getUsernameFromToken(token.get()), token.get()));
 		return ResponseEntity.ok(response);
 	}
 
-	public UsuarioRetornoDTO obterUsuarioRetorno(String matricula, String token){
+	public UsuarioRetornoDTO ObterUsuarioRetorno(String matricula, String token){
         UserDetails userDetails = userDetailsService.loadUserByUsername(matricula);
         UsuarioRetornoDTO user = null;
         if(token == null){
@@ -125,8 +126,10 @@ public class AuthenticationController {
         }else{
             user = new UsuarioRetornoDTO(token);
         }
+		Pessoa pessoa = uR.findByMatricula(userDetails.getUsername());
         user.setAuthorities(userDetails.getAuthorities());
-        user.setName(uR.findByMatricula(userDetails.getUsername()).getNome());
+        user.setName(pessoa.getNome());
+        user.setId(pessoa.getId());
         return user;
     }
 }
