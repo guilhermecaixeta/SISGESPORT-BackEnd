@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.security.utils.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page;
 
 import com.ifg.sistema.sisgesport.api.extesion.Extension;
 import com.ifg.sistema.sisgesport.api.response.Response;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controller base, é uma controller generica com metodos comuns a todas as
@@ -28,6 +31,7 @@ import com.ifg.sistema.sisgesport.api.response.Response;
  */
 
 public abstract class baseController<S, D, ES> {
+
 	protected Response<S> response = new Response<S>();
 	protected Response<Page<S>> responsePage = new Response<Page<S>>();
 	protected Response<List<S>> responseList = new Response<List<S>>();
@@ -36,7 +40,8 @@ public abstract class baseController<S, D, ES> {
 
 	protected Extension<S, D> mappingDTOToEntity;
 	protected Extension<D, S> mappingEntityToDTO;
-
+	@Autowired
+	protected HttpServletRequest request;
 	@Autowired
 	protected ES entityService;
     /**

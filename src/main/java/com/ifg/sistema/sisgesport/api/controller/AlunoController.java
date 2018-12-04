@@ -7,8 +7,11 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.ifg.sistema.sisgesport.api.dto.JogadorDTO;
 import com.ifg.sistema.sisgesport.api.entities.*;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
+import com.ifg.sistema.sisgesport.api.services.JogadorService;
+import com.ifg.sistema.sisgesport.api.services.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,9 +48,13 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		mappingDTOToEntity = new Extension<>(AlunoDTO.class, Aluno.class);
 		mappingEntityToDTO = new Extension<>(Aluno.class, AlunoDTO.class);
 	}
-	
+	private Extension<JogadorDTO, Jogador> mappingDTOToEntityII = new Extension<JogadorDTO, Jogador>(JogadorDTO.class, Jogador.class);
 	@Autowired
 	private EnderecoService eS;
+	@Autowired
+	private TimeService timeService;
+	@Autowired
+	private JogadorService jogadorService;
 
 	public AlunoController() {}
 
@@ -92,11 +99,16 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	    Optional<List<Aluno>> lis = entityService.BuscarPorIdTurma(id_turma);
         entityListDTO = mappingEntityToDTO
                 .AsGenericMappingList(lis.get(), false);
+
         entityListDTO.forEach(data -> {
             data.getEquipe().forEach(equipe ->{
                 if(equipe.getEvento().getId() == id_evento)
                     listaRemocao.add(data);
             });
+            data.setInstituicao(null);
+            data.setEndereco(null);
+            data.setPerfil(null);
+            data.setEquipe(null);
             data.setSenha(null);
         });
         entityListDTO.removeAll(listaRemocao);
@@ -154,6 +166,37 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		return ResponseEntity.ok(response);
 	}
 
+	@PostMapping(value = "AdicionarJogador")
+	public ResponseEntity<Response<AlunoDTO>> adicionar(@Valid @RequestBody JogadorDTO jogadorDTO,
+														BindingResult result) throws Exception {
+		response = new Response<>();
+		log.info("Atualizando dados do Aluno com o id: {}", jogadorDTO.getJogador().getId());
+		entityOptional = entityService.BuscarPorId(jogadorDTO.getJogador().getId());
+		Optional<Time> time = timeService.BuscarPorId(jogadorDTO.getTime().getId());
+		if(!time.isPresent() || !entityOptional.isPresent()) {
+			response.getErrors().add("Erro ao adicionar o aluno ao time!");
+			return ResponseEntity.badRequest().body(response);
+		}else{
+			time.get().getEquipe().getEvento().getEventoModalidade().forEach(x -> {
+				if(time.get().getJogador().size() > 0 ){
+					char sexo = time.get().getJogador().get(0).getJogador().getSexo();
+					if(entityOptional.get().getSexo() != sexo || entityOptional.get().getSexo() != x.getSexo())
+						response.getErrors().add("Sexo do jogador é diferente do permitido!");
+				}else{
+					if(entityOptional.get().getSexo() != x.getSexo())
+						response.getErrors().add("Sexo do jogador é diferente do permitido!");
+				}
+			});
+		}
+		if(response.getErrors().size() > 0){
+			return ResponseEntity.badRequest().body(response);
+		}else {
+			jogadorService.Salvar(mappingDTOToEntityII.AsGenericMapping(jogadorDTO));
+			response.setData(new AlunoDTO());
+		}
+		return ResponseEntity.ok(response);
+	}
+
 	private void validarAluno(AlunoDTO alunoDTO, BindingResult result) {
 		this.entityService.BuscarPorMatricula(alunoDTO.getMatricula())
 				.ifPresent(alu -> result.addError(new ObjectError("aluno", "Matrícula já cadastrada.")));
@@ -176,6 +219,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
             Equipe equipe = new Equipe();
             equipe.setId(id_equipe);
             equipeLista.add(equipe);
+            if(entity.getEquipe().size() > 0)
+                entity.getEquipe().forEach(x -> equipeLista.add(x));
             entity.setEquipe(equipeLista);
 
 			this.entityService.Salvar(entity);
@@ -186,7 +231,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Response<AlunoDTO>> atualizarAluno(@PathVariable("id") Long id,
-                                                             @Valid @RequestBody AlunoDTO alunoDTO, BindingResult result) throws Exception {
+                                                             @Valid @RequestBody AlunoDTO alunoDTO,
+															 BindingResult result) throws Exception {
         log.info("Atualizando dados do Aluno: {}", alunoDTO);
         Optional<Aluno> aluno = entityService.BuscarPorId(id);
 

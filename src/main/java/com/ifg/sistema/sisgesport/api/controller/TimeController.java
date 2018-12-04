@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.entities.Jogador;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import com.ifg.sistema.sisgesport.api.services.JogadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,8 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 
 	@Autowired
 	private JogadorService jogadorService;
+	@Autowired
+	private AlunoService alunoService;
 
 	@GetMapping(value = "/BuscarPorEquipeIdPaginavel/{id_time}")
 	public ResponseEntity<Response<Page<TimeDTO>>> BuscarTimePorIdEventoPaginavel(
@@ -81,6 +84,22 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		}
 		response.setData(mappingEntityToDTO.AsGenericMapping(time.get()));
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping(value = "/BuscarTimePorIdAluno/{id_aluno}")
+	public ResponseEntity<Response<List<TimeDTO>>> BuscarEquipePorIdAluno
+			(@PathVariable("id_aluno") Long id_aluno) {
+		List<Time> listaTimes = new ArrayList<>();
+				alunoService.BuscarPorId(id_aluno).get().getEquipe().forEach(x ->{
+					x.getTime().forEach(y -> listaTimes.add(y));
+				});
+		entityListDTO = mappingEntityToDTO
+				.AsGenericMappingList(listaTimes, false);
+		entityListDTO.forEach(data -> {
+			data.setEquipe(null);
+		});
+		responseList.setData(entityListDTO);
+		return ResponseEntity.ok(responseList);
 	}
 
 	@PostMapping

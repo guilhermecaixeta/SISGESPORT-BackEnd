@@ -1,15 +1,14 @@
 package com.ifg.sistema.sisgesport.api.controller;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.ifg.sistema.sisgesport.api.dto.EventoDTO;
+import com.ifg.sistema.sisgesport.api.entities.Aluno;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
-import com.ifg.sistema.sisgesport.api.entities.Time;
+import com.ifg.sistema.sisgesport.api.security.utils.JwtTokenUtil;
 import com.ifg.sistema.sisgesport.api.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifg.sistema.sisgesport.api.controller.base.baseController;
@@ -53,6 +51,8 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 	private ImagemService iS;
     @Autowired
     private AlunoService alunoService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
 	@GetMapping(value = "/BuscarEquipePorIdEventoPaginavel/{id_evento}")
 	public ResponseEntity<Response<Page<EquipeDTO>>> BuscarEquipePorIdEventoPaginavel(
@@ -116,10 +116,39 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 	@GetMapping(value = "/BuscarPorCodigoEquipe/{codigo}")
 	public ResponseEntity<Response<EquipeDTO>> BuscarPorCodigoEquipe(
 			@PathVariable("codigo") String codigo) {
-		entityDTO = mappingEntityToDTO
-				.AsGenericMapping(entityService.BuscarPorCodigoEquipe(codigo).get());
-		response.setData(entityDTO);
+	    entityOptional = entityService.BuscarPorCodigoEquipe(codigo);
+        if(!entityOptional.isPresent()){
+            log.info("Equipe com o código: {}, não cadastrado.", codigo);
+            response.getErrors().add("Equipe não encontrado para o código " + codigo);
+            return ResponseEntity.badRequest().body(response);
+        }
+        String headerAuth = request.getHeader("Authorization").substring(7);
+        String matricula = jwtTokenUtil .getUsernameFromToken(headerAuth);
+        Aluno aluno = alunoService.BuscarPorMatricula(matricula).get();
+
+        Optional<List<Equipe>> listaEquipes = entityService
+                .BuscarEquipePorIdEvento(entityOptional.get().getEvento().getId());
+        listaEquipes.get().forEach(x -> {
+            x.getAluno().forEach(y -> {
+                if(y.getMatricula() == aluno.getMatricula()){
+                    log.info("Aluno com a matricula: {}, já possui eventos cadastrados.", aluno.getMatricula());
+                    response.getErrors().add("Aluno já possui equipe cadastrada para esse evento!");
+                }
+            });
+        });
+        if(response.getErrors().size() > 0)
+            return ResponseEntity.badRequest().body(response);
+        entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
+        response.setData(entityDTO);
+
+
         entityDTO.getEvento().setCriador(null);
+        entityDTO.getEvento().getEventoModalidade().forEach(x -> {
+            x.getModalidade().setPenalidade(null);
+            x.getModalidade().setTipoPonto(null);
+            x.getModalidade().setPosicao(null);
+        });
+        entityDTO.setAluno(null);
         entityDTO.setCapitao(null);
         entityDTO.setTime(null);
 		return ResponseEntity.ok(response);
@@ -136,11 +165,24 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 		}
 
 		entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
-		entityDTO.getEvento().getCriador().setSenha(null);
+		if(entityDTO.getCapitao() != null){
+            entityDTO.getCapitao().setInstituicao(null);
+            entityDTO.getCapitao().setPerfil(null);
+            entityDTO.getCapitao().setEndereco(null);
+            entityDTO.getCapitao().getTurma().getCurso().setInstituicao(null);
+            entityDTO.getCapitao().setSenha(null);
+            entityDTO.getCapitao().setEquipe(null);
+        }
+        entityDTO.getEvento().getCriador().setSenha(null);
         entityDTO.getEvento().getCriador().setCargo(null);
         entityDTO.getEvento().getCriador().setEndereco(null);
         entityDTO.getEvento().getCriador().setPerfil(null);
         entityDTO.getEvento().getCriador().setImagem(null);
+        entityDTO.getEvento().getEventoModalidade().forEach(x ->{
+            x.getModalidade().setPenalidade(null);
+            x.getModalidade().setTipoPonto(null);
+            x.getModalidade().setPosicao(null);
+        });
 		entityDTO.getAluno().forEach(x ->{
 		    x.setPerfil(null);
 		    x.setSenha(null);
@@ -155,17 +197,27 @@ public class EquipeController extends baseController<EquipeDTO, Equipe, EquipeSe
 	}
 
     @GetMapping(value = "/BuscarEquipePorIdAluno/{id_aluno}")
-    public ResponseEntity<Response<List<EquipeDTO>>> BuscarEquipePorIdAluno(@PathVariable("id_aluno") Long id_aluno) {
+    public ResponseEntity<Response<List<EquipeDTO>>> BuscarEquipePorIdAluno
+            (@PathVariable("id_aluno") Long id_aluno) {
         entityListDTO = mappingEntityToDTO
                 .AsGenericMappingList(alunoService.BuscarPorId(id_aluno).get().getEquipe(), false);
         entityListDTO.forEach(data -> {
             data.setTime(null);
             data.setAluno(null);
-            data.setCapitao(null);
+            if(data.getCapitao() != null){
+                data.getCapitao().setEquipe(null);
+                data.getCapitao().setSenha(null);
+                data.getCapitao().setTurma(null);
+                data.getCapitao().setEndereco(null);
+                data.getCapitao().setPerfil(null);
+                data.getCapitao().setInstituicao(null);
+                data.getCapitao().setMatricula(null);
+            }
         });
         responseList.setData(entityListDTO);
         return ResponseEntity.ok(responseList);
     }
+
 	@PostMapping
 	public ResponseEntity<Response<EquipeDTO>> cadastrarEquipe(@Valid @RequestBody EquipeDTO equipeDTO,
 			BindingResult result) throws NoSuchAlgorithmException {
