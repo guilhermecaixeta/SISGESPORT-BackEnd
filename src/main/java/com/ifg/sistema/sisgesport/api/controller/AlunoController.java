@@ -179,6 +179,10 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		}else{
 			time.get().getEquipe().getEvento().getEventoModalidade().forEach(x -> {
 				if(time.get().getJogador().size() > 0 ){
+					time.get().getJogador().foreach(x -> {
+					if(x.jogador.getId() == entityOptional.get().getId())
+						response.getErrors().add("Jogador já cadastrado nessa equipe!");
+					})
 					char sexo = time.get().getJogador().get(0).getJogador().getSexo();
 					if(entityOptional.get().getSexo() != sexo || entityOptional.get().getSexo() != x.getSexo())
 						response.getErrors().add("Sexo do jogador é diferente do permitido!");
