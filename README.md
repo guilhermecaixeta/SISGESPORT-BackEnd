@@ -21,6 +21,4 @@ Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeç�
 **Status Travis**
 
 [![Build Status](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd.svg?branch=master)](https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd)
-
-
-https://travis-ci.org/guilhermecaixeta/SISGESPORT-BackEnd.svg?branch=master
+ 
