@@ -179,7 +179,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 		}else{
 			time.get().getEquipe().getEvento().getEventoModalidade().forEach(x -> {
 				if(time.get().getJogador().size() > 0 ){
-					time.get().getJogador().foreach(t -> {
+					time.get().getJogador().forEach(t -> {
 					if(t.getJogador().getId() == entityOptional.get().getId())
 						response.getErrors().add("Jogador já cadastrado nessa equipe!");
 					});
