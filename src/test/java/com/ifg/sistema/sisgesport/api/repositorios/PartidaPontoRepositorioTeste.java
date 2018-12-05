@@ -21,6 +21,7 @@ import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Jogador;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
 import com.ifg.sistema.sisgesport.api.entities.PartidaPonto;
 import com.ifg.sistema.sisgesport.api.entities.Posicao;
@@ -224,7 +225,6 @@ public class PartidaPontoRepositorioTeste {
 		Time t= new Time();
 		t.setEquipe(equipeCasa);
 		t.setModalidade(modalidade);
-
 		return t;
 	}
 	
