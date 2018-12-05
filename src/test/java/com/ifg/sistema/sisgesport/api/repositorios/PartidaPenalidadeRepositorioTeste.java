@@ -60,13 +60,16 @@ public class PartidaPenalidadeRepositorioTeste {
 	@Autowired
 	private PosicaoRepositorio psR;
 	@Autowired
-	private PartidaPenalidadeRepositorio ppR;	
+	private PartidaPenalidadeRepositorio ppR;
+	@Autowired
+	private EventoModalidadeRepositorio evModR;	
+	
 	private static final Turma turma = carregarTurma();
 	private static final String matricula ="20122080010048";
 	private static final Aluno aluno = carregarAluno();
-	private static final Evento evento = carregaEvento();
+	private static final Evento evento = carregarEvento();
 	private static final Cargo cargo = cargoServidor();
-	private static final Servidor servidor = carregaServidor();
+	private static final Servidor servidor = carregarServidor();
 	private static final Equipe equipeCasa = carregarEquipeCasa();
 	private static final Equipe equipeVisita = carregarEquipeVisita();
 	private static final Modalidade modalidade = carregarModalidade();
@@ -77,6 +80,8 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static final Jogador jogador = carregarJogador();
 	private static final Partida partida = carregarPartida();
 	private static final PartidaPenalidade partidaPenalidade = carregarPartidadePenalidade();
+	private static final EventoModaldiade eventoModalidade = carregarEventoModalidade();
+	
 	@Before
 	public void setUp() throws Exception{
 		mR.save(modalidade);
@@ -85,6 +90,7 @@ public class PartidaPenalidadeRepositorioTeste {
 		crR.save(cargo);
 		svR.save(servidor);
 		evR.save(evento);
+		evModR.save(eventoModalidade);
 		eR.save(equipeCasa);
 		eR.save(equipeVisita);
 		tmR.save(timeCasa);
@@ -198,6 +204,14 @@ public class PartidaPenalidadeRepositorioTeste {
 		return mod;
 	}
 	
+	private static EventoModalidade carregarEventoModalidade(){
+		EventoModalidade mod = new EventoModalidade();
+		mod.setModalidade(carregarModalidade());
+		mod.setEvento(carregarEvento());
+		mod.setIdadeMaximaPermitida(15);
+		return mod;
+	}
+	
 	private static Penalidade carregarPenalidade() {
 		Penalidade p= new Penalidade();
 		List<Modalidade> lista = new ArrayList<Modalidade>();
@@ -229,7 +243,7 @@ public class PartidaPenalidadeRepositorioTeste {
 		p.setDuracaoPartida(90);
 		p.setEvento(evento);
 		p.setJuiz(servidor);
-		p.setModalidade(modalidade);
+		p.setEventoModalidade(eventoModalidade);
 		p.setTimeCasa(timeCasa);
 		p.setTimeVisita(timeVisita);
 		return p;
