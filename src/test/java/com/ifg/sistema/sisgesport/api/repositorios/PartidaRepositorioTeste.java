@@ -172,9 +172,9 @@ public class PartidaRepositorioTeste {
 	}
 	
 	private static EventoModalidade carregarEventoModalidade(){
-		EventoModalidade mod = new EventoModalidade();
-		mod.setModalidade = carregarModalidade();
-		mod.setEvento = carregarModaldiade();
+		EventoModalidade mod(new EventoModalidade());
+		mod.setModalidade(carregarModalidade());
+		mod.setEvento(carregarModaldiade());
 		mod.setIdadeMaximaPermitida = 15;
 		return mod;
 	}	
