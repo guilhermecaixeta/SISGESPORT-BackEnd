@@ -63,8 +63,8 @@ public class Partida extends EntidadeComum  implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_modalidade"))
-	@NotNull(message="O campo modalidade não pode ser nulo.")
-	private Modalidade modalidade;
+	@NotNull(message="O campo evento modalidade não pode ser nulo.")
+	private Evento_Modalidade eventoModalidade;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="partida")
 	private List<PartidaPenalidade> partidaPenalidade = new ArrayList<PartidaPenalidade>();
@@ -156,12 +156,12 @@ public class Partida extends EntidadeComum  implements Serializable {
 		this.evento = evento;
 	}
 
-	public Modalidade getModalidade() {
-		return modalidade;
+	public Evento_Modalidade getEventoModalidade() {
+		return eventoModalidade;
 	}
 
-	public void setModalidade(Modalidade modalidade) {
-		this.modalidade = modalidade;
+	public void setEventoModalidade(Evento_Modalidade eventoModalidade) {
+		this.eventoModalidade = eventoModalidade;
 	}
 
 	public List<PartidaPenalidade> getPartidaPenalidade() {
