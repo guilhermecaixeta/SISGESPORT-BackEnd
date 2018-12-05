@@ -81,7 +81,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static final Jogador jogador = carregarJogador();
 	private static final Partida partida = carregarPartida();
 	private static final PartidaPenalidade partidaPenalidade = carregarPartidadePenalidade();
-	private static final EventoModaldiade eventoModalidade = carregarEventoModalidade();
+	private static final EventoModalidade eventoModalidade = carregarEventoModalidade();
 	
 	@Before
 	public void setUp() throws Exception{
