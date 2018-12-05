@@ -126,7 +126,7 @@ public class PartidaPenalidadeRepositorioTeste {
 		assertNotNull(pp);
 	}
 	
-	private static Servidor carregaServidor() {
+	private static Servidor carregarServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
@@ -166,7 +166,7 @@ public class PartidaPenalidadeRepositorioTeste {
 		return aluno;
 		}
 	
-	private static Evento carregaEvento() {
+	private static Evento carregarEvento() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
 		ev.setDataInicio(new Date());
