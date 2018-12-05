@@ -175,6 +175,7 @@ public class PartidaRepositorioTeste {
 		EventoModalidade mod = new EventoModalidade();
 		mod.setModalidade = carregarModalidade();
 		mod.setEvento = carregarModaldiade();
+		mod.setIdadeMaximaPermitida = 15;
 		return mod;
 	}	
 	
