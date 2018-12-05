@@ -53,9 +53,9 @@ public class PartidaRepositorioTeste {
 	@Autowired
 	private EventoModalidadeRepositorio evModR;
 	
-	private static final Evento evento = carregaEvento();
+	private static final Evento evento = carregarEvento();
 	private static final Cargo cargo = cargoServidor();
-	private static final Servidor servidor = carregaServidor();
+	private static final Servidor servidor = carregarServidor();
 	private static final Equipe equipeCasa = carregarEquipeCasa();
 	private static final Equipe equipeVisita = carregarEquipeVisita();
 	private static final Modalidade modalidade = carregarModalidade();
@@ -111,7 +111,7 @@ public class PartidaRepositorioTeste {
 		assertNotNull(pp);
 	}
 	
-	private static Servidor carregaServidor() {
+	private static Servidor carregarServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme L. P. Caixeta");
 		serv.setDataNascimento(new Date());
@@ -130,7 +130,7 @@ public class PartidaRepositorioTeste {
 		return c;
 	}
 	
-	private static Evento carregaEvento() {
+	private static Evento carregarEvento() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
 		ev.setDataInicio(new Date());
