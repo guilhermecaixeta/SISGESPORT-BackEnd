@@ -60,13 +60,15 @@ public class PartidaPontoRepositorioTeste {
 	@Autowired
 	private PosicaoRepositorio psR;
 	@Autowired
-	private PartidaPontoRepositorio ppR;	
+	private PartidaPontoRepositorio ppR;
+	@Autowired
+	private EventoModalidadeRepositorio evModR; 	
 	private static final Turma turma = carregarTurma();
 	private static final String matricula ="20122080010021";
 	private static final Aluno aluno = carregarAluno();
-	private static final Evento evento = carregaEvento();
+	private static final Evento evento = carregarEvento();
 	private static final Cargo cargo = cargoServidor();
-	private static final Servidor servidor = carregaServidor();
+	private static final Servidor servidor = carregarServidor();
 	private static final Equipe equipeCasa = carregarEquipeCasa();
 	private static final Equipe equipeVisita = carregarEquipeVisita();
 	private static final Modalidade modalidade = carregarModalidade();
@@ -77,6 +79,7 @@ public class PartidaPontoRepositorioTeste {
 	private static final Jogador jogador = carregarJogador();
 	private static final Partida partida = carregarPartida();
 	private static final PartidaPonto partidaPenalidade = carregarPartidadePonto();
+	private static final EventoModalidade eventoModalidade = carregarEventoModalidade();
 	@Before
 	public void setUp() throws Exception{
 		mR.save(modalidade);
@@ -85,6 +88,7 @@ public class PartidaPontoRepositorioTeste {
 		crR.save(cargo);
 		svR.save(servidor);
 		evR.save(evento);
+		evModR.save(eventoModalidade);
 		eR.save(equipeCasa);
 		eR.save(equipeVisita);
 		tmR.save(timeCasa);
@@ -119,7 +123,7 @@ public class PartidaPontoRepositorioTeste {
 		assertNotNull(pp);
 	}
 	
-	private static Servidor carregaServidor() {
+	private static Servidor carregarServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
@@ -159,7 +163,7 @@ public class PartidaPontoRepositorioTeste {
 		return aluno;
 		}
 	
-	private static Evento carregaEvento() {
+	private static Evento carregarEvento() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
 		ev.setDataInicio(new Date());
@@ -195,6 +199,14 @@ public class PartidaPontoRepositorioTeste {
 		mod.setNome("Futebol");
 		mod.setNumMaxJogador(21);
 		mod.setNumMinJogador(11);
+		return mod;
+	}
+	
+	private static EventoModalidade carregarEventoModalidade(){
+		EventoModalidade mod = new EventoModalidade();
+		mod.setModalidade(carregarModalidade());
+		mod.setEvento(carregarEvento());
+		mod.setIdadeMaximaPermitida(15);
 		return mod;
 	}
 	
