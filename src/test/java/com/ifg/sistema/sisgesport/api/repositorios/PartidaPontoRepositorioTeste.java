@@ -241,7 +241,7 @@ public class PartidaPontoRepositorioTeste {
 		p.setDuracaoPartida(90);
 		p.setEvento(evento);
 		p.setJuiz(servidor);
-		p.setModalidade(modalidade);
+		p.setEventoModalidade(eventoModalidade);
 		p.setTimeCasa(timeCasa);
 		p.setTimeVisita(timeVisita);
 		return p;
