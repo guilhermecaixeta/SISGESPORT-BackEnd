@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.EntidadeComum;
 import com.ifg.sistema.sisgesport.api.entities.commom_entities.Pessoa;
 
@@ -64,7 +63,7 @@ public class Partida extends EntidadeComum  implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_modalidade"))
 	@NotNull(message="O campo evento modalidade não pode ser nulo.")
-	private Evento_Modalidade eventoModalidade;
+	private EventoModalidade eventoModalidade;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="partida")
 	private List<PartidaPenalidade> partidaPenalidade = new ArrayList<PartidaPenalidade>();
@@ -156,11 +155,11 @@ public class Partida extends EntidadeComum  implements Serializable {
 		this.evento = evento;
 	}
 
-	public Evento_Modalidade getEventoModalidade() {
+	public EventoModalidade getEventoModalidade() {
 		return eventoModalidade;
 	}
 
-	public void setEventoModalidade(Evento_Modalidade eventoModalidade) {
+	public void setEventoModalidade(EventoModalidade eventoModalidade) {
 		this.eventoModalidade = eventoModalidade;
 	}
 
