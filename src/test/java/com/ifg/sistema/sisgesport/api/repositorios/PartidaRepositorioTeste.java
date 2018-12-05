@@ -21,6 +21,7 @@ import com.ifg.sistema.sisgesport.api.entities.Cargo;
 import com.ifg.sistema.sisgesport.api.entities.Equipe;
 import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Modalidade;
+import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
 import com.ifg.sistema.sisgesport.api.entities.Servidor;
 import com.ifg.sistema.sisgesport.api.entities.Time;
@@ -49,8 +50,10 @@ public class PartidaRepositorioTeste {
 	private TipoPontoRepositorio tpR;
 	@Autowired
 	private PartidaRepositorio pR;
+	@Autowired
+	private EventoModalidadeRepositorio evModR;
 	
-	private static final Evento evento = CarregaEvento();
+	private static final Evento evento = carregaEvento();
 	private static final Cargo cargo = cargoServidor();
 	private static final Servidor servidor = carregaServidor();
 	private static final Equipe equipeCasa = carregarEquipeCasa();
@@ -59,7 +62,8 @@ public class PartidaRepositorioTeste {
 	private static final TipoPonto ponto = carregarTipoPonto();
 	private static final Time timeCasa = carregarTimeCasa();
 	private static final Time timeVisita = carregarTimeVisita();
-	private static final Partida partida = CarregarPartida();
+	private static final Partida partida = carregarPartida();
+	private static final EventoModalidade eventoModalidade = carregarEventoModalidade();
 	
 	@Before
 	public void setUp() throws Exception{
@@ -70,6 +74,7 @@ public class PartidaRepositorioTeste {
 		eR.save(equipeVisita);
 		tpR.save(ponto);
 		mR.save(modalidade);
+		evModR.save(eventoModalidade);
 		tmR.save(timeCasa);
 		tmR.save(timeVisita);
 		pR.save(partida);
@@ -125,7 +130,7 @@ public class PartidaRepositorioTeste {
 		return c;
 	}
 	
-	private static Evento CarregaEvento() {
+	private static Evento carregaEvento() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
 		ev.setDataInicio(new Date());
@@ -166,6 +171,13 @@ public class PartidaRepositorioTeste {
 		return mod;
 	}
 	
+	private static EventoModalidade carregarEventoModalidade(){
+		EventoModalidade mod = new EventoModalidade();
+		mod.setModalidade = carregarModalidade();
+		mod.setEvento = carregarModaldiade();
+		return mod;
+	}	
+	
 	private static TipoPonto carregarTipoPonto() {
 		TipoPonto ponto = new TipoPonto();
 		ponto.setNome("gol");
@@ -188,13 +200,13 @@ public class PartidaRepositorioTeste {
 		return t;
 	}
 	
-	public static Partida CarregarPartida() {
+	public static Partida carregarPartida() {
 		Partida p = new Partida();
 		p.setDataPartida(new Date());
 		p.setDuracaoPartida(90);
 		p.setEvento(evento);
 		p.setJuiz(servidor);
-		p.setModalidade(modalidade);
+		p.setEventoModalidade(eventoModalidade);
 		p.setTimeCasa(timeCasa);
 		p.setTimeVisita(timeVisita);
 		return p;
