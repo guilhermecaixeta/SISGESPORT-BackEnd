@@ -224,14 +224,14 @@ public class PartidaPontoRepositorioTeste {
 	private static Time carregarTimeCasa() {
 		Time t= new Time();
 		t.setEquipe(equipeCasa);
-		t.setModalidade(modalidade);
+		t.setEventoModalidade(eventoModalidade);
 		return t;
 	}
 	
 	private static Time carregarTimeVisita() {
 		Time t= new Time();
 		t.setEquipe(equipeVisita);
-		t.setModalidade(modalidade);
+		t.setEventoModalidade(eventoModalidade);
 		return t;
 	}
 	

@@ -211,7 +211,9 @@ public class EventoController extends baseController<EventoDTO, Evento, EventoSe
             listaEquipes.get().forEach(equipe -> {
                 Optional<List<Time>> listaTimes = timeService.BuscarPorEquipeId(equipe.getId());
                 if(listaTimes.isPresent())
-                    listaTimes.get().forEach(time -> timeService.Deletar(time.getId()));
+                    listaTimes.get().forEach(time -> {
+                    	timeService.Deletar(time.getId());
+                    });
                 equipeService.Deletar(equipe.getId());
             });
         entityOptional.get().getEventoModalidade().forEach(evento -> eventoModalidadeService.Deletar(evento.getId()));

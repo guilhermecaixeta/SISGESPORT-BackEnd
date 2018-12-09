@@ -1,6 +1,7 @@
 package com.ifg.sistema.sisgesport.api.dto.dto_retorno.commom_entities_return;
 
 public class PessoaRetornoDTO {
+    private Long id;
     private String nome;
     private Character sexo;
     private String matricula;
@@ -36,5 +37,13 @@ public class PessoaRetornoDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

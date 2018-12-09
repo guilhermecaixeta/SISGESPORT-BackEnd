@@ -52,7 +52,7 @@ public class ImagemRepositorioTeste {
 			i.setNome("s2.jpeg");
 			i.setTamanho(100.20);
 			i.setDescricaoImagem("Lorem ipsulun");
-			Path path = Paths.get("D:/Imagens/HuehueBR/futuro.jpg");
+			Path path = Paths.get("D:\\Documentos\\GDrive\\IFG\\TCC\\Sistema de Gestão Esportiva - Repositório\\SISGESPORT\\imageTest\\sun-tzu.jpg");
 			i.setImagem(Files.readAllBytes(path));
 
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class ImagemRepositorioTeste {
 			i2.setNome("amor.jpeg");
 			i2.setTamanho(100.20);
 			i2.setDescricaoImagem("Lorem ipsulun");
-			Path path = Paths.get("D:/Imagens/HuehueBR/futuro.jpg");
+			Path path = Paths.get("D:\\Documentos\\GDrive\\IFG\\TCC\\Sistema de Gestão Esportiva - Repositório\\SISGESPORT\\imageTest\\sun-tzu.jpg");
 			i2.setImagem(Files.readAllBytes(path));
 		} catch (Exception e) {
 			e.printStackTrace();

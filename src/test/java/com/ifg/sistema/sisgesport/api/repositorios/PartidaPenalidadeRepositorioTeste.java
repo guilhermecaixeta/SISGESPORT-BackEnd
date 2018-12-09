@@ -226,7 +226,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static Time carregarTimeCasa() {
 		Time t= new Time();
 		t.setEquipe(equipeCasa);
-		t.setModalidade(modalidade);
+		t.setEventoModalidade(eventoModalidade);
 
 		return t;
 	}
@@ -234,7 +234,7 @@ public class PartidaPenalidadeRepositorioTeste {
 	private static Time carregarTimeVisita() {
 		Time t= new Time();
 		t.setEquipe(equipeVisita);
-		t.setModalidade(modalidade);
+		t.setEventoModalidade(eventoModalidade);
 		return t;
 	}
 	

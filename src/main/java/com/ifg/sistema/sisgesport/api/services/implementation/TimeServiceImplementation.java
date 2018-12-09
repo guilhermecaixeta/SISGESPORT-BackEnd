@@ -38,7 +38,7 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 
 	public Optional<List<Time>> BuscarPorEventoIdEModalidadeId(Long id_evento, Long id_modalidade) {
 		log.info("Buscando times pelo id evento {0} e id modalidade {1}", id_evento, id_modalidade);
-		return Optional.ofNullable(timeRepositorio.findByEquipeEventoIdAndModalidadeId(id_evento, id_modalidade));
+		return Optional.ofNullable(timeRepositorio.findByEquipeEventoIdAndEventoModalidadeModalidadeId(id_evento, id_modalidade));
 	}
 
 	public Page<Time> BuscarPorEquipeIdPaginavel(Long id_equipe, PageRequest pageRequest) {

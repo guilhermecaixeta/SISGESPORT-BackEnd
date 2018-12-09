@@ -24,6 +24,11 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return Optional.ofNullable(informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento));
 	}
 
+	public Page<InformacaoEvento> BuscarPorEventoIdPaginavel(Long id_evento, PageRequest pageRequest) {
+		log.info("Buscando informacao evento pelo id {} ",id_evento);
+		return informacaoEventoRepositorio.findByEventoId(id_evento, pageRequest);
+	}
+
 	public Page<InformacaoEvento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest) {
 		log.info("Buscando informacao evento pelo codigo {} ",codigo_evento);
 		return informacaoEventoRepositorio.findByEventoCodigoEvento(codigo_evento, pageRequest);

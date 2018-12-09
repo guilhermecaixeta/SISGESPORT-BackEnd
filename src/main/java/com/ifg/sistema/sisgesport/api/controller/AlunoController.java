@@ -12,6 +12,7 @@ import com.ifg.sistema.sisgesport.api.entities.*;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.services.JogadorService;
 import com.ifg.sistema.sisgesport.api.services.TimeService;
+import com.ifg.sistema.sisgesport.api.utils.EventoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -170,6 +171,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	public ResponseEntity<Response<AlunoDTO>> adicionar(@Valid @RequestBody JogadorDTO jogadorDTO,
 														BindingResult result) throws Exception {
 		response = new Response<>();
+		EventoUtils eventoUtils = new EventoUtils();
 		log.info("Atualizando dados do Aluno com o id: {}", jogadorDTO.getJogador().getId());
 		entityOptional = entityService.BuscarPorId(jogadorDTO.getJogador().getId());
 		Optional<Time> time = timeService.BuscarPorId(jogadorDTO.getTime().getId());
@@ -177,20 +179,7 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 			response.getErrors().add("Erro ao adicionar o aluno ao time!");
 			return ResponseEntity.badRequest().body(response);
 		}else{
-			time.get().getEquipe().getEvento().getEventoModalidade().forEach(x -> {
-				if(time.get().getJogador().size() > 0 ){
-					time.get().getJogador().forEach(t -> {
-					if(t.getJogador().getId() == entityOptional.get().getId())
-						response.getErrors().add("Jogador já cadastrado nessa equipe!");
-					});
-					char sexo = time.get().getJogador().get(0).getJogador().getSexo();
-					if(entityOptional.get().getSexo() != sexo || entityOptional.get().getSexo() != x.getSexo())
-						response.getErrors().add("Sexo do jogador é diferente do permitido!");
-				}else{
-					if(entityOptional.get().getSexo() != x.getSexo())
-						response.getErrors().add("Sexo do jogador é diferente do permitido!");
-				}
-			});
+			response = eventoUtils.ValidarJogadorTime(time.get(), entityOptional.get(), response);
 		}
 		if(response.getErrors().size() > 0){
 			return ResponseEntity.badRequest().body(response);

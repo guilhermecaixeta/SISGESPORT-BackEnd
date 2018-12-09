@@ -1,16 +1,9 @@
 package com.ifg.sistema.sisgesport.api.utils;
 
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
-import com.ifg.sistema.sisgesport.api.entities.Evento;
-import com.ifg.sistema.sisgesport.api.entities.EventoModalidade;
-import com.ifg.sistema.sisgesport.api.entities.Time;
-import com.ifg.sistema.sisgesport.api.services.EquipeService;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.ifg.sistema.sisgesport.api.entities.*;
+import com.ifg.sistema.sisgesport.api.response.Response;
 import java.util.*;
-
 import static com.ifg.sistema.sisgesport.api.utils.GeradorCodigoUtils.GerarCodigoUnicoEquipe;
-import static java.lang.String.valueOf;
 
 /**
  *
@@ -95,9 +88,31 @@ public class EventoUtils {
         int length = evento.getEventoModalidade().size();
         for (EventoModalidade m : evento.getEventoModalidade()) {
             Time time = new Time();
-            time.setModalidade(m.getModalidade());
+            time.setEventoModalidade(m);
             lista.add(time);
         }
         return lista;
+    }
+
+    public Response ValidarJogadorTime(Time time, Aluno jogador, Response response){
+        int size = time.getEquipe().getEvento().getEventoModalidade().size();
+        Calendar calJogador = Calendar.getInstance();
+        Calendar calDataAtual = Calendar.getInstance();
+        calDataAtual.setTime(new Date());
+        calJogador.setTime(jogador.getDataNascimento());
+        int idade = calDataAtual.compareTo(calJogador);
+        if(time.getEventoModalidade().getSexo() != jogador.getSexo()){
+            response.getErrors().add("Sexo do jogador é diferente do permitido!");
+        }
+        if(idade > time.getEventoModalidade().getIdadeMaximaPermitida()){
+            response.getErrors().add("Jogador possui idade acima da permitida!");
+        }
+        if(time.getJogador().size() > 0 ) {
+            time.getJogador().forEach(t -> {
+                if (t.getJogador().getId() == jogador.getId())
+                    response.getErrors().add("Jogador já cadastrado nessa equipe!");
+            });
+        }
+        return response;
     }
 }

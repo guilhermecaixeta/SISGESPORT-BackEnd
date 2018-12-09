@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ifg.sistema.sisgesport.api.entities.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ifg.sistema.sisgesport.api.entities.Cargo;
-import com.ifg.sistema.sisgesport.api.entities.Equipe;
-import com.ifg.sistema.sisgesport.api.entities.Evento;
-import com.ifg.sistema.sisgesport.api.entities.Modalidade;
-import com.ifg.sistema.sisgesport.api.entities.Servidor;
-import com.ifg.sistema.sisgesport.api.entities.Time;
-import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 import com.ifg.sistema.sisgesport.api.enums.PerfilSistema;
 import com.ifg.sistema.sisgesport.api.utils.PasswordUtils;
 
@@ -45,16 +39,18 @@ public class TimeRepositorioTeste {
 	@Autowired
 	private ModalidadeRepositorio mR;
 	@Autowired
+	private EventoModalidadeRepositorio EvMR;
+	@Autowired
 	private TipoPontoRepositorio tpR;
 
-	private static final Evento evento = CarregaEvento();
+	private static final Evento evento = carregarEvento();
 	private static final Cargo cargo = cargoServidor();
-	private static final Servidor servidor = carregaServidor();
+	private static final Servidor servidor = carregarServidor();
 	private static final Equipe equipe = carregarEquipe();
 	private static final Modalidade modalidade = carregarModalidade();
 	private static final TipoPonto ponto = carregarTipoPonto();
 	private static final Time time = carregarTime();
-	
+	private static final EventoModalidade EVENTO_MODALIDADE = carregarEventoModalidade();
 	@Before
 	public void setUp() throws Exception{
 		crR.save(cargo);
@@ -63,6 +59,7 @@ public class TimeRepositorioTeste {
 		eR.save(equipe);
 		tpR.save(ponto);
 		mR.save(modalidade);
+		EvMR.save(EVENTO_MODALIDADE);
 		tmR.save(time);
 	}
 	
@@ -93,7 +90,7 @@ public class TimeRepositorioTeste {
 		assertEquals(1, listatime.getTotalElements());
 	}
 	
-	private static Servidor carregaServidor() {
+	private static Servidor carregarServidor() {
 		Servidor serv = new Servidor();
 		serv.setNome("Guilherme");
 		serv.setDataNascimento(new Date());
@@ -112,7 +109,7 @@ public class TimeRepositorioTeste {
 		return c;
 	}
 	
-	private static Evento CarregaEvento() {
+	private static Evento carregarEvento() {
 		Evento ev = new Evento();
 		ev.setDataFim(new Date());
 		ev.setDataInicio(new Date());
@@ -143,7 +140,16 @@ public class TimeRepositorioTeste {
 		mod.setNumMinJogador(11);
 		return mod;
 	}
-	
+
+	private  static EventoModalidade carregarEventoModalidade(){
+		EventoModalidade mod = new EventoModalidade();
+		mod.setEvento(carregarEvento());
+		mod.setModalidade(carregarModalidade());
+		mod.setIdadeMaximaPermitida(15);
+		mod.setSexo('F');
+		return mod;
+	}
+
 	private static TipoPonto carregarTipoPonto() {
 		TipoPonto ponto = new TipoPonto();
 		ponto.setNome("gol");
@@ -154,7 +160,7 @@ public class TimeRepositorioTeste {
 	private static Time carregarTime() {
 		Time t= new Time();
 		t.setEquipe(equipe);
-		t.setModalidade(modalidade);
+		t.setEventoModalidade(carregarEventoModalidade());
 		t.setNumDerrota(0);
 		t.setNumEmpate(0);
 		t.setNumVitoria(0);

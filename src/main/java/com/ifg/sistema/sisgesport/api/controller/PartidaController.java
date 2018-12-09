@@ -84,7 +84,8 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Response<PartidaDTO>> atualizarPartida(@PathVariable("id") Long id,
-                                                                       @Valid @RequestBody PartidaDTO PartidaDTO, BindingResult result) throws Exception {
+                                                                       @Valid @RequestBody PartidaDTO PartidaDTO,
+                                                                 BindingResult result) throws Exception {
         log.info("Atualizando dados da Partida: {}", PartidaDTO);
         entityOptional = this.entityService.BuscarPorId(id);
         if (!entityOptional.isPresent()) {

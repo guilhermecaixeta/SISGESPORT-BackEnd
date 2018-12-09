@@ -38,9 +38,10 @@ public class Time implements Serializable {
 	private Equipe equipe;
 	
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_modalidade_time"))
-	@NotNull(message="O campo modalidade não pode ser nulo.")
-	private Modalidade modalidade;
+	@JoinColumn(name="evento_modalidade", referencedColumnName="id", nullable=false,
+            foreignKey = @ForeignKey(name="fk_time_evento_modalidade"))
+	@NotNull(message="O campo evento modalidade não pode ser nulo.")
+	private EventoModalidade eventoModalidade;
 	
 	public Time() {	}
 
@@ -92,14 +93,6 @@ public class Time implements Serializable {
 		this.equipe = equipe;
 	}
 
-	public Modalidade getModalidade() {
-		return modalidade;
-	}
-
-	public void setModalidade(Modalidade modalidade) {
-		this.modalidade = modalidade;
-	}
-
     public List<Jogador> getJogador() {
         return jogador;
     }
@@ -107,4 +100,12 @@ public class Time implements Serializable {
     public void setJogador(List<Jogador> jogador) {
         this.jogador = jogador;
     }
+
+	public EventoModalidade getEventoModalidade() {
+		return eventoModalidade;
+	}
+
+	public void setEventoModalidade(EventoModalidade eventoModalidade) {
+		this.eventoModalidade = eventoModalidade;
+	}
 }

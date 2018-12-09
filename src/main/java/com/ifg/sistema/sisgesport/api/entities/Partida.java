@@ -61,7 +61,7 @@ public class Partida extends EntidadeComum  implements Serializable {
 	private Evento evento;
 	
 	@ManyToOne
-	@JoinColumn(name="modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_modalidade"))
+	@JoinColumn(name="evento_modalidade", referencedColumnName="id", nullable=false, foreignKey = @ForeignKey(name="fk_evento_modalidade"))
 	@NotNull(message="O campo evento modalidade não pode ser nulo.")
 	private EventoModalidade eventoModalidade;
 	

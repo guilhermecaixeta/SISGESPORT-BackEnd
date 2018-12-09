@@ -16,8 +16,15 @@ public interface InformacaoEventoService {
 	Optional<List<InformacaoEvento>> BuscarPorCodigoEvento(String codigo_evento);
 	/**
 	 * Busca pelo codigo do evento uma lista de informacao eventos paginada
+	 * @param id_evento
+	 * @param pageRequest
+	 * @return Optional<Page<Evento>>
+	 */
+	Page<InformacaoEvento> BuscarPorEventoIdPaginavel(Long id_evento, PageRequest pageRequest);
+	/**
+	 * Busca pelo codigo do evento uma lista de informacao eventos paginada
 	 * @param codigo_evento
-	 * @param page
+	 * @param pageRequest
 	 * @return Optional<Page<Evento>>
 	 */
 	Page<InformacaoEvento> BuscarPorCodigoEventoPaginavel(String codigo_evento, PageRequest pageRequest);

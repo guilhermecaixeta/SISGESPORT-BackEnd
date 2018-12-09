@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ifg.sistema.sisgesport.api.entities.Evento;
 import com.ifg.sistema.sisgesport.api.entities.Imagem;
 
 public class InformacaoEventoDTO {
@@ -13,7 +12,8 @@ public class InformacaoEventoDTO {
 	private String titulo;
 	private String descricao;
 	private Date dataPostagem;
-	private List<Imagem> imagem = new ArrayList<Imagem>();
+	private List<ImagemDTO> imagem = new ArrayList<ImagemDTO>();
+	private EventoDTO evento;
 
 	public InformacaoEventoDTO() {
 	}
@@ -58,12 +58,19 @@ public class InformacaoEventoDTO {
 		this.dataPostagem = dataPostagem;
 	}
 
-	public List<Imagem> getImagem() {
+	public List<ImagemDTO> getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(List<Imagem> imagem) {
+	public void setImagem(List<ImagemDTO> imagem) {
 		this.imagem = imagem;
 	}
 
+	public EventoDTO getEvento() {
+		return evento;
+	}
+
+	public void setEvento(EventoDTO evento) {
+		this.evento = evento;
+	}
 }

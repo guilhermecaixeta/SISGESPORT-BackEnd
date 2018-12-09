@@ -12,6 +12,8 @@ import com.ifg.sistema.sisgesport.api.entities.InformacaoEvento;
 public interface InformacaoEventoRepositorio extends JpaRepository<InformacaoEvento, Long> {
 		
 	List<InformacaoEvento> findByEventoCodigoEvento(String codigo_evento);
-	
+
+	Page<InformacaoEvento> findByEventoId(Long id, Pageable page);
+
 	Page<InformacaoEvento> findByEventoCodigoEvento(String codigo_evento, Pageable page);
 }

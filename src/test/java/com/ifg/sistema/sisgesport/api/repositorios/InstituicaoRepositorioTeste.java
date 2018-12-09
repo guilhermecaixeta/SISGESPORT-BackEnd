@@ -41,10 +41,10 @@ public class InstituicaoRepositorioTeste {
 		instituicaoRepo.save(instituto);
 	}
 	
-	@After
-	public final void tearDown() {
-		instituicaoRepo.deleteAll();
-	}
+//	@After
+//	public final void tearDown() {
+//		instituicaoRepo.deleteAll();
+//	}
 	
 	@Test
 	public void TesteBuscarInstituto() {

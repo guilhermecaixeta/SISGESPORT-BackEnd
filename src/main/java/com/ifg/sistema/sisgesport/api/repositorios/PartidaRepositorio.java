@@ -17,7 +17,7 @@ public interface PartidaRepositorio  extends JpaRepository<Partida, Long> {
 	
 	List<Partida> findByEventoId(Long id_evento);
 
-    List<Partida> findByEventoIdAndTimeCasaModalidadeId(Long id_evento, Long id_modalidade);
+    List<Partida> findByEventoIdAndTimeCasaEventoModalidadeModalidadeId(Long id_evento, Long id_modalidade);
 	
 	Page<Partida> findByEventoId(Long id_evento, Pageable page);
 	}

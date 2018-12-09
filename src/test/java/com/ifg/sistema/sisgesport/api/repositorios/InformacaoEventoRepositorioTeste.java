@@ -125,10 +125,10 @@ public class InformacaoEventoRepositorioTeste {
 	private static Imagem ImagemInformacao() {
 		Imagem i = new Imagem();
 		try {
-			i.setNome("s2.jpeg");
+			i.setNome("teste.jpeg");
 			i.setTamanho(100.20);
 			i.setDescricaoImagem("Lorem ipsulun");
-			Path path = Paths.get("D:/Imagens/HuehueBR/futuro.jpg");
+			Path path = Paths.get("D:\\Documentos\\GDrive\\IFG\\TCC\\Sistema de Gestão Esportiva - Repositório\\SISGESPORT\\imageTest\\sun-tzu.jpg");
 			i.setImagem(Files.readAllBytes(path));
 
 		} catch (Exception e) {

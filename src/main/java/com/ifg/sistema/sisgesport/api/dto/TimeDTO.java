@@ -13,7 +13,7 @@ public class TimeDTO {
 	private int numEmpate;
 	private int pontuacao;
 	private EquipeRetornoDTO equipe;
-	private ModalidadeDTO modalidade;
+	private EventoModalidadeDTO eventoModalidade;
 	private List<JogadorRetornoDTO> jogador = new ArrayList<JogadorRetornoDTO>();
 
 	public TimeDTO() {
@@ -59,14 +59,6 @@ public class TimeDTO {
 		this.pontuacao = pontuacao;
 	}
 
-	public ModalidadeDTO getModalidade() {
-		return modalidade;
-	}
-
-	public void setModalidade(ModalidadeDTO modalidade) {
-		this.modalidade = modalidade;
-	}
-
     public List<JogadorRetornoDTO> getJogador() {
         return jogador;
     }
@@ -81,5 +73,13 @@ public class TimeDTO {
 
     public void setEquipe(EquipeRetornoDTO equipe) {
         this.equipe = equipe;
+    }
+
+    public EventoModalidadeDTO getEventoModalidade() {
+        return eventoModalidade;
+    }
+
+    public void setEventoModalidade(EventoModalidadeDTO eventoModalidade) {
+        this.eventoModalidade = eventoModalidade;
     }
 }
