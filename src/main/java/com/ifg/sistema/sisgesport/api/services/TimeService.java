@@ -34,9 +34,16 @@ public interface TimeService {
      */
     Optional<List<Time>> BuscarPorEventoIdEModalidadeId(Long id_evento, Long id_modalidade);
 	/**
+	 * Busca uma lista paginada de times pelo id equipe
+	 * @param id_evento
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Time> BuscarPorEventoIdPaginavel(Long id_evento, Long id_modalidade, char sexo, PageRequest pageRequest);
+	/**
 	 * Busca uma lista paginada de times pelo id equipe 
 	 * @param id_equipe
-	 * @param page
+	 * @param pageRequest
 	 * @return
 	 */
 	Page<Time> BuscarPorEquipeIdPaginavel(Long id_equipe, PageRequest pageRequest);

@@ -46,6 +46,12 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return timeRepositorio.findByEquipeId(id_equipe, pageRequest);
 	}
 
+	public Page<Time> BuscarPorEventoIdPaginavel(Long id_evento, Long id_modalidade, char sexo, PageRequest pageRequest) {
+		log.info("Buscando time pelo id evento {} ", id_evento);
+		return timeRepositorio.findByEquipeEventoIdAndEventoModalidadeModalidadeIdAndEventoModalidadeSexo
+						( id_evento, id_modalidade, sexo, pageRequest);
+	}
+
 	public Time Salvar(Time time) {
 		log.info("Salvando novo time no banco de dados {} ", time);
 		return timeRepositorio.save(time);

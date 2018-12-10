@@ -55,6 +55,18 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 		return ResponseEntity.ok(responsePage);
 	}
 
+	@GetMapping(value = "/BuscarPorEventoIdPaginavel/{id_time}/{id_modalidade}/{sexo}")
+	public ResponseEntity<Response<Page<TimeDTO>>> BuscarPorEventoIdPaginavel(
+			@PathVariable("id_time") Long id_time, @PathVariable("id_modalidade") Long id_modalidade,
+			@PathVariable("sexo") char sexo, PageConfiguration pageConfig) {
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort),
+				pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorEventoIdPaginavel(id_time, id_modalidade, sexo, pageRequest));
+		responsePage.setData(entityPageListDTO);
+		return ResponseEntity.ok(responsePage);
+	}
+
 	@GetMapping(value = "/BuscarTimePorIdEvento/{id_time}")
 	public ResponseEntity<Response<List<TimeDTO>>> BuscarTimePorIdEvento(@PathVariable("id_time") Long id_time) {
 		entityListDTO = mappingEntityToDTO

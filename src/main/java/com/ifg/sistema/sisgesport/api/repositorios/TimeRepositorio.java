@@ -18,4 +18,7 @@ public interface TimeRepositorio extends JpaRepository<Time, Long> {
 	List<Time> findByEquipeEventoIdAndEventoModalidadeModalidadeId(Long id_evento, Long id_modalidade);
 	
 	Page<Time> findByEquipeId(Long id_equipe, Pageable page);
+
+	Page<Time> findByEquipeEventoIdAndEventoModalidadeModalidadeIdAndEventoModalidadeSexo
+			(Long id_evento, Long id_modalidade, char sexo, Pageable page);
 }
