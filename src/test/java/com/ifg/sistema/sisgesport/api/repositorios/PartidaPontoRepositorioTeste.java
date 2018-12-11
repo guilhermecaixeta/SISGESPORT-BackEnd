@@ -272,7 +272,7 @@ public class PartidaPontoRepositorioTeste {
 		PartidaPonto p = new PartidaPonto();
 		p.setJogador(jogador);
 		p.setPartida(partida);
-		p.setTipo_ponto(ponto);
+		p.setTipoPonto(ponto);
 		return p;
 	}
 	

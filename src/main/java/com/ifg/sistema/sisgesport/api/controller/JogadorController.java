@@ -89,7 +89,23 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 			return ResponseEntity.badRequest().body(response);
 		}
 		entityDTO = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
-        entityDTO.getTime().setJogador(null);
+		entityDTO.getPartidaPenalidade().forEach(x -> {
+			x.getPartida().setPartidaPenalidade(null);
+			x.getPartida().setPartidaPonto(null);
+			x.getPartida().setJuiz(null);
+			x.getPartida().setEvento(null);
+			x.getPartida().setEventoModalidade(null);
+			x.setJogador(null);
+		});
+		entityDTO.getPartidaPonto().forEach(x -> {
+			x.getPartida().setPartidaPenalidade(null);
+			x.getPartida().setPartidaPonto(null);
+			x.getPartida().setJuiz(null);
+			x.getPartida().setEvento(null);
+			x.getPartida().setEventoModalidade(null);
+			x.setJogador(null);
+		});
+		entityDTO.getTime().setJogador(null);
         entityDTO.getJogador().setInstituicao(null);
         entityDTO.getJogador().setPerfil(null);
         entityDTO.getJogador().setEndereco(null);
@@ -149,9 +165,24 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
+			jogadorDTO.getPartidaPenalidade().forEach(x ->{
+				if(x.getJogador() == null) {
+					JogadorDTO jog  = new JogadorDTO();
+					jog.setId(jogadorDTO.getId());
+					x.setJogador(jog);
+				}
+			});
+			jogadorDTO.getPartidaPonto().forEach(x ->{
+				if(x.getJogador() == null) {
+					JogadorDTO jog  = new JogadorDTO();
+					jog.setId(jogadorDTO.getId());
+					x.setJogador(jog);
+				}
+			});
 			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, entityOptional.get(), listaExcecao);
 		}
-		response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
+		mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity));
+		response.setData(new JogadorDTO());
 		return ResponseEntity.ok(response);
 	}
 

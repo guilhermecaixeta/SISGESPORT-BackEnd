@@ -62,11 +62,11 @@ public class PartidaPonto implements Serializable {
 		this.partida = partida;
 	}
 
-	public TipoPonto getTipo_ponto() {
+	public TipoPonto getTipoPonto() {
 		return tipoPonto;
 	}
 
-	public void setTipo_ponto(TipoPonto tipoPonto) {
+	public void setTipoPonto(TipoPonto tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
 }

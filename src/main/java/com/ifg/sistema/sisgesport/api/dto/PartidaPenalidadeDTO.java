@@ -6,9 +6,9 @@ import com.ifg.sistema.sisgesport.api.entities.Penalidade;
 
 public class PartidaPenalidadeDTO {
 	private Long id;
-	private Jogador jogador;
-	private Partida partida;
-	private Penalidade penalidade;
+	private JogadorDTO jogador;
+	private PartidaDTO  partida;
+	private PenalidadeDTO  penalidade;
 
 	public PartidaPenalidadeDTO() {
 	}
@@ -21,27 +21,27 @@ public class PartidaPenalidadeDTO {
 		this.id = id;
 	}
 
-	public Jogador getJogador() {
+	public JogadorDTO  getJogador() {
 		return jogador;
 	}
 
-	public void setJogador(Jogador jogador) {
+	public void setJogador(JogadorDTO  jogador) {
 		this.jogador = jogador;
 	}
 
-	public Partida getPartida() {
+	public PartidaDTO  getPartida() {
 		return partida;
 	}
 
-	public void setPartida(Partida partida) {
+	public void setPartida(PartidaDTO  partida) {
 		this.partida = partida;
 	}
 
-	public Penalidade getPenalidade() {
+	public PenalidadeDTO  getPenalidade() {
 		return penalidade;
 	}
 
-	public void setPenalidade(Penalidade penalidade) {
+	public void setPenalidade(PenalidadeDTO  penalidade) {
 		this.penalidade = penalidade;
 	}
 

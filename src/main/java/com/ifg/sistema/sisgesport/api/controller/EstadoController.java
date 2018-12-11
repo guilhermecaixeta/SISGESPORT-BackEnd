@@ -32,6 +32,7 @@ import com.ifg.sistema.sisgesport.api.services.EstadoService;
 public class EstadoController extends baseController<EstadoDTO, Estado, EstadoService> {
 	{
 		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(EstadoDTO.class, Estado.class);
 		mappingEntityToDTO = new Extension<>(Estado.class, EstadoDTO.class);
 	}

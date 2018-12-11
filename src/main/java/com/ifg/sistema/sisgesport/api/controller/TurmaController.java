@@ -112,9 +112,9 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		Turma turma = mappingDTOToEntity.AsGenericMapping(turmaDTO);
-		this.entityService.Salvar(turma);
-		response.setData(mappingEntityToDTO.AsGenericMapping(turma));
+		entity = mappingDTOToEntity.AsGenericMapping(turmaDTO);
+		this.entityService.Salvar(entity);
+		response.setData(new TurmaDTO());
 		return ResponseEntity.ok(response);
 	}
 
@@ -124,7 +124,7 @@ public class TurmaController  extends baseController<TurmaDTO, Turma, TurmaServi
 		log.info("Atualizando dados do Instituto: {}", turmaDTO);
 		entityOptional = this.entityService.BuscarPorId(id);
 		if (!entityOptional.isPresent()) {
-			result.addError(new ObjectError("instituicao", "Instituicao não encontrada para o id: " + id));
+			result.addError(new ObjectError("Turma", "Turma não encontrada para o id: " + id));
 			return ResponseEntity.badRequest().body(response);
 		} else {
 			entity = mappingDTOToEntity.updateGeneric(turmaDTO, entityOptional.get(), listaExcecao);

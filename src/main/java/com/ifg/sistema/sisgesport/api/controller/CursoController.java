@@ -29,6 +29,7 @@ import com.ifg.sistema.sisgesport.api.services.CursoService;
 public class CursoController extends baseController<CursoDTO, Curso, CursoService>{
 	{
 		listaExcecao.add("id");
+		listaExcecao.add("serialVersionUID");
 		mappingDTOToEntity = new Extension<>(CursoDTO.class, Curso.class);
 		mappingEntityToDTO = new Extension<>(Curso.class, CursoDTO.class);
 	}

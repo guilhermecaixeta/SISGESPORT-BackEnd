@@ -6,9 +6,9 @@ import com.ifg.sistema.sisgesport.api.entities.TipoPonto;
 
 public class PartidaPontoDTO {
 	private Long id;
-	private Jogador jogador;
-	private Partida partida;
-	private TipoPonto tipoPonto;
+	private JogadorDTO  jogador;
+	private PartidaDTO  partida;
+	private TipoPontoDTO  tipoPonto;
 
 	public PartidaPontoDTO() {
 	}
@@ -21,27 +21,27 @@ public class PartidaPontoDTO {
 		this.id = id;
 	}
 
-	public Jogador getJogador() {
+	public JogadorDTO  getJogador() {
 		return jogador;
 	}
 
-	public void setJogador(Jogador jogador) {
+	public void setJogador(JogadorDTO  jogador) {
 		this.jogador = jogador;
 	}
 
-	public Partida getPartida() {
+	public PartidaDTO  getPartida() {
 		return partida;
 	}
 
-	public void setPartida(Partida partida) {
+	public void setPartida(PartidaDTO  partida) {
 		this.partida = partida;
 	}
 
-	public TipoPonto getTipoPonto() {
+	public TipoPontoDTO  getTipoPonto() {
 		return tipoPonto;
 	}
 
-	public void setTipoPonto(TipoPonto tipoPonto) {
+	public void setTipoPonto(TipoPontoDTO  tipoPonto) {
 		this.tipoPonto = tipoPonto;
 	}
 

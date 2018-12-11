@@ -37,8 +37,8 @@ import com.ifg.sistema.sisgesport.api.services.InstituicaoService;
 @RequestMapping("api/instituicao")
 public class InstitutoController extends baseController<InstituicaoDTO, Instituicao, InstituicaoService> {
 	{
-	listaExcecao.add("id");
-	listaExcecao.add("cargo");
+		listaExcecao.add("id");
+		listaExcecao.add("cargo");
         listaExcecao.add("serialVersionUID");
         mappingDTOToEntity = new Extension<>(InstituicaoDTO.class, Instituicao.class);
 		mappingEntityToDTO = new Extension<>(Instituicao.class, InstituicaoDTO.class);

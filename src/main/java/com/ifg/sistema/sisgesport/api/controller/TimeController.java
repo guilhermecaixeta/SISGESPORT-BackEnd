@@ -133,17 +133,19 @@ public class TimeController extends baseController<TimeDTO, Time, TimeService> {
 	public ResponseEntity<Response<TimeDTO>> atualizarTime(@PathVariable("id") Long id,
 			@Valid @RequestBody TimeDTO timeDTO, BindingResult result) throws Exception {
 		log.info("Atualizando dados do Instituto: {}", timeDTO);
-		Optional<Time> time = this.entityService.BuscarPorId(id);
-		if (!time.isPresent()) {
+		entityOptional = this.entityService.BuscarPorId(id);
+		if (!entityOptional.isPresent()) {
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(timeDTO, time.get(), listaExcecao);
+			entityOptional.get().getJogador().forEach(x -> jogadorService.Deletar(x.getId()));
+			entity = mappingDTOToEntity.updateGeneric(timeDTO, entityOptional.get(), listaExcecao);
 		}
         List<Jogador> listaJogador = new ArrayList<>();
         listaJogador = entity.getJogador();
         entity.setJogador(null);
         entity = this.entityService.Salvar(entity);
         listaJogador.forEach(x -> {
+        	x.setId(null);
             x.setTime(entity);
             jogadorService.Salvar(x);
         });

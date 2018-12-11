@@ -1,5 +1,6 @@
 package com.ifg.sistema.sisgesport.api.controller;
 
+import com.ifg.sistema.sisgesport.api.dto.JogadorDTO;
 import com.ifg.sistema.sisgesport.api.dto.PartidaDTO;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
 import com.ifg.sistema.sisgesport.api.entities.Partida;
@@ -30,7 +31,7 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
         mappingEntityToDTO = new Extension<>(Partida.class, PartidaDTO.class);
     }
 
-        @GetMapping(value = "/BuscarPorEventoIdPaginavel/{id_evento}")
+    @GetMapping(value = "/BuscarPorEventoIdPaginavel/{id_evento}")
     public ResponseEntity<Response<Page<PartidaDTO>>> BuscarPorEventoIdPaginavel(
             @PathVariable("id_evento") Long id_evento,
             PageConfiguration pageConfig) {
@@ -49,6 +50,10 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
                 entityService.BuscarPorEventoIdEModalidadeId(id_evento, id_modalidade);
         if (partidaLista.isPresent()) {
             entityListDTO = mappingEntityToDTO.AsGenericMappingList(partidaLista .get(), false);
+            entityListDTO.forEach(x -> {
+                x.setPartidaPenalidade(null);
+                x.setPartidaPonto(null);
+            });
             responseList.setData(entityListDTO);
         } else
             response.getErrors().add("Nenhuma partida encontrada.");
@@ -84,14 +89,14 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Response<PartidaDTO>> atualizarPartida(@PathVariable("id") Long id,
-                                                                       @Valid @RequestBody PartidaDTO PartidaDTO,
+                                                                       @Valid @RequestBody PartidaDTO partidaDTO,
                                                                  BindingResult result) throws Exception {
-        log.info("Atualizando dados da Partida: {}", PartidaDTO);
+        log.info("Atualizando dados da Partida: {}", partidaDTO);
         entityOptional = this.entityService.BuscarPorId(id);
         if (!entityOptional.isPresent()) {
             return ResponseEntity.badRequest().body(response);
         } else {
-            entity = mappingDTOToEntity.updateGeneric(PartidaDTO, entityOptional.get(), listaExcecao);
+            entity = mappingDTOToEntity.updateGeneric(partidaDTO, entityOptional.get(), listaExcecao);
         }
         entity = this.entityService.Salvar(entity);
         response.setData(mappingEntityToDTO.AsGenericMapping(entity));
