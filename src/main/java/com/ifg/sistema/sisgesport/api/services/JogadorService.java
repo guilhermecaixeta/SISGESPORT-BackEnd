@@ -35,6 +35,13 @@ public interface JogadorService {
 	 */
 	Page<Jogador> BuscarPorTimeIdPaginavel(Long id_time, PageRequest pageRequest);
 	/**
+	 * Buscar uma lista paginada de alunos a partir do id do evento
+	 * @param id_evento
+	 * @param pageRequest
+	 * @return Page<Aluno>
+	 */
+	Page<Jogador> BuscarPorIdEventoPaginavel(Long id_evento, PageRequest pageRequest);
+	/**
 	 * Busca uma lista paginada de jogadores pelo id da equipe
 	 * @param id_equipe
 	 * @param page

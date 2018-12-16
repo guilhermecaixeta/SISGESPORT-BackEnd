@@ -60,7 +60,8 @@ public class AlunoController extends baseController<AlunoDTO, Aluno, AlunoServic
 	public AlunoController() {}
 
 	@GetMapping(value = "/BuscarPorIdEquipePaginavel/{id_equipe}")
-	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
+	public ResponseEntity<Response<Page<AlunoDTO>>> BuscarPorIdEquipePaginavel
+			(@PathVariable("id_equipe") Long id_equipe, PageConfiguration pageConfig) {
 		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Direction.valueOf(pageConfig.sort), pageConfig.order);
 		entityPageListDTO = mappingEntityToDTO
 				.AsGenericMappingListPage(entityService.BuscarPorIdEquipePaginavel(id_equipe, pageRequest));

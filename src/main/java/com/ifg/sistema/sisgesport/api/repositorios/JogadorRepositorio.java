@@ -18,4 +18,6 @@ public interface JogadorRepositorio extends JpaRepository<Jogador, Long> {
 	Page<Jogador> findByTimeId(Long id_time, Pageable page);
 	
 	Page<Jogador> findByTimeEquipeId(Long id_equipe, Pageable page);
+
+	Page<Jogador> findByTimeEquipeEventoId(Long id_evento, Pageable pageable);
 }

@@ -44,6 +44,10 @@ private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementa
 		return jogadorRepositorio.findByTimeEquipeId(id_equipe, pageRequest);
 	}
 
+	public Page<Jogador> BuscarPorIdEventoPaginavel(Long id_evento, PageRequest pageRequest){
+		log.info("realizando a busca por id do evento {}", id_evento);
+		return jogadorRepositorio.findByTimeEquipeEventoId(id_evento, pageRequest);
+	}
 	public Jogador Salvar(Jogador jogador) {
 		log.info("Salvando o jogador {} ",jogador.getJogador());
 		return jogadorRepositorio.save(jogador);

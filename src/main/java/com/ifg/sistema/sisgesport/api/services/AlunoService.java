@@ -67,8 +67,9 @@ public interface AlunoService {
 	/**
 	 * Busca os alunos pelo id da equipe com paginacao
 	 * 
-	 * @param id_turma
-	 * @return Optional<Aluno>
+	 * @param id_equipe
+	 * @param pageRequest
+	 * @return Page<Aluno>
 	 */
 	Page<Aluno> BuscarPorIdEquipePaginavel(Long id_equipe, PageRequest pageRequest);
 

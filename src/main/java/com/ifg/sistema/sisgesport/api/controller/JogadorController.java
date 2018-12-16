@@ -58,6 +58,46 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		return ResponseEntity.ok(responsePageReturn);
 	}
 
+	@GetMapping(value = "/BuscarPorIdEventoPaginavel/{id_evento}/{tipo_ordenacao}")
+	public ResponseEntity<Response<Page<JogadorDTO>>> BuscarPorIdEventoPaginavel(
+			@PathVariable("id_evento") Long id_evento, @PathVariable("tipo_ordenacao") int tipo_ordenacao,
+			PageConfiguration pageConfig) {
+		pageConfig.sort = "ASC";
+		if(tipo_ordenacao == 1){
+			pageConfig.order = "PartidaPonto";
+		}else{
+			pageConfig.order = "PartidaPenalidade";
+		}
+		PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size,
+				Direction.valueOf(pageConfig.sort), pageConfig.order);
+		entityPageListDTO = mappingEntityToDTO
+				.AsGenericMappingListPage(entityService.BuscarPorIdEventoPaginavel(id_evento, pageRequest));
+		entityPageListDTO.getContent().forEach(x -> {
+			x.getJogador().setEquipe(null);
+			x.getJogador().setTurma(null);
+			x.getJogador().setEndereco(null);
+			x.getJogador().setInstituicao(null);
+			x.getJogador().setPerfil(null);
+			x.getJogador().setSenha(null);
+			x.getTime().setEventoModalidade(null);
+			x.getTime().setJogador(null);
+			x.getTime().getEquipe().setEvento(null);
+			x.getPartidaPonto().forEach(y -> {
+				y.setJogador(null);
+				y.setPartida(null);
+				y.setTipoPonto(null);
+			});
+
+			x.getPartidaPenalidade().forEach(y -> {
+				y.setJogador(null);
+				y.setPartida(null);
+				y.setPenalidade(null);
+			});
+		});
+		responsePage.setData(entityPageListDTO);
+		return ResponseEntity.ok(responsePage);
+	}
+
 	@GetMapping(value = "/BuscarPorTimeIdPaginavel/{id_time}")
 	public ResponseEntity<Response<Page<JogadorDTO>>> BuscarPorTimeIdPaginavel(
 			@PathVariable("id_time") Long id_time,
