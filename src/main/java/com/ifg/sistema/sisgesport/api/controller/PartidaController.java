@@ -36,8 +36,12 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
             @PathVariable("id_evento") Long id_evento,
             PageConfiguration pageConfig) {
         PageRequest pageRequest = new PageRequest(pageConfig.page, pageConfig.size, Sort.Direction.valueOf(pageConfig.sort), pageConfig.order);
-        entityPageListDTO= mappingEntityToDTO
+        entityPageListDTO = mappingEntityToDTO
                 .AsGenericMappingListPage(entityService.BuscarPorEventoIdPaginavel(id_evento, pageRequest));
+        entityPageListDTO.forEach(x -> {
+                x.setPartidaPenalidade(null);
+                x.setPartidaPonto(null);
+            });
         responsePage.setData(entityPageListDTO);
         return ResponseEntity.ok(responsePage);
     }
