@@ -8,6 +8,9 @@ import javax.validation.Valid;
 
 import com.ifg.sistema.sisgesport.api.dto.dto_retorno.JogadorRetornoDTO;
 import com.ifg.sistema.sisgesport.api.entities.PageConfiguration;
+import com.ifg.sistema.sisgesport.api.services.PartidaPenalidadeService;
+import com.ifg.sistema.sisgesport.api.services.PartidaPontoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -42,6 +45,11 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 		mappingDTOToEntity = new Extension<>(JogadorDTO.class, Jogador.class);
 		mappingEntityToDTO = new Extension<>(Jogador.class, JogadorDTO.class);
 	}
+	@Autowired
+	private PartidaPenalidadeService partidaPenalidadeService;
+	@Autowired
+	private PartidaPontoService partidaPontoService;
+
     protected Extension<Jogador, JogadorRetornoDTO> mappingEntityToDTOReturn =
             new Extension<>(Jogador.class, JogadorRetornoDTO.class);
 
@@ -219,7 +227,19 @@ public class JogadorController extends baseController<JogadorDTO, Jogador, Jogad
 					x.setJogador(jog);
 				}
 			});
-			entity = mappingDTOToEntity.updateGeneric(jogadorDTO, entityOptional.get(), listaExcecao);
+			Jogador jogador = entityOptional.get();
+			List<PartidaPonto> listaPontoDelete = jogador.getPartidaPonto();
+			List<PartidaPenalidade> listaPenalidadeDelete = jogador.getPartidaPenalidade();
+			jogador.setPartidaPenalidade(new ArrayList<>());
+			jogador.setPartidaPonto(new ArrayList<>());
+
+			listaPenalidadeDelete.forEach(x -> {
+				partidaPenalidadeService.Deletar(x.getId());
+			});
+			listaPontoDelete.forEach(x -> {
+				partidaPontoService.Deletar(x.getId());
+			});
+			entity = mappingDTOToEntity.updateGeneric(jogadorDTO,jogador, listaExcecao);
 		}
 		mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity));
 		response.setData(new JogadorDTO());

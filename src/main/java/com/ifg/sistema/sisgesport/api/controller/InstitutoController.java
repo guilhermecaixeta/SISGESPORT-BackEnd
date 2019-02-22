@@ -127,12 +127,21 @@ public class InstitutoController extends baseController<InstituicaoDTO, Institui
                     "Instituicao não encontrada para o id: " + id.toString()));
 			return ResponseEntity.badRequest().body(response);
 		} else {
-			entity = mappingDTOToEntity.updateGeneric(institutoDTO, entityOptional.get(), listaExcecao);
-			List<Endereco> listaEnderecos = entity.getEndereco();
-			entity.setEndereco(new ArrayList<Endereco>());
+			Instituicao instituicao = entityOptional.get();
+			List<Endereco> listaEnderecosDelete = instituicao.getEndereco();
+			instituicao.setEndereco(new ArrayList<>());
+			entity = mappingDTOToEntity.updateGeneric(institutoDTO,instituicao, listaExcecao);
+			List<Endereco> listaEnderecosAdd = entity.getEndereco();
+			entity.setEndereco(new ArrayList<>());
+
 			if (!institutoDTO.getEndereco().isEmpty()) {
-				entityOptional.get().getEndereco().forEach(endereco -> enderecoService.Deletar(endereco.getId()));
-                listaEnderecos.forEach(endereco -> entity.AdicionarEndereco(endereco));
+				listaEnderecosDelete.forEach(endereco -> {
+					enderecoService.Deletar(endereco.getId());
+				});
+
+				listaEnderecosAdd.forEach(endereco -> {
+					entity.AdicionarEndereco(endereco);
+				});
             }
 			response.setData(mappingEntityToDTO.AsGenericMapping(this.entityService.Salvar(entity)));
 			return ResponseEntity.ok(response);

@@ -15,7 +15,7 @@ import com.ifg.sistema.sisgesport.api.repositorios.PartidaRepositorio;
 import com.ifg.sistema.sisgesport.api.services.PartidaService;
 
 @Service
-public class PartidaServiceImplementation implements PartidaService {
+public class 	PartidaServiceImplementation implements PartidaService {
 private static final Logger log = LoggerFactory.getLogger(AlunoServiceImplementation.class);
 	
 	@Autowired

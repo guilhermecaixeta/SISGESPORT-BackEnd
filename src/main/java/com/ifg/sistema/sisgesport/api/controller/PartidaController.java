@@ -73,7 +73,11 @@ public class PartidaController extends  baseController<PartidaDTO, Partida, Part
             response.getErrors().add("Instituição não encontrado para o id " + id);
             return ResponseEntity.badRequest().body(response);
         }
-        response.setData(mappingEntityToDTO.AsGenericMapping(entityOptional.get()));
+        PartidaDTO p = mappingEntityToDTO.AsGenericMapping(entityOptional.get());
+        p.getEvento().setEndereco(null);
+        p.setPartidaPonto(null);
+        p.setPartidaPenalidade(null);
+        response.setData(p);
         return ResponseEntity.ok(response);
     }
 
