@@ -16,7 +16,7 @@ e Swagger(acesso via url disponível apenas para o perfil dev)
 
 Sistema desenvolvido usando os princípios SOLID e seguindo o padrão de Injeção de Depêndencia utilizando a autenticação Oauth para acesso as controllers.
 
-*Teste das Controllers ainda se encontram em desenvolvimento.
+*Teste das Controllers ainda se encontram em desenvolvimento. Porém o sistema já foi finalizado.
 
 **Status Travis**
 
